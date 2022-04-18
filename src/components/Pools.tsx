@@ -1,9 +1,9 @@
 import React, {useState} from "react";
-import {Button, Grid} from "@nextui-org/react";
+import {Button, Grid, Tooltip} from "@nextui-org/react";
 
 export const Pools = () => {
 
-    const pools = ["Pool 1", "Pool 2", "Pool 3", "Pool 4", "Pool 5"]
+    const pools = ["Preferred Equity", "Common Equity", "Debt"]
 
     const [selected, setSelected] = useState<String>(pools[0]);
 
@@ -13,14 +13,17 @@ export const Pools = () => {
                 {pools.map((pool) => {
                     return (
                         <Grid key={pool}>
-                            <Button size={"sm"}
-                                    color={"gradient"}
-                                    ghost={pool !== selected}
-                                    shadow={pool === selected}
-                                    onClick={() => setSelected(pool)}
-                            >
-                                {pool}
-                            </Button>
+                            <Tooltip content={pool !== "Preferred Equity" ? "Coming soon!" : ""}>
+                                <Button size={"sm"}
+                                        color={"gradient"}
+                                        ghost={pool !== selected}
+                                        shadow={pool === selected}
+                                        disabled={pool !== "Preferred Equity"}
+                                        onClick={() => setSelected(pool)}
+                                >
+                                    {pool}
+                                </Button>
+                            </Tooltip>
                         </Grid>
                     )
                 })}
