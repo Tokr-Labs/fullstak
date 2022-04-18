@@ -10,6 +10,9 @@ import {Pools} from "./components/Pools";
 import {Content} from "./components/Content";
 import {Footer} from "./components/Footer";
 import useDarkMode from "use-dark-mode"
+import {BrowserRouter, Routes, Route} from "react-router-dom";
+import Landing from "./pages/Landing";
+import {Invest} from "./pages/Invest";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -69,19 +72,17 @@ export const App = () => {
             <ConnectionProvider endpoint={endpoint}>
                 <WalletProvider wallets={wallets} autoConnect>
                     <WalletModalProvider>
+
                         {/* Components must be contained within here to maintain context */}
-                        <Container style={{
-                            minHeight: "100vh",
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <Navbar/>
-                            <hr/>
-                            <Pools/>
-                            <hr/>
-                            <Content/>
-                            <Footer/>
-                        </Container>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/">
+                                    <Route index element={<Landing />} />
+                                    <Route path="invest" element={<Invest />} />
+                                </Route>
+                            </Routes>
+                        </BrowserRouter>
+
                     </WalletModalProvider>
                 </WalletProvider>
             </ConnectionProvider>
