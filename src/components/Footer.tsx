@@ -41,8 +41,7 @@ export const Footer = () => {
                     <box-icon type={"logo"} name={"discord-alt"} color={getLogoColor()}/>
                 </Grid>
                 <Grid xs={4} justify={"center"} alignItems={"center"} style={{textAlign: "center"}}>
-                    <Text color={"$gray500"}>Made with 💜 by <Link href={"https://tokrlabs.xyz"} target={"_blank"}>tokr_labs</Link>
-                    </Text>
+                    <Text color={"$gray500"}>Made with 💜 by <Link href={"https://tokrlabs.xyz"} target={"_blank"}>Tokr Labs</Link></Text>
                 </Grid>
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
                     <Switch checked={false}
