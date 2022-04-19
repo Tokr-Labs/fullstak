@@ -1,5 +1,5 @@
 import React, {useMemo} from 'react';
-import {Container, createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
+import {Container, createTheme, globalCss, NextUIProvider, Theme, theme} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
@@ -39,6 +39,10 @@ export const App = () => {
                     "#be00ff 20.3%, " +
                     "var(--nextui-colors-blue500) 75.46%" +
                     ")"
+            },
+            fonts: {
+                sans: "Montserrat, sans-serif",
+                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
             }
         }
     })
@@ -53,6 +57,10 @@ export const App = () => {
                     "#be00ff 20.3%, " +
                     "var(--nextui-colors-blue500) 75.46%" +
                     ")"
+            },
+            fonts: {
+                sans: "Montserrat, sans-serif",
+                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
             }
         }
     })
