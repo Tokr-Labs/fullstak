@@ -75,21 +75,15 @@ export const App = () => {
                     <WalletModalProvider>
 
                         {/* Components must be contained within here to maintain context */}
-                        <Container style={{
-                            minHeight: "100vh",
-                            display: "flex",
-                            flexDirection: "column"
-                        }}>
-                            <BrowserRouter>
-                                <Routes>
-                                    <Route path="/">
-                                        <Route index element={<Landing/>}/>
-                                        <Route path="invest" element={<Invest/>}/>
-                                        <Route path="invest/preferred-equity/*" element={<DAO/>}/>
-                                    </Route>
-                                </Routes>
-                            </BrowserRouter>
-                        </Container>
+                        <BrowserRouter>
+                            <Routes>
+                                <Route path="/">
+                                    <Route index element={<Landing/>}/>
+                                    <Route path="invest" element={<Invest/>}/>
+                                    <Route path="invest/preferred-equity/*" element={<DAO/>}/>
+                                </Route>
+                            </Routes>
+                        </BrowserRouter>
 
                     </WalletModalProvider>
                 </WalletProvider>

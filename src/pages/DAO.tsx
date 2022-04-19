@@ -1,11 +1,15 @@
 import React from "react";
 import {Navbar} from "../components/Navbar";
 import {Footer} from "../components/Footer";
-import {Card, Grid, Spacer} from "@nextui-org/react";
+import {Card, Container, Grid, Spacer} from "@nextui-org/react";
 
 export const DAO = () => {
     return (
-        <>
+        <Container style={{
+            minHeight: "100vh",
+            display: "flex",
+            flexDirection: "column"
+        }}>
             <Navbar/>
             <hr/>
             <Spacer y={1}/>
@@ -38,7 +42,7 @@ export const DAO = () => {
                                     <h3>Treasury</h3>
                                 </Card.Header>
                                 <Card.Body>
-                                    Treasury balance and subaccounts
+                                    Treasury balance and sub-accounts
                                 </Card.Body>
                             </Card>
                         </Grid>
@@ -56,6 +60,6 @@ export const DAO = () => {
                 </Grid>
             </Grid.Container>
             <Footer/>
-        </>
+        </Container>
     )
 }
