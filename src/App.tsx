@@ -13,6 +13,7 @@ import useDarkMode from "use-dark-mode"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from "./pages/Landing";
 import {Invest} from "./pages/Invest";
+import {DAO} from "./pages/DAO";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -74,14 +75,21 @@ export const App = () => {
                     <WalletModalProvider>
 
                         {/* Components must be contained within here to maintain context */}
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/">
-                                    <Route index element={<Landing />} />
-                                    <Route path="invest" element={<Invest />} />
-                                </Route>
-                            </Routes>
-                        </BrowserRouter>
+                        <Container style={{
+                            minHeight: "100vh",
+                            display: "flex",
+                            flexDirection: "column"
+                        }}>
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/">
+                                        <Route index element={<Landing/>}/>
+                                        <Route path="invest" element={<Invest/>}/>
+                                        <Route path="invest/preferred-equity/*" element={<DAO/>}/>
+                                    </Route>
+                                </Routes>
+                            </BrowserRouter>
+                        </Container>
 
                     </WalletModalProvider>
                 </WalletProvider>
