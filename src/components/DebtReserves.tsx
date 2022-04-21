@@ -1,7 +1,7 @@
 import React from "react";
 import {Avatar, Card, Table, Text} from "@nextui-org/react";
 
-export const Reserves = () => {
+export const DebtReserves = () => {
 
     return (
         <Card>
