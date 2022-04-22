@@ -1,5 +1,5 @@
 import React from "react";
-import {changeTheme, Grid, Link, Switch, Text, useTheme} from "@nextui-org/react";
+import {changeTheme, Grid, Link, Spacer, Switch, Text, useTheme} from "@nextui-org/react";
 import {MoonIcon} from "./icons/MoonIcon";
 import {SunIcon} from "./icons/SunIcon";
 import useDarkMode from "use-dark-mode";
@@ -17,6 +17,7 @@ export const Footer = () => {
 
     return (
         <div style={{marginTop: "auto"}}>
+            <Spacer y={1}/>
             <hr/>
             <Grid.Container gap={2} style={{paddingBottom: 0}}>
                 <Grid xs={4} alignItems={"center"}>

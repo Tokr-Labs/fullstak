@@ -13,6 +13,10 @@ import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
 import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
+import {PoolAssets} from "./components/pools/PoolAssets";
+import {PoolMembers} from "./components/pools/PoolMembers";
+import {PoolProposals} from "./components/pools/PoolProposals";
+import {PoolTransactions} from "./components/pools/PoolTransactions";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -82,13 +86,28 @@ export const App = () => {
                         <BrowserRouter>
                             <Routes>
                                 <Route path="/">
+
                                     <Route index element={<Landing/>}/>
+
                                     <Route path="markets" element={<Markets/>}>
+
+                                        <Route index element={<EquityMarkets/>}/>
                                         <Route path="equity" element={<EquityMarkets/>}/>
-                                        <Route path="equity/pool-details" element={<PoolDetail/>}/>
+
+                                        <Route path="equity/pool-details" element={<PoolDetail/>}>
+                                            <Route index element={<PoolAssets/>}/>
+                                            <Route path="assets" element={<PoolAssets/>}/>
+                                            <Route path="members" element={<PoolMembers/>}/>
+                                            <Route path="proposals" element={<PoolProposals/>}/>
+                                            <Route path="transactions" element={<PoolTransactions/>}/>
+                                        </Route>
+
                                         <Route path="debt" element={<DebtMarkets/>}/>
+
                                     </Route>
+
                                     <Route path="portfolio" element={<Portfolio/>}/>
+
                                 </Route>
                             </Routes>
                         </BrowserRouter>

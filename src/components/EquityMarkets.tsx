@@ -17,7 +17,9 @@ export const EquityMarkets = () => {
 
                     <Card.Body>
 
-                        <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
+                        <span style={{margin: "0 0 10px 10px"}}>
+                            <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
+                        </span>
                         <Table shadow={false} sticked headerLined>
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
@@ -41,7 +43,7 @@ export const EquityMarkets = () => {
                                     <Table.Cell css={{textAlign: "end"}}>Cell 7</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>Cell 8</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>
-                                        <Link to={"pool-details"}>
+                                        <Link to={"/markets/equity/pool-details"}>
                                             <Button size={"xs"} style={{margin: 0}}>View Details</Button>
                                         </Link>
                                     </Table.Cell>
@@ -51,7 +53,9 @@ export const EquityMarkets = () => {
 
                         <Spacer y={2}/>
 
-                        <Pill color={theme.colors.secondary.computedValue} text={"Active"}/>
+                        <span style={{margin: "0 0 10px 10px"}}>
+                            <Pill color={theme.colors.secondary.computedValue} text={"Active"}/>
+                        </span>
                         <Table shadow={false} sticked headerLined>
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
