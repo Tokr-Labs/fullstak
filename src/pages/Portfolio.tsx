@@ -1,11 +1,10 @@
 import React from "react";
-import {Container} from "@nextui-org/react";
 import {Navbar} from "../components/Navbar";
-import {Pools} from "../components/Pools";
-import {Content} from "../components/Content";
+import {Container} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
 
-export const Invest = () => {
+export const Portfolio = () => {
+
     return (
         <Container style={{
             minHeight: "100vh",
@@ -13,11 +12,8 @@ export const Invest = () => {
             flexDirection: "column"
         }}>
             <Navbar/>
-            <hr/>
-            <Pools/>
-            <hr/>
-            <Content/>
             <Footer/>
         </Container>
     )
+
 }

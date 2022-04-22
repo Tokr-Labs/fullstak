@@ -1,16 +1,25 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Button, Grid, Spacer, useTheme} from "@nextui-org/react";
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 export const Navbar = () => {
 
     const theme = useTheme();
 
-    const [tab, setTab] = useState("Markets");
+    const [tab, setTab] = useState<string>();
+
+    useEffect(() => {
+        const pathname = window.location.pathname.split("/")[1];
+        const capitalized = pathname.charAt(0).toUpperCase() + pathname.slice(1)
+        setTab(capitalized);
+    }, [])
+
+    const navigate = useNavigate();
 
     const handleClick = (tab) => {
         setTab(tab)
+        navigate("/" + tab.toLowerCase())
     }
 
     return (
@@ -38,7 +47,6 @@ export const Navbar = () => {
                         ghost={tab !== "Portfolio"}
                         shadow={tab === "Portfolio"}
                         onClick={() => handleClick("Portfolio")}
-                        disabled
                 >
                     Portfolio
                 </Button>

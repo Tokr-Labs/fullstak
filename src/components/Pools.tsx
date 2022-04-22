@@ -1,33 +1,43 @@
 import React, {useState} from "react";
 import {Button, Grid, Tooltip} from "@nextui-org/react";
+import {useNavigate} from "react-router-dom";
 
 export const Pools = () => {
 
-    const pools = ["Equity Market", "Debt Market"]
+    const markets = ["Equity Market", "Debt Market"]
 
-    const [selected, setSelected] = useState<String>(pools[0]);
+    const [selected, setSelected] = useState<String>(markets[0]);
+
+    const navigate = useNavigate();
+
+    const handleClick = (market) => {
+        setSelected(market)
+        navigate(market.split(" ")[0].toLowerCase())
+    }
 
     return (
         <>
+            <hr/>
             <Grid.Container gap={2}>
-                {pools.map((pool) => {
+                {markets.map((market) => {
                     return (
-                        <Grid key={pool}>
-                            <Tooltip content={pool === "Debt Market" ? "Coming soon!" : ""}>
+                        <Grid key={market}>
+                            <Tooltip content={market === "Debt Market" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
                                         color={"gradient"}
-                                        ghost={pool !== selected}
-                                        shadow={pool === selected}
-                                        disabled={pool === "Debt Market"}
-                                        onClick={() => setSelected(pool)}
+                                        ghost={market !== selected}
+                                        shadow={market === selected}
+                                        disabled={market === "Debt Market"}
+                                        onClick={() => handleClick(market)}
                                 >
-                                    {pool}
+                                    {market}
                                 </Button>
                             </Tooltip>
                         </Grid>
                     )
                 })}
             </Grid.Container>
+            <hr/>
         </>
     )
 

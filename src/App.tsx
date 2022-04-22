@@ -8,7 +8,11 @@ import {clusterApiUrl} from '@solana/web3.js';
 import useDarkMode from "use-dark-mode"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from "./pages/Landing";
-import {Invest} from "./pages/Invest";
+import {Markets} from "./pages/Markets";
+import {EquityMarkets} from "./components/EquityMarkets";
+import {DebtMarkets} from "./components/DebtMarkets";
+import {PoolDetail} from "./components/PoolDetail";
+import {Portfolio} from "./pages/Portfolio";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -79,7 +83,12 @@ export const App = () => {
                             <Routes>
                                 <Route path="/">
                                     <Route index element={<Landing/>}/>
-                                    <Route path="invest" element={<Invest/>}/>
+                                    <Route path="markets" element={<Markets/>}>
+                                        <Route path="equity" element={<EquityMarkets/>}/>
+                                        <Route path="equity/pool-details" element={<PoolDetail/>}/>
+                                        <Route path="debt" element={<DebtMarkets/>}/>
+                                    </Route>
+                                    <Route path="portfolio" element={<Portfolio/>}/>
                                 </Route>
                             </Routes>
                         </BrowserRouter>
