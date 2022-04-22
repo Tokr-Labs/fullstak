@@ -3,7 +3,7 @@ import {Button, Grid, Tooltip} from "@nextui-org/react";
 
 export const Pools = () => {
 
-    const pools = ["Preferred Equity", "Common Equity", "Debt"]
+    const pools = ["Equity Market", "Debt Market"]
 
     const [selected, setSelected] = useState<String>(pools[0]);
 
@@ -13,12 +13,12 @@ export const Pools = () => {
                 {pools.map((pool) => {
                     return (
                         <Grid key={pool}>
-                            <Tooltip content={pool !== "Preferred Equity" ? "Coming soon!" : ""}>
+                            <Tooltip content={pool === "Debt Market" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
                                         color={"gradient"}
                                         ghost={pool !== selected}
                                         shadow={pool === selected}
-                                        disabled={pool !== "Preferred Equity"}
+                                        disabled={pool === "Debt Market"}
                                         onClick={() => setSelected(pool)}
                                 >
                                     {pool}

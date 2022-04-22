@@ -1,19 +1,14 @@
 import React, {useMemo} from 'react';
-import {Container, createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
+import {createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui';
 import {clusterApiUrl} from '@solana/web3.js';
-import {Navbar} from "./components/Navbar";
-import {Pools} from "./components/Pools";
-import {Content} from "./components/Content";
-import {Footer} from "./components/Footer";
 import useDarkMode from "use-dark-mode"
 import {BrowserRouter, Routes, Route} from "react-router-dom";
 import Landing from "./pages/Landing";
 import {Invest} from "./pages/Invest";
-import {DAO} from "./pages/DAO";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -29,10 +24,13 @@ export const App = () => {
         []
     );
 
+    // TODO - figure out how to included shared theme props
     const darkTheme = createTheme({
         type: 'dark',
         theme: {
             colors: {
+                primary: "#be00ff",
+                secondary: "$blue500",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
@@ -47,6 +45,8 @@ export const App = () => {
         type: "light",
         theme: {
             colors: {
+                primary: "#be00ff",
+                secondary: "$blue500",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
@@ -80,7 +80,6 @@ export const App = () => {
                                 <Route path="/">
                                     <Route index element={<Landing/>}/>
                                     <Route path="invest" element={<Invest/>}/>
-                                    <Route path="invest/preferred-equity/*" element={<DAO/>}/>
                                 </Route>
                             </Routes>
                         </BrowserRouter>
