@@ -12,7 +12,7 @@ export const EquityMarkets = () => {
                 <Card>
 
                     <Card.Header>
-                        <h2 style={{paddingLeft: "20px"}}>Pools</h2>
+                        <h3 style={{paddingLeft: "20px"}}>Pools</h3>
                     </Card.Header>
 
                     <Card.Body>
@@ -42,7 +42,7 @@ export const EquityMarkets = () => {
                                     <Table.Cell css={{textAlign: "end"}}>Cell 6</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>Cell 7</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>Cell 8</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>
+                                    <Table.Cell css={{textAlign: "end", float: "right"}}>
                                         <Link to={"/markets/equity/pool-details"}>
                                             <Button size={"xs"} style={{margin: 0}}>View Details</Button>
                                         </Link>

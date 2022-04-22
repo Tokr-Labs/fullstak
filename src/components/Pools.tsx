@@ -17,7 +17,6 @@ export const Pools = () => {
 
     return (
         <>
-            <hr/>
             <Grid.Container gap={2}>
                 {markets.map((market) => {
                     return (
