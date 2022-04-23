@@ -3,17 +3,40 @@ import {Button, Card, Grid, Progress, Spacer, theme, User} from "@nextui-org/rea
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useNavigate} from "react-router-dom";
+import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
+import {useConnection, useWallet} from "@solana/wallet-adapter-react";
+import {PublicKey} from "@solana/web3.js";
 
 export const PoolDetail = () => {
 
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
     const [activeTab, setActiveTab] = useState(tabs[0]);
+    const wallet = useWallet();
+    const {connection} = useConnection()
 
     const navigate = useNavigate();
 
     const handleClick = (tab) => {
         setActiveTab(tab);
         navigate(tab.toLowerCase());
+    }
+
+    const depositLiquidity = () => {
+
+        // for now this is pointing at an account that i know has a fake usdc ata
+        const governanceUsdcReserve = new PublicKey("5V3vRTMSdA3KyBSBMFWjVxD5xidi8uU2vSqKzsfgAo7z");
+
+        const action = new DepositLiquidityAction(
+            wallet,
+            connection,
+            governanceUsdcReserve,
+            5
+        )
+
+        action.execute()
+            .then(signature => console.log("success: ", signature))
+            .catch(error => console.error(error))
+
     }
 
     return (
@@ -79,7 +102,7 @@ export const PoolDetail = () => {
 
                         <Grid.Container>
                             <Grid xs={5}>
-                                <Button size={"lg"} color={"gradient"}>Deposit</Button>
+                                <Button size={"lg"} color={"gradient"} onClick={depositLiquidity}>Deposit</Button>
                             </Grid>
                         </Grid.Container>
 

@@ -1,5 +1,5 @@
 import "../index.css"
-import {sendAmplitudeData} from "../utilities/amplitude";
+import {sendAmplitudeData} from "../utils/amplitude";
 import tokrLogo from "src/assets/tokr_dark-cropped.svg"
 import gitbookIcon from "src/assets/icons/icons-gitbook_export.svg"
 import githubIcon from "src/assets/icons/icons-github_export.svg"
