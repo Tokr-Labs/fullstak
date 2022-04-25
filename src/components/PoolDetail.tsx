@@ -3,6 +3,9 @@ import {Button, Card, Grid, Progress, Spacer, theme, User} from "@nextui-org/rea
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useNavigate} from "react-router-dom";
+import {getProposal} from "@solana/spl-governance";
+import {useConnection} from "@solana/wallet-adapter-react";
+import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
 export const PoolDetail = () => {
 
@@ -15,6 +18,13 @@ export const PoolDetail = () => {
         setActiveTab(tab);
         navigate(tab.toLowerCase());
     }
+
+    const connection = useConnection().connection;
+
+    getProposal(
+        new Connection(clusterApiUrl("mainnet-beta"), "confirmed"),
+        new PublicKey("Ehr3WpB5idGEi7WDTpTbQWgSiT2zWWtkHphuvSahqG6X"),
+    ).then(proposal => console.log(proposal))
 
     return (
         <Grid.Container gap={2}>
