@@ -2,12 +2,16 @@ import React, {useState} from "react";
 import {Button, Card, Grid, Progress, Spacer, theme, User} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 
 export const PoolDetail = () => {
 
+    const pathname = useLocation().pathname;
+    const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
+    const urlBasedTab = segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
+
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+    const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const navigate = useNavigate();
 
