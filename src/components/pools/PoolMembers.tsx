@@ -1,7 +1,41 @@
-import React from "react";
-import {Table} from "@nextui-org/react";
+import React, {useMemo, useState} from "react";
+import {Link, Table} from "@nextui-org/react";
+import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@solana/spl-governance";
+import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
 export const PoolMembers = () => {
+
+    const [members, setMembers] = useState<ProgramAccount<TokenOwnerRecord>[]>();
+    const [communityMintSupply, setCommunityMintSupply] = useState<number | null>();
+
+    // TODO - needs to be filtered down to just the community token mint
+    useMemo(() => {
+
+        // TODO - should be utilizing useConnection()
+        const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
+
+        const communityMint = "Hope16zbz1yraofEJezcpj6JcSLHHjpmJ632RUohvyWi";
+        connection.getTokenSupply(new PublicKey(communityMint))
+            .then(supply => setCommunityMintSupply(supply.value.uiAmount))
+            .then(() => console.log(communityMintSupply))
+
+        // The Sanctuary on mainnet-beta
+        // TODO - seems to only return users with deposited tokens
+        getAllTokenOwnerRecords(
+            connection,
+            new PublicKey("Ghope52FuF6HU3AAhJuAAyS2fiqbVhkAotb7YprL5tdS"),
+            new PublicKey("CS3HBXBdZ44g7FdZfgPAz6nSBe4FSThg6ANuVdowTT6G"),
+        ).then(records => setMembers(
+                records.sort((a, b) => {
+                    return b.account.governingTokenDepositAmount.toNumber() - a.account.governingTokenDepositAmount.toNumber()
+                }).filter((member) => {
+                    return member.account.governingTokenMint.toBase58() === communityMint
+                        && member.account.governingTokenDepositAmount.toNumber() > 0
+                })
+            )
+        )
+
+    }, [])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
@@ -13,11 +47,30 @@ export const PoolMembers = () => {
             </Table.Header>
 
             <Table.Body>
-                <Table.Row>
-                    <Table.Cell>3ZDc...Fume</Table.Cell>
-                    <Table.Cell>24%</Table.Cell>
-                    <Table.Cell>$10,000.00</Table.Cell>
-                </Table.Row>
+
+                {members?.map(member => {
+                    return (
+                        <Table.Row>
+                            <Table.Cell>
+                                <Link icon
+                                      href={"https://explorer.solana.com/address/" + member.account.governingTokenOwner.toBase58()}
+                                      target={"_blank"}
+                                >
+                                    {member.account.governingTokenOwner.toBase58()}
+                                </Link>
+                            </Table.Cell>
+                            <Table.Cell>
+                                {
+                                    ((member.account.governingTokenDepositAmount.toNumber()
+                                        / (10_000 * (communityMintSupply ?? 1)))
+                                    ).toFixed(3) + "%"
+                                }
+                            </Table.Cell>
+                            <Table.Cell>Incorporate Pyth?</Table.Cell>
+                        </Table.Row>
+                    )
+                })}
+
             </Table.Body>
 
         </Table>
