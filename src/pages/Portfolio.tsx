@@ -1,10 +1,36 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Navbar} from "../components/Navbar";
 import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
-import { Link } from "react-router-dom";
+import {Link} from "react-router-dom";
+import {useConnection, useWallet} from "@solana/wallet-adapter-react";
+import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
+import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
 
 export const Portfolio = () => {
+
+    const wallet = useWallet();
+    const {connection} = useConnection();
+
+    // TODO - store this as a constant somewhere
+    const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+
+    const [balance, setBalance] = useState<number>(0);
+    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<Buffer> }>>();
+
+    useEffect(() => {
+
+        connection.getBalance(wallet.publicKey as PublicKey)
+            .then(response => setBalance(response / LAMPORTS_PER_SOL));
+
+        connection.getTokenAccountsByOwner(
+            wallet.publicKey as PublicKey,
+            {programId: TOKEN_PROGRAM_ID}
+        ).then(response => {setHoldings(response.value)});
+
+    }, [connection, wallet])
+
+
 
     return (
         <Container style={{
@@ -23,16 +49,17 @@ export const Portfolio = () => {
                 <Card.Body>
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
-                            <h3>Wallet Balance</h3>
-                            <span>$1,234,567.89</span>
+                            <h3>Connected</h3>
+                            <span
+                                style={{color: "red"}}>{wallet.connected ? wallet.publicKey?.toBase58() : "Not Connected"}</span>
                         </Grid>
                         <Grid>
-                            <h3>Available to Deposit</h3>
-                            <span>$100,000.00</span>
+                            <h3>Balance</h3>
+                            <span>{balance} SOL</span>
                         </Grid>
                         <Grid>
-                            <h3>Total Pool Earnings</h3>
-                            <span>$235,456.91</span>
+                            <h3>Available to Invest</h3>
+                            <span style={{color: "red"}}>$100,000.00</span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
@@ -45,70 +72,55 @@ export const Portfolio = () => {
 
             <Card>
 
-                <Card.Header>
+                <Card.Header style={{padding: "20px 0 0 20px"}}>
                     <h3>Holdings</h3>
                 </Card.Header>
 
                 <Card.Body>
 
-                    <h4>Assets</h4>
                     <Grid.Container>
                         <Grid xs={8}>
-                            <Table shadow={false} sticked headerLined>
-                                <Table.Header>
-                                    <Table.Column>Pools</Table.Column>
-                                    <Table.Column>Holdings</Table.Column>
-                                    <Table.Column>All-Time Return (APY)</Table.Column>
-                                </Table.Header>
-                                <Table.Body>
-                                    <Table.Row>
-                                        <Table.Cell>27C</Table.Cell>
-                                        <Table.Cell>100,000 27C</Table.Cell>
-                                        <Table.Cell>20.00%</Table.Cell>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>PCF</Table.Cell>
-                                        <Table.Cell>7,000,000 PCF</Table.Cell>
-                                        <Table.Cell>12.50%</Table.Cell>
-                                    </Table.Row>
-                                </Table.Body>
-                            </Table>
-                        </Grid>
-                    </Grid.Container>
 
-                    <Spacer y={2}/>
-
-                    <h4>Wallet</h4>
-                    <Grid.Container>
-                        <Grid xs={8}>
                             <Table shadow={false} sticked headerLined>
+
                                 <Table.Header>
-                                    <Table.Column>Tokens</Table.Column>
+                                    <Table.Column>Token</Table.Column>
                                     <Table.Column>Amount</Table.Column>
-                                    <Table.Column>Value</Table.Column>
                                     <Table.Column/>
                                 </Table.Header>
+
                                 <Table.Body>
-                                    <Table.Row>
-                                        <Table.Cell>SOL</Table.Cell>
-                                        <Table.Cell>100 SOL</Table.Cell>
-                                        <Table.Cell>$10,500.00</Table.Cell>
-                                        <Table.Cell/>
-                                    </Table.Row>
-                                    <Table.Row>
-                                        <Table.Cell>USDC</Table.Cell>
-                                        <Table.Cell>100,000 USDC</Table.Cell>
-                                        <Table.Cell>$100,000.00</Table.Cell>
-                                        <Table.Cell>
-                                            <Link to={"/markets"}>
-                                                <Button size={"xs"} color={"gradient"} ghost>
-                                                    Invest
-                                                </Button>
-                                            </Link>
-                                        </Table.Cell>
-                                    </Table.Row>
+
+                                    {holdings?.map(holding => {
+
+                                        const accountInfo = AccountLayout.decode(holding.account.data)
+
+                                        return (
+                                            <Table.Row>
+                                                <Table.Cell>
+                                                    {accountInfo.mint.toBase58()}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {/*TODO - need to fetch token decimals*/}
+                                                    {accountInfo.amount.toString()}
+                                                </Table.Cell>
+                                                <Table.Cell>
+                                                    {
+                                                        accountInfo.mint.toBase58() === usdc
+                                                            ? <Link to={"/markets/equity"}>
+                                                                <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
+                                                            </Link>
+                                                            : ""
+                                                    }
+                                                </Table.Cell>
+                                            </Table.Row>
+                                        )
+                                    })}
+
                                 </Table.Body>
+
                             </Table>
+
                         </Grid>
                     </Grid.Container>
 
