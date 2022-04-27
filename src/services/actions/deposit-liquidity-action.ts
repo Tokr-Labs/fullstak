@@ -11,6 +11,7 @@ import {WalletContextState} from "@solana/wallet-adapter-react";
 import {USDC_MINT_PUBKEY} from "../../models/constants";
 import {isNull} from "underscore";
 import {ActionProtocol} from "../../models/action-protocol";
+import {DepositLiquidityInstruction} from "../instructions/deposit-liquidity-instruction";
 
 export class DepositLiquidityAction implements ActionProtocol {
 
@@ -47,28 +48,17 @@ export class DepositLiquidityAction implements ActionProtocol {
 
         // @TODO - add check for compliance
 
-        const sourcePubkey = await getAssociatedTokenAddress(
-            USDC_MINT_PUBKEY,
-            ownerPubkey
-        );
-
-        console.log(sourcePubkey.toBase58());
-
-        const transactionInstruction = await createTransferInstruction(
-            sourcePubkey,
+        const depositInstruction = await DepositLiquidityInstruction.with(
             this.destination,
             ownerPubkey,
-            this.amount * LAMPORTS_PER_SOL // assumes that liquidity will always come in the form of USDC
+            this.amount
         );
 
-        const {blockhash} = await this.connection.getLatestBlockhash();
+        const transaction = new Transaction();
 
-        const transaction = new Transaction({
-            feePayer: this.wallet.publicKey,
-            recentBlockhash: blockhash
-        })
+        transaction.add(depositInstruction)
 
-        transaction.add(transactionInstruction)
+        // @TODO: Add transfer lp tokens instruction
 
         return await this.wallet.sendTransaction(
             transaction,
