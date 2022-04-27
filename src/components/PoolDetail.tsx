@@ -1,8 +1,9 @@
 import React, {useState} from "react";
-import {Button, Card, Grid, Progress, Spacer, theme, User, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {FileIcon} from "./icons/FileIcon"
 
 export const PoolDetail = () => {
 
@@ -114,13 +115,21 @@ export const PoolDetail = () => {
                               size={"xl"}
                               bordered
                               color={"gradient"}
+                              style={{paddingLeft: 0}}
                         >
                             27 Capital
                         </User>
                         <Spacer y={1}/>
 
                         <h4>Data Room</h4>
-                        <p>Icon and button here</p>
+                        <Grid.Container gap={1} alignItems={"center"}>
+                            <Grid>
+                                <FileIcon/>
+                            </Grid>
+                            <Grid>
+                                <Button size={"sm"}>Download</Button>
+                            </Grid>
+                        </Grid.Container>
 
                         <h4>Target Returns</h4>
                         <Grid.Container>
@@ -142,6 +151,7 @@ export const PoolDetail = () => {
                               size={"xl"}
                               bordered
                               color={"gradient"}
+                              style={{paddingLeft: 0}}
                         />
                         <Spacer y={1}/>
 
