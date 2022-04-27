@@ -1,7 +1,25 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {Table} from "@nextui-org/react";
+import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@solana/spl-governance";
+import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
 export const PoolProposals = () => {
+
+    const [proposals, setProposal] = useState<ProgramAccount<Proposal>[]>();
+
+    useEffect(() => {
+        // UNQ Universe on devnet
+        getAllProposals(
+            // Manually specifying connection for ease of use but would want to use useConnection()
+            new Connection(clusterApiUrl("devnet"), "confirmed"),
+            new PublicKey("GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP"),
+            new PublicKey("HVywtno57PwcgWQzRaf3Pv8RKWWrF1zoqLZGULNC2jGm"),
+        ).then(proposals => setProposal(proposals.flat().sort(
+            (a, b) => {
+                return b.account.getStateTimestamp() - a.account.getStateTimestamp()
+            }))
+        )
+    }, [])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
@@ -14,12 +32,18 @@ export const PoolProposals = () => {
             </Table.Header>
 
             <Table.Body>
-                <Table.Row>
-                    <Table.Cell>4/22/2022</Table.Cell>
-                    <Table.Cell>Invest: 298 Greenley Rd</Table.Cell>
-                    <Table.Cell>Passed</Table.Cell>
-                    <Table.Cell>Investment Memo</Table.Cell>
-                </Table.Row>
+
+                {proposals?.map(proposal => {
+                    return (
+                        <Table.Row>
+                            <Table.Cell>{new Date(proposal.account.getStateTimestamp() * 1000).toLocaleDateString()}</Table.Cell>
+                            <Table.Cell>{proposal.account.name}</Table.Cell>
+                            <Table.Cell>{ProposalState[proposal.account.state]}</Table.Cell>
+                            <Table.Cell>{proposal.account.descriptionLink}</Table.Cell>
+                        </Table.Row>
+                    )
+                })}
+
             </Table.Body>
 
         </Table>
