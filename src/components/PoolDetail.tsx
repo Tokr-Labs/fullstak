@@ -1,18 +1,27 @@
 import React, {useState} from "react";
-import {Button, Card, Grid, Progress, Spacer, theme, User} from "@nextui-org/react";
+import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
-import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey} from "@solana/web3.js";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {FileIcon} from "./icons/FileIcon"
+
 
 export const PoolDetail = () => {
 
+    const pathname = useLocation().pathname;
+    const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
+    const urlBasedTab = segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
+
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
-    const [activeTab, setActiveTab] = useState(tabs[0]);
+    const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
+    
     const wallet = useWallet();
     const {connection} = useConnection()
+
+    const theme = useTheme();
 
     const navigate = useNavigate();
 
@@ -56,7 +65,7 @@ export const PoolDetail = () => {
                                 <h3>27 Crypto</h3>
                             </Grid>
                             <Grid>
-                                <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
+                                <Pill color={theme.theme?.colors.primary.value} text={"Raising"}/>
                             </Grid>
                         </Grid.Container>
                     </Card.Header>
@@ -131,13 +140,21 @@ export const PoolDetail = () => {
                               size={"xl"}
                               bordered
                               color={"gradient"}
+                              style={{paddingLeft: 0}}
                         >
                             27 Capital
                         </User>
                         <Spacer y={1}/>
 
                         <h4>Data Room</h4>
-                        <p>Icon and button here</p>
+                        <Grid.Container gap={1} alignItems={"center"}>
+                            <Grid>
+                                <FileIcon/>
+                            </Grid>
+                            <Grid>
+                                <Button size={"sm"}>Download</Button>
+                            </Grid>
+                        </Grid.Container>
 
                         <h4>Target Returns</h4>
                         <Grid.Container>
@@ -149,14 +166,18 @@ export const PoolDetail = () => {
                         <Spacer y={1}/>
 
                         <h4>Delegate</h4>
-                        <User name={"First Last"}
+                        <User name={"Tokr Labs"}
+                              src={
+                                  theme.isDark
+                                      ? require("src/assets/tokr_icon_dark.png")
+                                      : require("src/assets/tokr_icon_color.png")
+                              }
                               squared
                               size={"xl"}
                               bordered
                               color={"gradient"}
-                        >
-                            Tokr Labs
-                        </User>
+                              style={{paddingLeft: 0}}
+                        />
                         <Spacer y={1}/>
 
                         <h4>Fees</h4>
