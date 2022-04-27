@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Card, Grid, Progress, Spacer, theme, User} from "@nextui-org/react";
+import {Button, Card, Grid, Progress, Spacer, theme, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
@@ -12,6 +12,8 @@ export const PoolDetail = () => {
 
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
+
+    const theme = useTheme();
 
     const navigate = useNavigate();
 
@@ -37,7 +39,7 @@ export const PoolDetail = () => {
                                 <h3>27 Crypto</h3>
                             </Grid>
                             <Grid>
-                                <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
+                                <Pill color={theme.theme?.colors.primary.value} text={"Raising"}/>
                             </Grid>
                         </Grid.Container>
                     </Card.Header>
@@ -130,14 +132,17 @@ export const PoolDetail = () => {
                         <Spacer y={1}/>
 
                         <h4>Delegate</h4>
-                        <User name={"First Last"}
+                        <User name={"Tokr Labs"}
+                              src={
+                                  theme.isDark
+                                      ? require("src/assets/tokr_icon_dark.png")
+                                      : require("src/assets/tokr_icon_color.png")
+                              }
                               squared
                               size={"xl"}
                               bordered
                               color={"gradient"}
-                        >
-                            Tokr Labs
-                        </User>
+                        />
                         <Spacer y={1}/>
 
                         <h4>Fees</h4>
