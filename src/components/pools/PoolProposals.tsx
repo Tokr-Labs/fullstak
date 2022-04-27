@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "@nextui-org/react";
-import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@solana/spl-governance";
+import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@tokr-labs/governance";
 import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
 export const PoolProposals = () => {

@@ -6,6 +6,7 @@ import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey} from "@solana/web3.js";
+import {CreateIdvRecordAction} from "../services/actions/create-idv-record-action";
 
 export const PoolDetail = () => {
 
@@ -23,19 +24,26 @@ export const PoolDetail = () => {
 
     const depositLiquidity = () => {
 
-        // for now this is pointing at an account that i know has a fake usdc ata
-        const governanceUsdcReserve = new PublicKey("5V3vRTMSdA3KyBSBMFWjVxD5xidi8uU2vSqKzsfgAo7z");
-
-        const action = new DepositLiquidityAction(
+        const action = new CreateIdvRecordAction(
             wallet,
-            connection,
-            governanceUsdcReserve,
-            5
+            connection
         )
 
         action.execute()
-            .then(signature => console.log("success: ", signature))
-            .catch(error => console.error(error))
+
+        // for now this is pointing at an account that i know has a fake usdc ata
+        // const governanceUsdcReserve = new PublicKey("5V3vRTMSdA3KyBSBMFWjVxD5xidi8uU2vSqKzsfgAo7z");
+
+        // const action = new DepositLiquidityAction(
+        //     wallet,
+        //     connection,
+        //     governanceUsdcReserve,
+        //     5
+        // )
+        //
+        // action.execute()
+        //     .then(signature => console.log("success: ", signature))
+        //     .catch(error => console.error(error))
 
     }
 
