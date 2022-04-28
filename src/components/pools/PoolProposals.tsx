@@ -1,17 +1,19 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "@nextui-org/react";
 import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@solana/spl-governance";
-import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
+import {PublicKey} from "@solana/web3.js";
+import {useConnection} from "@solana/wallet-adapter-react";
 
 export const PoolProposals = () => {
+
+    const connection = useConnection().connection;
 
     const [proposals, setProposal] = useState<ProgramAccount<Proposal>[]>();
 
     useEffect(() => {
         // UNQ Universe on devnet
         getAllProposals(
-            // Manually specifying connection for ease of use but would want to use useConnection()
-            new Connection(clusterApiUrl("devnet"), "confirmed"),
+            connection,
             new PublicKey("GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP"),
             new PublicKey("HVywtno57PwcgWQzRaf3Pv8RKWWrF1zoqLZGULNC2jGm"),
         ).then(proposals => setProposal(proposals.flat().sort(
@@ -19,7 +21,7 @@ export const PoolProposals = () => {
                 return b.account.getStateTimestamp() - a.account.getStateTimestamp()
             }))
         )
-    }, [])
+    }, [connection])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
