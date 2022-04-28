@@ -28,6 +28,29 @@ export const Navbar = () => {
 
     return (
         <>
+            <Grid.Container  style={{
+                position: "sticky",
+                top: 0,
+                zIndex: 1000
+            }}>
+                <Grid xs={12} style={{paddingTop: 0}}>
+                    <div style={{
+                        width: "100%",
+                        fontWeight: "bold",
+                        color: "white",
+                        textAlign: "center",
+                        padding: "5px",
+                        marginBottom: "5px",
+                        background: theme.theme?.colors.error.value,
+                        display: network === WalletAdapterNetwork.Devnet || network === WalletAdapterNetwork.Testnet
+                            ? "inline-block"
+                            : "none"
+                    }}>
+                        Notice: You are currently on {network.toUpperCase()}
+                    </div>
+                </Grid>
+            </Grid.Container>
+
             <Grid.Container gap={1}>
 
                 <Grid xs={4} alignItems={"center"}>
