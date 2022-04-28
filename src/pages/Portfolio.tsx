@@ -49,21 +49,12 @@ export const Portfolio = () => {
                 <Card.Body>
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
-                            <h3>Connected</h3>
-                            <span
-                                style={{color: "red"}}>{wallet.connected ? wallet.publicKey?.toBase58() : "Not Connected"}</span>
-                        </Grid>
-                        <Grid>
                             <h3>Balance</h3>
                             <span>{balance} SOL</span>
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
                             <span style={{color: "red"}}>$100,000.00</span>
-                        </Grid>
-                        <Grid>
-                            <h3>Network</h3>
-                            <span style={{color: "red"}}>{network}</span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
