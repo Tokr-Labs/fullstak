@@ -7,13 +7,12 @@ import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
 import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
 import {NetworkContext} from "../App";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 
 export const Portfolio = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection();
-    const {network, setNetwork} = useContext(NetworkContext)
+    const {network} = useContext(NetworkContext)
 
     // TODO - store this as a constant somewhere
     const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
@@ -67,16 +66,6 @@ export const Portfolio = () => {
                         <Grid>
                             <h3>Network</h3>
                             <span style={{color: "red"}}>{network}</span>
-                            <Button onClick={() => {
-                                setNetwork(
-                                    network === WalletAdapterNetwork.Devnet
-                                        ? WalletAdapterNetwork.Mainnet
-                                        : WalletAdapterNetwork.Devnet
-                                )
-                                console.log(network)
-                            }}>
-                                Change to {network === WalletAdapterNetwork.Devnet ? "Mainnet" : "Devnet"}
-                            </Button>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
