@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Navbar} from "../components/Navbar";
 import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
@@ -6,11 +6,14 @@ import {Link} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
 import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
+import {NetworkContext} from "../App";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 
 export const Portfolio = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection();
+    const {network, setNetwork} = useContext(NetworkContext)
 
     // TODO - store this as a constant somewhere
     const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
@@ -26,11 +29,11 @@ export const Portfolio = () => {
         connection.getTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
             {programId: TOKEN_PROGRAM_ID}
-        ).then(response => {setHoldings(response.value)});
+        ).then(response => {
+            setHoldings(response.value)
+        });
 
     }, [connection, wallet])
-
-
 
     return (
         <Container style={{
@@ -60,6 +63,20 @@ export const Portfolio = () => {
                         <Grid>
                             <h3>Available to Invest</h3>
                             <span style={{color: "red"}}>$100,000.00</span>
+                        </Grid>
+                        <Grid>
+                            <h3>Network</h3>
+                            <span style={{color: "red"}}>{network}</span>
+                            <Button onClick={() => {
+                                setNetwork(
+                                    network === WalletAdapterNetwork.Devnet
+                                        ? WalletAdapterNetwork.Mainnet
+                                        : WalletAdapterNetwork.Devnet
+                                )
+                                console.log(network)
+                            }}>
+                                Change to {network === WalletAdapterNetwork.Devnet ? "Mainnet" : "Devnet"}
+                            </Button>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
