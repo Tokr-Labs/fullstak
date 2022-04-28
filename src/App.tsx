@@ -21,7 +21,7 @@ import {PoolTransactions} from "./components/pools/PoolTransactions";
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
 
-
+// TODO - separate into contexts directory
 export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
     network: WalletAdapterNetwork.Devnet,
     setNetwork: () => null
