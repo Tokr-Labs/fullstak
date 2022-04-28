@@ -28,9 +28,7 @@ export const Portfolio = () => {
         connection.getTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
             {programId: TOKEN_PROGRAM_ID}
-        ).then(response => {
-            setHoldings(response.value)
-        });
+        ).then(response => setHoldings(response.value));
 
     }, [connection, wallet])
 
