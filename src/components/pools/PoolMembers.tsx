@@ -1,18 +1,18 @@
 import React, {useMemo, useState} from "react";
 import {Link, Table} from "@nextui-org/react";
 import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@solana/spl-governance";
-import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
+import {PublicKey} from "@solana/web3.js";
+import {useConnection} from "@solana/wallet-adapter-react";
 
 export const PoolMembers = () => {
+
+    const connection = useConnection().connection;
 
     const [members, setMembers] = useState<ProgramAccount<TokenOwnerRecord>[]>();
     const [communityMintSupply, setCommunityMintSupply] = useState<number | null>();
 
     // TODO - needs to be filtered down to just the community token mint
     useMemo(() => {
-
-        // TODO - should be utilizing useConnection()
-        const connection = new Connection(clusterApiUrl("mainnet-beta"), "confirmed");
 
         const communityMint = "Hope16zbz1yraofEJezcpj6JcSLHHjpmJ632RUohvyWi";
         connection.getTokenSupply(new PublicKey(communityMint))
@@ -35,7 +35,7 @@ export const PoolMembers = () => {
             )
         )
 
-    }, [])
+    }, [connection])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>

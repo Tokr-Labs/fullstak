@@ -1,4 +1,4 @@
-import React, {useMemo} from 'react';
+import React, {createContext, useMemo, useState} from 'react';
 import {createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
@@ -6,7 +6,7 @@ import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui';
 import {clusterApiUrl} from '@solana/web3.js';
 import useDarkMode from "use-dark-mode"
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Landing from "./pages/Landing";
 import {Markets} from "./pages/Markets";
 import {EquityMarkets} from "./components/EquityMarkets";
@@ -21,11 +21,15 @@ import {PoolTransactions} from "./components/pools/PoolTransactions";
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
 
+// TODO - separate into contexts directory
+export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
+    network: WalletAdapterNetwork.Devnet,
+    setNetwork: () => null
+});
+
 export const App = () => {
 
-    // TODO - allow switching between networks
-    const network = WalletAdapterNetwork.Devnet;
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
 
     const wallets = useMemo(
         () => [new PhantomWalletAdapter()],
@@ -79,43 +83,45 @@ export const App = () => {
 
     return (
         <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
-            <ConnectionProvider endpoint={endpoint}>
-                <WalletProvider wallets={wallets} autoConnect>
-                    <WalletModalProvider>
+            <NetworkContext.Provider value={{network, setNetwork}}>
+                <ConnectionProvider endpoint={clusterApiUrl(network)}>
+                    <WalletProvider wallets={wallets} autoConnect>
+                        <WalletModalProvider>
 
-                        {/* Components must be contained within here to maintain context */}
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/">
+                            {/* Components must be contained within here to maintain context */}
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/">
 
-                                    <Route index element={<Landing/>}/>
+                                        <Route index element={<Landing/>}/>
 
-                                    <Route path="markets" element={<Markets/>}>
+                                        <Route path="markets" element={<Markets/>}>
 
-                                        <Route index element={<EquityMarkets/>}/>
-                                        <Route path="equity" element={<EquityMarkets/>}/>
+                                            <Route index element={<EquityMarkets/>}/>
+                                            <Route path="equity" element={<EquityMarkets/>}/>
 
-                                        <Route path="equity/pool-details" element={<PoolDetail/>}>
-                                            <Route index element={<PoolAssets/>}/>
-                                            <Route path="assets" element={<PoolAssets/>}/>
-                                            <Route path="members" element={<PoolMembers/>}/>
-                                            <Route path="proposals" element={<PoolProposals/>}/>
-                                            <Route path="transactions" element={<PoolTransactions/>}/>
+                                            <Route path="equity/pool-details" element={<PoolDetail/>}>
+                                                <Route index element={<PoolAssets/>}/>
+                                                <Route path="assets" element={<PoolAssets/>}/>
+                                                <Route path="members" element={<PoolMembers/>}/>
+                                                <Route path="proposals" element={<PoolProposals/>}/>
+                                                <Route path="transactions" element={<PoolTransactions/>}/>
+                                            </Route>
+
+                                            <Route path="debt" element={<DebtMarkets/>}/>
+
                                         </Route>
 
-                                        <Route path="debt" element={<DebtMarkets/>}/>
+                                        <Route path="portfolio" element={<Portfolio/>}/>
 
                                     </Route>
+                                </Routes>
+                            </BrowserRouter>
 
-                                    <Route path="portfolio" element={<Portfolio/>}/>
-
-                                </Route>
-                            </Routes>
-                        </BrowserRouter>
-
-                    </WalletModalProvider>
-                </WalletProvider>
-            </ConnectionProvider>
+                        </WalletModalProvider>
+                    </WalletProvider>
+                </ConnectionProvider>
+            </NetworkContext.Provider>
         </NextUIProvider>
     );
 };
