@@ -2,14 +2,11 @@ import React, {useState} from "react";
 import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
-import {Link, Outlet, useNavigate} from "react-router-dom";
+import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {PublicKey} from "@solana/web3.js";
-import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FileIcon} from "./icons/FileIcon"
-
 
 export const PoolDetail = () => {
 

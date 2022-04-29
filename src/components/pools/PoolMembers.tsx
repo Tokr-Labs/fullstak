@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
 import {Link, Table} from "@nextui-org/react";
-import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@solana/spl-governance";
+import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@tokr-labs/governance";
 import {clusterApiUrl, Connection, PublicKey} from "@solana/web3.js";
 
 export const PoolMembers = () => {
