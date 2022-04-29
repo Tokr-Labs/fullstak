@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Navbar} from "../components/Navbar";
 import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
@@ -6,13 +6,11 @@ import {Link} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
 import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
-import {NetworkContext} from "../App";
 
 export const Portfolio = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection();
-    const {network} = useContext(NetworkContext)
 
     // TODO - store this as a constant somewhere
     const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
@@ -81,11 +79,12 @@ export const Portfolio = () => {
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
                                     <Table.Column>Amount</Table.Column>
-                                    <Table.Column/>
+                                    <Table.Column children=""/>
                                 </Table.Header>
 
                                 <Table.Body>
 
+                                    {/*@ts-ignore*/}
                                     {holdings?.map(holding => {
 
                                         const accountInfo = AccountLayout.decode(holding.account.data)

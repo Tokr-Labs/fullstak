@@ -31,6 +31,7 @@ export const PoolTransactions = () => {
 
             <Table.Body>
 
+                {/*@ts-ignore*/}
                 {transactions?.map(transaction => {
                     if (transaction == null) {
                         return null;
@@ -40,10 +41,10 @@ export const PoolTransactions = () => {
                     return (
                         <Table.Row>
                             <Table.Cell>{transaction.blockTime}</Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell children=""/>
                             {/*<Table.Cell>{transaction.transaction.message.instructions[0].parsed.info.lamports}</Table.Cell>*/}
-                            <Table.Cell></Table.Cell>
-                            <Table.Cell></Table.Cell>
+                            <Table.Cell children=""/>
+                            <Table.Cell children=""/>
                         </Table.Row>
                     )
                 })}

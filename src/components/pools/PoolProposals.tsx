@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {Table} from "@nextui-org/react";
-import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@solana/spl-governance";
+import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@tokr-labs/governance";
 import {PublicKey} from "@solana/web3.js";
 import {useConnection} from "@solana/wallet-adapter-react";
 
@@ -35,6 +35,7 @@ export const PoolProposals = () => {
 
             <Table.Body>
 
+                {/*@ts-ignore*/}
                 {proposals?.map(proposal => {
                     return (
                         <Table.Row>

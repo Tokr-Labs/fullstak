@@ -3,6 +3,9 @@ import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
+import {useConnection, useWallet} from "@solana/wallet-adapter-react";
+import {PublicKey} from "@solana/web3.js";
 import {FileIcon} from "./icons/FileIcon"
 
 export const PoolDetail = () => {
@@ -13,6 +16,9 @@ export const PoolDetail = () => {
 
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
+    
+    const wallet = useWallet();
+    const {connection} = useConnection()
 
     const theme = useTheme();
 
@@ -21,6 +27,22 @@ export const PoolDetail = () => {
     const handleClick = (tab) => {
         setActiveTab(tab);
         navigate(tab.toLowerCase());
+    }
+
+    const depositLiquidity = () => {
+
+        let action = new DepositLiquidityAction(connection, wallet)
+
+        // @TODO - replace with realm pub key
+        const group = new PublicKey("C8ooyFa5KTqYWuR8zdv4XHukfNCabWcBryUMvn7bXVyf")
+
+        // @TODO: replace with whoever has update these records
+        const authority = new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
+
+        action.execute(group, authority)
+            .catch(value => console.log(value))
+            .catch(error => console.error(error))
+
     }
 
     return (
@@ -86,7 +108,7 @@ export const PoolDetail = () => {
 
                         <Grid.Container>
                             <Grid xs={5}>
-                                <Button size={"lg"} color={"gradient"}>Deposit</Button>
+                                <Button size={"lg"} color={"gradient"} onClick={depositLiquidity}>Deposit</Button>
                             </Grid>
                         </Grid.Container>
 

@@ -1,6 +1,6 @@
 import React, {useMemo, useState} from "react";
 import {Link, Table} from "@nextui-org/react";
-import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@solana/spl-governance";
+import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@tokr-labs/governance";
 import {PublicKey} from "@solana/web3.js";
 import {useConnection} from "@solana/wallet-adapter-react";
 
@@ -48,6 +48,7 @@ export const PoolMembers = () => {
 
             <Table.Body>
 
+                {/*@ts-ignore*/}
                 {members?.map(member => {
                     return (
                         <Table.Row>
