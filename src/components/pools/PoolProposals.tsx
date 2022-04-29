@@ -35,6 +35,7 @@ export const PoolProposals = () => {
 
             <Table.Body>
 
+                {/*@ts-ignore*/}
                 {proposals?.map(proposal => {
                     return (
                         <Table.Row>

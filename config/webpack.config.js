@@ -344,7 +344,7 @@ module.exports = function (webpackEnv) {
                 "https": false,
                 "stream": false,
                 "crypto": false,
-                "os": false,
+                // "os": false,
                 "crypto-browserify": require.resolve('crypto-browserify'), // if you want to use this module also don't forget npm i crypto-browserify
             }
 
@@ -764,6 +764,7 @@ module.exports = function (webpackEnv) {
                 },
             }),
         ].filter(Boolean),
+        ignoreWarnings: [/Failed to parse source map/],
         // Turn off performance processing because we utilize
         // our own hints via the FileSizeReporter
         performance: false,

@@ -48,6 +48,7 @@ export const PoolMembers = () => {
 
             <Table.Body>
 
+                {/*@ts-ignore*/}
                 {members?.map(member => {
                     return (
                         <Table.Row>

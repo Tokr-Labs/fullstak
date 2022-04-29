@@ -1,6 +1,5 @@
 import {Connection, PublicKey, SimulatedTransactionResponse, Transaction, TransactionSignature} from "@solana/web3.js";
 import {WalletContextState} from "@solana/wallet-adapter-react";
-import {isUndefined} from "underscore";
 import {ActionProtocol} from "../../models/action-protocol";
 import {createRecordInstruction, getRecord} from "@tokr-labs/identity-verification";
 

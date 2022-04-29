@@ -30,7 +30,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"}>Target CoC</Table.Column>
                                 <Table.Column align={"end"}>Target Date</Table.Column>
                                 <Table.Column align={"end"}>Fund Term</Table.Column>
-                                <Table.Column/>
+                                <Table.Column children=""/>
                             </Table.Header>
                             <Table.Body>
                                 <Table.Row>
