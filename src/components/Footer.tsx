@@ -1,5 +1,5 @@
 import React from "react";
-import {changeTheme, Grid, Link, Spacer, Switch, Text, useTheme} from "@nextui-org/react";
+import {Grid, Link, Spacer, Switch, Text, useTheme} from "@nextui-org/react";
 import {MoonIcon} from "./icons/MoonIcon";
 import {SunIcon} from "./icons/SunIcon";
 import useDarkMode from "use-dark-mode";
