@@ -2,8 +2,10 @@ import React, {useState} from "react";
 import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
+import {Link, Outlet, useNavigate} from "react-router-dom";
 import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
+import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {PublicKey} from "@solana/web3.js";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FileIcon} from "./icons/FileIcon"
@@ -32,18 +34,16 @@ export const PoolDetail = () => {
 
     const depositLiquidity = () => {
 
-        // for now this is pointing at an account that i know has a fake usdc ata
-        const governanceUsdcReserve = new PublicKey("5V3vRTMSdA3KyBSBMFWjVxD5xidi8uU2vSqKzsfgAo7z");
+        let action = new DepositLiquidityAction(connection, wallet)
 
-        const action = new DepositLiquidityAction(
-            wallet,
-            connection,
-            governanceUsdcReserve,
-            5
-        )
+        // @TODO - replace with realm pub key
+        const group = new PublicKey("C8ooyFa5KTqYWuR8zdv4XHukfNCabWcBryUMvn7bXVyf")
 
-        action.execute()
-            .then(signature => console.log("success: ", signature))
+        // @TODO: replace with whoever has update these records
+        const authority = new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
+
+        action.execute(group, authority)
+            .catch(value => console.log(value))
             .catch(error => console.error(error))
 
     }
