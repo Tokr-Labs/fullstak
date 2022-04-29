@@ -2,7 +2,7 @@ import {SimulatedTransactionResponse, TransactionSignature} from "@solana/web3.j
 
 export interface ActionProtocol {
 
-    execute(): Promise<TransactionSignature>
-    simulate(): Promise<SimulatedTransactionResponse>
+    execute(...args): Promise<any>
+    simulate(...args): Promise<SimulatedTransactionResponse>
 
 }

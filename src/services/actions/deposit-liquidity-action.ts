@@ -1,17 +1,8 @@
-import {
-    Connection,
-    LAMPORTS_PER_SOL,
-    PublicKey,
-    SimulatedTransactionResponse,
-    Transaction,
-    TransactionSignature
-} from "@solana/web3.js";
-import {createTransferInstruction, getAssociatedTokenAddress} from "@solana/spl-token";
+import {Connection, PublicKey, SimulatedTransactionResponse, Transaction, TransactionSignature} from "@solana/web3.js";
 import {WalletContextState} from "@solana/wallet-adapter-react";
-import {USDC_MINT_PUBKEY} from "../../models/constants";
-import {isNull} from "underscore";
+import {isUndefined} from "underscore";
 import {ActionProtocol} from "../../models/action-protocol";
-import {DepositLiquidityInstruction} from "../instructions/deposit-liquidity-instruction";
+import {createRecordInstruction, getRecord} from "@tokr-labs/identity-verification";
 
 export class DepositLiquidityAction implements ActionProtocol {
 
@@ -22,48 +13,59 @@ export class DepositLiquidityAction implements ActionProtocol {
     /**
      * @param wallet
      * @param connection
-     * @param destination
-     * @param amount
      */
     constructor(
-        private wallet: WalletContextState,
         private connection: Connection,
-        private destination: PublicKey,
-        private amount: number
+        private wallet: WalletContextState
     ) {
     }
 
     /**
      * Execute the deposit liquidity transaction
      */
-    async execute(): Promise<TransactionSignature> {
+    async execute(group: PublicKey, authority: PublicKey): Promise<TransactionSignature | void> {
 
-        // exit early if users wallet is not connected
+        // check if wallet is connected
 
-        if (isNull(this.wallet.publicKey)) {
-            throw new Error("Wallet not connected")
+        if (!this.wallet.connected) {
+            alert("wallet not connected")
+            return
         }
 
-        const ownerPubkey = this.wallet.publicKey!
+        // get or create a record for the user
 
-        // @TODO - add check for compliance
+        try {
 
-        const depositInstruction = await DepositLiquidityInstruction.with(
-            this.destination,
-            ownerPubkey,
-            this.amount
-        );
+            // get record if one exists
 
-        const transaction = new Transaction();
+            const record = await getRecord(
+                this.connection,
+                this.wallet.publicKey!,
+                group
+            )
 
-        transaction.add(depositInstruction)
+            console.log(record)
 
-        // @TODO: Add transfer lp tokens instruction
+            // @TODO: Call deposit liquidity action through governance program
 
-        return await this.wallet.sendTransaction(
-            transaction,
-            this.connection
-        )
+        } catch {
+
+            // create the record if one does not exist
+
+            const txi = await createRecordInstruction(this.connection,this.wallet.publicKey!,group,authority)
+
+            const tx = new Transaction()
+            tx.add(txi)
+
+            const txs = await this.wallet.sendTransaction(tx,this.connection)
+
+            // check the user's identity verification record
+
+            console.log(txs);
+
+            return
+
+        }
 
     }
 
