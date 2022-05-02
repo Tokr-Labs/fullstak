@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, User, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
@@ -177,9 +177,15 @@ export const PoolDetail = () => {
                                         <Button color={"gradient"}>Invest</Button>
                                     </Modal.Footer>
                                 </Modal>
-                                <Button size={"lg"} color={"gradient"} onClick={toggleModal}>
-                                    Deposit
-                                </Button>
+                                <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
+                                    <Button size={"lg"}
+                                            color={"gradient"}
+                                            onClick={toggleModal}
+                                            disabled={!wallet.connected}
+                                    >
+                                        Deposit
+                                    </Button>
+                                </Tooltip>
                             </Grid>
                         </Grid.Container>
 
