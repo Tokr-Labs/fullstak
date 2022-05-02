@@ -72,7 +72,6 @@ export const App = () => {
 
     const globalStyles = globalCss({
         hr: {border: "1px solid " + theme.colors.border, margin: "5px 0"},
-        h3: {color: theme.colors.foreground.computedValue + "!important"},
         "box-icon": {marginRight: "10px"},
         ".wallet-adapter-button-trigger": {background: theme.colors.gradient},
         ".nextui-table-container": {width: "100%"}

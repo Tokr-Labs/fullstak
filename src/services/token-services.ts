@@ -1,7 +1,7 @@
 import {Connection, PublicKey} from "@solana/web3.js";
-import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 
-class TokenServices {
+export class TokenServices {
 
     constructor(private connection: Connection) {
     }
@@ -20,6 +20,17 @@ class TokenServices {
         };
 
         await this.connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, config)
+
+    }
+
+    async getTokenHoldingAmount(tokenMint: PublicKey, ownerAddress: PublicKey) {
+
+        const tokenAccount = await this.connection.getTokenAccountsByOwner(ownerAddress, {mint: tokenMint})
+            .then(accounts => accounts.value[0])
+
+        const tokenAccountBalance = await this.connection.getTokenAccountBalance(tokenAccount.pubkey)
+
+        return tokenAccountBalance.value.uiAmount
 
     }
 
