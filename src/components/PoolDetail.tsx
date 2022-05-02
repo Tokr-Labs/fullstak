@@ -150,6 +150,7 @@ export const PoolDetail = () => {
                                         <Input
                                             type={"number"}
                                             label={"Deposit"}
+                                            status={tokensToReceive > usdcHoldings! ? "error" : "default"}
                                             labelRight={"USDC"}
                                             style={{textAlign: "right"}}
                                             helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
@@ -174,7 +175,9 @@ export const PoolDetail = () => {
                                         </p>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button color={"gradient"}>Invest</Button>
+                                        <Button color={"gradient"} disabled={tokensToReceive > usdcHoldings!}>
+                                            Invest
+                                        </Button>
                                     </Modal.Footer>
                                 </Modal>
                                 <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
