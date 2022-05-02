@@ -56,21 +56,24 @@ export const PoolDetail = () => {
         }
     }, [wallet])
 
-    const depositLiquidity = () => {
+    // TODO - make this specific to both the url path and RPC network selection
+    const data = require("src/daos/devnet/tj-test-dao.json")
 
-        let action = new DepositLiquidityAction(connection, wallet)
-
-        // @TODO - replace with realm pub key
-        const group = new PublicKey("C8ooyFa5KTqYWuR8zdv4XHukfNCabWcBryUMvn7bXVyf")
-
-        // @TODO: replace with whoever has update these records
-        const authority = new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
-
-        action.execute(group, authority)
-            .catch(value => console.log(value))
-            .catch(error => console.error(error))
-
-    }
+    // const depositLiquidity = () => {
+    //
+    //     let action = new DepositLiquidityAction(connection, wallet)
+    //
+    //     // @TODO - replace with realm pub key
+    //     const group = new PublicKey("C8ooyFa5KTqYWuR8zdv4XHukfNCabWcBryUMvn7bXVyf")
+    //
+    //     // @TODO: replace with whoever has update these records
+    //     const authority = new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
+    //
+    //     action.execute(group, authority)
+    //         .catch(value => console.log(value))
+    //         .catch(error => console.error(error))
+    //
+    // }
 
     return (
         <Grid.Container gap={2}>
@@ -86,7 +89,7 @@ export const PoolDetail = () => {
                                 </Link>
                             </Grid>
                             <Grid>
-                                <h3 style={{color: "red"}}>27 Crypto</h3>
+                                <h3>{data.name}</h3>
                             </Grid>
                             <Grid>
                                 <Pill color={theme.theme?.colors.primary.value} text={"Raising"}/>
@@ -104,15 +107,15 @@ export const PoolDetail = () => {
                         <Grid.Container>
                             <Grid xs={4} direction={"column"}>
                                 <b>Minimum Raise</b>
-                                <span style={{color: "red"}}>500,000 USDC</span>
+                                <span>{data.details.min_raise}</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Maximum raise</b>
-                                <span style={{color: "red"}}>10,000,000 USDC</span>
+                                <span>{data.details.max_raise}</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Fundraise Closing</b>
-                                <span style={{color: "red"}}>July 31st</span>
+                                <span>{data.details.raise_close}</span>
                             </Grid>
                             <Grid xs={12}>
                                 <br/>
@@ -127,7 +130,7 @@ export const PoolDetail = () => {
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Fund Term</b>
-                                <span style={{color: "red"}}>5 Years</span>
+                                <span>{data.details.fund_term}</span>
                             </Grid>
                         </Grid.Container>
 
@@ -143,7 +146,7 @@ export const PoolDetail = () => {
                                 >
                                     <Modal.Header>
                                         <Text h3 id={"modal-title"}>
-                                            Invest in <span style={{color: "red"}}>27 Crypto</span>
+                                            Invest in <span>{data.name}</span>
                                         </Text>
                                     </Modal.Header>
                                     <Modal.Body>
@@ -205,64 +208,61 @@ export const PoolDetail = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <p style={{color: "red"}}>
-                            This is a $10M fund designed to deploy capital into preferred
-                            equity investments in Miami multifamily acquisitions/repositions.
-                        </p>
+                        <p>{data.description}</p>
 
-                        <h4 style={{color: "red"}}>Sponsor</h4>
-                        <User name={"Arash Gohari"}
-                              src={require("src/assets/issuers/arash_gohari.png")}
+                        <h4>Sponsor</h4>
+                        <User name={data.people.sponsor.name}
+                              // TODO - source image from json file
+                              src={require("src/assets/issuers/tj_kyner.png")}
                               squared
                               size={"xl"}
                               bordered
                               color={"gradient"}
                               style={{paddingLeft: 0}}
                         >
-                            27 Capital
+                            {data.people.sponsor.company}
                         </User>
                         <Spacer y={1}/>
 
-                        <h4 style={{color: "red"}}>Data Room</h4>
+                        <h4>Data Room</h4>
                         <Grid.Container gap={1} alignItems={"center"}>
                             <Grid>
                                 <FileIcon/>
                             </Grid>
                             <Grid>
-                                <Button size={"sm"}>Download</Button>
+                                <Button size={"sm"} color={"gradient"}>Download</Button>
                             </Grid>
                         </Grid.Container>
 
                         <h4>Target Returns</h4>
                         <Grid.Container>
                             <Grid xs={6}>IRR</Grid>
-                            <Grid xs={6} style={{color: "red"}}>20%</Grid>
+                            <Grid xs={6}>{data.details.target_returns.irr}</Grid>
                             <Grid xs={6}>Cash on Cash</Grid>
-                            <Grid xs={6} style={{color: "red"}}>15%</Grid>
+                            <Grid xs={6}>{data.details.target_returns.coc}</Grid>
                         </Grid.Container>
                         <Spacer y={1}/>
 
-                        <h4 style={{color: "red"}}>Delegate</h4>
-                        <User name={"Tokr Labs"}
-                              src={
-                                  theme.isDark
-                                      ? require("src/assets/tokr_icon_dark.png")
-                                      : require("src/assets/tokr_icon_color.png")
-                              }
+                        <h4>Delegate</h4>
+                        <User name={data.people.delegate.name}
+                              // TODO - source image from json file
+                              src={require("src/assets/issuers/tj_kyner.png")}
                               squared
                               size={"xl"}
                               bordered
                               color={"gradient"}
                               style={{paddingLeft: 0}}
-                        />
+                        >
+                            {data.people.delegate.company}
+                        </User>
                         <Spacer y={1}/>
 
                         <h4>Fees</h4>
                         <Grid.Container>
                             <Grid xs={6}>Closing</Grid>
-                            <Grid xs={6} style={{color: "red"}}>1.00%</Grid>
+                            <Grid xs={6}>{data.details.fees.closing}</Grid>
                             <Grid xs={6}>Annual</Grid>
-                            <Grid xs={6} style={{color: "red"}}>1.00%</Grid>
+                            <Grid xs={6}>{data.details.fees.annual}</Grid>
                         </Grid.Container>
 
                     </Card.Body>
