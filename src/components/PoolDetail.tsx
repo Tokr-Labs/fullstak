@@ -68,7 +68,7 @@ export const PoolDetail = () => {
                                 </Link>
                             </Grid>
                             <Grid>
-                                <h3>27 Crypto</h3>
+                                <h3 style={{color: "red"}}>27 Crypto</h3>
                             </Grid>
                             <Grid>
                                 <Pill color={theme.theme?.colors.primary.value} text={"Raising"}/>
@@ -86,30 +86,30 @@ export const PoolDetail = () => {
                         <Grid.Container>
                             <Grid xs={4} direction={"column"}>
                                 <b>Minimum Raise</b>
-                                500,000 USDC
+                                <span style={{color: "red"}}>500,000 USDC</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Maximum raise</b>
-                                10,000,000 USDC
+                                <span style={{color: "red"}}>10,000,000 USDC</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Fundraise Closing</b>
-                                July 31st
+                                <span style={{color: "red"}}>July 31st</span>
                             </Grid>
                             <Grid xs={12}>
                                 <br/>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>LP Token Minted</b>
-                                5,000,000 27C
+                                <span style={{color: "red"}}>5,000,000 27C</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>LP Token Max Supply</b>
-                                10,000,000 27C
+                                <span style={{color: "red"}}>10,000,000 27C</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Fund Term</b>
-                                5 Years
+                                <span style={{color: "red"}}>5 Years</span>
                             </Grid>
                         </Grid.Container>
 
@@ -176,12 +176,12 @@ export const PoolDetail = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <p>
+                        <p style={{color: "red"}}>
                             This is a $10M fund designed to deploy capital into preferred
                             equity investments in Miami multifamily acquisitions/repositions.
                         </p>
 
-                        <h4>Sponsor</h4>
+                        <h4 style={{color: "red"}}>Sponsor</h4>
                         <User name={"Arash Gohari"}
                               src={require("src/assets/issuers/arash_gohari.png")}
                               squared
@@ -194,7 +194,7 @@ export const PoolDetail = () => {
                         </User>
                         <Spacer y={1}/>
 
-                        <h4>Data Room</h4>
+                        <h4 style={{color: "red"}}>Data Room</h4>
                         <Grid.Container gap={1} alignItems={"center"}>
                             <Grid>
                                 <FileIcon/>
@@ -207,13 +207,13 @@ export const PoolDetail = () => {
                         <h4>Target Returns</h4>
                         <Grid.Container>
                             <Grid xs={6}>IRR</Grid>
-                            <Grid xs={6}>20%</Grid>
+                            <Grid xs={6} style={{color: "red"}}>20%</Grid>
                             <Grid xs={6}>Cash on Cash</Grid>
-                            <Grid xs={6}>15%</Grid>
+                            <Grid xs={6} style={{color: "red"}}>15%</Grid>
                         </Grid.Container>
                         <Spacer y={1}/>
 
-                        <h4>Delegate</h4>
+                        <h4 style={{color: "red"}}>Delegate</h4>
                         <User name={"Tokr Labs"}
                               src={
                                   theme.isDark
@@ -231,9 +231,9 @@ export const PoolDetail = () => {
                         <h4>Fees</h4>
                         <Grid.Container>
                             <Grid xs={6}>Closing</Grid>
-                            <Grid xs={6}>1.00%</Grid>
+                            <Grid xs={6} style={{color: "red"}}>1.00%</Grid>
                             <Grid xs={6}>Annual</Grid>
-                            <Grid xs={6}>1.00%</Grid>
+                            <Grid xs={6} style={{color: "red"}}>1.00%</Grid>
                         </Grid.Container>
 
                     </Card.Body>
