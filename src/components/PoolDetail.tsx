@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
@@ -7,6 +7,10 @@ import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-acti
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey} from "@solana/web3.js";
 import {FileIcon} from "./icons/FileIcon"
+import {NetworkContext} from "../App";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {TokenServices} from "../services/token-services";
+import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 
 export const PoolDetail = () => {
 
@@ -19,6 +23,7 @@ export const PoolDetail = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection()
+    const {network} = useContext(NetworkContext)
 
     const theme = useTheme();
 
@@ -37,6 +42,19 @@ export const PoolDetail = () => {
     }
 
     const [tokensToReceive, setTokensToReceive] = useState<number>(0);
+
+    const tokenServices = new TokenServices(connection)
+
+    const [usdcHoldings, setUsdcHoldings] = useState<number | null>(0);
+
+    useEffect(() => {
+        if (wallet.connected) {
+            tokenServices.getTokenHoldingAmount(
+                network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
+                wallet.publicKey as PublicKey
+            ).then(amount => setUsdcHoldings(amount))
+        }
+    }, [wallet])
 
     const depositLiquidity = () => {
 
@@ -124,7 +142,9 @@ export const PoolDetail = () => {
                                     onClose={toggleModal}
                                 >
                                     <Modal.Header>
-                                        <Text h3 id={"modal-title"}>Invest in <span style={{color: "red"}}>27 Crypto</span></Text>
+                                        <Text h3 id={"modal-title"}>
+                                            Invest in <span style={{color: "red"}}>27 Crypto</span>
+                                        </Text>
                                     </Modal.Header>
                                     <Modal.Body>
                                         <Input
@@ -132,7 +152,7 @@ export const PoolDetail = () => {
                                             label={"Deposit"}
                                             labelRight={"USDC"}
                                             style={{textAlign: "right"}}
-                                            helperText={"You have XXX,XXX USDC available in your wallet"}
+                                            helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
                                             onChange={(e) => {
                                                 setTokensToReceive(Number(e.target.value))
                                             }}
