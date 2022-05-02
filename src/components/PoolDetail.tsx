@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Card, Grid, Progress, Spacer, User, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
@@ -16,7 +16,7 @@ export const PoolDetail = () => {
 
     const tabs = ["Assets", "Members", "Proposals", "Transactions"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
-    
+
     const wallet = useWallet();
     const {connection} = useConnection()
 
@@ -28,6 +28,15 @@ export const PoolDetail = () => {
         setActiveTab(tab);
         navigate(tab.toLowerCase());
     }
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const toggleModal = () => {
+        setIsModalOpen(!isModalOpen)
+        setTokensToReceive(0)
+    }
+
+    const [tokensToReceive, setTokensToReceive] = useState<number>(0);
 
     const depositLiquidity = () => {
 
@@ -108,7 +117,49 @@ export const PoolDetail = () => {
 
                         <Grid.Container>
                             <Grid xs={5}>
-                                <Button size={"lg"} color={"gradient"} onClick={depositLiquidity}>Deposit</Button>
+                                <Modal
+                                    closeButton
+                                    aria-labelledby="modal-title"
+                                    open={isModalOpen}
+                                    onClose={toggleModal}
+                                >
+                                    <Modal.Header>
+                                        <Text h3 id={"modal-title"}>Invest in <span style={{color: "red"}}>27 Crypto</span></Text>
+                                    </Modal.Header>
+                                    <Modal.Body>
+                                        <Input
+                                            type={"number"}
+                                            label={"Deposit"}
+                                            labelRight={"USDC"}
+                                            style={{textAlign: "right"}}
+                                            helperText={"You have XXX,XXX USDC available in your wallet"}
+                                            onChange={(e) => {
+                                                setTokensToReceive(Number(e.target.value))
+                                            }}
+                                        />
+                                        <Spacer y={0.5}/>
+                                        <Input
+                                            disabled
+                                            value={tokensToReceive}
+                                            type={"number"}
+                                            label={"Receive"}
+                                            labelRight={"27C"}
+                                            style={{textAlign: "right"}}
+                                            helperText={"These tokens represent your stake in the fund"}
+                                        />
+                                        <Spacer y={0.5}/>
+                                        <p>
+                                            Clicking the "Invest" button below will launch a transaction
+                                            preview window from your connected wallet for final approval.
+                                        </p>
+                                    </Modal.Body>
+                                    <Modal.Footer>
+                                        <Button color={"gradient"}>Invest</Button>
+                                    </Modal.Footer>
+                                </Modal>
+                                <Button size={"lg"} color={"gradient"} onClick={toggleModal}>
+                                    Deposit
+                                </Button>
                             </Grid>
                         </Grid.Container>
 
