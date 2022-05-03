@@ -1,10 +1,10 @@
-import React, {useCallback, useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {LAMPORTS_PER_SOL, PublicKey, Transaction} from "@solana/web3.js";
+import {PublicKey, Transaction} from "@solana/web3.js";
 import {FileIcon} from "./icons/FileIcon"
 import {NetworkContext} from "../App";
 import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
@@ -43,7 +43,7 @@ export const PoolDetail = () => {
 
     const [tokensToReceive, setTokensToReceive] = useState<number>(0);
 
-    const tokenServices = new TokenServices(connection)
+    const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
     const [usdcHoldings, setUsdcHoldings] = useState<number | null>(0);
 
@@ -58,22 +58,6 @@ export const PoolDetail = () => {
 
     // TODO - make this specific to both the url path and RPC network selection
     const data = require("src/daos/devnet/tj-test-dao.json")
-
-    // const depositLiquidity = () => {
-    //
-    //     let action = new DepositLiquidityAction(connection, wallet)
-    //
-    //     // @TODO - replace with realm pub key
-    //     const group = new PublicKey("C8ooyFa5KTqYWuR8zdv4XHukfNCabWcBryUMvn7bXVyf")
-    //
-    //     // @TODO: replace with whoever has update these records
-    //     const authority = new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
-    //
-    //     action.execute(group, authority)
-    //         .catch(value => console.log(value))
-    //         .catch(error => console.error(error))
-    //
-    // }
 
     const makeDeposit = useCallback(async () => {
         if (!wallet.publicKey) throw new WalletNotConnectedError()
@@ -101,6 +85,9 @@ export const PoolDetail = () => {
         const signature = await wallet.sendTransaction(transaction, connection)
 
         await connection.confirmTransaction(signature, "processed")
+
+        // TODO - hacky way to get rid of modal and update balances, refactor this
+        window.location.reload()
 
     }, [connection, data.addresses.treasury.capital_supply, network, tokenServices, tokensToReceive, wallet])
 
