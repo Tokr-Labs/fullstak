@@ -1,0 +1,51 @@
+{
+  "name": "TJ Test DAO",
+  "description": "This is a $100T fund designed to make Elon look poor. We're apeing into the hottest deals only. Let's get that bread!!! 😈",
+  "people": {
+    "sponsor": {
+      "name": "T.J. Kyner",
+      "company": "Tokr Labs",
+      "image": "src/assets/issuers/tj_kyner.png"
+    },
+    "delegate": {
+      "name": "T.J. Kyner",
+      "company": "Tokr Labs",
+      "image": "src/assets/issuers/tj_kyner.png"
+    }
+  },
+  "details": {
+    "min_raise": "100,000 USDC",
+    "max_raise": "1,000,000 USDC",
+    "raise_close": "July 31, 2022",
+    "vintage_year": "2022",
+    "fund_term": "5 Years",
+    "data_room": "",
+    "target_returns": {
+      "irr": "100%",
+      "coc": "100%"
+    },
+    "fees": {
+      "closing": "1.00%",
+      "annual": "1.00%"
+    }
+  },
+  "addresses": {
+    "pubkey": "4HQq69iujZvFSgob73VjXKoVYJPebG4xPLwAgnugYUqU",
+    "authority": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+    "owner": "GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP",
+    "governance": {
+      "lp_token_mint_governance": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+      "distribution_token_mint_governance": "AzVeG1JeYQiyJzm8VH2yYnBcdg8aRj7ZJbhdrDcfBnvA",
+      "delegate_token_mint_governance": "47diUtsr1kVL3Yv636s9NAjL2yq43XAjJ6knVdUtRTjf"
+    },
+    "mint": {
+      "lp_token_mint": "6y61BBetk5k4dEQaYhM6VkLjtPUbsE9SWRfXNeCVkpWM",
+      "distribution_token_mint": "EPF5GdyVM5mytyK29VQSX1ZGisE6dECY2PXH5Nq5WEUm",
+      "delegate_token_mint": "D7JQtqKKNXY5sbx4U4JbwKAJ5uCdRktdX7BDhC9k4LRc"
+    },
+    "treasury": {
+      "capital_supply": "Biyu4sm65wDvcTjnY9MaTeBnrPdSXDavvvzMMYNtdRJt",
+      "distributions": "13NnpNAybREQmtqWu5Rp2kwW9k62hdVgXXPDh9zDcWox"
+    }
+  }
+}

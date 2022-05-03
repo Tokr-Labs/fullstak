@@ -34,4 +34,12 @@ export class TokenServices {
 
     }
 
+    async getTokenDecimals(tokenMint: PublicKey) {
+
+        const tokenSupply = await this.connection.getTokenSupply(tokenMint)
+
+        return tokenSupply.value.decimals
+
+    }
+
 }
