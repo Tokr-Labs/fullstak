@@ -1,5 +1,7 @@
 import {Connection, PublicKey} from "@solana/web3.js";
-import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 
 export class TokenServices {
 
@@ -40,6 +42,10 @@ export class TokenServices {
 
         return tokenSupply.value.decimals
 
+    }
+
+    getUsdcMint = (network: WalletAdapterNetwork) => {
+        return network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
     }
 
 }

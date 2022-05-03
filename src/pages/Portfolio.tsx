@@ -1,34 +1,42 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Navbar} from "../components/Navbar";
 import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
 import {Link} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
-import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
+import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@solana/web3.js";
+import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
+import {NetworkContext} from "../App";
+import {TokenServices} from "../services/token-services";
 
 export const Portfolio = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection();
+    const {network} = useContext(NetworkContext);
 
-    // TODO - store this as a constant somewhere
-    const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+    const tokenServices = useMemo(() => new TokenServices(connection), [connection]);
+
+    const usdc = tokenServices.getUsdcMint(network);
 
     const [balance, setBalance] = useState<number>(0);
-    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<Buffer> }>>();
+    const [usdcAmount, setUsdcAmount] = useState<number | null>();
+    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>();
 
     useEffect(() => {
 
         connection.getBalance(wallet.publicKey as PublicKey)
             .then(response => setBalance(response / LAMPORTS_PER_SOL));
 
-        connection.getTokenAccountsByOwner(
+        tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+            .then(response => setUsdcAmount(response))
+
+        connection.getParsedTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
             {programId: TOKEN_PROGRAM_ID}
         ).then(response => setHoldings(response.value));
 
-    }, [connection, wallet])
+    }, [connection, tokenServices, usdc, wallet])
 
     return (
         <Container style={{
@@ -52,7 +60,7 @@ export const Portfolio = () => {
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
-                            <span style={{color: "red"}}>$100,000.00</span>
+                            <span>{usdcAmount} USDC</span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
@@ -85,22 +93,22 @@ export const Portfolio = () => {
                                 <Table.Body>
 
                                     {/*@ts-ignore*/}
-                                    {holdings?.map(holding => {
+                                    {holdings?.map( holding => {
 
-                                        const accountInfo = AccountLayout.decode(holding.account.data)
+                                        console.log("Mint: " + holding.account.data.parsed.info.mint)
+                                        console.log("USDC: " + usdc)
 
                                         return (
                                             <Table.Row>
                                                 <Table.Cell>
-                                                    {accountInfo.mint.toBase58()}
+                                                    {holding.account.data.parsed.info.mint}
                                                 </Table.Cell>
                                                 <Table.Cell>
-                                                    {/*TODO - need to fetch token decimals*/}
-                                                    {accountInfo.amount.toString()}
+                                                    {holding.account.data.parsed.info.tokenAmount.uiAmount}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        accountInfo.mint.toBase58() === usdc
+                                                        holding.account.data.parsed.info.mint.toString() === usdc.toString()
                                                             ? <Link to={"/markets/equity"}>
                                                                 <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
                                                             </Link>

@@ -35,7 +35,7 @@ export const PoolMembers = () => {
             )
         )
 
-    }, [connection])
+    }, [communityMintSupply, connection])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
