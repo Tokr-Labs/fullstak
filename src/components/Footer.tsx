@@ -37,12 +37,18 @@ export const Footer = () => {
                         {/*@ts-ignore*/}
                         <box-icon type={"logo"} name={"github"} color={getLogoColor()}/>
                     </a>
-                    {/* TODO - add link for discord */}
-                    {/*@ts-ignore*/}
-                    <box-icon type={"logo"} name={"discord-alt"} color={getLogoColor()}/>
+                    <a href={"https://discord.gg/jMSGEhSfMR"}
+                       target={"_blank"}
+                       rel={"noreferrer"}
+                       style={{display: "flex"}}
+                    >
+                        {/*@ts-ignore*/}
+                        <box-icon type={"logo"} name={"discord-alt"} color={getLogoColor()}/>
+                    </a>
                 </Grid>
                 <Grid xs={4} justify={"center"} alignItems={"center"} style={{textAlign: "center"}}>
-                    <Text color={"$gray500"}>Made with 💜 by <Link href={"https://tokrlabs.xyz"} target={"_blank"}>Tokr Labs</Link></Text>
+                    <Text color={"$gray500"}>Made with 💜 by <Link href={"https://tokrlabs.xyz"} target={"_blank"}>Tokr
+                        Labs</Link></Text>
                 </Grid>
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
                     <Switch checked={false}
