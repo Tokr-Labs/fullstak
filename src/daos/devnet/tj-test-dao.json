@@ -1,6 +1,9 @@
 {
-  "name": "TJ Test DAO",
+  "name": "TJ's Test DAO",
   "description": "This is a $100T fund designed to make Elon look poor. We're apeing into the hottest deals only. Let's get that bread!!! 😈",
+  "token": {
+    "ticker": "TJTD"
+  },
   "people": {
     "sponsor": {
       "name": "T.J. Kyner",

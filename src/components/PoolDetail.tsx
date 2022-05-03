@@ -116,7 +116,7 @@ export const PoolDetail = () => {
                     <Card.Body>
 
                         <h4>Progress</h4>
-                        <Progress value={50} shadow={true} color={"gradient"}/>
+                        <Progress value={58} shadow={true} color={"gradient"}/>
 
                         <Spacer y={2}/>
 
@@ -138,11 +138,11 @@ export const PoolDetail = () => {
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>LP Token Minted</b>
-                                <span style={{color: "red"}}>5,000,000 27C</span>
+                                <span>587,250 TJTD</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>LP Token Max Supply</b>
-                                <span style={{color: "red"}}>10,000,000 27C</span>
+                                <span>1,000,000 TJTD</span>
                             </Grid>
                             <Grid xs={4} direction={"column"}>
                                 <b>Fund Term</b>

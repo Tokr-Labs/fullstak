@@ -27,26 +27,28 @@ export const EquityMarkets = () => {
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
                                 <Table.Column>Token</Table.Column>
-                                <Table.Column align={"end"}>Current Raise</Table.Column>
-                                <Table.Column align={"end"}>Max Raise</Table.Column>
-                                <Table.Column align={"end"}>Target IRR</Table.Column>
-                                <Table.Column align={"end"}>Target CoC</Table.Column>
-                                <Table.Column align={"end"}>Vintage Year</Table.Column>
-                                <Table.Column align={"end"}>Fund Term</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Total Raised</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Max Raise</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Target IRR</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Target TVPI</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Target DPI</Table.Column>
+                                <Table.Column align={"center"}>Strategy</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Target Close</Table.Column>
                                 <Table.Column children=""/>
                             </Table.Header>
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>{data.name}</Table.Cell>
                                     {/*TODO - include ticker of token and link to explorer page here*/}
-                                    <Table.Cell css={{color: "red"}}>Cell 2</Table.Cell>
+                                    <Table.Cell>{data.token.ticker}</Table.Cell>
                                     {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
-                                    <Table.Cell css={{textAlign: "end", color: "red"}}>Cell 3</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>587,250 USDC</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>{data.details.max_raise}</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>{data.details.target_returns.irr}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.target_returns.irr}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.vintage_year}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.fund_term}</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>1.75x</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>1.75x</Table.Cell>
+                                    <Table.Cell css={{textAlign: "center"}}>Value-Add Multifamily</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>{data.details.raise_close}</Table.Cell>
                                     <Table.Cell css={{textAlign: "end", float: "right"}}>
                                         <Link to={"/markets/equity/pool-details"}>
                                             <Button size={"xs"} style={{margin: 0}}>View Details</Button>
@@ -65,25 +67,23 @@ export const EquityMarkets = () => {
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
                                 <Table.Column>Token</Table.Column>
-                                <Table.Column align={"end"}>Total Supply</Table.Column>
-                                <Table.Column align={"end"}>Target IRR</Table.Column>
-                                <Table.Column align={"end"}>Current IRR</Table.Column>
-                                <Table.Column align={"end"}>Target CoC</Table.Column>
-                                <Table.Column align={"end"}>Current CoC</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Paid-in Capital</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Carrying Value</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>TVPI</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>DPI</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Net IRR</Table.Column>
                                 <Table.Column align={"end"}>Vintage Year</Table.Column>
-                                <Table.Column align={"end"}>Fund Term</Table.Column>
                             </Table.Header>
                             <Table.Body>
                                 <Table.Row>
-                                    <Table.Cell>Cell 1</Table.Cell>
-                                    <Table.Cell>Cell 2</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 3</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 4</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 5</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 6</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 7</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 8</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 9</Table.Cell>
+                                    <Table.Cell>Miami DAO</Table.Cell>
+                                    <Table.Cell>MIA</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>10,000,000 USDC</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>15,000,000 USDC</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>4.75x</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>1.75x</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>27%</Table.Cell>
+                                    <Table.Cell css={{textAlign: "end"}}>2022</Table.Cell>
                                 </Table.Row>
                             </Table.Body>
                         </Table>
