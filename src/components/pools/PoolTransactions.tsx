@@ -1,57 +1,92 @@
-import React, {useEffect, useState} from "react";
-import {Table} from "@nextui-org/react";
+import React, {useContext, useEffect, useState} from "react";
+import {Link, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {ParsedTransactionWithMeta, PublicKey} from "@solana/web3.js";
+import {NetworkContext} from "../../App";
+import {Pill} from "../Pill";
 
 export const PoolTransactions = () => {
 
     const connection = useConnection().connection;
+    const {network} = useContext(NetworkContext);
+
+    // TODO - make this a context
+    const data = require("src/daos/devnet/tj-test-dao.json")
 
     const [transactions, setTransactions] = useState<(ParsedTransactionWithMeta | null)[]>();
 
+    // TODO - include distribution account transactions too
     useEffect(() => {
-        // UNQ Universe on devnet - primary SOL treasury account
-        connection.getSignaturesForAddress(new PublicKey("9v1QG3i4jMgZAopAuqxnZVefq6ys63AbuYQKatSXYERD"))
-            .then(signatures => signatures.map(signature => signature.signature))
-            .then(signatures => {
-                connection.getParsedTransactions(signatures)
-                    .then(transactions => setTransactions(transactions))
-            })
-    }, [connection])
+
+        connection.getConfirmedSignaturesForAddress2(
+            new PublicKey(data.addresses.treasury.capital_supply),
+            {limit: 25}
+        ).then(sigInfo => {
+            connection.getParsedTransactions(sigInfo.map(info => info.signature))
+                .then(parsedTxs => setTransactions(parsedTxs))
+        })
+
+    }, [connection, data.addresses.treasury.capital_supply])
 
     return (
-        <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
+        <>
+            <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}}>
 
-            <Table.Header>
-                <Table.Column>Date</Table.Column>
-                <Table.Column>Transaction Type</Table.Column>
-                <Table.Column>Amount</Table.Column>
-                <Table.Column>Details</Table.Column>
-            </Table.Header>
+                <Table.Header>
+                    <Table.Column>Date</Table.Column>
+                    <Table.Column>Account</Table.Column>
+                    <Table.Column>Signature</Table.Column>
+                    <Table.Column>Status</Table.Column>
+                </Table.Header>
 
-            <Table.Body>
+                <Table.Body>
 
-                {/*@ts-ignore*/}
-                {transactions?.map(transaction => {
-                    if (transaction == null) {
-                        return null;
-                    }
+                    {/*@ts-ignore*/}
+                    {transactions?.map(transaction => {
+                        if (transaction == null) {
+                            return null;
+                        }
 
-                    // TODO - populate cells
-                    return (
-                        <Table.Row>
-                            <Table.Cell>{transaction.blockTime}</Table.Cell>
-                            <Table.Cell children=""/>
-                            {/*<Table.Cell>{transaction.transaction.message.instructions[0].parsed.info.lamports}</Table.Cell>*/}
-                            <Table.Cell children=""/>
-                            <Table.Cell children=""/>
-                        </Table.Row>
-                    )
-                })}
+                        const date = new Date(transaction.blockTime! * 1000)
 
-            </Table.Body>
+                        return (
+                            <Table.Row>
+                                <Table.Cell>
+                                    {date.toLocaleDateString() + " " + date.toLocaleTimeString()}
+                                </Table.Cell>
+                                <Table.Cell>Capital Supply</Table.Cell>
+                                <Table.Cell>
+                                    <Link
+                                        icon
+                                        href={
+                                            "https://explorer.solana.com/tx/"
+                                            + transaction.transaction.signatures
+                                            + "?cluster=" + network
+                                        }
+                                        target={"_blank"}
+                                        rel={"noreferrer"}
+                                    >
+                                        {transaction.transaction.signatures[0].slice(0, 6)
+                                            + "..."
+                                            + transaction.transaction.signatures[0].slice(-6)
+                                        }
+                                    </Link>
+                                </Table.Cell>
+                                <Table.Cell>
+                                    {
+                                        transaction.meta?.err === null
+                                            ? <Pill color={theme.colors.success.value} text={"Success"}/>
+                                            : <Pill color={theme.colors.error.value} text={"Failed"}/>
+                                    }
+                                </Table.Cell>
+                            </Table.Row>
+                        )
+                    })}
 
-        </Table>
+                </Table.Body>
+
+            </Table>
+        </>
     )
 
 }
