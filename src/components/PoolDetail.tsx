@@ -257,8 +257,10 @@ export const PoolDetail = () => {
                         <Grid.Container>
                             <Grid xs={6}>IRR</Grid>
                             <Grid xs={6}>{data.details.target_returns.irr}</Grid>
-                            <Grid xs={6}>Cash on Cash</Grid>
-                            <Grid xs={6}>{data.details.target_returns.coc}</Grid>
+                            <Grid xs={6}>TVPI</Grid>
+                            <Grid xs={6}>1.75x</Grid>
+                            <Grid xs={6}>DPI</Grid>
+                            <Grid xs={6}>1.75x</Grid>
                         </Grid.Container>
                         <Spacer y={1}/>
 
