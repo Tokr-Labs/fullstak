@@ -28,8 +28,6 @@ jobs:
           node-version: "16"
           cache: "npm"
           registry-url: "https://npm.pkg.github.com"
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_PAT }}
 
       - name: NPM install
         run: npm ci
