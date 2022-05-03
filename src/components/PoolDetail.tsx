@@ -1,16 +1,16 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useCallback, useContext, useEffect, useState} from "react";
 import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
 import {Pill} from "./Pill";
 import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
-import {DepositLiquidityAction} from "../services/actions/deposit-liquidity-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {PublicKey} from "@solana/web3.js";
+import {LAMPORTS_PER_SOL, PublicKey, Transaction} from "@solana/web3.js";
 import {FileIcon} from "./icons/FileIcon"
 import {NetworkContext} from "../App";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
 import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 
 export const PoolDetail = () => {
 
@@ -74,6 +74,35 @@ export const PoolDetail = () => {
     //         .catch(error => console.error(error))
     //
     // }
+
+    const makeDeposit = useCallback(async () => {
+        if (!wallet.publicKey) throw new WalletNotConnectedError()
+
+        const usdc = network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
+
+        const sourceTokenAccount = await getAssociatedTokenAddress(
+            usdc,
+            wallet.publicKey
+        )
+
+        const decimals = await tokenServices.getTokenDecimals(usdc)
+
+        const transaction = new Transaction().add(
+            createTransferInstruction(
+                sourceTokenAccount,
+                new PublicKey(data.addresses.treasury.capital_supply),
+                wallet.publicKey,
+                tokensToReceive * (10**decimals),
+                [],
+                TOKEN_PROGRAM_ID
+            )
+        )
+
+        const signature = await wallet.sendTransaction(transaction, connection)
+
+        await connection.confirmTransaction(signature, "processed")
+
+    }, [connection, data.addresses.treasury.capital_supply, network, tokenServices, tokensToReceive, wallet])
 
     return (
         <Grid.Container gap={2}>
@@ -178,7 +207,10 @@ export const PoolDetail = () => {
                                         </p>
                                     </Modal.Body>
                                     <Modal.Footer>
-                                        <Button color={"gradient"} disabled={tokensToReceive > usdcHoldings!}>
+                                        <Button color={"gradient"}
+                                                disabled={tokensToReceive > usdcHoldings!}
+                                                onClick={makeDeposit}
+                                        >
                                             Invest
                                         </Button>
                                     </Modal.Footer>
