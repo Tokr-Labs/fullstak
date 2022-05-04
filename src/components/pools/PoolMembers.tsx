@@ -59,8 +59,8 @@ export const PoolMembers = () => {
                             <Table.Cell>
                                 {/*TODO - find a better solution for if the token supply is null or zero*/}
                                 {
-                                    (member.account.data.parsed.info.tokenAmount.uiAmount
-                                    / ((lpTokenSupply! > 0 ? lpTokenSupply! : 1) * 100)).toFixed(2)
+                                    ((member.account.data.parsed.info.tokenAmount.uiAmount * 100)
+                                    / ((lpTokenSupply! > 0 ? lpTokenSupply! : 1))).toFixed(2)
                                     + "%"
                                 }
                             </Table.Cell>
