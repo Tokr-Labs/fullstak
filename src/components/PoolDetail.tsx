@@ -183,7 +183,7 @@ export const PoolDetail = () => {
                                             value={tokensToReceive}
                                             type={"number"}
                                             label={"Receive"}
-                                            labelRight={"27C"}
+                                            labelRight={data.token.ticker}
                                             style={{textAlign: "right"}}
                                             helperText={"These tokens represent your stake in the fund"}
                                         />
@@ -195,7 +195,7 @@ export const PoolDetail = () => {
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button color={"gradient"}
-                                                disabled={tokensToReceive > usdcHoldings!}
+                                                disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
                                                 onClick={makeDeposit}
                                         >
                                             Invest
