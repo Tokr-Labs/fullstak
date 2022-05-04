@@ -21,7 +21,7 @@ export class TokenServices {
             }]
         };
 
-        await this.connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, config)
+        return await this.connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, config)
 
     }
 
