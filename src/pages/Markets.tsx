@@ -2,10 +2,11 @@ import React from "react";
 import {Container} from "@nextui-org/react";
 import {Navbar} from "../components/Navbar";
 import {Pools} from "../components/Pools";
-import {Content} from "../components/Content";
 import {Footer} from "../components/Footer";
+import {Outlet} from "react-router-dom";
 
-export const Invest = () => {
+export const Markets = () => {
+
     return (
         <Container style={{
             minHeight: "100vh",
@@ -13,10 +14,8 @@ export const Invest = () => {
             flexDirection: "column"
         }}>
             <Navbar/>
-            <hr/>
             <Pools/>
-            <hr/>
-            <Content/>
+            <Outlet/>
             <Footer/>
         </Container>
     )

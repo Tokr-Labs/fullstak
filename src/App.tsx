@@ -1,38 +1,49 @@
-import React, {useMemo} from 'react';
-import {Container, createTheme, globalCss, NextUIProvider, Theme, theme} from "@nextui-org/react";
+import React, {createContext, useMemo, useState} from 'react';
+import {createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui';
 import {clusterApiUrl} from '@solana/web3.js';
-import {Navbar} from "./components/Navbar";
-import {Pools} from "./components/Pools";
-import {Content} from "./components/Content";
-import {Footer} from "./components/Footer";
 import useDarkMode from "use-dark-mode"
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Landing from "./pages/Landing";
-import {Invest} from "./pages/Invest";
-import {DAO} from "./pages/DAO";
+import {Markets} from "./pages/Markets";
+import {EquityMarkets} from "./components/EquityMarkets";
+import {DebtMarkets} from "./components/DebtMarkets";
+import {PoolDetail} from "./components/PoolDetail";
+import {Portfolio} from "./pages/Portfolio";
+import {PoolTreasury} from "./components/pools/PoolTreasury";
+import {PoolMembers} from "./components/pools/PoolMembers";
+import {PoolProposals} from "./components/pools/PoolProposals";
+import {PoolTransactions} from "./components/pools/PoolTransactions";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
 
+// TODO - separate into contexts directory
+// TODO - add ability to pass in configs as well
+export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
+    network: WalletAdapterNetwork.Devnet,
+    setNetwork: () => null
+});
+
 export const App = () => {
 
-    // TODO - allow switching between networks
-    const network = WalletAdapterNetwork.Devnet;
-    const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+    const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
 
     const wallets = useMemo(
         () => [new PhantomWalletAdapter()],
         []
     );
 
+    // TODO - figure out how to included shared theme props
     const darkTheme = createTheme({
         type: 'dark',
         theme: {
             colors: {
+                primary: "#be00ff",
+                secondary: "$blue500",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
@@ -51,6 +62,8 @@ export const App = () => {
         type: "light",
         theme: {
             colors: {
+                primary: "#be00ff",
+                secondary: "$blue500",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
@@ -67,9 +80,9 @@ export const App = () => {
 
     const globalStyles = globalCss({
         hr: {border: "1px solid " + theme.colors.border, margin: "5px 0"},
-        h3: {color: theme.colors.foreground.computedValue + "!important"},
         "box-icon": {marginRight: "10px"},
-        ".wallet-adapter-button-trigger": {background: theme.colors.gradient}
+        ".wallet-adapter-button-trigger": {background: theme.colors.gradient},
+        ".nextui-table-container": {width: "100%"}
     })
     globalStyles();
 
@@ -78,24 +91,45 @@ export const App = () => {
 
     return (
         <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
-            <ConnectionProvider endpoint={endpoint}>
-                <WalletProvider wallets={wallets} autoConnect>
-                    <WalletModalProvider>
+            <NetworkContext.Provider value={{network, setNetwork}}>
+                <ConnectionProvider endpoint={clusterApiUrl(network)}>
+                    <WalletProvider wallets={wallets} autoConnect>
+                        <WalletModalProvider>
 
-                        {/* Components must be contained within here to maintain context */}
-                        <BrowserRouter>
-                            <Routes>
-                                <Route path="/">
-                                    <Route index element={<Landing/>}/>
-                                    <Route path="invest" element={<Invest/>}/>
-                                    <Route path="invest/preferred-equity/*" element={<DAO/>}/>
-                                </Route>
-                            </Routes>
-                        </BrowserRouter>
+                            {/* Components must be contained within here to maintain context */}
+                            <BrowserRouter>
+                                <Routes>
+                                    <Route path="/">
 
-                    </WalletModalProvider>
-                </WalletProvider>
-            </ConnectionProvider>
+                                        <Route index element={<Landing/>}/>
+
+                                        <Route path="markets" element={<Markets/>}>
+
+                                            <Route index element={<EquityMarkets/>}/>
+                                            <Route path="equity" element={<EquityMarkets/>}/>
+
+                                            <Route path="equity/pool-details" element={<PoolDetail/>}>
+                                                <Route index element={<PoolTreasury/>}/>
+                                                <Route path="treasury" element={<PoolTreasury/>}/>
+                                                <Route path="members" element={<PoolMembers/>}/>
+                                                <Route path="proposals" element={<PoolProposals/>}/>
+                                                <Route path="transactions" element={<PoolTransactions/>}/>
+                                            </Route>
+
+                                            <Route path="debt" element={<DebtMarkets/>}/>
+
+                                        </Route>
+
+                                        <Route path="portfolio" element={<Portfolio/>}/>
+
+                                    </Route>
+                                </Routes>
+                            </BrowserRouter>
+
+                        </WalletModalProvider>
+                    </WalletProvider>
+                </ConnectionProvider>
+            </NetworkContext.Provider>
         </NextUIProvider>
     );
 };
