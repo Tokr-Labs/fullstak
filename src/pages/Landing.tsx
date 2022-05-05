@@ -5,6 +5,7 @@ import gitbookIcon from "src/assets/icons/icons-gitbook_export.svg"
 import githubIcon from "src/assets/icons/icons-github_export.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
+import { Link } from "react-router-dom"
 
 const Landing = () => {
 
@@ -18,7 +19,9 @@ const Landing = () => {
                             <img src={tokrIcon} height="35px" width="auto" alt="Tokr icon"/>
                         </Grid>
                         <Grid xs={6} justify={"flex-end"}>
-                            <Button color="gradient">Launch App</Button>
+                            <Link to={"/markets"}>
+                                <Button color="gradient">Launch App</Button>
+                            </Link>
                         </Grid>
                     </Grid.Container>
                     <Spacer y={5}/>
