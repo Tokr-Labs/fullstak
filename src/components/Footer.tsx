@@ -51,7 +51,7 @@ export const Footer = () => {
                         Labs</Link></Text>
                 </Grid>
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
-                    <Switch checked={false}
+                    <Switch checked={!theme.isDark}
                             size={"lg"}
                             color={"primary"}
                             iconOff={<MoonIcon filled/>}
