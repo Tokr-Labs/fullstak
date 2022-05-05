@@ -1,6 +1,5 @@
 import React from "react";
-import {Button, Card, Grid, Spacer, Table, theme} from "@nextui-org/react";
-import {Pill} from "./Pill";
+import {Button, Card, Grid, Text, Table, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 
 export const EquityMarkets = () => {
@@ -14,15 +13,11 @@ export const EquityMarkets = () => {
             <Grid xs={12}>
                 <Card>
 
-                    <Card.Header>
-                        <h3 style={{paddingLeft: "20px"}}>Pools</h3>
+                    <Card.Header style={{padding: "20px 0 0 20px"}}>
+                        <Text h3>Raising</Text>
                     </Card.Header>
 
                     <Card.Body>
-
-                        <span style={{margin: "0 0 10px 10px"}}>
-                            <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
-                        </span>
                         <Table shadow={false} sticked headerLined>
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
@@ -57,12 +52,23 @@ export const EquityMarkets = () => {
                                 </Table.Row>
                             </Table.Body>
                         </Table>
+                    </Card.Body>
 
-                        <Spacer y={2}/>
+                    <Card.Footer/>
 
-                        <span style={{margin: "0 0 10px 10px"}}>
-                            <Pill color={theme.colors.secondary.computedValue} text={"Active"}/>
-                        </span>
+                </Card>
+
+            </Grid>
+
+            <Grid xs={12}>
+
+                <Card>
+
+                    <Card.Header style={{padding: "20px 0 0 20px"}}>
+                        <Text h3>Active</Text>
+                    </Card.Header>
+
+                    <Card.Body>
                         <Table shadow={false} sticked headerLined>
                             <Table.Header>
                                 <Table.Column>Name</Table.Column>
@@ -87,12 +93,12 @@ export const EquityMarkets = () => {
                                 </Table.Row>
                             </Table.Body>
                         </Table>
-
                     </Card.Body>
 
                     <Card.Footer/>
 
                 </Card>
+
             </Grid>
 
         </Grid.Container>

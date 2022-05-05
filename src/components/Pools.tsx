@@ -24,6 +24,7 @@ export const Pools = () => {
                             <Tooltip content={market === "Debt Market" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
                                         color={"gradient"}
+                                        style={{fontWeight: "bold"}}
                                         ghost={market !== selected}
                                         shadow={market === selected}
                                         disabled={market === "Debt Market"}

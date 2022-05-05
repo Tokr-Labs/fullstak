@@ -66,6 +66,7 @@ export const Navbar = () => {
                     <Button color={"gradient"}
                             ghost={tab !== "Markets"}
                             shadow={tab === "Markets"}
+                            style={{fontWeight: "bold"}}
                             onClick={() => handleClick("Markets")}
                     >
                         Markets
@@ -74,6 +75,7 @@ export const Navbar = () => {
                     <Button color={"gradient"}
                             ghost={tab !== "Portfolio"}
                             shadow={tab === "Portfolio"}
+                            style={{fontWeight: "bold"}}
                             onClick={() => handleClick("Portfolio")}
                     >
                         Portfolio
@@ -92,6 +94,7 @@ export const Navbar = () => {
                                 <h4>Change Network</h4>
                                 <Button ghost={network !== WalletAdapterNetwork.Mainnet}
                                         color={"gradient"}
+                                        style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
                                     Mainnet
@@ -99,6 +102,7 @@ export const Navbar = () => {
                                 <Spacer y={0.5}/>
                                 <Button ghost={network !== WalletAdapterNetwork.Testnet}
                                         color={"gradient"}
+                                        style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Testnet)}
                                 >
                                     Testnet
@@ -106,6 +110,7 @@ export const Navbar = () => {
                                 <Spacer y={0.5}/>
                                 <Button ghost={network !== WalletAdapterNetwork.Devnet}
                                         color={"gradient"}
+                                        style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >
                                     Devnet

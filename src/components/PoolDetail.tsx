@@ -195,6 +195,7 @@ export const PoolDetail = () => {
                                     </Modal.Body>
                                     <Modal.Footer>
                                         <Button color={"gradient"}
+                                                style={{fontWeight: "bold"}}
                                                 disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
                                                 onClick={makeDeposit}
                                         >
@@ -206,6 +207,7 @@ export const PoolDetail = () => {
                                     <Button size={"lg"}
                                             color={"gradient"}
                                             onClick={toggleModal}
+                                            style={{fontWeight: "bold"}}
                                             disabled={!wallet.connected}
                                     >
                                         Deposit
@@ -229,18 +231,37 @@ export const PoolDetail = () => {
                     <Card.Body>
                         <p>{data.description}</p>
 
-                        <h4>Sponsor</h4>
-                        <User name={data.people.sponsor.name}
-                              // TODO - source image from json file
-                              src={require("src/assets/issuers/tj_kyner.png")}
-                              squared
-                              size={"xl"}
-                              bordered
-                              color={"gradient"}
-                              style={{paddingLeft: 0}}
-                        >
-                            {data.people.sponsor.company}
-                        </User>
+                        <Grid.Container>
+                            <Grid xs={12} md={6} direction={"column"}>
+                                <h4>Sponsor</h4>
+                                <User name={data.people.sponsor.name}
+                                    // TODO - source image from json file
+                                      src={require("src/assets/issuers/tj_kyner.png")}
+                                      squared
+                                      size={"xl"}
+                                      bordered
+                                      color={"gradient"}
+                                      style={{paddingLeft: 0}}
+                                >
+                                    {data.people.sponsor.company}
+                                </User>
+                            </Grid>
+                            <Grid xs={12} md={6} direction={"column"}>
+                                <h4>Delegate</h4>
+                                <User name={data.people.delegate.name}
+                                    // TODO - source image from json file
+                                      src={require("src/assets/issuers/tj_kyner.png")}
+                                      squared
+                                      size={"xl"}
+                                      bordered
+                                      color={"gradient"}
+                                      style={{paddingLeft: 0}}
+                                >
+                                    {data.people.delegate.company}
+                                </User>
+                            </Grid>
+                        </Grid.Container>
+
                         <Spacer y={1}/>
 
                         <h4>Data Room</h4>
@@ -249,9 +270,16 @@ export const PoolDetail = () => {
                                 <FileIcon/>
                             </Grid>
                             <Grid>
-                                <Button size={"sm"} color={"gradient"}>Download</Button>
+                                <Button size={"sm"}
+                                        color={"gradient"}
+                                        style={{fontWeight: "bold"}}
+                                >
+                                    Download
+                                </Button>
                             </Grid>
                         </Grid.Container>
+
+                        <Spacer y={1}/>
 
                         <h4>Target Returns</h4>
                         <Grid.Container>
@@ -262,20 +290,6 @@ export const PoolDetail = () => {
                             <Grid xs={6}>DPI</Grid>
                             <Grid xs={6}>1.75x</Grid>
                         </Grid.Container>
-                        <Spacer y={1}/>
-
-                        <h4>Delegate</h4>
-                        <User name={data.people.delegate.name}
-                              // TODO - source image from json file
-                              src={require("src/assets/issuers/tj_kyner.png")}
-                              squared
-                              size={"xl"}
-                              bordered
-                              color={"gradient"}
-                              style={{paddingLeft: 0}}
-                        >
-                            {data.people.delegate.company}
-                        </User>
                         <Spacer y={1}/>
 
                         <h4>Fees</h4>
@@ -303,6 +317,7 @@ export const PoolDetail = () => {
                                     <Grid>
                                         <Button ghost={activeTab !== tab}
                                                 color={"gradient"}
+                                                style={{fontWeight: "bold"}}
                                                 onClick={() => handleClick(tab)}
                                         >
                                             {tab}

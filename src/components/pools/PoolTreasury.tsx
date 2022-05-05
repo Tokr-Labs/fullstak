@@ -30,7 +30,7 @@ export const PoolTreasury = () => {
     return (
         <Grid.Container gap={2} justify={"space-evenly"}>
             <Grid sm={4} xs={12}>
-                <Card>
+                <Card bordered shadow={false}>
                     <Card.Header>
                         <Link
                             href={
@@ -53,7 +53,7 @@ export const PoolTreasury = () => {
                 </Card>
             </Grid>
             <Grid sm={4} xs={12}>
-                <Card>
+                <Card bordered shadow={false}>
                     <Card.Header>
                         <Text h3>Treasury Stock</Text>
                     </Card.Header>
@@ -62,7 +62,7 @@ export const PoolTreasury = () => {
                 </Card>
             </Grid>
             <Grid sm={4} xs={12}>
-                <Card className={"nested-card"}>
+                <Card  bordered shadow={false}>
                     <Card.Header>
                         <Link
                             href={
