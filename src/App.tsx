@@ -13,7 +13,7 @@ import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
 import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
-import {PoolAssets} from "./components/pools/PoolAssets";
+import {PoolTreasury} from "./components/pools/PoolTreasury";
 import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolProposals} from "./components/pools/PoolProposals";
 import {PoolTransactions} from "./components/pools/PoolTransactions";
@@ -101,8 +101,8 @@ export const App = () => {
                                             <Route path="equity" element={<EquityMarkets/>}/>
 
                                             <Route path="equity/pool-details" element={<PoolDetail/>}>
-                                                <Route index element={<PoolAssets/>}/>
-                                                <Route path="assets" element={<PoolAssets/>}/>
+                                                <Route index element={<PoolTreasury/>}/>
+                                                <Route path="treasury" element={<PoolTreasury/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
                                                 <Route path="proposals" element={<PoolProposals/>}/>
                                                 <Route path="transactions" element={<PoolTransactions/>}/>

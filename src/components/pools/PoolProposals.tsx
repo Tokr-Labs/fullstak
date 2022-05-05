@@ -22,7 +22,7 @@ export const PoolProposals = () => {
                 return b.account.getStateTimestamp() - a.account.getStateTimestamp()
             }))
         )
-    }, [connection])
+    }, [connection, data.addresses.owner, data.addresses.pubkey])
 
     return (
         <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}}>
