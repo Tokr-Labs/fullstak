@@ -50,6 +50,10 @@ export const App = () => {
                     "#be00ff 20.3%, " +
                     "var(--nextui-colors-blue500) 75.46%" +
                     ")"
+            },
+            fonts: {
+                sans: "Montserrat, sans-serif",
+                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
             }
         }
     })
@@ -66,6 +70,10 @@ export const App = () => {
                     "#be00ff 20.3%, " +
                     "var(--nextui-colors-blue500) 75.46%" +
                     ")"
+            },
+            fonts: {
+                sans: "Montserrat, sans-serif",
+                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
             }
         }
     })
