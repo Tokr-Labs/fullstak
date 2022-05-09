@@ -100,14 +100,6 @@ export const Navbar = () => {
                                     Mainnet
                                 </Button>
                                 <Spacer y={0.5}/>
-                                <Button ghost={network !== WalletAdapterNetwork.Testnet}
-                                        color={"gradient"}
-                                        style={{fontWeight: "bold"}}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Testnet)}
-                                >
-                                    Testnet
-                                </Button>
-                                <Spacer y={0.5}/>
                                 <Button ghost={network !== WalletAdapterNetwork.Devnet}
                                         color={"gradient"}
                                         style={{fontWeight: "bold"}}
