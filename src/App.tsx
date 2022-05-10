@@ -81,7 +81,12 @@ export const App = () => {
     const globalStyles = globalCss({
         hr: {border: "1px solid " + theme.colors.border, margin: "5px 0"},
         "box-icon": {marginRight: "10px"},
-        ".wallet-adapter-button-trigger": {background: theme.colors.gradient},
+        ".wallet-adapter-button-trigger": {
+            background: theme.colors.primary.computedValue + " !important",
+            borderRadius: theme.radii.pill.computedValue + " !important",
+            height: "40px !important",
+            fontFamily: "Montserrat, sans-serif !important"
+        },
         ".nextui-table-container": {width: "100%"}
     })
     globalStyles();

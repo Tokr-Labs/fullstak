@@ -55,31 +55,32 @@ export const Navbar = () => {
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
-                        <img src={require("src/assets/tokr_" + (theme.isDark ? "dark" : "light") + ".png")}
+                        <img src={require("src/assets/fullstak_logo_" + (theme.isDark ? "white" : "color") + ".png")}
                              height={"auto"}
                              width={"150px"}
-                             alt={"tokr logo"}/>
+                             alt={"Fullstak logo"}/>
                     </Link>
                 </Grid>
 
                 <Grid xs={4} justify={"center"} alignItems={"center"}>
-                    <Button color={"gradient"}
+                    <Button.Group rounded borderWeight={"light"} animated={false} ripple={false}>
+                        <Button
+                            color={"primary"}
                             ghost={tab !== "Markets"}
-                            shadow={tab === "Markets"}
-                            style={{fontWeight: "bold"}}
+                            style={{fontWeight: "bold", minWidth: "150px"}}
                             onClick={() => handleClick("Markets")}
-                    >
-                        Markets
-                    </Button>
-                    <Spacer x={1}/>
-                    <Button color={"gradient"}
+                        >
+                            MARKETS
+                        </Button>
+                        <Button
+                            color={"primary"}
                             ghost={tab !== "Portfolio"}
-                            shadow={tab === "Portfolio"}
-                            style={{fontWeight: "bold"}}
+                            style={{fontWeight: "bold", minWidth: "150px"}}
                             onClick={() => handleClick("Portfolio")}
-                    >
-                        Portfolio
-                    </Button>
+                        >
+                            PORTFOLIO
+                        </Button>
+                    </Button.Group>
                 </Grid>
 
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
