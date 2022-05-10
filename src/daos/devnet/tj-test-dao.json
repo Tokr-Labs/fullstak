@@ -18,14 +18,14 @@
   },
   "details": {
     "min_raise": "100,000 USDC",
-    "max_raise": "1,000,000 USDC",
+    "max_raise": "10M USDC",
     "raise_close": "July 31, 2022",
     "vintage_year": "2022",
     "fund_term": "5 Years",
     "data_room": "",
     "target_returns": {
-      "irr": "100%",
-      "coc": "100%"
+      "irr": "15-20%",
+      "coc": "7%"
     },
     "fees": {
       "closing": "1.00%",
