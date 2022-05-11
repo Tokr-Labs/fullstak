@@ -357,7 +357,7 @@ export const PoolDetail = () => {
             </Grid.Container>
 
             <Grid xs={8}>
-                <Card>
+                <Card style={{minHeight: "300px"}}>
 
                     <Card.Header>
                         <Text h3>{activeTab}</Text>
