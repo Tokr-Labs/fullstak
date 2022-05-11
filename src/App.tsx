@@ -122,8 +122,8 @@ export const App = () => {
                                                 <Route index element={<PoolAssets/>}/>
                                                 <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
-                                                <Route path="proposals" element={<PoolProposals/>}/>
-                                                <Route path="transactions" element={<PoolTransactions/>}/>
+                                                {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
+                                                {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
                                             </Route>
 
                                             <Route path="debt" element={<DebtMarkets/>}/>

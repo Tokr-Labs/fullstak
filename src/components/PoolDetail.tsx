@@ -17,7 +17,7 @@ export const PoolDetail = () => {
     const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
     const urlBasedTab = segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
 
-    const tabs = ["Assets", "Members", "Proposals", "Transactions"]
+    const tabs = ["Assets", "Members"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const wallet = useWallet();
