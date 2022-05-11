@@ -13,7 +13,7 @@ import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
 import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
-import {PoolTreasury} from "./components/pools/PoolTreasury";
+import {PoolAssets} from "./components/pools/PoolAssets";
 import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolProposals} from "./components/pools/PoolProposals";
 import {PoolTransactions} from "./components/pools/PoolTransactions";
@@ -88,7 +88,11 @@ export const App = () => {
             height: "40px !important",
             fontFamily: "Montserrat, sans-serif !important"
         },
-        ".nextui-table-container": {width: "100%"}
+        ".nextui-table-container": {width: "100%"},
+        ".skinny-rows .nextui-table-cell": {
+            paddingTop: theme.space["2"].computedValue,
+            paddingBottom: theme.space["2"].computedValue
+        }
     })
     globalStyles();
 
@@ -115,8 +119,8 @@ export const App = () => {
                                             <Route path="equity" element={<EquityMarkets/>}/>
 
                                             <Route path="equity/pool-details" element={<PoolDetail/>}>
-                                                <Route index element={<PoolTreasury/>}/>
-                                                <Route path="treasury" element={<PoolTreasury/>}/>
+                                                <Route index element={<PoolAssets/>}/>
+                                                <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
                                                 <Route path="proposals" element={<PoolProposals/>}/>
                                                 <Route path="transactions" element={<PoolTransactions/>}/>

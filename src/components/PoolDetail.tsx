@@ -17,7 +17,7 @@ export const PoolDetail = () => {
     const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
     const urlBasedTab = segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
 
-    const tabs = ["Treasury", "Members", "Proposals", "Transactions"]
+    const tabs = ["Assets", "Members", "Proposals", "Transactions"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const wallet = useWallet();
@@ -360,7 +360,7 @@ export const PoolDetail = () => {
                 <Card>
 
                     <Card.Header>
-
+                        <Text h3>{activeTab}</Text>
                     </Card.Header>
 
                     <Card.Body>
