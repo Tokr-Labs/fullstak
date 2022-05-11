@@ -19,6 +19,7 @@
   "details": {
     "min_raise": "100,000 USDC",
     "max_raise": "10M USDC",
+    "min_investment": "100,000 USDC",
     "raise_close": "July 31, 2022",
     "vintage_year": "2022",
     "fund_term": "5 Years",

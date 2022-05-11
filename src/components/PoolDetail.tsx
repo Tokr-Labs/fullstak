@@ -5,7 +5,6 @@ import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey, Transaction} from "@solana/web3.js";
-import {FileIcon} from "./icons/FileIcon"
 import {NetworkContext} from "../App";
 import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
@@ -76,7 +75,7 @@ export const PoolDetail = () => {
                 sourceTokenAccount,
                 new PublicKey(data.addresses.treasury.capital_supply),
                 wallet.publicKey,
-                tokensToReceive * (10**decimals),
+                tokensToReceive * (10 ** decimals),
                 [],
                 TOKEN_PROGRAM_ID
             )
@@ -105,114 +104,58 @@ export const PoolDetail = () => {
                                 </Link>
                             </Grid>
                             <Grid>
-                                <h3>{data.name}</h3>
+                                <Text h3>{data.name}</Text>
                             </Grid>
                             <Grid>
-                                <Pill color={theme.theme?.colors.primary.value} text={"Raising"}/>
+                                <Pill color={theme.theme?.colors.primary.value} text={"OPEN"}/>
                             </Grid>
                         </Grid.Container>
                     </Card.Header>
 
-                    <Card.Body>
+                    <Card.Body style={{padding: "0 30px 20px 30px"}}>
 
-                        <h4>Progress</h4>
-                        <Progress value={58} shadow={true} color={"gradient"}/>
+                        <h4>Fundraising Details</h4>
+                        <Progress value={58} shadow={true} color={"success"}/>
 
-                        <Spacer y={2}/>
+                        <Spacer y={1}/>
 
                         <Grid.Container>
-                            <Grid xs={4} direction={"column"}>
-                                <b>Minimum Raise</b>
-                                <span>{data.details.min_raise}</span>
+                            <Grid xs={6} direction={"column"}>
+                                <Text>Raised</Text>
+                                <Text weight={"bold"}>8M USDC</Text>
+                                <Text>$8,000,000</Text>
                             </Grid>
-                            <Grid xs={4} direction={"column"}>
-                                <b>Maximum raise</b>
-                                <span>{data.details.max_raise}</span>
-                            </Grid>
-                            <Grid xs={4} direction={"column"}>
-                                <b>Fundraise Closing</b>
-                                <span>{data.details.raise_close}</span>
-                            </Grid>
-                            <Grid xs={12}>
-                                <br/>
-                            </Grid>
-                            <Grid xs={4} direction={"column"}>
-                                <b>LP Token Minted</b>
-                                <span>587,250 TJTD</span>
-                            </Grid>
-                            <Grid xs={4} direction={"column"}>
-                                <b>LP Token Max Supply</b>
-                                <span>1,000,000 TJTD</span>
-                            </Grid>
-                            <Grid xs={4} direction={"column"}>
-                                <b>Fund Term</b>
-                                <span>{data.details.fund_term}</span>
+                            <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
+                                <Text>Remaining</Text>
+                                <Text weight={"bold"}>2M USDC</Text>
+                                <Text>$2,000,000</Text>
                             </Grid>
                         </Grid.Container>
 
-                        <Spacer y={2}/>
+                        <Spacer y={1}/>
+                        <hr/>
+                        <Spacer y={1}/>
 
-                        <Grid.Container>
-                            <Grid xs={5}>
-                                <Modal
-                                    closeButton
-                                    aria-labelledby="modal-title"
-                                    open={isModalOpen}
-                                    onClose={toggleModal}
-                                >
-                                    <Modal.Header>
-                                        <Text h3 id={"modal-title"}>
-                                            Invest in <span>{data.name}</span>
-                                        </Text>
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <Input
-                                            type={"number"}
-                                            label={"Deposit"}
-                                            status={tokensToReceive > usdcHoldings! ? "error" : "default"}
-                                            labelRight={"USDC"}
-                                            style={{textAlign: "right"}}
-                                            helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
-                                            onChange={(e) => {
-                                                setTokensToReceive(Number(e.target.value))
-                                            }}
-                                        />
-                                        <Spacer y={0.5}/>
-                                        <Input
-                                            disabled
-                                            value={tokensToReceive}
-                                            type={"number"}
-                                            label={"Receive"}
-                                            labelRight={data.token.ticker}
-                                            style={{textAlign: "right"}}
-                                            helperText={"These tokens represent your stake in the fund"}
-                                        />
-                                        <Spacer y={0.5}/>
-                                        <p>
-                                            Clicking the "Invest" button below will launch a transaction
-                                            preview window from your connected wallet for final approval.
-                                        </p>
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <Button color={"gradient"}
-                                                style={{fontWeight: "bold"}}
-                                                disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
-                                                onClick={makeDeposit}
-                                        >
-                                            Invest
-                                        </Button>
-                                    </Modal.Footer>
-                                </Modal>
-                                <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
-                                    <Button size={"lg"}
-                                            color={"gradient"}
-                                            onClick={toggleModal}
-                                            style={{fontWeight: "bold"}}
-                                            disabled={!wallet.connected}
-                                    >
-                                        Deposit
-                                    </Button>
-                                </Tooltip>
+                        <Grid.Container justify={"space-between"}>
+                            <Grid xs={2} direction={"column"}>
+                                <Text weight={"bold"}>Investors</Text>
+                                <Text>24 investors</Text>
+                            </Grid>
+                            <Grid xs={2} direction={"column"}>
+                                <Text weight={"bold"}>Max Raise</Text>
+                                <Text>{data.details.max_raise}</Text>
+                            </Grid>
+                            <Grid xs={2} direction={"column"}>
+                                <Text weight={"bold"}>Min Investment</Text>
+                                <Text>{data.details.min_investment}</Text>
+                            </Grid>
+                            <Grid xs={2} direction={"column"}>
+                                <Text weight={"bold"}>Annual Fee</Text>
+                                <Text>{data.details.fees.annual}</Text>
+                            </Grid>
+                            <Grid xs={2} direction={"column"}>
+                                <Text weight={"bold"}>Close Date</Text>
+                                <Text>{data.details.raise_close}</Text>
                             </Grid>
                         </Grid.Container>
 
@@ -222,110 +165,202 @@ export const PoolDetail = () => {
             </Grid>
 
             <Grid xs={4}>
+                <Grid.Container gap={1} css={{padding: 0}}>
+                    <Grid xs={12}>
+
+                        <Card>
+
+                            <Card.Body>
+                                <Grid.Container>
+                                    <Grid direction={"column"}>
+
+                                        <Input/>
+
+                                        <Spacer y={0.5}/>
+
+                                        <Modal
+                                            closeButton
+                                            aria-labelledby="modal-title"
+                                            open={isModalOpen}
+                                            onClose={toggleModal}
+                                        >
+                                            <Modal.Header>
+                                                <Text h3 id={"modal-title"}>
+                                                    Invest in <span>{data.name}</span>
+                                                </Text>
+                                            </Modal.Header>
+                                            <Modal.Body>
+                                                <Input
+                                                    type={"number"}
+                                                    label={"Deposit"}
+                                                    status={tokensToReceive > usdcHoldings! ? "error" : "default"}
+                                                    labelRight={"USDC"}
+                                                    style={{textAlign: "right"}}
+                                                    helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
+                                                    onChange={(e) => {
+                                                        setTokensToReceive(Number(e.target.value))
+                                                    }}
+                                                />
+                                                <Spacer y={0.5}/>
+                                                <Input
+                                                    disabled
+                                                    value={tokensToReceive}
+                                                    type={"number"}
+                                                    label={"Receive"}
+                                                    labelRight={data.token.ticker}
+                                                    style={{textAlign: "right"}}
+                                                    helperText={"These tokens represent your stake in the fund"}
+                                                />
+                                                <Spacer y={0.5}/>
+                                                <p>
+                                                    Clicking the "Invest" button below will launch a transaction
+                                                    preview window from your connected wallet for final approval.
+                                                </p>
+                                            </Modal.Body>
+                                            <Modal.Footer>
+                                                <Button
+                                                    color={"primary"}
+                                                    style={{fontWeight: "bold"}}
+                                                    disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
+                                                    onClick={makeDeposit}
+                                                >
+                                                    Invest
+                                                </Button>
+                                            </Modal.Footer>
+                                        </Modal>
+                                        <Text>Deposit: 2,000,000 USDC</Text>
+                                        <Text>Receive: 2,000,000 M27</Text>
+                                        <Spacer y={0.5}/>
+                                        <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
+                                            <Button
+                                                size={"lg"}
+                                                color={"primary"}
+                                                onClick={toggleModal}
+                                                style={{fontWeight: "bold", borderRadius: 0}}
+                                                disabled={!wallet.connected}
+                                            >
+                                                INVEST
+                                            </Button>
+                                        </Tooltip>
+                                    </Grid>
+                                </Grid.Container>
+
+                            </Card.Body>
+
+                        </Card>
+                    </Grid>
+
+                    <Grid xs={12}>
+                        <Card>
+                            <Card.Header>
+                                <Text h4>Target Returns</Text>
+                            </Card.Header>
+                            <Card.Body>
+                                <Grid.Container>
+                                    <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Text h2>20%</Text>
+                                        <Text>NET IRR</Text>
+                                    </Grid>
+                                    <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Text h2>4.0x</Text>
+                                        <Text>TVPI</Text>
+                                    </Grid>
+                                    <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Text h2>2.1x</Text>
+                                        <Text>DPI</Text>
+                                    </Grid>
+                                </Grid.Container>
+                            </Card.Body>
+                        </Card>
+                    </Grid>
+                </Grid.Container>
+            </Grid>
+
+            <Grid xs={8}>
+
                 <Card>
 
-                    <Card.Header style={{padding: "20px 0 0 20px"}}>
-                        <h3>Pool Details</h3>
+                    <Card.Header>
+                        <Text h4>Fund Summary</Text>
                     </Card.Header>
 
-                    <Card.Body>
-                        <p>{data.description}</p>
+                    <Card.Body style={{padding: "0 30px 20px 30px"}}>
 
                         <Grid.Container>
-                            <Grid xs={12} md={6} direction={"column"}>
-                                <h4>Sponsor</h4>
-                                <User name={data.people.sponsor.name}
-                                    // TODO - source image from json file
-                                      src={require("src/assets/issuers/tj_kyner.png")}
-                                      squared
-                                      size={"xl"}
-                                      bordered
-                                      color={"gradient"}
-                                      style={{paddingLeft: 0}}
-                                >
-                                    {data.people.sponsor.company}
-                                </User>
+                            <Grid xs={4} direction={"column"}>
+                                <Text weight={"bold"}>Token</Text>
+                                <Spacer y={0.3}/>
+                                <User name={"Miami 27 (M27)"}/>
                             </Grid>
-                            <Grid xs={12} md={6} direction={"column"}>
-                                <h4>Delegate</h4>
-                                <User name={data.people.delegate.name}
-                                    // TODO - source image from json file
-                                      src={require("src/assets/issuers/tj_kyner.png")}
-                                      squared
-                                      size={"xl"}
-                                      bordered
-                                      color={"gradient"}
-                                      style={{paddingLeft: 0}}
-                                >
-                                    {data.people.delegate.company}
-                                </User>
+                            <Grid xs={4} direction={"column"}>
+                                <Text weight={"bold"}>GP</Text>
+                                <Spacer y={0.3}/>
+                                <User name={"Miami Capital"}/>
+                            </Grid>
+                            <Grid xs={4} direction={"column"}>
+                                <Text weight={"bold"}>Fund Administrator</Text>
+                                <Spacer y={0.3}/>
+                                <User name={"Tokr Labs"}/>
                             </Grid>
                         </Grid.Container>
 
-                        <Spacer y={1}/>
+                        <Spacer y={2}/>
 
-                        <h4>Data Room</h4>
-                        <Grid.Container gap={1} alignItems={"center"}>
-                            <Grid>
-                                <FileIcon/>
+                        <Grid.Container>
+                            <Grid xs={7} direction={"column"}>
+                                <Text weight={"bold"}>Fund Overview</Text>
+                                <Text>{data.description}</Text>
                             </Grid>
-                            <Grid>
-                                <Button size={"sm"}
-                                        color={"gradient"}
-                                        style={{fontWeight: "bold"}}
+                        </Grid.Container>
+
+                        <Spacer y={2}/>
+
+                        <Grid.Container>
+                            <Grid direction={"column"}>
+                                <Text weight={"bold"}>Data Room</Text>
+                                <Spacer y={0.5}/>
+                                <Button
+                                    color={"primary"}
+                                    style={{fontWeight: "bold", borderRadius: 0}}
                                 >
-                                    Download
+                                    DOWNLOAD
                                 </Button>
                             </Grid>
                         </Grid.Container>
 
-                        <Spacer y={1}/>
-
-                        <h4>Target Returns</h4>
-                        <Grid.Container>
-                            <Grid xs={6}>IRR</Grid>
-                            <Grid xs={6}>{data.details.target_returns.irr}</Grid>
-                            <Grid xs={6}>TVPI</Grid>
-                            <Grid xs={6}>1.75x</Grid>
-                            <Grid xs={6}>DPI</Grid>
-                            <Grid xs={6}>1.75x</Grid>
-                        </Grid.Container>
-                        <Spacer y={1}/>
-
-                        <h4>Fees</h4>
-                        <Grid.Container>
-                            <Grid xs={6}>Closing</Grid>
-                            <Grid xs={6}>{data.details.fees.closing}</Grid>
-                            <Grid xs={6}>Annual</Grid>
-                            <Grid xs={6}>{data.details.fees.annual}</Grid>
-                        </Grid.Container>
-
                     </Card.Body>
 
-                    <Card.Footer/>
-
                 </Card>
+
             </Grid>
 
-            <Grid xs={12}>
+            <Grid.Container>
+                <Grid>
+                    <Spacer y={1}/>
+                    <Button.Group css={{paddingLeft: "6px"}}>
+                        {tabs.map(tab => {
+                            return (
+                                <Button
+                                    ghost={activeTab !== tab}
+                                    color={"gradient"}
+                                    style={{fontWeight: "bold"}}
+                                    animated={false}
+                                    ripple={false}
+                                    onClick={() => handleClick(tab)}
+                                >
+                                    {tab}
+                                </Button>
+                            )
+                        })}
+                    </Button.Group>
+                </Grid>
+            </Grid.Container>
+
+            <Grid xs={8}>
                 <Card>
 
                     <Card.Header>
-                        <Grid.Container gap={2}>
-                            {tabs.map(tab => {
-                                return (
-                                    <Grid>
-                                        <Button ghost={activeTab !== tab}
-                                                color={"gradient"}
-                                                style={{fontWeight: "bold"}}
-                                                onClick={() => handleClick(tab)}
-                                        >
-                                            {tab}
-                                        </Button>
-                                    </Grid>
-                                )
-                            })}
-                        </Grid.Container>
+
                     </Card.Header>
 
                     <Card.Body>

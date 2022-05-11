@@ -63,7 +63,8 @@ export const App = () => {
         theme: {
             colors: {
                 primary: "#be00ff",
-                secondary: "$blue500",
+                secondary: "#11032d",
+                success: "#00ff4b",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
