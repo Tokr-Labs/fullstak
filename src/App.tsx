@@ -15,6 +15,7 @@ import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
 import {PoolAssets} from "./components/pools/PoolAssets";
 import {PoolMembers} from "./components/pools/PoolMembers";
+import {PoolDetails} from "./components/pools/PoolDetails";
 import {PoolProposals} from "./components/pools/PoolProposals";
 import {PoolTransactions} from "./components/pools/PoolTransactions";
 
@@ -122,6 +123,7 @@ export const App = () => {
                                                 <Route index element={<PoolAssets/>}/>
                                                 <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
+                                                <Route path="details" element={<PoolDetails/>}/>
                                                 {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
                                                 {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
                                             </Route>
