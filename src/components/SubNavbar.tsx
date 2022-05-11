@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 
 export const SubNavbar = () => {
 
-    const markets = ["Equity Market", "Debt Market"]
+    const markets = ["EQUITY MARKET", "DEBT MARKET"]
 
     const [selected, setSelected] = useState<String>(markets[0]);
 
@@ -21,13 +21,12 @@ export const SubNavbar = () => {
                 {markets.map((market) => {
                     return (
                         <Grid key={market}>
-                            <Tooltip content={market === "Debt Market" ? "Coming soon!" : ""}>
+                            <Tooltip content={market === "DEBT MARKET" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
-                                        color={"gradient"}
-                                        style={{fontWeight: "bold"}}
+                                        color={"primary"}
+                                        style={{fontWeight: "bold", letterSpacing: "2px"}}
                                         ghost={market !== selected}
-                                        shadow={market === selected}
-                                        disabled={market === "Debt Market"}
+                                        disabled={market === "DEBT MARKET"}
                                         onClick={() => handleClick(market)}
                                 >
                                     {market}
