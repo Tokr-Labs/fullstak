@@ -39,25 +39,25 @@ export const App = () => {
     );
 
     // TODO - figure out how to included shared theme props
-    const darkTheme = createTheme({
-        type: 'dark',
-        theme: {
-            colors: {
-                primary: "#be00ff",
-                secondary: "$blue500",
-                gradient: "linear-gradient(" +
-                    "112deg, " +
-                    "var(--nextui-colors-cyan500) -63.59%, " +
-                    "#be00ff 20.3%, " +
-                    "var(--nextui-colors-blue500) 75.46%" +
-                    ")"
-            },
-            fonts: {
-                sans: "Montserrat, sans-serif",
-                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
-            }
-        }
-    })
+    // const darkTheme = createTheme({
+    //     type: 'dark',
+    //     theme: {
+    //         colors: {
+    //             primary: "#be00ff",
+    //             secondary: "$blue500",
+    //             gradient: "linear-gradient(" +
+    //                 "112deg, " +
+    //                 "var(--nextui-colors-cyan500) -63.59%, " +
+    //                 "#be00ff 20.3%, " +
+    //                 "var(--nextui-colors-blue500) 75.46%" +
+    //                 ")"
+    //         },
+    //         fonts: {
+    //             sans: "Montserrat, sans-serif",
+    //             mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
+    //         }
+    //     }
+    // })
 
     const lightTheme = createTheme({
         type: "light",
@@ -99,11 +99,11 @@ export const App = () => {
     })
     globalStyles();
 
-    // Defaults to using system preference
-    const darkMode = useDarkMode();
+    // // Defaults to using system preference
+    // const darkMode = useDarkMode();
 
     return (
-        <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
+        <NextUIProvider theme={lightTheme}>
             <NetworkContext.Provider value={{network, setNetwork}}>
                 <ConnectionProvider endpoint={clusterApiUrl(network)}>
                     <WalletProvider wallets={wallets} autoConnect>
