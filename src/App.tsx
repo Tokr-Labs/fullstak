@@ -64,7 +64,7 @@ export const App = () => {
         theme: {
             colors: {
                 primary: "#be00ff",
-                secondary: "#11032d",
+                secondary: "#650087",
                 success: "#00ff4b",
                 gradient: "linear-gradient(" +
                     "112deg, " +
@@ -93,7 +93,9 @@ export const App = () => {
         ".skinny-rows .nextui-table-cell": {
             paddingTop: theme.space["2"].computedValue,
             paddingBottom: theme.space["2"].computedValue
-        }
+        },
+        ".dark-card": {background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%) !important"},
+        ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"}
     })
     globalStyles();
 

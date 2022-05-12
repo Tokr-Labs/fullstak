@@ -63,9 +63,14 @@ export const Navbar = () => {
                 </Grid>
 
                 <Grid xs={4} justify={"center"} alignItems={"center"}>
-                    <Button.Group rounded borderWeight={"light"} animated={false} ripple={false}>
+                    <Button.Group
+                        rounded
+                        borderWeight={"light"}
+                        animated={false}
+                        ripple={false}
+                        color={"secondary"}
+                    >
                         <Button
-                            color={"primary"}
                             ghost={tab !== "Markets"}
                             style={{fontWeight: "bold", minWidth: "150px"}}
                             onClick={() => handleClick("Markets")}
@@ -73,7 +78,6 @@ export const Navbar = () => {
                             MARKETS
                         </Button>
                         <Button
-                            color={"primary"}
                             ghost={tab !== "Portfolio"}
                             style={{fontWeight: "bold", minWidth: "150px"}}
                             onClick={() => handleClick("Portfolio")}
@@ -94,7 +98,7 @@ export const Navbar = () => {
                             <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
                                 <h4>Change Network</h4>
                                 <Button ghost={network !== WalletAdapterNetwork.Mainnet}
-                                        color={"gradient"}
+                                        color={"primary"}
                                         style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
@@ -102,7 +106,7 @@ export const Navbar = () => {
                                 </Button>
                                 <Spacer y={0.5}/>
                                 <Button ghost={network !== WalletAdapterNetwork.Devnet}
-                                        color={"gradient"}
+                                        color={"primary"}
                                         style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >

@@ -20,7 +20,12 @@ const Landing = () => {
                         </Grid>
                         <Grid xs={6} justify={"flex-end"}>
                             <Link to={"/markets"}>
-                                <Button color="gradient">Launch App</Button>
+                                <Button
+                                    color="secondary"
+                                    style={{borderRadius: theme.radii.pill.computedValue}}
+                                >
+                                    Launch App
+                                </Button>
                             </Link>
                         </Grid>
                     </Grid.Container>

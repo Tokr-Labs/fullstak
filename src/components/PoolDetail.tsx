@@ -95,7 +95,7 @@ export const PoolDetail = () => {
             <Grid.Container gap={2}>
 
                 <Grid xs={8}>
-                    <Card>
+                    <Card className={"dark-card"}>
 
                         <Card.Header>
                             <Grid.Container gap={1} alignItems={"center"}>
@@ -105,7 +105,7 @@ export const PoolDetail = () => {
                                     </Link>
                                 </Grid>
                                 <Grid>
-                                    <Text h3>{data.name}</Text>
+                                    <Text h3 color={"white"}>{data.name}</Text>
                                 </Grid>
                                 <Grid>
                                     <Pill color={theme.theme?.colors.primary.value} text={"OPEN"}/>
@@ -115,21 +115,27 @@ export const PoolDetail = () => {
 
                         <Card.Body style={{padding: "0 30px 20px 30px"}}>
 
-                            <h4>Fundraising Details</h4>
-                            <Progress value={58} shadow={true} color={"success"}/>
+                            <Text h4>Fundraising Details</Text>
+                            <Spacer y={0.5}/>
+                            <Progress
+                                value={58}
+                                shadow={true}
+                                color={"success"}
+                                status={"success"}
+                            />
 
                             <Spacer y={1}/>
 
                             <Grid.Container>
                                 <Grid xs={6} direction={"column"}>
                                     <Text>Raised</Text>
-                                    <Text weight={"bold"}>8M USDC</Text>
-                                    <Text>$8,000,000</Text>
+                                    <Text weight={"bold"}>5.8M USDC</Text>
+                                    <Text>$5,800,000</Text>
                                 </Grid>
                                 <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
                                     <Text>Remaining</Text>
-                                    <Text weight={"bold"}>2M USDC</Text>
-                                    <Text>$2,000,000</Text>
+                                    <Text weight={"bold"}>4.2M USDC</Text>
+                                    <Text>$4,200,000</Text>
                                 </Grid>
                             </Grid.Container>
 
@@ -169,16 +175,15 @@ export const PoolDetail = () => {
                     <Grid.Container gap={1} css={{padding: 0}}>
                         <Grid xs={12}>
 
-                            <Card>
+                            <Card className={"dark-card"}>
+
+                                {/*<Card.Header>*/}
+                                {/*    <Text h4>Invest</Text>*/}
+                                {/*</Card.Header>*/}
 
                                 <Card.Body>
-                                    <Grid.Container>
+                                    <Grid.Container justify={"center"} alignItems={"center"} style={{height: "100%"}}>
                                         <Grid direction={"column"}>
-
-                                            <Input/>
-
-                                            <Spacer y={0.5}/>
-
                                             <Modal
                                                 closeButton
                                                 aria-labelledby="modal-title"
@@ -204,7 +209,7 @@ export const PoolDetail = () => {
                                                     />
                                                     <Spacer y={0.5}/>
                                                     <Input
-                                                        disabled
+                                                        readOnly
                                                         value={tokensToReceive}
                                                         type={"number"}
                                                         label={"Receive"}
@@ -221,7 +226,7 @@ export const PoolDetail = () => {
                                                 <Modal.Footer>
                                                     <Button
                                                         color={"primary"}
-                                                        style={{fontWeight: "bold"}}
+                                                        style={{fontWeight: "bold", borderRadius: 0}}
                                                         disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
                                                         onClick={makeDeposit}
                                                     >
@@ -229,9 +234,20 @@ export const PoolDetail = () => {
                                                     </Button>
                                                 </Modal.Footer>
                                             </Modal>
-                                            <Text>Deposit: 2,000,000 USDC</Text>
-                                            <Text>Receive: 2,000,000 M27</Text>
-                                            <Spacer y={0.5}/>
+
+
+                                            {/*<Spacer y={1}/>*/}
+                                            {/*<Input*/}
+                                            {/*    underlined*/}
+                                            {/*    css={{color: "white"}}*/}
+                                            {/*    color={"primary"}*/}
+                                            {/*    type={"number"}*/}
+                                            {/*    shadow={false}*/}
+                                            {/*    fullWidth={true}*/}
+                                            {/*    labelPlaceholder={"Enter a value"}*/}
+                                            {/*/>*/}
+                                            {/*<Spacer y={1}/>*/}
+
                                             <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
                                                 <Button
                                                     size={"lg"}
@@ -252,12 +268,12 @@ export const PoolDetail = () => {
                         </Grid>
 
                         <Grid xs={12}>
-                            <Card>
-                                <Card.Header>
+                            <Card className={"dark-card"}>
+                                <Card.Header style={{paddingBottom: 0}}>
                                     <Text h4>Target Returns</Text>
                                 </Card.Header>
-                                <Card.Body>
-                                    <Grid.Container>
+                                <Card.Body style={{paddingTop: 0}}>
+                                    <Grid.Container alignItems={"center"} style={{height: "100%"}}>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
                                             <Text h2>20%</Text>
                                             <Text>NET IRR</Text>
@@ -291,17 +307,43 @@ export const PoolDetail = () => {
                                 <Grid xs={4} direction={"column"}>
                                     <Text weight={"bold"}>Token</Text>
                                     <Spacer y={0.3}/>
-                                    <User name={"Miami 27 (M27)"}/>
+                                    <User
+                                        bordered
+                                        size={"xl"}
+                                        name={"Miami 27"}
+                                        color={"secondary"}
+                                        style={{paddingLeft: 0}}
+                                    >
+                                        M27
+                                    </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>GP</Text>
+                                    <Text weight={"bold"}>General Partner</Text>
                                     <Spacer y={0.3}/>
-                                    <User name={"Miami Capital"}/>
+                                    <User
+                                        bordered
+                                        size={"xl"}
+                                        name={"Arash Gohari"}
+                                        color={"secondary"}
+                                        style={{paddingLeft: 0}}
+                                        src={require("src/assets/issuers/arash_gohari.png")}
+                                    >
+                                        27 Capital
+                                    </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
                                     <Text weight={"bold"}>Fund Administrator</Text>
                                     <Spacer y={0.3}/>
-                                    <User name={"Tokr Labs"}/>
+                                    <User
+                                        bordered
+                                        size={"xl"}
+                                        name={"T.J. Kyner"}
+                                        color={"secondary"}
+                                        style={{paddingLeft: 0}}
+                                        src={require("src/assets/issuers/tj_kyner.png")}
+                                    >
+                                        Tokr Labs
+                                    </User>
                                 </Grid>
                             </Grid.Container>
 
@@ -321,6 +363,7 @@ export const PoolDetail = () => {
                                     <Text weight={"bold"}>Data Room</Text>
                                     <Spacer y={0.5}/>
                                     <Button
+                                        ghost
                                         color={"primary"}
                                         style={{fontWeight: "bold", borderRadius: 0}}
                                     >
@@ -338,12 +381,11 @@ export const PoolDetail = () => {
                 <Grid.Container>
                     <Grid>
                         <Spacer y={1}/>
-                        <Button.Group css={{paddingLeft: "6px"}}>
+                        <Button.Group css={{paddingLeft: "6px"}} color={"secondary"}>
                             {tabs.map(tab => {
                                 return (
                                     <Button
                                         ghost={activeTab !== tab}
-                                        color={"gradient"}
                                         style={{fontWeight: "bold"}}
                                         animated={false}
                                         ripple={false}

@@ -1,5 +1,5 @@
 import React from "react";
-import {Container, theme} from "@nextui-org/react";
+import {Container} from "@nextui-org/react";
 import {Navbar} from "../components/Navbar";
 import {SubNavbar} from "../components/SubNavbar";
 import {Footer} from "../components/Footer";

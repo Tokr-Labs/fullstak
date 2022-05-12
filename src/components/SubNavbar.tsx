@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {Button, Grid, Tooltip} from "@nextui-org/react";
+import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {useNavigate} from "react-router-dom";
 
 export const SubNavbar = () => {
@@ -23,8 +23,13 @@ export const SubNavbar = () => {
                         <Grid key={market}>
                             <Tooltip content={market === "DEBT MARKET" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
-                                        color={"primary"}
-                                        style={{fontWeight: "bold", letterSpacing: "2px"}}
+                                        color={"secondary"}
+                                        style={{
+                                            fontWeight: "bold",
+                                            letterSpacing: "2px",
+                                            padding: "0 30px",
+                                            borderRadius: theme.radii.pill.computedValue
+                                        }}
                                         ghost={market !== selected}
                                         disabled={market === "DEBT MARKET"}
                                         onClick={() => handleClick(market)}
