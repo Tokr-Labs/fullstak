@@ -44,14 +44,22 @@ export const Portfolio = () => {
             display: "flex",
             flexDirection: "column"
         }}>
-            <Navbar/>
+            {/*Background for header*/}
+            <div style={{
+                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                height: "225px",
+                zIndex: -1,
+                width: "100vw",
+                top: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
 
+            <Navbar/>
             <Spacer y={1}/>
 
             <Card>
-
                 <Card.Header/>
-
                 <Card.Body>
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
@@ -64,34 +72,25 @@ export const Portfolio = () => {
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
-
                 <Card.Footer/>
-
             </Card>
 
             <Spacer y={1}/>
 
             <Card>
-
                 <Card.Header style={{padding: "20px 0 0 20px"}}>
                     <h3>Holdings</h3>
                 </Card.Header>
-
                 <Card.Body>
-
                     <Grid.Container>
                         <Grid xs={8}>
-
                             <Table shadow={false} sticked headerLined>
-
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
                                     <Table.Column>Amount</Table.Column>
                                     <Table.Column children=""/>
                                 </Table.Header>
-
                                 <Table.Body>
-
                                     {/*@ts-ignore*/}
                                     {holdings?.map( holding => {
 
@@ -118,21 +117,26 @@ export const Portfolio = () => {
                                             </Table.Row>
                                         )
                                     })}
-
                                 </Table.Body>
-
                             </Table>
-
                         </Grid>
                     </Grid.Container>
-
                 </Card.Body>
-
                 <Card.Footer/>
-
             </Card>
 
             <Footer/>
+
+            {/*Background for footer*/}
+            <div style={{
+                background: "linear-gradient(0deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                height: "60px",
+                zIndex: -1,
+                width: "100vw",
+                bottom: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
         </Container>
     )
 

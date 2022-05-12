@@ -13,8 +13,9 @@ import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
 import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
-import {PoolTreasury} from "./components/pools/PoolTreasury";
+import {PoolAssets} from "./components/pools/PoolAssets";
 import {PoolMembers} from "./components/pools/PoolMembers";
+import {PoolDetails} from "./components/pools/PoolDetails";
 import {PoolProposals} from "./components/pools/PoolProposals";
 import {PoolTransactions} from "./components/pools/PoolTransactions";
 
@@ -63,7 +64,8 @@ export const App = () => {
         theme: {
             colors: {
                 primary: "#be00ff",
-                secondary: "$blue500",
+                secondary: "#650087",
+                success: "#00ff4b",
                 gradient: "linear-gradient(" +
                     "112deg, " +
                     "var(--nextui-colors-cyan500) -63.59%, " +
@@ -81,8 +83,19 @@ export const App = () => {
     const globalStyles = globalCss({
         hr: {border: "1px solid " + theme.colors.border, margin: "5px 0"},
         "box-icon": {marginRight: "10px"},
-        ".wallet-adapter-button-trigger": {background: theme.colors.gradient},
-        ".nextui-table-container": {width: "100%"}
+        ".wallet-adapter-button-trigger": {
+            background: theme.colors.primary.computedValue + " !important",
+            borderRadius: theme.radii.pill.computedValue + " !important",
+            height: "40px !important",
+            fontFamily: "Montserrat, sans-serif !important"
+        },
+        ".nextui-table-container": {width: "100%"},
+        ".skinny-rows .nextui-table-cell": {
+            paddingTop: theme.space["2"].computedValue,
+            paddingBottom: theme.space["2"].computedValue
+        },
+        ".dark-card": {background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%) !important"},
+        ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"}
     })
     globalStyles();
 
@@ -109,11 +122,12 @@ export const App = () => {
                                             <Route path="equity" element={<EquityMarkets/>}/>
 
                                             <Route path="equity/pool-details" element={<PoolDetail/>}>
-                                                <Route index element={<PoolTreasury/>}/>
-                                                <Route path="treasury" element={<PoolTreasury/>}/>
+                                                <Route index element={<PoolAssets/>}/>
+                                                <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
-                                                <Route path="proposals" element={<PoolProposals/>}/>
-                                                <Route path="transactions" element={<PoolTransactions/>}/>
+                                                <Route path="details" element={<PoolDetails/>}/>
+                                                {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
+                                                {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
                                             </Route>
 
                                             <Route path="debt" element={<DebtMarkets/>}/>

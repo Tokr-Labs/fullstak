@@ -1,10 +1,10 @@
 import React, {useState} from "react";
-import {Button, Grid, Tooltip} from "@nextui-org/react";
+import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {useNavigate} from "react-router-dom";
 
-export const Pools = () => {
+export const SubNavbar = () => {
 
-    const markets = ["Equity Market", "Debt Market"]
+    const markets = ["EQUITY MARKET", "DEBT MARKET"]
 
     const [selected, setSelected] = useState<String>(markets[0]);
 
@@ -21,13 +21,17 @@ export const Pools = () => {
                 {markets.map((market) => {
                     return (
                         <Grid key={market}>
-                            <Tooltip content={market === "Debt Market" ? "Coming soon!" : ""}>
+                            <Tooltip content={market === "DEBT MARKET" ? "Coming soon!" : ""}>
                                 <Button size={"sm"}
-                                        color={"gradient"}
-                                        style={{fontWeight: "bold"}}
+                                        color={"secondary"}
+                                        style={{
+                                            fontWeight: "bold",
+                                            letterSpacing: "2px",
+                                            padding: "0 30px",
+                                            borderRadius: theme.radii.pill.computedValue
+                                        }}
                                         ghost={market !== selected}
-                                        shadow={market === selected}
-                                        disabled={market === "Debt Market"}
+                                        disabled={market === "DEBT MARKET"}
                                         onClick={() => handleClick(market)}
                                 >
                                     {market}
@@ -37,7 +41,6 @@ export const Pools = () => {
                     )
                 })}
             </Grid.Container>
-            <hr/>
         </>
     )
 
