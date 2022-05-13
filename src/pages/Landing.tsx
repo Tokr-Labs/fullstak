@@ -1,50 +1,101 @@
 import "../index.css"
-import tokrLogo from "src/assets/tokr_dark_crop.svg"
+import discordIcon from "src/assets/icons/discord_icon.svg"
 import tokrIcon from "src/assets/tokr_icon_dark_crop.svg"
-import gitbookIcon from "src/assets/icons/icons-gitbook_export.svg"
-import githubIcon from "src/assets/icons/icons-github_export.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
+import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
-import { Link } from "react-router-dom"
+import {Link} from "react-router-dom"
 
 const Landing = () => {
 
     return (
         <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
 
-            <section style={{height: "max(100vh, 850px)", background: "#170037"}}>
+            <section style={{
+                textAlign: "center",
+                verticalAlign: "middle",
+                padding: "10px 0",
+                background: theme.colors.primary.computedValue
+            }}>
+                <Grid.Container justify={"center"} style={{height: "100%"}}>
+                    <Grid alignContent={"center"} style={{height: "100%"}}>
+                        <img
+                            src={require("src/assets/riptide_logo.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Riptide logo"}
+                            style={{margin: "0 20px"}}
+                        />
+                        <a
+                            href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
+                            target={"_blank"}
+                            rel={"noreferrer"}
+                            style={{
+                                color: "white",
+                                textDecoration: "underline",
+                                verticalAlign: "super"
+                            }}
+                        >
+                            <b>NEWS:</b> 2022 Solana Riptide Winner (Tokr)
+                        </a>
+                        <img
+                            src={require("src/assets/riptide_logo.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Riptide logo"}
+                            style={{margin: "0 20px"}}
+                        />
+                    </Grid>
+                </Grid.Container>
+            </section>
+
+            <section style={{
+                height: "max(calc(100vh - 50px), 850px)",
+                background: "#170037"
+            }}>
                 <Container style={{height: "100%"}}>
-                    <Grid.Container style={{padding: "20px 0"}}>
+                    <Grid.Container style={{paddingTop: "25px"}}>
                         <Grid xs={6}>
-                            <img src={tokrIcon} height="35px" width="auto" alt="Tokr icon"/>
+                            <img
+                                src={require("src/assets/brand/fullstak_icon_white.png")}
+                                height="35px"
+                                width="auto"
+                                alt="Fullstak icon"
+                            />
                         </Grid>
                         <Grid xs={6} justify={"flex-end"}>
-                            <Link to={"/markets"}>
-                                <Button
-                                    color="secondary"
-                                    style={{borderRadius: theme.radii.pill.computedValue}}
-                                >
-                                    Launch App
-                                </Button>
-                            </Link>
+                            {/*<Link to={"/markets"}>*/}
+                            <Button
+                                ghost
+                                color="primary"
+                                style={{borderRadius: 0, color: "white"}}
+                            >
+                                Coming Soon
+                            </Button>
+                            {/*</Link>*/}
                         </Grid>
                     </Grid.Container>
                     <Spacer y={5}/>
-                    <Grid.Container justify={"center"} gap={1}>
+                    <Grid.Container justify={"center"}>
                         <Grid xs={12} justify={"center"}>
-                            <img src={tokrLogo}
-                                 alt="Tokr logo"
-                                 style={{maxWidth: "500px", height: "auto", padding: "0 20px"}}
+                            <img src={fullstakLogo}
+                                 alt="Fullstak logo"
+                                 style={{maxWidth: "min(650px, 95vw)", height: "auto", padding: "0 20px"}}
                             />
                         </Grid>
                         <Spacer y={2}/>
                         <Grid xs={12} justify={"center"}>
-                            <div style={{padding: "20px 30px", background: "#0C0223"}}>
+                            <div style={{
+                                padding: "20px 30px",
+                                background: "#0C0223",
+                                maxWidth: "842px"
+                            }}>
                                 <h2 style={{
                                     margin: "0",
-                                    letterSpacing: "5px"
+                                    letterSpacing: "5px",
+                                    textAlign: "center"
                                 }}>
-                                    DEFI FOR REAL ESTATE
+                                    OPEN FINANCE FOR REAL ESTATE
                                 </h2>
                             </div>
                         </Grid>
@@ -53,25 +104,21 @@ const Landing = () => {
                                 padding: "30px 10px",
                                 background: "#0C0223",
                                 textAlign: "center",
-                                maxWidth: "700px",
+                                width: "100%",
+                                maxWidth: "842px",
                                 fontFamily: theme.fonts.mono.computedValue
                             }}>
-                                Invest with crypto and earn yield from stable, uncorrelated real estate
-                                assets while providing property owners with capital and liquidity.
+                                Bankless real estate finance for the full capital stack.
                             </p>
                         </Grid>
+                        <Spacer y={1}/>
                         <Grid xs={12} justify={"center"}>
                             <div className={"logos"}>
-                                <a href="https://tokr.gitbook.io/tokr-main-docs/" target="_blank" rel="noreferrer">
-                                    <img src={gitbookIcon} alt="Tokr Gitbook"/>
+                                <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
+                                    <img src={discordIcon} alt="Discord icon"/>
                                 </a>
-
-                                <a href="https://github.com/TOKR-labs" target="_blank" rel="noreferrer">
-                                    <img src={githubIcon} alt="Tokr Gitbook"/>
-                                </a>
-
-                                <a href="https://twitter.com/tokrfi" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Tokr Gitbook"/>
+                                <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
+                                    <img src={twitterIcon} alt="Twitter icon"/>
                                 </a>
                             </div>
                         </Grid>
@@ -81,7 +128,7 @@ const Landing = () => {
 
             <section style={{
                 height: "600px",
-                backgroundImage: "url(" + require("src/assets/friends@2x.png") + ")",
+                backgroundImage: "url(" + require("src/assets/fullstack_BW.png") + ")",
                 backgroundPosition: "center",
                 backgroundSize: "cover"
             }}>
@@ -94,26 +141,13 @@ const Landing = () => {
                 {/* TODO - bad practice, fix this*/}
                 <Container style={{marginTop: "-419px", position: "relative"}}>
                     <div style={{maxWidth: "350px"}}>
-                        <h3 style={{letterSpacing: "3.75px"}}>DEFI YOU CAN FEEL.</h3>
+                        <h3 style={{letterSpacing: "3.75px"}}>REAL ESTATE MEETS DEFI</h3>
                         <p style={{fontFamily: theme.fonts.mono.computedValue}}>
-                            Sed ut perspiciatis unde omnis iste natus error sit voluptatem
-                            accusantium doloremque laudantium, totam rem aperiam, eaque ipsa
-                            quae ab illo inventore veritatis et quasi architecto.
+                            Invest your crypto and earn yield from stable, uncorrelated real
+                            estate assets by providing property owners with capital and liquidity.
                         </p>
-                        <Button style={{
-                            borderRadius: "0",
-                            background: "#170037",
-                            letterSpacing: "2px",
-                            textTransform: "uppercase",
-                            fontSize: "13px",
-                            fontWeight: "bold"
-                        }}>
-                            White paper
-                        </Button>
                     </div>
                 </Container>
-                {/*<div style={{marginTop: "-600px", zIndex: "3"}}>*/}
-                {/*</div>*/}
             </section>
 
             <section style={{height: "600px", background: "#170037"}}>
@@ -132,23 +166,6 @@ const Landing = () => {
                     </h2>
                     <Grid.Container justify={"center"} gap={2}>
                         <Grid>
-                            <a href="https://tokr.gitbook.io/tokr-main-docs/" target="_blank" rel="noreferrer">
-                                <Button style={{
-                                    width: "300px",
-                                    height: "100px",
-                                    borderRadius: "0px",
-                                    border: "1px solid #BE00FF",
-                                    background: "none",
-                                    fontWeight: "bold",
-                                    fontSize: "13px",
-                                    textTransform: "uppercase",
-                                    letterSpacing: "2px"
-                                }}>
-                                    Documentation
-                                </Button>
-                            </a>
-                        </Grid>
-                        <Grid>
                             <Button style={{
                                 width: "300px",
                                 height: "100px",
@@ -157,10 +174,9 @@ const Landing = () => {
                                 background: "none",
                                 fontWeight: "bold",
                                 fontSize: "13px",
-                                textTransform: "uppercase",
                                 letterSpacing: "2px"
                             }}>
-                                Discord
+                                Coming Soon
                             </Button>
                         </Grid>
                     </Grid.Container>
@@ -171,7 +187,12 @@ const Landing = () => {
                 <Container>
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
-                            <img src={tokrLogo} height="30px" width="auto" alt="Tokr logo"/>
+                            <img
+                                src={fullstakLogo}
+                                height="40px"
+                                width="auto"
+                                alt="Tokr logo"
+                            />
                         </Grid>
                         <Grid xs={0} sm={6} justify={"center"} alignItems={"center"}>
                             <p style={{
@@ -179,21 +200,24 @@ const Landing = () => {
                                 fontFamily: theme.fonts.mono.computedValue,
                                 textAlign: "center"
                             }}>
-                                Tokr is an open-source protocol for financing real world assets.
+                                Built with 💜 by&nbsp;
+                                <a
+                                    href={"https://tokrlabs.xyz"}
+                                    target={"_blank"}
+                                    rel={"noreferrer"}
+                                    style={{color: "white", textDecoration: "underline"}}
+                                >
+                                    Tokr Labs
+                                </a>
                             </p>
                         </Grid>
                         <Grid xs={6} sm={3} justify={"flex-end"} alignItems={"center"}>
                             <div className={"logos"}>
-                                <a href="https://tokr.gitbook.io/tokr-main-docs/" target="_blank" rel="noreferrer">
-                                    <img src={gitbookIcon} alt="Tokr Gitbook"/>
+                                <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
+                                    <img src={discordIcon} alt="Discord icon"/>
                                 </a>
-
-                                <a href="https://github.com/TOKR-labs" target="_blank" rel="noreferrer">
-                                    <img src={githubIcon} alt="Tokr Gitbook"/>
-                                </a>
-
-                                <a href="https://twitter.com/tokrfi" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Tokr Gitbook"/>
+                                <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
+                                    <img src={twitterIcon} alt="Twitter icon"/>
                                 </a>
                             </div>
                         </Grid>
