@@ -123,7 +123,7 @@ const Landing = () => {
 
             <section style={{
                 height: "600px",
-                backgroundImage: "url(" + require("src/assets/friends@2x.png") + ")",
+                backgroundImage: "url(" + require("src/assets/fullstack_BW.png") + ")",
                 backgroundPosition: "center",
                 backgroundSize: "cover"
             }}>
