@@ -56,7 +56,12 @@ const Landing = () => {
                 <Container style={{height: "100%"}}>
                     <Grid.Container style={{paddingTop: "25px"}}>
                         <Grid xs={6}>
-                            <img src={tokrIcon} height="35px" width="auto" alt="Tokr icon"/>
+                            <img
+                                src={require("src/assets/brand/fullstak_icon_white.png")}
+                                height="35px"
+                                width="auto"
+                                alt="Fullstak icon"
+                            />
                         </Grid>
                         <Grid xs={6} justify={"flex-end"}>
                             {/*<Link to={"/markets"}>*/}
