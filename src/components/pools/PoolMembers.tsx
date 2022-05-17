@@ -17,7 +17,6 @@ export const PoolMembers = () => {
         const communityMint = "Hope16zbz1yraofEJezcpj6JcSLHHjpmJ632RUohvyWi";
         connection.getTokenSupply(new PublicKey(communityMint))
             .then(supply => setCommunityMintSupply(supply.value.uiAmount))
-            .then(() => console.log(communityMintSupply))
 
         // The Sanctuary on mainnet-beta
         // TODO - seems to only return users with deposited tokens

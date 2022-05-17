@@ -54,7 +54,7 @@ export const PoolDetail = () => {
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
         }
-    }, [wallet])
+    }, [network, tokenServices, wallet])
 
     // TODO - make this specific to both the url path and RPC network selection
     const data = require("src/daos/devnet/tj-test-dao.json")
