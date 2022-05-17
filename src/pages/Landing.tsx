@@ -35,7 +35,7 @@ const Landing = () => {
                             <img src={githubIcon} alt="Tokr Gitbook"/>
                         </a>
 
-                        <a href="https://twitter.com/tokrfi"
+                        <a href="https://twitter.com/tokrlabs"
                            target="_blank"
                            rel="noreferrer"
                            onClick={() => sendAmplitudeData("click_twitter", {page_name: "Landing"})}
