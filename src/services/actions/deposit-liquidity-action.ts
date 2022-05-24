@@ -1,7 +1,9 @@
 import {Connection, PublicKey, SimulatedTransactionResponse, Transaction, TransactionSignature} from "@solana/web3.js";
 import {WalletContextState} from "@solana/wallet-adapter-react";
 import {ActionProtocol} from "../../models/action-protocol";
-import {createRecordInstruction, getRecord} from "@tokr-labs/identity-verification";
+import {createIdentityVerificationServiceWith} from "@tokr-labs/identity-verification";
+import {IdentityVerificationService} from "@tokr-labs/identity-verification/lib/services/identity-verification-service";
+import {IDENTITY_VERIFICATION_PROGRAM_ID} from "../../models/constants";
 
 export class DepositLiquidityAction implements ActionProtocol {
 
@@ -17,6 +19,12 @@ export class DepositLiquidityAction implements ActionProtocol {
         private connection: Connection,
         private wallet: WalletContextState
     ) {
+
+        this.identityVerificationService = createIdentityVerificationServiceWith(
+            connection,
+            IDENTITY_VERIFICATION_PROGRAM_ID
+        )
+
     }
 
     /**
@@ -37,8 +45,7 @@ export class DepositLiquidityAction implements ActionProtocol {
 
             // get record if one exists
 
-            const record = await getRecord(
-                this.connection,
+            const record = await this.identityVerificationService.getRecord(
                 this.wallet.publicKey!,
                 group
             )
@@ -51,7 +58,11 @@ export class DepositLiquidityAction implements ActionProtocol {
 
             // create the record if one does not exist
 
-            const txi = await createRecordInstruction(this.connection,this.wallet.publicKey!,group,authority)
+            const txi = await this.identityVerificationService.createRecordInstruction(
+                this.wallet.publicKey!,
+                group,
+                authority
+            )
 
             const tx = new Transaction()
             tx.add(txi)
@@ -80,6 +91,8 @@ export class DepositLiquidityAction implements ActionProtocol {
     // ============================================================
     // === Private API ============================================
     // ============================================================
+
+    private identityVerificationService: IdentityVerificationService
 
     private validate(): boolean {
         return true
