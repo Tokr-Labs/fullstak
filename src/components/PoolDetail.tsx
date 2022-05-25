@@ -119,7 +119,6 @@ export const PoolDetail = () => {
                             <Spacer y={0.5}/>
                             <Progress
                                 value={58}
-                                shadow={true}
                                 color={"success"}
                                 status={"success"}
                             />
