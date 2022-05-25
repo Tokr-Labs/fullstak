@@ -3,7 +3,7 @@ import {Link, Table} from "@nextui-org/react";
 import {PublicKey} from "@solana/web3.js";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
-import {determineCapTableForToken} from "@tokr-labs/cap-table";
+import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 
 export const PoolMembers = () => {
@@ -17,7 +17,7 @@ export const PoolMembers = () => {
 
     useMemo(() => {
 
-        determineCapTableForToken(
+        generateCapTable(
             connection,
             new PublicKey("91TqzrHZe6QotBk9ohR4cYmJEZ89ZNAYCc2Jp8Jbbmvg"), // data.addresses.mint.lp_token_mint),
             new PublicKey("GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"), // treasury stock account

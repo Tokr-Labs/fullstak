@@ -1,9 +1,9 @@
 import {Connection, PublicKey, SimulatedTransactionResponse, Transaction, TransactionSignature} from "@solana/web3.js";
 import {WalletContextState} from "@solana/wallet-adapter-react";
 import {ActionProtocol} from "../../models/action-protocol";
-import {createIdentityVerificationServiceWith} from "@tokr-labs/identity-verification";
 import {IdentityVerificationService} from "@tokr-labs/identity-verification/lib/services/identity-verification-service";
 import {IDENTITY_VERIFICATION_PROGRAM_ID} from "../../models/constants";
+import {createIdentityRecordInstruction, getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
 
 export class DepositLiquidityAction implements ActionProtocol {
 
@@ -18,14 +18,7 @@ export class DepositLiquidityAction implements ActionProtocol {
     constructor(
         private connection: Connection,
         private wallet: WalletContextState
-    ) {
-
-        this.identityVerificationService = createIdentityVerificationServiceWith(
-            connection,
-            IDENTITY_VERIFICATION_PROGRAM_ID
-        )
-
-    }
+    ) {}
 
     /**
      * Execute the deposit liquidity transaction
@@ -45,7 +38,9 @@ export class DepositLiquidityAction implements ActionProtocol {
 
             // get record if one exists
 
-            const record = await this.identityVerificationService.getRecord(
+            const record = await getIdentityVerificationRecord(
+                this.connection,
+                IDENTITY_VERIFICATION_PROGRAM_ID,
                 this.wallet.publicKey!,
                 group
             )
@@ -58,7 +53,9 @@ export class DepositLiquidityAction implements ActionProtocol {
 
             // create the record if one does not exist
 
-            const txi = await this.identityVerificationService.createRecordInstruction(
+            const txi = await createIdentityRecordInstruction(
+                this.connection,
+                IDENTITY_VERIFICATION_PROGRAM_ID,
                 this.wallet.publicKey!,
                 group,
                 authority
