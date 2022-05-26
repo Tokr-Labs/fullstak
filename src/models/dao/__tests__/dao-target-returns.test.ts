@@ -1,4 +1,4 @@
-import {DaoTargetReturns} from "./dao-target-returns";
+import {DaoTargetReturns} from "../dao-target-returns";
 
 test("that target returns are parsed correctly", () => {
 

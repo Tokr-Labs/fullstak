@@ -1,4 +1,4 @@
-import {NumberFormatter} from "./number-formatter";
+import {NumberFormatter} from "../number-formatter";
 
 test("percentages formatted correctly", () => {
 

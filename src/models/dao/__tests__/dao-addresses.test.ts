@@ -1,6 +1,4 @@
-import * as fs from "fs";
-import {DaoInfo} from "./dao-info";
-import {DaoAddresses} from "./dao-addresses";
+import {DaoAddresses} from "../dao-addresses";
 
 test("that dao addresses are parsed correctly", () => {
 

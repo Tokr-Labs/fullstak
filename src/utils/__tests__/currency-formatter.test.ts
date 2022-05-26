@@ -1,4 +1,4 @@
-import {CurrencyFormatter} from "./currency-formatter";
+import {CurrencyFormatter} from "../currency-formatter";
 
 test("usdc gets formatted correctly", () => {
 

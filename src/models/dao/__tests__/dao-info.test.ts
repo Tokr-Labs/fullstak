@@ -1,5 +1,5 @@
 import * as fs from "fs";
-import {DaoInfo} from "./dao-info";
+import {DaoInfo} from "../dao-info";
 
 test("that dao info parses json correctly", () => {
 

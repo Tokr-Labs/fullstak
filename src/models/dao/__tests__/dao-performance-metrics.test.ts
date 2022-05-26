@@ -1,4 +1,4 @@
-import {DaoPerformanceMetrics} from "./dao-performance-metrics";
+import {DaoPerformanceMetrics} from "../dao-performance-metrics";
 
 test("that dao performance parses correctly", () => {
 

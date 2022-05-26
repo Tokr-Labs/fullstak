@@ -1,6 +1,4 @@
-import fs from "fs";
-import {DaoInfo} from "./dao-info";
-import {DaoFees} from "./dao-fees";
+import {DaoFees} from "../dao-fees";
 
 test("dao fees parsed correctly", () => {
 

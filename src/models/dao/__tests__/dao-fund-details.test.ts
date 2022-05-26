@@ -1,4 +1,4 @@
-import {DaoFundDetails} from "./dao-fund-details";
+import {DaoFundDetails} from "../dao-fund-details";
 
 test("that fund details parse correctly", () => {
 
