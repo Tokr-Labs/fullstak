@@ -1,5 +1,6 @@
 import {DaoTargetReturns} from "./dao-target-returns";
 import {DaoFees} from "./dao-fees";
+import {CurrencyFormatter} from "../../utils/currency-formatter";
 
 export class DaoFundDetails {
 
@@ -64,26 +65,29 @@ export class DaoFundDetails {
     /// @TODO: Add docs
     dataRoom: string
 
-    /// @TODO: Add docs
+    /// target returns for the dao fund
     targetReturns: DaoTargetReturns
 
-    /// @TODO: Add docs
+    /// fees associated with the dao fund
     fees: DaoFees
 
+    // formatted minimum raise
     get formattedMinRaise(): string {
-        return `${this.minRaise.toLocaleString("en-US")} USDC`
+        return CurrencyFormatter.formatUsdc(this.minRaise)
     }
 
+    // formatted maximum raise
     get formattedMaxRaise(): string {
-        return `${this.maxRaise.toLocaleString("en-US")} USDC`
+        return CurrencyFormatter.formatUsdc(this.maxRaise)
     }
 
+    // formatted minimum investment per limited partner
     get formattedMinInvestment(): string {
-        return `${this.minInvestment.toLocaleString("en-US")} USDC`
+        return CurrencyFormatter.formatUsdc(this.minInvestment)
     }
 
+    // formatted date the fund closes assuming it has reached the min raise
     get formattedRaiseClose(): string {
-
         return this.raiseClose.toLocaleDateString('en-us', {
             year: "numeric",
             month: "long",
@@ -91,6 +95,7 @@ export class DaoFundDetails {
         })
     }
 
+    // formatted lockup period in years
     get formattedFundTerm(): string {
         return `${this.fundTerm} years`
     }

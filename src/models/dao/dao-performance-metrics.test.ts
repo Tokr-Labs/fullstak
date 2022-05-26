@@ -10,8 +10,8 @@ test("that dao performance parses correctly", () => {
       "net_irr": 2247
    })
 
-   expect(metrics.formattedPaidInCapital).toEqual("100,000,000 USDC")
-   expect(metrics.formattedCarryingValue).toEqual("150,000,000 USDC")
+   expect(metrics.formattedPaidInCapital).toEqual("100M USDC")
+   expect(metrics.formattedCarryingValue).toEqual("150M USDC")
    expect(metrics.formattedTvpi).toEqual("1.33x")
    expect(metrics.formattedDpi).toEqual("1.33x")
    expect(metrics.formattedNetIrr).toEqual("22.47%")

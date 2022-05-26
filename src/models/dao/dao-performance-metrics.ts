@@ -1,3 +1,6 @@
+import {CurrencyFormatter} from "../../utils/currency-formatter";
+import {NumberFormatter} from "../../utils/number-formatter";
+
 export class DaoPerformanceMetrics {
 
     // ============================================================
@@ -47,39 +50,27 @@ export class DaoPerformanceMetrics {
 
     /// formatted USDC amount
     get formattedPaidInCapital(): string {
-        return `${this.paidInCapital.toLocaleString("en-US")} USDC`
+        return CurrencyFormatter.formatUsdc(this.paidInCapital)
     }
 
     /// formatted USDC amount
     get formattedCarryingValue(): string {
-        return `${this.carryingValue.toLocaleString("en-US")} USDC`
+        return CurrencyFormatter.formatUsdc(this.carryingValue)
     }
 
     /// multiplier formatting of tvpi
     get formattedTvpi(): string {
-
-        // percentage 0-1
-        const percentage = this.tvpi / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}x`;
+        return NumberFormatter.formatPercentage(this.tvpi, 2, "x");
     }
 
     /// multiplier formatting of dpi
     get formattedDpi(): string {
-
-        // percentage 0-1
-        const percentage = this.dpi / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}x`;
+        return NumberFormatter.formatPercentage(this.dpi, 2, "x");
     }
 
     /// Percentage formatting of net irr
     get formattedNetIrr(): string {
-
-        // percentage 0-1
-        const percentage = this.netIrr / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}%`;
+        return NumberFormatter.formatPercentage(this.netIrr);
     }
 
 }

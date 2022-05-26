@@ -1,3 +1,5 @@
+import {NumberFormatter} from "../../utils/number-formatter";
+
 export class DaoTargetReturns {
 
     // ============================================================
@@ -35,17 +37,11 @@ export class DaoTargetReturns {
 
     /// percentage formatting of irr
     get formattedIrr(): string {
-        // percentage 0-1
-        const percentage = this.irr / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}%`;
+        return NumberFormatter.formatPercentage(this.irr);
     }
 
     /// percentage formatting of coc
     get formattedCoc(): string {
-        // percentage 0-1
-        const percentage = this.coc / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}%`;
+        return NumberFormatter.formatPercentage(this.coc);
     }
 }

@@ -1,3 +1,5 @@
+import {NumberFormatter} from "../../utils/number-formatter";
+
 export class DaoFees {
 
     // ============================================================
@@ -25,26 +27,18 @@ export class DaoFees {
 
     // Public Properties
 
-    /// @TODO: Add docs
+    /// closing fees
     closing: number
 
-    /// @TODO: Add docs
+    /// annual fee percentage
     annual: number
 
     get formattedClosingFee(): string {
-
-        // percentage 0-1
-        const percentage = this.closing / Math.pow(10,4)
-
-        return `${(percentage * 100).toFixed(2)}%`;
+        return NumberFormatter.formatPercentage(this.closing);
     }
 
     get formattedAnnualFee(): string {
-
-        // percentage 0-1
-        const percentage = this.annual / Math.pow(10,4)
-
-        return `${(percentage* 100).toFixed(2)}%`;
+        return NumberFormatter.formatPercentage(this.annual);
     }
 
 }
