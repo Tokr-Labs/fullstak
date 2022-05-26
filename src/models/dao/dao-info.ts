@@ -2,6 +2,7 @@ import {DaoFundDetails} from "./dao-fund-details";
 import {DaoAddresses} from "./dao-addresses";
 import {DaoStakeholders} from "./dao-stakeholders";
 import {DaoTokenInfo} from "./dao-token-info";
+import {DaoPerformanceMetrics} from "./dao-performance-metrics";
 
 export class DaoInfo {
 
@@ -26,6 +27,7 @@ export class DaoInfo {
         daoInfo.stakeholders = DaoStakeholders.with(info.stakeholders);
         daoInfo.details = DaoFundDetails.with(info.details);
         daoInfo.addresses = DaoAddresses.with(info.addresses);
+        daoInfo.performance = DaoPerformanceMetrics.with(info.performance ?? {});
 
         return daoInfo;
 
@@ -57,5 +59,8 @@ export class DaoInfo {
 
     /// Public keys of the daos main components
     addresses: DaoAddresses
+
+    /// metrics for active funds
+    performance: DaoPerformanceMetrics
 
 }

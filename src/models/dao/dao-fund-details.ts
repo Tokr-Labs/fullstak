@@ -71,15 +71,15 @@ export class DaoFundDetails {
     fees: DaoFees
 
     get formattedMinRaise(): string {
-        return `$${this.minRaise.toLocaleString("en-US")}`
+        return `${this.minRaise.toLocaleString("en-US")} USDC`
     }
 
     get formattedMaxRaise(): string {
-        return `$${this.maxRaise.toLocaleString("en-US")}`
+        return `${this.maxRaise.toLocaleString("en-US")} USDC`
     }
 
     get formattedMinInvestment(): string {
-        return `$${this.minInvestment.toLocaleString("en-US")}`
+        return `${this.minInvestment.toLocaleString("en-US")} USDC`
     }
 
     get formattedRaiseClose(): string {

@@ -22,9 +22,9 @@ test("that fund details parse correctly", () => {
 
     expect(details.vintageYear).toEqual("2022");
     expect(details.formattedFundTerm).toEqual("5 years");
-    expect(details.formattedMinRaise).toEqual("$1,000,000");
-    expect(details.formattedMaxRaise).toEqual("$10,000,000");
-    expect(details.formattedMinInvestment).toEqual("$100,000");
+    expect(details.formattedMinRaise).toEqual("1,000,000 USDC");
+    expect(details.formattedMaxRaise).toEqual("10,000,000 USDC");
+    expect(details.formattedMinInvestment).toEqual("100,000 USDC");
     expect(details.formattedRaiseClose).toEqual("January 1, 2023");
 
 })

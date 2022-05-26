@@ -27,12 +27,13 @@ export class DaoTargetReturns {
 
     // Public Properties
 
-    /// @TODO: Add docs
+    /// internal rate of return
     irr: number
 
-    /// @TODO: Add docs
+    /// cost over capital
     coc: number
 
+    /// percentage formatting of irr
     get formattedIrr(): string {
         // percentage 0-1
         const percentage = this.irr / Math.pow(10,4)
@@ -40,6 +41,7 @@ export class DaoTargetReturns {
         return `${(percentage * 100).toFixed(2)}%`;
     }
 
+    /// percentage formatting of coc
     get formattedCoc(): string {
         // percentage 0-1
         const percentage = this.coc / Math.pow(10,4)

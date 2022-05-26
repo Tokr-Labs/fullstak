@@ -1,33 +1,33 @@
 {
-  "name": "Miami Fund",
-  "description": "Miami Fund is a private real estate investment fund focused on producing market-beating returns through a disciplined, value-add investing approach in one of the fastest growing markets in the world, Miami, FL. We pride ourselves on sourcing proprietary deal-flow below-market, and generating opportunities in under-managed assets.",
-  "active": false,
+  "name": "Easy Street",
+  "description": "The Easy Street fund is designed for the DeFi-curious who want access to proprietary deal-flow in and around primary coastal market urban cities. We create reliable investment vehicles by allocating capital to acquire cornerstone assets that generate predictable cash flows over the long term.",
+  "active": true,
   "token": {
-    "ticker": "MF1"
+    "ticker": "EZ"
   },
-  "stakeholders": {
+  "people": {
     "sponsor": {
-      "name": "John Smith",
-      "company": "Smith & Co. Investments",
-      "image": "src/assets/issuers/john-smith.png"
+      "name": "Easy Street Capital",
+      "company": "Easy Street Capital",
+      "image": "src/assets/issuers/<SPONSOR_LOGO>.png"
     },
     "delegate": {
       "name": "Tokr Labs",
       "company": "Tokr Labs",
-      "image": "src/assets/issuers/tokr-labs.png"
+      "image": "src/assets/issuers/<DELEGATE_LOGO>.png"
     }
   },
   "details": {
-    "min_raise": 1000000,
-    "max_raise": 10000000,
-    "min_investment": 100000,
-    "raise_close": 1672531200,
-    "vintage_year": "2022",
+    "min_raise": 100000000,
+    "max_raise": 250000000,
+    "min_investment": 1000000,
+    "raise_close": 1584576000,
+    "vintage_year": 2020,
     "fund_term": 5,
     "data_room": "",
     "target_returns": {
-      "irr": 2400,
-      "coc": 1000
+      "irr": 1200,
+      "coc": 6000
     },
     "fees": {
       "closing": 1000,
@@ -50,7 +50,15 @@
     },
     "treasury": {
       "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+      "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "stock_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "performance": {
+      "paid_in_capital": 250000000,
+      "carrying_value": 323000000,
+      "tvpi": 133,
+      "dpi": 133,
+      "net_irr": 1571
     }
   }
 }

@@ -34,7 +34,8 @@ export class DaoAddresses {
 
         addresses.treasury = {
             capitalSupply: new PublicKey(info.treasury.capital_supply),
-            distributions: new PublicKey(info.treasury.distributions)
+            distributions: new PublicKey(info.treasury.distributions),
+            stockSupply: new PublicKey(info.treasury.stock_supply)
         };
 
         return addresses;
@@ -89,6 +90,9 @@ export class DaoAddresses {
 
         /// USDC treasury account for distribution funds provided by the general partner
         distributions: PublicKey
+
+        /// USDC treasury stock holding account
+        stockSupply: PublicKey
 
     }
 

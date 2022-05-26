@@ -30,7 +30,7 @@ export class DaoStakeholder {
 
     // Public Properties
 
-    /// name od the stakeholder
+    /// name of the stakeholder
     name: string
 
     /// company the stakeholder is associated with
