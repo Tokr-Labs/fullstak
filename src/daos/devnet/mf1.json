@@ -44,14 +44,14 @@
       "delegate_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
     },
     "mint": {
-      "lp_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "lp_token_mint": "91TqzrHZe6QotBk9ohR4cYmJEZ89ZNAYCc2Jp8Jbbmvg",
       "distribution_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
       "delegate_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
     },
     "treasury": {
       "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
       "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "stock_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+      "stock_supply": "GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"
     }
   }
 }

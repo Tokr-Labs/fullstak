@@ -5,13 +5,18 @@ import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
+import {DaoInfo} from "../../models/dao/dao-info";
 
 export const PoolMembers = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);
 
-    const data = require("src/daos/devnet/tj-test-dao.json")
+    const dao = useMemo(() => {
+        // @TODO: This needs to move out and be passed in via context
+        const data = require("src/daos/devnet/mf1.json")
+        return DaoInfo.with(data);
+    }, []);
 
     const [entries, setEntries] = useState<CapTableEntry[]>();
 
@@ -19,18 +24,16 @@ export const PoolMembers = () => {
 
         generateCapTable(
             connection,
-            new PublicKey("91TqzrHZe6QotBk9ohR4cYmJEZ89ZNAYCc2Jp8Jbbmvg"), // data.addresses.mint.lp_token_mint),
-            new PublicKey("GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"), // treasury stock account
-            [
-                new PublicKey("HMZtv7yMrcEUVTCEnsrwsCdpCWxkKnayyoVV562uACoa")
-            ]
+            dao.addresses.mint.lpTokenMint,
+            dao.addresses.treasury.stockSupply, // treasury stock account
+            []
         ).then(capTable => {
             setEntries(capTable.entries);
         }).catch(error => {
             console.error(error.message);
         });
 
-    }, [connection, data.addresses.mint.lp_token_mint])
+    }, [connection, dao])
 
     return (
 
@@ -61,7 +64,7 @@ export const PoolMembers = () => {
                             </Table.Cell>
 
                             <Table.Cell>
-                                {entry.tokensHeld} {data.token.ticker}
+                                {entry.tokensHeld} {dao.token.ticker}
                             </Table.Cell>
 
                             <Table.Cell>
