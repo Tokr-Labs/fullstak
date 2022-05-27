@@ -35,22 +35,22 @@
     }
   },
   "addresses": {
-    "pubkey": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-    "authority": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-    "owner": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "pubkey": "4HQq69iujZvFSgob73VjXKoVYJPebG4xPLwAgnugYUqU",
+    "authority": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+    "owner": "GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP",
     "governance": {
-      "lp_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "distribution_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "delegate_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+      "lp_token_mint_governance": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+      "distribution_token_mint_governance": "AzVeG1JeYQiyJzm8VH2yYnBcdg8aRj7ZJbhdrDcfBnvA",
+      "delegate_token_mint_governance": "47diUtsr1kVL3Yv636s9NAjL2yq43XAjJ6knVdUtRTjf"
     },
     "mint": {
-      "lp_token_mint": "91TqzrHZe6QotBk9ohR4cYmJEZ89ZNAYCc2Jp8Jbbmvg",
-      "distribution_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "delegate_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+      "lp_token_mint": "6y61BBetk5k4dEQaYhM6VkLjtPUbsE9SWRfXNeCVkpWM",
+      "distribution_token_mint": "EPF5GdyVM5mytyK29VQSX1ZGisE6dECY2PXH5Nq5WEUm",
+      "delegate_token_mint": "D7JQtqKKNXY5sbx4U4JbwKAJ5uCdRktdX7BDhC9k4LRc"
     },
     "treasury": {
-      "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "capital_supply": "Biyu4sm65wDvcTjnY9MaTeBnrPdSXDavvvzMMYNtdRJt",
+      "distributions": "13NnpNAybREQmtqWu5Rp2kwW9k62hdVgXXPDh9zDcWox",
       "stock_supply": "GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"
     }
   }

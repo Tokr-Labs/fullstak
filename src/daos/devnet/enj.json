@@ -22,7 +22,7 @@
     "max_raise": 100000000,
     "min_investment": 200000,
     "raise_close": 1609632000,
-    "vintage_year": 2021,
+    "vintage_year": "2021",
     "fund_term": 5,
     "data_room": "",
     "target_returns": {
