@@ -32,7 +32,7 @@ export class DaoTargetReturns {
     /// internal rate of return
     irr: number
 
-    /// cost over capital
+    /// cash on cash
     coc: number
 
     /// percentage formatting of irr

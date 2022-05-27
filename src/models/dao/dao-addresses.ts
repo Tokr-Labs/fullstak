@@ -91,7 +91,7 @@ export class DaoAddresses {
         /// USDC treasury account for distribution funds provided by the general partner
         distributions: PublicKey
 
-        /// USDC treasury stock holding account
+        /// lp treasury stock
         stockSupply: PublicKey
 
     }
