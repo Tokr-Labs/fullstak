@@ -1,0 +1,57 @@
+{
+  "name": "Miami Fund",
+  "description": "Miami Fund is a private real estate investment fund focused on producing market-beating returns through a disciplined, value-add investing approach in one of the fastest growing markets in the world, Miami, FL. We pride ourselves on sourcing proprietary deal-flow below-market, and generating opportunities in under-managed assets.",
+  "active": false,
+  "token": {
+    "ticker": "MF1"
+  },
+  "stakeholders": {
+    "sponsor": {
+      "name": "John Smith",
+      "company": "Smith & Co. Investments",
+      "image": "src/assets/issuers/john-smith.png"
+    },
+    "delegate": {
+      "name": "Tokr Labs",
+      "company": "Tokr Labs",
+      "image": "src/assets/issuers/tokr-labs.png"
+    }
+  },
+  "details": {
+    "min_raise": 1000000,
+    "max_raise": 10000000,
+    "min_investment": 100000,
+    "raise_close": 1672531200,
+    "vintage_year": "2022",
+    "fund_term": 5,
+    "data_room": "",
+    "target_returns": {
+      "irr": 2400,
+      "coc": 1000
+    },
+    "fees": {
+      "closing": 1000,
+      "annual": 1000
+    }
+  },
+  "addresses": {
+    "pubkey": "4HQq69iujZvFSgob73VjXKoVYJPebG4xPLwAgnugYUqU",
+    "authority": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+    "owner": "GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP",
+    "governance": {
+      "lp_token_mint_governance": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
+      "distribution_token_mint_governance": "AzVeG1JeYQiyJzm8VH2yYnBcdg8aRj7ZJbhdrDcfBnvA",
+      "delegate_token_mint_governance": "47diUtsr1kVL3Yv636s9NAjL2yq43XAjJ6knVdUtRTjf"
+    },
+    "mint": {
+      "lp_token_mint": "6y61BBetk5k4dEQaYhM6VkLjtPUbsE9SWRfXNeCVkpWM",
+      "distribution_token_mint": "EPF5GdyVM5mytyK29VQSX1ZGisE6dECY2PXH5Nq5WEUm",
+      "delegate_token_mint": "D7JQtqKKNXY5sbx4U4JbwKAJ5uCdRktdX7BDhC9k4LRc"
+    },
+    "treasury": {
+      "capital_supply": "Biyu4sm65wDvcTjnY9MaTeBnrPdSXDavvvzMMYNtdRJt",
+      "distributions": "13NnpNAybREQmtqWu5Rp2kwW9k62hdVgXXPDh9zDcWox",
+      "stock_supply": "GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"
+    }
+  }
+}

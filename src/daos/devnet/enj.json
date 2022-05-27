@@ -1,0 +1,64 @@
+{
+  "name": "RE Enjoyoooors",
+  "description": "RE Enjoyoooors is a private real estate fund designed with a higher risk/return profile suitable for DeFi Degens. Deploying capital in secondary and tertiary markets for ground-up development and opportunistic acquisitions will be core to our approach. We belive non-coastal markets hold the most upside following a downturn, positioning us to take full advantage of the opportunities ahead.",
+  "active": true,
+  "token": {
+    "ticker": "ENJ"
+  },
+  "people": {
+    "sponsor": {
+      "name": "Enjoyoooors Capital",
+      "company": "Enjoyoooors Capital",
+      "image": "src/assets/issuers/<SPONSOR_LOGO>.png"
+    },
+    "delegate": {
+      "name": "Tokr Labs",
+      "company": "Tokr Labs",
+      "image": "src/assets/issuers/<DELEGATE_LOGO>.png"
+    }
+  },
+  "details": {
+    "min_raise": 100000,
+    "max_raise": 100000000,
+    "min_investment": 200000,
+    "raise_close": 1609632000,
+    "vintage_year": "2021",
+    "fund_term": 5,
+    "data_room": "",
+    "target_returns": {
+      "irr": 2500,
+      "coc": 8000
+    },
+    "fees": {
+      "closing": 100,
+      "annual": 100
+    }
+  },
+  "addresses": {
+    "pubkey": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "authority": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "owner": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "governance": {
+      "lp_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distribution_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "delegate_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "mint": {
+      "lp_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distribution_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "delegate_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "treasury": {
+      "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "stock_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "performance": {
+      "paid_in_capital": 100000000,
+      "carrying_value": 150000000,
+      "tvpi": 1500,
+      "dpi": 500,
+      "net_irr": 2247
+    }
+  }
+}
