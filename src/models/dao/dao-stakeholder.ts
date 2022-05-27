@@ -10,7 +10,7 @@ export class DaoStakeholder {
      * Factory method for creating an instance of dao stakeholder
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoStakeholder {
+    static with(info): DaoStakeholder {
 
         const stakeholder = new DaoStakeholder()
 

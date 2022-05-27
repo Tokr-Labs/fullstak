@@ -176,10 +176,6 @@ export const PoolDetail = () => {
 
                             <Card className={"dark-card"}>
 
-                                {/*<Card.Header>*/}
-                                {/*    <Text h4>Invest</Text>*/}
-                                {/*</Card.Header>*/}
-
                                 <Card.Body>
                                     <Grid.Container justify={"center"} alignItems={"center"} style={{height: "100%"}}>
                                         <Grid direction={"column"}>
@@ -198,7 +194,7 @@ export const PoolDetail = () => {
                                                     <Input
                                                         type={"number"}
                                                         label={"Deposit"}
-                                                        status={tokensToReceive > usdcHoldings! ? "error" : "default"}
+                                                        status={tokensToReceive > (usdcHoldings ?? 0) ? "error" : "default"}
                                                         labelRight={"USDC"}
                                                         style={{textAlign: "right"}}
                                                         helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
@@ -226,7 +222,7 @@ export const PoolDetail = () => {
                                                     <Button
                                                         color={"primary"}
                                                         style={{fontWeight: "bold", borderRadius: 0}}
-                                                        disabled={tokensToReceive > usdcHoldings! || tokensToReceive === 0}
+                                                        disabled={tokensToReceive > (usdcHoldings ?? 0) || tokensToReceive === 0}
                                                         onClick={makeDeposit}
                                                     >
                                                         Invest

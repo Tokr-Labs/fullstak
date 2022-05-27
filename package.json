@@ -2,56 +2,10 @@
   "name": "tokr-fi",
   "version": "0.1.0",
   "private": true,
-  "dependencies": {
-    "react": "18.1.0",
-    "react-dom": "18.1.0",
-    "react-scripts": "5.0.1",
-    "typescript": "4.7.2",
-    "web-vitals": "2.1.4",
-    "@nextui-org/react": "1.0.0-beta.6",
-    "@project-serum/common": "0.0.1-beta.3",
-    "@solana/buffer-layout-utils": "0.2.0",
-    "@solana/spl-token": "0.2.0",
-    "@solana/spl-token-lending": "0.3.6",
-    "@solana/wallet-adapter-base": "0.9.5",
-    "@solana/wallet-adapter-react": "0.15.4",
-    "@solana/wallet-adapter-react-ui": "0.9.6",
-    "@solana/wallet-adapter-wallets": "0.15.5",
-    "@solana/web3.js": "1.43.1",
-    "@tokr-labs/governance": "0.0.36",
-    "@tokr-labs/identity-verification": "0.4.0",
-    "@tokr-labs/cap-table": "0.3.0",
-    "amplitude-js": "8.18.1",
-    "boxicons": "2.1.2",
-    "crypto-browserify": "3.12.0",
-    "react-router-dom": "6.3.0",
-    "stream-browserify": "3.0.0",
-    "underscore": "1.13.2",
-    "use-dark-mode": "2.3.1"
-  },
-  "devDependencies": {
-    "@craco/craco": "6.4.3",
-    "@testing-library/jest-dom": "5.16.4",
-    "@testing-library/react": "13.2.0",
-    "@testing-library/user-event": "13.5.0",
-    "@types/jest": "27.5.1",
-    "@types/node": "16.11.36",
-    "@types/react": "18.0.9",
-    "@types/react-dom": "18.0.5",
-    "@types/amplitude-js": "8.16.0",
-    "@types/underscore": "1.11.4",
-    "process": "0.11.10"
-  },
   "scripts": {
-    "start": "craco start",
     "build": "craco build",
+    "start": "craco start",
     "test": "craco test"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -64,5 +18,59 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "rules": {
+      "no-unused-expressions": "off",
+      "no-unused-vars": "off",
+      "@typescript-eslint/no-unused-vars": ["off"],
+      "@typescript-eslint/no-unused-expressions": ["off"],
+      "@typescript-eslint/no-var-requires": ["off"]
+    }
+  },
+  "dependencies": {
+    "@nextui-org/react": "1.0.0-beta.6",
+    "@project-serum/common": "0.0.1-beta.3",
+    "@solana/buffer-layout-utils": "0.2.0",
+    "@solana/spl-token": "0.2.0",
+    "@solana/spl-token-lending": "0.3.6",
+    "@solana/wallet-adapter-base": "0.9.5",
+    "@solana/wallet-adapter-react": "0.15.4",
+    "@solana/wallet-adapter-react-ui": "0.9.6",
+    "@solana/wallet-adapter-wallets": "0.15.5",
+    "@solana/web3.js": "1.43.1",
+    "@tokr-labs/cap-table": "0.3.0",
+    "@tokr-labs/governance": "0.0.36",
+    "@tokr-labs/identity-verification": "0.4.0",
+    "amplitude-js": "8.18.1",
+    "boxicons": "2.1.2",
+    "crypto-browserify": "3.12.0",
+    "react": "18.1.0",
+    "react-dom": "18.1.0",
+    "react-router-dom": "6.3.0",
+    "react-scripts": "5.0.1",
+    "stream-browserify": "3.0.0",
+    "typescript": "4.7.2",
+    "underscore": "1.13.2",
+    "use-dark-mode": "2.3.1",
+    "web-vitals": "2.1.4"
+  },
+  "devDependencies": {
+    "@craco/craco": "6.4.3",
+    "@testing-library/jest-dom": "5.16.4",
+    "@testing-library/react": "13.2.0",
+    "@testing-library/user-event": "13.5.0",
+    "@types/amplitude-js": "8.16.0",
+    "@types/jest": "27.5.1",
+    "@types/node": "16.11.36",
+    "@types/react": "18.0.9",
+    "@types/react-dom": "18.0.5",
+    "@types/underscore": "1.11.4",
+    "process": "0.11.10"
   }
 }
