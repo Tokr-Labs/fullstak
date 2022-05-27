@@ -37,5 +37,15 @@ module.exports = {
 
         }
 
-    }
+    },
+    jest: {
+        babel: {
+            addPresets: true,
+            addPlugins: true
+        },
+        configure: (jestConfig, {env, paths, resolve, rootDir}) => {
+            jestConfig.roots = ["."];
+            return jestConfig;
+        }
+    },
 };
