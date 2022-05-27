@@ -1,5 +1,3 @@
-import {DaoStakeholders} from "./dao-stakeholders";
-
 export class DaoStakeholder {
 
     // ============================================================

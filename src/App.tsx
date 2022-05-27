@@ -5,7 +5,6 @@ import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui';
 import {clusterApiUrl} from '@solana/web3.js';
-import useDarkMode from "use-dark-mode"
 import {BrowserRouter, Route, Routes} from "react-router-dom";
 import Landing from "./pages/Landing";
 import {Markets} from "./pages/Markets";
@@ -16,8 +15,6 @@ import {Portfolio} from "./pages/Portfolio";
 import {PoolAssets} from "./components/pools/PoolAssets";
 import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolDetails} from "./components/pools/PoolDetails";
-import {PoolProposals} from "./components/pools/PoolProposals";
-import {PoolTransactions} from "./components/pools/PoolTransactions";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');

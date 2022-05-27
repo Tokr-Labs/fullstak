@@ -1,10 +1,8 @@
 import "../index.css"
 import discordIcon from "src/assets/icons/discord_icon.svg"
-import tokrIcon from "src/assets/tokr_icon_dark_crop.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
-import {Link} from "react-router-dom"
 
 const Landing = () => {
 
