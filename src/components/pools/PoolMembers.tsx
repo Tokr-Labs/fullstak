@@ -5,6 +5,7 @@ import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
+import {PublicKey} from "@solana/web3.js";
 
 export const PoolMembers = () => {
 
@@ -27,7 +28,9 @@ export const PoolMembers = () => {
             connection,
             lpTokenMint,
             treasuryStock, // treasury stock account
-            []
+            [
+                new PublicKey("GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst")
+            ]
         ).then(capTable => {
             setEntries(capTable.entries);
         }).catch(error => {
