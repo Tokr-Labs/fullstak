@@ -12,12 +12,12 @@ export class DaoTargetReturns {
      * Factory method for creating an instance of dao returns
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoTargetReturns {
+    static with(info?: any): DaoTargetReturns {
 
         const returns = new DaoTargetReturns()
 
-        returns.irr = info.irr;
-        returns.coc = info.coc;
+        returns.irr = info?.irr ?? 0;
+        returns.coc = info?.coc ?? 0;
 
         return returns;
 

@@ -18,6 +18,8 @@ import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolDetails} from "./components/pools/PoolDetails";
 import {PoolProposals} from "./components/pools/PoolProposals";
 import {PoolTransactions} from "./components/pools/PoolTransactions";
+import {DaoInfoContext} from "./models/contexts/dao-context";
+import {DaoInfo} from "./models/dao/dao-info";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -99,6 +101,12 @@ export const App = () => {
     })
     globalStyles();
 
+    const dao = useMemo(() => {
+        // @TODO: need to update this when a dap is chosen from the markets landing page
+        const data = require("src/daos/devnet/mf1.json")
+        return DaoInfo.with(data);
+    }, []);
+
     // // Defaults to using system preference
     // const darkMode = useDarkMode();
 
@@ -121,7 +129,11 @@ export const App = () => {
                                             <Route index element={<EquityMarkets/>}/>
                                             <Route path="equity" element={<EquityMarkets/>}/>
 
-                                            <Route path="equity/pool-details" element={<PoolDetail/>}>
+                                            <Route path="equity/pool-details" element={
+                                                <DaoInfoContext.Provider value={dao}>
+                                                    <PoolDetail/>
+                                                </DaoInfoContext.Provider>
+                                            }>
                                                 <Route index element={<PoolAssets/>}/>
                                                 <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>

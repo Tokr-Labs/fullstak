@@ -12,13 +12,13 @@ export class DaoStakeholder {
      * Factory method for creating an instance of dao stakeholder
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoStakeholder {
+    static with(info?: any): DaoStakeholder {
 
         const stakeholder = new DaoStakeholder()
 
-        stakeholder.name = info.name;
-        stakeholder.company = info.name;
-        stakeholder.image = info.image;
+        stakeholder.name = info?.name ?? "";
+        stakeholder.company = info?.company ?? "";
+        stakeholder.image = info?.image ?? "";
 
         return stakeholder;
 

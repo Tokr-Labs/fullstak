@@ -12,11 +12,11 @@ export class DaoFees {
      * Factory method for creating an instance of dao fees
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoFees {
+    static with(info?: any): DaoFees {
         const fees = new DaoFees()
 
-        fees.closing = info.closing ?? 0;
-        fees.annual = info.annual ?? 0;
+        fees.closing = info?.closing ?? 0;
+        fees.annual = info?.annual ?? 0;
 
         return fees;
     }

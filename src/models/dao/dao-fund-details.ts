@@ -14,25 +14,25 @@ export class DaoFundDetails {
      * Factory method for creating an instance of dao details
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoFundDetails {
+    static with(info?: any): DaoFundDetails {
 
         const details = new DaoFundDetails()
 
-        details.minRaise = info.min_raise ?? 1
-        details.maxRaise = info.max_raise ?? 1000000000
-        details.minInvestment = info.min_investment ?? 100000
+        details.minRaise = info?.min_raise ?? 1
+        details.maxRaise = info?.max_raise ?? 1000000000
+        details.minInvestment = info?.min_investment ?? 100000
 
-        const seconds = info.raise_close ?? 0
+        const seconds = info?.raise_close ?? 0
         const date = new Date(seconds * 1000)
         const tzOffset = date.getTimezoneOffset() * 1000 * 60
 
         details.raiseClose = new Date(date.getTime() + tzOffset);
 
-        details.vintageYear = `${info.vintage_year}` ?? ""
-        details.fundTerm = info.fund_term ?? 1;
-        details.dataRoom = info.data_room ?? "";
-        details.targetReturns = DaoTargetReturns.with(info.target_returns)
-        details.fees = DaoFees.with(info.fees)
+        details.vintageYear = `${info?.vintage_year}` ?? ""
+        details.fundTerm = info?.fund_term ?? 1;
+        details.dataRoom = info?.data_room ?? "";
+        details.targetReturns = DaoTargetReturns.with(info?.target_returns)
+        details.fees = DaoFees.with(info?.fees)
 
         return details;
 

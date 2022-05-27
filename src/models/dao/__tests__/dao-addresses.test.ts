@@ -23,23 +23,26 @@ test("that dao addresses are parsed correctly", () => {
         }
     }
 
-    const info = DaoAddresses.with(input);
+    const info = DaoAddresses.with(input)!;
+    const governance = info.governance!;
+    const mint = info.mint!;
+    const treasury = info!.treasury!;
 
-    expect(info.pubkey.toBase58()).toEqual(input.pubkey);
-    expect(info.authority.toBase58()).toEqual(input.authority);
-    expect(info.owner.toBase58()).toEqual(input.owner);
+    expect(info.pubkey!.toBase58()).toEqual(input.pubkey);
+    expect(info.authority!.toBase58()).toEqual(input.authority);
+    expect(info.owner!.toBase58()).toEqual(input.owner);
 
-    expect(info.governance.lpTokenMintGovernance.toBase58()).toEqual(input.governance.lp_token_mint_governance);
-    expect(info.governance.distributionTokenMintGovernance.toBase58()).toEqual(input.governance.distribution_token_mint_governance);
-    expect(info.governance.delegateTokenMintGovernance.toBase58()).toEqual(input.governance.delegate_token_mint_governance);
+    expect(governance.lpTokenMintGovernance!.toBase58()).toEqual(input.governance.lp_token_mint_governance);
+    expect(governance.distributionTokenMintGovernance!.toBase58()).toEqual(input.governance.distribution_token_mint_governance);
+    expect(governance.delegateTokenMintGovernance!.toBase58()).toEqual(input.governance.delegate_token_mint_governance);
 
-    expect(info.mint.lpTokenMint.toBase58()).toEqual(input.mint.lp_token_mint);
-    expect(info.mint.distributionTokenMint.toBase58()).toEqual(input.mint.distribution_token_mint);
-    expect(info.mint.delegateTokenMint.toBase58()).toEqual(input.mint.delegate_token_mint);
+    expect(mint.lpTokenMint!.toBase58()).toEqual(input.mint.lp_token_mint);
+    expect(mint.distributionTokenMint!.toBase58()).toEqual(input.mint.distribution_token_mint);
+    expect(mint.delegateTokenMint!.toBase58()).toEqual(input.mint.delegate_token_mint);
 
-    expect(info.treasury.capitalSupply.toBase58()).toEqual(input.treasury.capital_supply);
-    expect(info.treasury.distributions.toBase58()).toEqual(input.treasury.distributions);
-    expect(info.treasury.stockSupply.toBase58()).toEqual(input.treasury.stock_supply);
+    expect(treasury.capitalSupply!.toBase58()).toEqual(input.treasury.capital_supply);
+    expect(treasury.distributions!.toBase58()).toEqual(input.treasury.distributions);
+    expect(treasury.stockSupply!.toBase58()).toEqual(input.treasury.stock_supply);
 
 
 })
