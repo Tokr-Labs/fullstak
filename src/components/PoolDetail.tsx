@@ -8,6 +8,10 @@ import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adap
 import {TokenServices} from "../services/token-services";
 import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {DaoInfo} from "../models/dao/dao-info";
+import {DaoInfoContext} from "../models/contexts/dao-context";
+import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
+import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipIcon} from "./icons/TooltipIcon";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 
@@ -23,8 +27,33 @@ export const PoolDetail = () => {
     const wallet = useWallet();
     const {connection} = useConnection()
     const {network} = useContext(NetworkContext)
+    const dao = useContext(DaoInfoContext)
 
     const theme = useTheme();
+
+    const [entries, setEntries] = useState<CapTableEntry[]>();
+
+    useMemo(() => {
+
+        const lpTokenMint = dao.addresses.mint.lpTokenMint;
+        const treasuryStock = dao.addresses.treasury.stockSupply;
+
+        if (!lpTokenMint || !treasuryStock) {
+            return
+        }
+
+        generateCapTable(
+            connection,
+            lpTokenMint,
+            treasuryStock, // treasury stock account
+            []
+        ).then(capTable => {
+            setEntries(capTable.entries);
+        }).catch(error => {
+            console.error(error.message);
+        });
+
+    }, [connection, dao])
 
     const navigate = useNavigate();
 
@@ -55,11 +84,14 @@ export const PoolDetail = () => {
         }
     }, [network, tokenServices, wallet])
 
-    // TODO - make this specific to both the url path and RPC network selection
-    const data = require("src/daos/devnet/tj-test-dao.json")
-
     const makeDeposit = useCallback(async () => {
         if (!wallet.publicKey) throw new WalletNotConnectedError()
+
+        const capitalSupply = dao.addresses.treasury.capitalSupply;
+
+        if (!capitalSupply) {
+            return
+        }
 
         const usdc = network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
 
@@ -73,7 +105,7 @@ export const PoolDetail = () => {
         const transaction = new Transaction().add(
             createTransferInstruction(
                 sourceTokenAccount,
-                new PublicKey(data.addresses.treasury.capital_supply),
+                new PublicKey(capitalSupply),
                 wallet.publicKey,
                 tokensToReceive * (10 ** decimals),
                 [],
@@ -88,10 +120,12 @@ export const PoolDetail = () => {
         // TODO - hacky way to get rid of modal and update balances, refactor this
         window.location.reload()
 
-    }, [connection, data.addresses.treasury.capital_supply, network, tokenServices, tokensToReceive, wallet])
+    }, [connection, network, tokenServices, tokensToReceive, wallet, dao])
 
     return (
-        <>
+
+        <DaoInfoContext.Provider value={dao}>
+
             <Grid.Container gap={2}>
 
                 <Grid xs={8}>
@@ -108,9 +142,9 @@ export const PoolDetail = () => {
                                     }}/>
                                 </Grid>
                                 <Grid>
-                                    <h1 style={{color: "white", margin: 0}}>{data.name}</h1>
+                                    <h1 style={{color: "white", margin: 0}}>{dao.name}</h1>
                                     <div style={{
-                                        display: data.active ? "none" : "flex",
+                                        display: dao.active ? "none" : "flex",
                                         alignItems: "center"
                                     }}>
                                         <span style={{
@@ -120,7 +154,7 @@ export const PoolDetail = () => {
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                        <Text size={15} color={"white"}>{data.active ? "Active" : "Open"}</Text>
+                                        <Text size={15} color={"white"}>{dao.active ? "Active" : "Open"}</Text>
                                     </div>
                                 </Grid>
                             </Grid.Container>
@@ -158,23 +192,23 @@ export const PoolDetail = () => {
                             <Grid.Container justify={"space-between"}>
                                 <Grid xs={2} direction={"column"}>
                                     <Text weight={"bold"}>Investors</Text>
-                                    <Text>24 investors</Text>
+                                    <Text>{entries?.length ?? "--"} investors</Text>
                                 </Grid>
                                 <Grid xs={2} direction={"column"}>
                                     <Text weight={"bold"}>Max Raise</Text>
-                                    <Text>{data.details.max_raise}</Text>
+                                    <Text>{dao.details.formattedMaxRaise}</Text>
                                 </Grid>
                                 <Grid xs={2} direction={"column"}>
                                     <Text weight={"bold"}>Min Investment</Text>
-                                    <Text>{data.details.min_investment}</Text>
+                                    <Text>{dao.details.formattedMinInvestment}</Text>
                                 </Grid>
                                 <Grid xs={2} direction={"column"}>
                                     <Text weight={"bold"}>Annual Fee</Text>
-                                    <Text>{data.details.fees.annual}</Text>
+                                    <Text>{dao.details.fees.formattedAnnualFee}</Text>
                                 </Grid>
                                 <Grid xs={2} direction={"column"}>
                                     <Text weight={"bold"}>Close Date</Text>
-                                    <Text>{data.details.raise_close}</Text>
+                                    <Text>{dao.details.formattedRaiseClose}</Text>
                                 </Grid>
                             </Grid.Container>
 
@@ -200,7 +234,7 @@ export const PoolDetail = () => {
                                             >
                                                 <Modal.Header>
                                                     <Text h3 id={"modal-title"}>
-                                                        Invest in <span>{data.name}</span>
+                                                        Invest in <span>{dao.name}</span>
                                                     </Text>
                                                 </Modal.Header>
                                                 <Modal.Body>
@@ -221,7 +255,7 @@ export const PoolDetail = () => {
                                                         value={tokensToReceive}
                                                         type={"number"}
                                                         label={"Receive"}
-                                                        labelRight={data.token.ticker}
+                                                        labelRight={dao.token.ticker}
                                                         style={{textAlign: "right"}}
                                                         helperText={"These tokens represent your stake in the fund"}
                                                     />
@@ -351,7 +385,7 @@ export const PoolDetail = () => {
                                     <User
                                         bordered
                                         size={"xl"}
-                                        name={"Miami 27"}
+                                        name={dao.name}
                                         color={"secondary"}
                                         style={{paddingLeft: 0}}
                                     >
@@ -377,12 +411,12 @@ export const PoolDetail = () => {
                                     <User
                                         bordered
                                         size={"xl"}
-                                        name={"Arash Gohari"}
+                                        name={dao.stakeholders.sponsor.name}
                                         color={"secondary"}
                                         style={{paddingLeft: 0}}
-                                        src={require("src/assets/issuers/arash_gohari.png")}
+                                        src={dao.stakeholders.sponsor.image}
                                     >
-                                        27 Capital
+                                        {dao.stakeholders.sponsor.company}
                                     </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
@@ -403,12 +437,12 @@ export const PoolDetail = () => {
                                     <User
                                         bordered
                                         size={"xl"}
-                                        name={"T.J. Kyner"}
+                                        name={dao.stakeholders.delegate.name}
                                         color={"secondary"}
                                         style={{paddingLeft: 0}}
-                                        src={require("src/assets/issuers/tj_kyner.png")}
+                                        src={dao.stakeholders.delegate.image}
                                     >
-                                        Tokr Labs
+                                        {dao.stakeholders.delegate.company}
                                     </User>
                                 </Grid>
                             </Grid.Container>
@@ -418,7 +452,7 @@ export const PoolDetail = () => {
                             <Grid.Container>
                                 <Grid xs={12} direction={"column"}>
                                     <Text weight={"bold"}>Fund Overview</Text>
-                                    <Text>{data.description}</Text>
+                                    <Text>{dao.description}</Text>
                                 </Grid>
                             </Grid.Container>
 
@@ -491,7 +525,9 @@ export const PoolDetail = () => {
             </Grid.Container>
 
             <Spacer y={2}/>
-        </>
+
+        </DaoInfoContext.Provider>
+
     )
 
 }

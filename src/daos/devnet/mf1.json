@@ -9,12 +9,12 @@
     "sponsor": {
       "name": "John Smith",
       "company": "Smith & Co. Investments",
-      "image": "src/assets/issuers/john-smith.png"
+      "image": "https://dummyimage.com/400x400/000/fff"
     },
     "delegate": {
       "name": "Tokr Labs",
       "company": "Tokr Labs",
-      "image": "src/assets/issuers/tokr-labs.png"
+      "image": "https://dummyimage.com/400x400/000/fff"
     }
   },
   "details": {
@@ -39,19 +39,19 @@
     "authority": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
     "owner": "GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP",
     "governance": {
-      "lp_token_mint_governance": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
-      "distribution_token_mint_governance": "AzVeG1JeYQiyJzm8VH2yYnBcdg8aRj7ZJbhdrDcfBnvA",
-      "delegate_token_mint_governance": "47diUtsr1kVL3Yv636s9NAjL2yq43XAjJ6knVdUtRTjf"
+      "lp_token_mint_governance": "7ob1TsgQpDEHaG5hi1syw5VJncNMQnNks1agJfM3buQJ",
+      "distribution_token_mint_governance": "Fh1m9bfhP6S3iAXpTknk8cC5ztJRTPWBF1mNf2aH6tFD",
+      "delegate_token_mint_governance": "GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst"
     },
     "mint": {
-      "lp_token_mint": "6y61BBetk5k4dEQaYhM6VkLjtPUbsE9SWRfXNeCVkpWM",
-      "distribution_token_mint": "EPF5GdyVM5mytyK29VQSX1ZGisE6dECY2PXH5Nq5WEUm",
-      "delegate_token_mint": "D7JQtqKKNXY5sbx4U4JbwKAJ5uCdRktdX7BDhC9k4LRc"
+      "lp_token_mint": "Cout3odQP8MFgMHszMasfb96WDzdQ5MuEZJChkSjtbWL",
+      "distribution_token_mint": "F8c7DkV2KWGiFQX917wwz4AZUhWQZc6fawmDdwXHQbZ6",
+      "delegate_token_mint": "3usGFWHsWCRz5fHcCjDAsmVfKcBKxa8oK6GnQjPLmAo3"
     },
     "treasury": {
-      "capital_supply": "Biyu4sm65wDvcTjnY9MaTeBnrPdSXDavvvzMMYNtdRJt",
-      "distributions": "13NnpNAybREQmtqWu5Rp2kwW9k62hdVgXXPDh9zDcWox",
-      "stock_supply": "GfEMgXMEkxjQRf4vyBDo1sqjfcGKEQKp4VekNbFEkofJ"
+      "capital_supply": "FK5Ex3HtPrLpr93nuZuj7jTEt39xTdThFxZnRw4u5XWH",
+      "distributions": "efh8rBWjqBh95wJkHfbabr6nXraMiyyEcVRbG2Xr4gM",
+      "stock_supply": "FvuftAQpVhHZmtMwAKW3mzcosrJQKg27wYwkeqe7qxew"
     }
   }
 }

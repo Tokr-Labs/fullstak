@@ -20,14 +20,14 @@ export class DaoInfo {
 
         const daoInfo = new DaoInfo()
 
-        daoInfo.name = info.name ?? "";
-        daoInfo.description = info.description ?? "";
-        daoInfo.active = info.active ?? false;
-        daoInfo.token = DaoTokenInfo.with(info.token);
-        daoInfo.stakeholders = DaoStakeholders.with(info.stakeholders);
-        daoInfo.details = DaoFundDetails.with(info.details);
-        daoInfo.addresses = DaoAddresses.with(info.addresses);
-        daoInfo.performance = DaoPerformanceMetrics.with(info.performance ?? {});
+        daoInfo.name = info?.name ?? "";
+        daoInfo.description = info?.description ?? "";
+        daoInfo.active = info?.active ?? false;
+        daoInfo.token = DaoTokenInfo.with(info?.token ?? {});
+        daoInfo.stakeholders = DaoStakeholders.with(info?.stakeholders ?? {});
+        daoInfo.details = DaoFundDetails.with(info?.details ?? {});
+        daoInfo.addresses = DaoAddresses.with(info?.addresses ?? {});
+        daoInfo.performance = DaoPerformanceMetrics.with(info?.performance ?? {});
 
         return daoInfo;
 

@@ -16,8 +16,8 @@ export class DaoStakeholders {
 
         const stakeholders = new DaoStakeholders()
 
-        info.sponsor = DaoStakeholder.with(info.sponsor)
-        info.delegate = DaoStakeholder.with(info.delegate)
+        stakeholders.sponsor = DaoStakeholder.with(info?.sponsor ?? {})
+        stakeholders.delegate = DaoStakeholder.with(info?.delegate ?? {})
 
         return stakeholders;
 

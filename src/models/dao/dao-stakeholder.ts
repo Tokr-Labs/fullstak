@@ -14,9 +14,9 @@ export class DaoStakeholder {
 
         const stakeholder = new DaoStakeholder()
 
-        stakeholder.name = info.name;
-        stakeholder.company = info.name;
-        stakeholder.image = info.image;
+        stakeholder.name = info?.name ?? "";
+        stakeholder.company = info?.company ?? "";
+        stakeholder.image = info?.image ?? "";
 
         return stakeholder;
 

@@ -15,8 +15,8 @@ export class DaoFees {
     static with(info): DaoFees {
         const fees = new DaoFees()
 
-        fees.closing = info.closing ?? 0;
-        fees.annual = info.annual ?? 0;
+        fees.closing = info?.closing ?? 0;
+        fees.annual = info?.annual ?? 0;
 
         return fees;
     }
