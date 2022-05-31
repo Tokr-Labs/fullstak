@@ -3,6 +3,7 @@ import discordIcon from "src/assets/icons/discord_icon.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
+import {Link} from "react-router-dom";
 
 const Landing = () => {
 
@@ -10,41 +11,84 @@ const Landing = () => {
         <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
 
             <section style={{
-                textAlign: "center",
-                verticalAlign: "middle",
-                padding: "10px 0",
-                background: theme.colors.primary.computedValue
+                height: "96px",
+                padding: "25px 0",
+                opacity: 1,
+                background: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
             }}>
-                <Grid.Container justify={"center"} style={{height: "100%"}}>
-                    <Grid alignContent={"center"} style={{height: "100%"}}>
-                        <img
-                            src={require("src/assets/riptide_logo.png")}
-                            height={"20px"}
-                            width={"auto"}
-                            alt={"Riptide logo"}
-                            style={{margin: "0 20px"}}
-                        />
-                        <a
-                            href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
-                            target={"_blank"}
-                            rel={"noreferrer"}
-                            style={{
-                                color: "white",
-                                textDecoration: "underline",
-                                verticalAlign: "super"
-                            }}
-                        >
-                            <b>NEWS:</b> 2022 Solana Riptide Winner (Tokr)
-                        </a>
-                        <img
-                            src={require("src/assets/riptide_logo.png")}
-                            height={"20px"}
-                            width={"auto"}
-                            alt={"Riptide logo"}
-                            style={{margin: "0 20px"}}
-                        />
-                    </Grid>
-                </Grid.Container>
+                <Container>
+                    <Grid.Container>
+                        <Grid xs={6}>
+                            <img
+                                src={require("src/assets/brand/fullstak_logo_white.png")}
+                                height="46px"
+                                width="auto"
+                                alt="Fullstak logo"
+                            />
+                        </Grid>
+                        <Grid xs={6} justify={"flex-end"} alignItems={"center"}>
+                            <Link to={"/markets"}>
+                                <Button
+                                    color="primary"
+                                    style={{
+                                        borderRadius: 19,
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        letterSpacing: 2.46
+                                    }}
+                                >
+                                    LAUNCH APP
+                                </Button>
+                            </Link>
+                        </Grid>
+                    </Grid.Container>
+                </Container>
+            </section>
+
+            <section style={{
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "10px 0",
+                background: "white",
+                color: "black",
+                height: "46px",
+                fontSize: "13px"
+            }}>
+                <img
+                    src={require("src/assets/riptide_logo.png")}
+                    height={"20px"}
+                    width={"auto"}
+                    alt={"Riptide logo"}
+                    style={{margin: "0 20px"}}
+                />
+                <b>NEWS: 2022 Solana Riptide Winner!&nbsp;
+                    <a
+                        href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
+                        target={"_blank"}
+                        rel={"noreferrer"}
+                        style={{
+                            textDecoration: "underline",
+                            color: "black"
+                        }}
+                    >
+                        Learn More
+                    </a>
+                </b>
+                <img
+                    src={require("src/assets/riptide_logo.png")}
+                    height={"20px"}
+                    width={"auto"}
+                    alt={"Riptide logo"}
+                    style={{margin: "0 20px"}}
+                />
             </section>
 
             <section style={{
