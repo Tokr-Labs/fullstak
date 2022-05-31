@@ -1,7 +1,7 @@
 import { Grid, Text } from "@nextui-org/react";
 import React from "react";
 
-export const PoolDetails = () => {
+export const PoolConfiguration = () => {
     return (
         <>
             <Grid.Container gap={2} style={{paddingTop: 0}}>

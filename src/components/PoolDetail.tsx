@@ -17,7 +17,7 @@ export const PoolDetail = () => {
     const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
     const urlBasedTab = segment.charAt(0).toUpperCase() + segment.slice(1).toLowerCase();
 
-    const tabs = ["Assets", "Members", "Details"]
+    const tabs = ["Assets", "Members", "Transactions", "Proposals", "Configuration"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const wallet = useWallet();
@@ -448,11 +448,17 @@ export const PoolDetail = () => {
                 <Grid.Container>
                     <Grid>
                         <Spacer y={1}/>
-                        <Button.Group css={{paddingLeft: "6px"}} color={"secondary"}>
+                        <Button.Group
+                            rounded
+                            color={"secondary"}
+                            borderWeight={"light"}
+                            css={{paddingLeft: "6px"}}
+                        >
                             {tabs.map(tab => {
                                 return (
                                     <Button
                                         ghost={activeTab !== tab}
+                                        disabled={tab === "Transactions" || tab === "Proposals"}
                                         style={{fontWeight: "bold"}}
                                         animated={false}
                                         ripple={false}

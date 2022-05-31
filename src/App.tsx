@@ -14,7 +14,7 @@ import {PoolDetail} from "./components/PoolDetail";
 import {Portfolio} from "./pages/Portfolio";
 import {PoolAssets} from "./components/pools/PoolAssets";
 import {PoolMembers} from "./components/pools/PoolMembers";
-import {PoolDetails} from "./components/pools/PoolDetails";
+import {PoolConfiguration} from "./components/pools/PoolConfiguration";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -122,7 +122,7 @@ export const App = () => {
                                                 <Route index element={<PoolAssets/>}/>
                                                 <Route path="assets" element={<PoolAssets/>}/>
                                                 <Route path="members" element={<PoolMembers/>}/>
-                                                <Route path="details" element={<PoolDetails/>}/>
+                                                <Route path="configuration" element={<PoolConfiguration/>}/>
                                                 {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
                                                 {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
                                             </Route>
