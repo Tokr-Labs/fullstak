@@ -1,7 +1,5 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
-import {Pill} from "./Pill";
-import {BackIcon} from "./icons/BackIcon";
 import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey, Transaction} from "@solana/web3.js";
@@ -10,6 +8,8 @@ import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adap
 import {TokenServices} from "../services/token-services";
 import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {TooltipIcon} from "./icons/TooltipIcon";
+import {TooltipWithIcon} from "./TooltipWithIcon";
 
 export const PoolDetail = () => {
 
@@ -284,15 +284,48 @@ export const PoolDetail = () => {
                                     <Grid.Container alignItems={"center"} style={{height: "100%"}}>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
                                             <Text h2>20%</Text>
-                                            <Text>NET IRR</Text>
+                                            <Text>
+                                                NET IRR
+                                                <TooltipWithIcon
+                                                    content={`
+                                                        Internal Rate of Return (IRR) is a metric used to estimate 
+                                                        the profitability of potential investments. IRR is a discount 
+                                                        rate that makes the net present value (NPV) of all cash flows 
+                                                        from an investment equal to zero in a discounted cash flow 
+                                                        analysis––in other words, it is the annual rate of growth 
+                                                        that an investment is expected to generate. Generally speaking, 
+                                                        the higher an internal rate of return, the more desirable an 
+                                                        investment is to undertake. 
+                                                    `}
+                                                />
+                                            </Text>
                                         </Grid>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
                                             <Text h2>4.0x</Text>
-                                            <Text>TVPI</Text>
+                                            <Text>
+                                                TVPI
+                                                <TooltipWithIcon
+                                                    content={`
+                                                        Total Value to Paid-in (“TVPI”) is the ratio of the current 
+                                                        value of current investments within a fund, plus the total 
+                                                        value of all distributions made to date, relative to the total 
+                                                        amount of capital paid into the fund to date.
+                                                    `}
+                                                />
+                                            </Text>
                                         </Grid>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
                                             <Text h2>2.1x</Text>
-                                            <Text>DPI</Text>
+                                            <Text>
+                                                DPI
+                                                <TooltipWithIcon
+                                                    content={`
+                                                        Distributions to Paid-in (“DPI”) is the ratio of money 
+                                                        distributed to investors by the fund, relative to the total 
+                                                        amount of capital paid into the fund.
+                                                    `}
+                                                />
+                                            </Text>
                                         </Grid>
                                     </Grid.Container>
                                 </Card.Body>
@@ -326,7 +359,20 @@ export const PoolDetail = () => {
                                     </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>General Partner</Text>
+                                    <Text weight={"bold"}>
+                                        General Partner
+                                        <TooltipWithIcon
+                                            color={"black"}
+                                            content={`
+                                                A General Partner (“GP”) has the authority to deploy capital on 
+                                                behalf of the fund. GPs bring specialized knowledge and skills to 
+                                                the fund with the goal of generating returns for investors. Unlike 
+                                                a limited partner, the general partner may have unlimited liability 
+                                                for the debts of the business. GPs may be removed from the fund at 
+                                                any time by investors.
+                                            `}
+                                        />
+                                    </Text>
                                     <Spacer y={0.3}/>
                                     <User
                                         bordered
@@ -340,7 +386,19 @@ export const PoolDetail = () => {
                                     </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>Fund Administrator</Text>
+                                    <Text weight={"bold"}>
+                                        Fund Administrator
+                                        <TooltipWithIcon
+                                            color={"black"}
+                                            content={`
+                                                A Fund Administrator has the responsibility of ensuring a fund’s GP 
+                                                is acting in the best interest of investors. Additionally, investors 
+                                                delegate to Fund Administrators the authority to act on their behalf 
+                                                and in their best interests. Like GPs, Fund Administrators can be 
+                                                removed at any time through a vote by investors.
+                                            `}
+                                        />
+                                    </Text>
                                     <Spacer y={0.3}/>
                                     <User
                                         bordered
