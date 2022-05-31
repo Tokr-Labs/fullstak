@@ -13,7 +13,7 @@ export class DaoPerformanceMetrics {
      * Factory method for creating an instance of dao performance metrics
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoPerformanceMetrics {
+    static with(info): DaoPerformanceMetrics {
 
         const metrics = new DaoPerformanceMetrics()
 

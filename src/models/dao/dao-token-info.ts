@@ -10,7 +10,7 @@ export class DaoTokenInfo {
      * Factory method for creating an instance of dao token info
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info?: any): DaoTokenInfo {
+    static with(info): DaoTokenInfo {
 
         const token = new DaoTokenInfo();
 

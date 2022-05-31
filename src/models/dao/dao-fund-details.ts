@@ -14,7 +14,7 @@ export class DaoFundDetails {
      * Factory method for creating an instance of dao details
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info?: any): DaoFundDetails {
+    static with(info): DaoFundDetails {
 
         const details = new DaoFundDetails()
 

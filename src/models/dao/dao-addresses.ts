@@ -12,7 +12,7 @@ export class DaoAddresses {
      * Factory method for creating an instance of dao addresses
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info: any): DaoAddresses {
+    static with(info): DaoAddresses {
 
         const addresses = new DaoAddresses();
 

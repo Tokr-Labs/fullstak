@@ -91,8 +91,8 @@ export const Portfolio = () => {
                                     <Table.Column children=""/>
                                 </Table.Header>
                                 <Table.Body>
-                                    {/*@ts-ignore*/}
-                                    {holdings?.map( holding => {
+
+                                    {(holdings ?? []).map( holding => {
 
                                         console.log("Mint: " + holding.account.data.parsed.info.mint)
                                         console.log("USDC: " + usdc)

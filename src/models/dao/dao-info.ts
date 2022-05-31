@@ -16,7 +16,7 @@ export class DaoInfo {
      * Factory method for creating an instance of dao info
      * @param info Unstructured data, assumed to be json format
      */
-    static with(info?: any): DaoInfo {
+    static with(info): DaoInfo {
 
         const daoInfo = new DaoInfo()
 

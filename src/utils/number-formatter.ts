@@ -12,7 +12,7 @@ export class NumberFormatter {
      * @param precision how many decimal places to go out to
      * @param suffix
      */
-    static formatPercentage(value: number, precision: number = 2, suffix: string = "%" ): string {
+    static formatPercentage(value: number, precision = 2, suffix = "%" ): string {
 
         const percentage = value / Math.pow(10,4)
 

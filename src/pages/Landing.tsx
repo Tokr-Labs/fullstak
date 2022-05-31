@@ -1,10 +1,10 @@
 import "../index.css"
 import discordIcon from "src/assets/icons/discord_icon.svg"
-import tokrIcon from "src/assets/tokr_icon_dark_crop.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
-import {Link} from "react-router-dom"
+import {Link} from "react-router-dom";
+import {AttributeGridItem} from "../components/AttributeGridItem";
 
 const Landing = () => {
 
@@ -12,139 +12,313 @@ const Landing = () => {
         <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
 
             <section style={{
-                textAlign: "center",
-                verticalAlign: "middle",
-                padding: "10px 0",
-                background: theme.colors.primary.computedValue
+                height: "96px",
+                padding: "25px 0",
+                opacity: 1,
+                background: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
             }}>
-                <Grid.Container justify={"center"} style={{height: "100%"}}>
-                    <Grid alignContent={"center"} style={{height: "100%"}}>
-                        <img
-                            src={require("src/assets/riptide_logo.png")}
-                            height={"20px"}
-                            width={"auto"}
-                            alt={"Riptide logo"}
-                            style={{margin: "0 20px"}}
-                        />
-                        <a
-                            href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
-                            target={"_blank"}
-                            rel={"noreferrer"}
-                            style={{
-                                color: "white",
-                                textDecoration: "underline",
-                                verticalAlign: "super"
-                            }}
-                        >
-                            <b>NEWS:</b> 2022 Solana Riptide Winner (Tokr)
-                        </a>
-                        <img
-                            src={require("src/assets/riptide_logo.png")}
-                            height={"20px"}
-                            width={"auto"}
-                            alt={"Riptide logo"}
-                            style={{margin: "0 20px"}}
-                        />
-                    </Grid>
-                </Grid.Container>
-            </section>
-
-            <section style={{
-                height: "max(calc(100vh - 50px), 850px)",
-                background: "#170037"
-            }}>
-                <Container style={{height: "100%"}}>
-                    <Grid.Container style={{paddingTop: "25px"}}>
+                <Container>
+                    <Grid.Container>
                         <Grid xs={6}>
                             <img
-                                src={require("src/assets/brand/fullstak_icon_white.png")}
-                                height="35px"
+                                src={require("src/assets/brand/fullstak_logo_white.png")}
+                                height="46px"
                                 width="auto"
-                                alt="Fullstak icon"
+                                alt="Fullstak logo"
                             />
                         </Grid>
-                        <Grid xs={6} justify={"flex-end"}>
-                            {/*<Link to={"/markets"}>*/}
-                            <Button
-                                ghost
-                                color="primary"
-                                style={{borderRadius: 0, color: "white"}}
-                            >
-                                Coming Soon
-                            </Button>
-                            {/*</Link>*/}
-                        </Grid>
-                    </Grid.Container>
-                    <Spacer y={5}/>
-                    <Grid.Container justify={"center"}>
-                        <Grid xs={12} justify={"center"}>
-                            <img src={fullstakLogo}
-                                 alt="Fullstak logo"
-                                 style={{maxWidth: "min(650px, 95vw)", height: "auto", padding: "0 20px"}}
-                            />
-                        </Grid>
-                        <Spacer y={2}/>
-                        <Grid xs={12} justify={"center"}>
-                            <div style={{
-                                padding: "20px 30px",
-                                background: "#0C0223",
-                                maxWidth: "842px"
-                            }}>
-                                <h2 style={{
-                                    margin: "0",
-                                    letterSpacing: "5px",
-                                    textAlign: "center"
-                                }}>
-                                    OPEN FINANCE FOR REAL ESTATE
-                                </h2>
-                            </div>
-                        </Grid>
-                        <Grid xs={12} justify={"center"}>
-                            <p style={{
-                                padding: "30px 10px",
-                                background: "#0C0223",
-                                textAlign: "center",
-                                width: "100%",
-                                maxWidth: "842px",
-                                fontFamily: theme.fonts.mono.computedValue
-                            }}>
-                                Bankless real estate finance for the full capital stack.
-                            </p>
-                        </Grid>
-                        <Spacer y={1}/>
-                        <Grid xs={12} justify={"center"}>
-                            <div className={"logos"}>
-                                <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} alt="Discord icon"/>
-                                </a>
-                                <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Twitter icon"/>
-                                </a>
-                            </div>
+                        <Grid xs={6} justify={"flex-end"} alignItems={"center"}>
+                            <Link to={"/markets"}>
+                                <Button
+                                    color="primary"
+                                    style={{
+                                        width: "200px",
+                                        borderRadius: 19,
+                                        color: "white",
+                                        fontWeight: "bold",
+                                        letterSpacing: 2.46
+                                    }}
+                                >
+                                    LAUNCH APP
+                                </Button>
+                            </Link>
                         </Grid>
                     </Grid.Container>
                 </Container>
             </section>
 
             <section style={{
-                height: "600px",
-                backgroundImage: "url(" + require("src/assets/fullstack_BW.png") + ")",
-                backgroundPosition: "center",
-                backgroundSize: "cover"
+                textAlign: "center",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+                padding: "10px 0",
+                background: "white",
+                color: "black",
+                height: "46px",
+                fontSize: "13px"
             }}>
-                <div style={{
+                <img
+                    src={require("src/assets/solana/riptide_logo.png")}
+                    height={"20px"}
+                    width={"auto"}
+                    alt={"Riptide logo"}
+                    style={{margin: "0 20px"}}
+                />
+                <b>NEWS: 2022 Solana Riptide Winner!&nbsp;
+                    <a
+                        href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
+                        target={"_blank"}
+                        rel={"noreferrer"}
+                        style={{
+                            textDecoration: "underline",
+                            color: "black"
+                        }}
+                    >
+                        Learn More
+                    </a>
+                </b>
+                <img
+                    src={require("src/assets/solana/riptide_logo.png")}
+                    height={"20px"}
+                    width={"auto"}
+                    alt={"Riptide logo"}
+                    style={{margin: "0 20px"}}
+                />
+            </section>
+
+            <section style={{
+                height: "max(calc(100vh - 142px), 600px)",
+                opacity: 1,
+                background: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
+            }}>
+                <Container style={{
                     height: "100%",
-                    maxWidth: "600px",
-                    background: "rgba(190,0,255,0.8)",
-                    position: "relative"
-                }}/>
-                {/* TODO - bad practice, fix this*/}
-                <Container style={{marginTop: "-419px", position: "relative"}}>
-                    <div style={{maxWidth: "350px"}}>
-                        <h3 style={{letterSpacing: "3.75px"}}>REAL ESTATE MEETS DEFI</h3>
-                        <p style={{fontFamily: theme.fonts.mono.computedValue}}>
-                            Invest your crypto and earn yield from stable, uncorrelated real
-                            estate assets by providing property owners with capital and liquidity.
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+
+                    <div style={{
+                        padding: "20px 30px",
+                        background: "#0C0223",
+                        maxWidth: "1000px",
+                        marginTop: "auto"
+                    }}>
+                        <p style={{
+                            margin: "0",
+                            fontSize: "80px",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            lineHeight: "120%",
+                            letterSpacing: 1
+                        }}>
+                            OPEN FINANCE FOR REAL ESTATE
+                        </p>
+                    </div>
+
+                    <p style={{
+                        padding: "30px 10px",
+                        background: "#0C0223",
+                        textAlign: "center",
+                        width: "100%",
+                        maxWidth: "580px",
+                        fontFamily: theme.fonts.mono.computedValue,
+                        fontSize: "14px"
+                    }}>
+                        Fullstak brings the value of real-world assets on-chain.
+                    </p>
+
+                    <Spacer y={1}/>
+
+                    <Link to={"/markets"}>
+                        <Button
+                            color="primary"
+                            style={{
+                                width: "200px",
+                                borderRadius: 19,
+                                color: "white",
+                                fontWeight: "bold",
+                                letterSpacing: 2.46
+                            }}
+                        >
+                            LAUNCH APP
+                        </Button>
+                    </Link>
+
+                    <Spacer y={1}/>
+
+                    <div style={{display: "flex", justifyContent: "center"}}>
+                        <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
+                            <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
+                        </a>
+                        <Spacer x={1}/>
+                        <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
+                            <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
+                        </a>
+                    </div>
+
+                    <p style={{
+                        marginTop: "auto",
+                        alignSelf: "flex-end",
+                        paddingBottom: "20px",
+                        display: "flex",
+                        alignItems: "center",
+                        fontFamily: theme.fonts.mono.computedValue
+                    }}>
+                        Powered by
+                        <img
+                            src={require("src/assets/brand/tokr_dark.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Tokr logo"}
+                            style={{margin: "0 10px"}}
+                        />
+                        and
+                        <img
+                            src={require("src/assets/solana/solana_logo_dark.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Solana logo"}
+                            style={{margin: "0 10px"}}
+                        />
+                    </p>
+
+                </Container>
+            </section>
+
+            <section style={{
+                height: "436px",
+                backgroundImage: "url(" + require("src/assets/lego_background.png") + ")",
+                backgroundSize: "cover",
+                backgroundPosition: "center"
+            }}>
+                <Container style={{
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <p style={{
+                        opacity: 1,
+                        color: "white",
+                        fontSize: "36px",
+                        fontWeight: 700,
+                        letterSpacing: "3.86px",
+                        textAlign: "center",
+                        textTransform: "uppercase"
+                    }}>
+                        Rebuilding real estate finance,<br/> one lego at a time.
+                    </p>
+                </Container>
+            </section>
+
+            <section style={{
+                height: "100%",
+                color: "black",
+                padding: "80px 0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+                <Container style={{height: "100%"}}>
+                    <Grid.Container gap={2} justify={"center"}>
+
+                        <Grid xs={12} justify={"center"}>
+                            <p style={{
+                                opacity: 1,
+                                fontSize: "36px",
+                                fontWeight: 700,
+                                letterSpacing: "3.86px",
+                                textAlign: "center",
+                                textTransform: "uppercase"
+                            }}>
+                                REAL ESTATE WITHOUT BANKS
+                            </p>
+                        </Grid>
+
+                        <AttributeGridItem
+                            title={"Programmable"}
+                            description={
+                                "Fullstak is a platform composed of trustless programs that " +
+                                "enable frictionless capital coordination, 24/7."
+                            }
+                        />
+
+                        <Grid xs={0} lg={1}/>
+
+                        <AttributeGridItem
+                            title={"Frictionless"}
+                            description={
+                                "Finance and invest in real estate on your terms, without " +
+                                "traditional institutions and intermediaries."
+                            }
+                        />
+
+                        <Grid xs={0} lg={1}/>
+
+                        <AttributeGridItem
+                            title={"Compliant"}
+                            description={
+                                "Embracing compliance and privacy in web3 to create " +
+                                "lasting value and reliable innovation."
+                            }
+                        />
+
+                    </Grid.Container>
+                </Container>
+            </section>
+
+            <section style={{
+                height: "600px",
+                backgroundImage: "url(" + require("src/assets/particles_background.png") + ")",
+                backgroundPosition: "left",
+                backgroundSize: "cover",
+            }}>
+                <Container style={{height: "100%"}}>
+                    <div style={{
+                        height: "100%",
+                        maxWidth: "350px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        color: "black"
+                    }}>
+                        <p style={{
+                            opacity: 1,
+                            fontSize: "34px",
+                            fontWeight: 700,
+                            letterSpacing: "0px",
+                            textTransform: "uppercase"
+                        }}>
+                            DEFI MEETS<br/>
+                            REAL ESTATE
+                        </p>
+                        <p style={{
+                            fontSize: "14px",
+                            fontFamily: theme.fonts.mono.computedValue
+                        }}>
+                            Fullstak is your opportunity to generate yield on cryptoassets from
+                            direct investments in real-world real estate.
+                        </p>
+                        <p style={{
+                            fontSize: "24px",
+                            fontWeight: "bold"
+                        }}>
+                            Learn More
                         </p>
                     </div>
                 </Container>
@@ -212,12 +386,13 @@ const Landing = () => {
                             </p>
                         </Grid>
                         <Grid xs={6} sm={3} justify={"flex-end"} alignItems={"center"}>
-                            <div className={"logos"}>
+                            <div style={{display: "flex", justifyContent: "center"}}>
                                 <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} alt="Discord icon"/>
+                                    <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
                                 </a>
+                                <Spacer x={1}/>
                                 <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Twitter icon"/>
+                                    <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
                                 </a>
                             </div>
                         </Grid>

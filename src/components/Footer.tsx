@@ -1,6 +1,6 @@
 import React from "react";
 import {Grid, Link, Text} from "@nextui-org/react";
-import solanaLogo from "src/assets/solana_logo.svg"
+import solanaLogo from "src/assets/solana/solana_logo.svg"
 import gitbookLogo from "src/assets/icons/icons-gitbook_export.svg"
 import githubLogo from "src/assets/icons/icons-github_export.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"

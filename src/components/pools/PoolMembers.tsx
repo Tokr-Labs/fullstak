@@ -4,8 +4,13 @@ import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
+<<<<<<< HEAD
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {PublicKey} from "@solana/web3.js";
+=======
+import {DaoInfo} from "../../models/dao/dao-info";
+import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
+>>>>>>> develop
 
 export const PoolMembers = () => {
 
@@ -13,7 +18,7 @@ export const PoolMembers = () => {
     const {network} = useContext(NetworkContext);
     const dao = useContext(DaoInfoContext);
 
-    const [entries, setEntries] = useState<CapTableEntry[]>();
+    const [capTable, setCapTable] = useState<CapTable>();
 
     useMemo(() => {
 
@@ -32,7 +37,10 @@ export const PoolMembers = () => {
                 new PublicKey("GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst")
             ]
         ).then(capTable => {
-            setEntries(capTable.entries);
+            setCapTable(capTable);
+
+            console.log(capTable.entries)
+
         }).catch(error => {
             console.error(error.message);
         });
@@ -51,7 +59,7 @@ export const PoolMembers = () => {
 
             <Table.Body>
 
-                {(entries ?? []).map((entry) => (
+                {(capTable?.entries ?? []).map((entry: CapTableEntry) => (
 
                         <Table.Row key={`${entry.holder}`}>
 
@@ -61,7 +69,7 @@ export const PoolMembers = () => {
                                       href={`https://explorer.solana.com/address/${entry.holder}?cluster=${network}`}
                                       target={"_blank"}>
 
-                                    {entry.holder}
+                                    {entry.holder.toString()}
 
                                 </Link>
 
