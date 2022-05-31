@@ -99,16 +99,29 @@ export const PoolDetail = () => {
 
                         <Card.Header>
                             <Grid.Container gap={1} alignItems={"center"}>
-                                <Grid css={{alignSelf: "flex-end"}}>
-                                    <Link to={"/markets/equity"}>
-                                        <BackIcon/>
-                                    </Link>
+                                <Grid>
+                                    <div style={{
+                                        height: "100px",
+                                        width: "100px",
+                                        background: "gray",
+                                        borderRadius: "50%"
+                                    }}/>
                                 </Grid>
                                 <Grid>
-                                    <Text h3 color={"white"}>{data.name}</Text>
-                                </Grid>
-                                <Grid>
-                                    <Pill color={theme.theme?.colors.primary.value} text={"OPEN"}/>
+                                    <h1 style={{color: "white", margin: 0}}>{data.name}</h1>
+                                    <div style={{
+                                        display: data.active ? "none" : "flex",
+                                        alignItems: "center"
+                                    }}>
+                                        <span style={{
+                                            height: "10px",
+                                            width: "10px",
+                                            background: theme.theme?.colors.success.value,
+                                            borderRadius: "50%",
+                                            marginRight: "10px"
+                                        }}/>
+                                        <Text size={15} color={"white"}>{data.active ? "Active" : "Open"}</Text>
+                                    </div>
                                 </Grid>
                             </Grid.Container>
                         </Card.Header>
