@@ -198,6 +198,32 @@ const Landing = () => {
             </section>
 
             <section style={{
+                height: "436px",
+                backgroundImage: "url(" + require("src/assets/lego_background.png") + ")",
+                backgroundSize: "cover",
+                backgroundPosition: "center"
+            }}>
+                <Container style={{
+                    height: "100%",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <p style={{
+                        opacity: 1,
+                        color: "white",
+                        fontSize: "36px",
+                        fontWeight: 700,
+                        letterSpacing: "3.86px",
+                        textAlign: "center",
+                        textTransform: "uppercase"
+                    }}>
+                        Rebuilding real estate finance,<br/> one lego at a time.
+                    </p>
+                </Container>
+            </section>
+
+            <section style={{
                 height: "600px",
                 backgroundImage: "url(" + require("src/assets/fullstack_BW.png") + ")",
                 backgroundPosition: "center",
