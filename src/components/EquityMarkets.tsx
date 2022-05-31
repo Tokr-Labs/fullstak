@@ -206,6 +206,7 @@ export const EquityMarkets = () => {
                                     <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
                                         <Button
                                             light
+                                            disabled
                                             size={"xs"}
                                             borderWeight={"light"}
                                             style={{margin: 0, fontWeight: "bold"}}
@@ -227,6 +228,7 @@ export const EquityMarkets = () => {
                                     <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
                                         <Button
                                             light
+                                            disabled
                                             size={"xs"}
                                             borderWeight={"light"}
                                             style={{margin: 0, fontWeight: "bold"}}
