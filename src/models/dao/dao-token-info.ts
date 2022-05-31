@@ -14,7 +14,7 @@ export class DaoTokenInfo {
 
         const token = new DaoTokenInfo();
 
-        token.ticker = info.ticker ?? "n/a"
+        token.ticker = info?.ticker ?? ""
 
         return token
 

@@ -16,8 +16,8 @@ export class DaoTargetReturns {
 
         const returns = new DaoTargetReturns()
 
-        returns.irr = info.irr;
-        returns.coc = info.coc;
+        returns.irr = info?.irr ?? 0;
+        returns.coc = info?.coc ?? 0;
 
         return returns;
 
