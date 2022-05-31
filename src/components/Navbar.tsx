@@ -5,7 +5,6 @@ import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {NetworkContext} from "../App";
 import {ServerIcon} from "./icons/ServerIcon";
-import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg";
 
 export const Navbar = () => {
 
@@ -56,9 +55,9 @@ export const Navbar = () => {
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
-                        <img src={fullstakLogo}
-                             height={"auto"}
-                             width={"150px"}
+                        <img src={require("src/assets/brand/fullstak_logo_white.png")}
+                             height={"36px"}
+                             width={"auto"}
                              alt={"Fullstak logo"}/>
                     </Link>
                 </Grid>

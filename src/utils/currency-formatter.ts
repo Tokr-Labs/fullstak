@@ -12,7 +12,7 @@ export class CurrencyFormatter {
      */
     static formatUsdc(value: number): string {
 
-        let millions = value / 1000000;
+        const millions = value / 1000000;
 
         if (millions < 1) {
             return `${value.toLocaleString("en-US")} USDC`

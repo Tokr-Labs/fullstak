@@ -1,11 +1,11 @@
 import React, {useContext, useMemo, useState} from "react";
 import {Link, Table} from "@nextui-org/react";
-import {PublicKey} from "@solana/web3.js";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {DaoInfo} from "../../models/dao/dao-info";
+import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
 
 export const PoolMembers = () => {
 
@@ -18,7 +18,7 @@ export const PoolMembers = () => {
         return DaoInfo.with(data);
     }, []);
 
-    const [entries, setEntries] = useState<CapTableEntry[]>();
+    const [capTable, setCapTable] = useState<CapTable>();
 
     useMemo(() => {
 
@@ -28,7 +28,10 @@ export const PoolMembers = () => {
             dao.addresses.treasury.stockSupply, // treasury stock account
             []
         ).then(capTable => {
-            setEntries(capTable.entries);
+            setCapTable(capTable);
+
+            console.log(capTable.entries)
+
         }).catch(error => {
             console.error(error.message);
         });
@@ -47,7 +50,7 @@ export const PoolMembers = () => {
 
             <Table.Body>
 
-                {(entries ?? []).map((entry) => (
+                {(capTable?.entries ?? []).map((entry: CapTableEntry) => (
 
                         <Table.Row key={`${entry.holder}`}>
 
@@ -57,7 +60,7 @@ export const PoolMembers = () => {
                                       href={`https://explorer.solana.com/address/${entry.holder}?cluster=${network}`}
                                       target={"_blank"}>
 
-                                    {entry.holder}
+                                    {entry.holder.toString()}
 
                                 </Link>
 

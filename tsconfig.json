@@ -26,6 +26,7 @@
     "incremental": true,
     "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
+    "noUnusedLocals": false
   },
   "include": [
     "src"

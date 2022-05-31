@@ -6,7 +6,7 @@ export const SubNavbar = () => {
 
     const markets = ["EQUITY MARKET", "DEBT MARKET"]
 
-    const [selected, setSelected] = useState<String>(markets[0]);
+    const [selected, setSelected] = useState<string>(markets[0]);
 
     const navigate = useNavigate();
 

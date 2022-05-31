@@ -1,29 +1,30 @@
-import React, {useContext, useEffect, useState} from "react";
-import {Button, Card, Grid, Link, Spacer, Table, Text, theme} from "@nextui-org/react";
-import {NetworkContext} from "../../App";
+import React, {useEffect, useState} from "react";
+import {Button, Spacer, Table} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {PublicKey} from "@solana/web3.js";
 
 export const PoolAssets = () => {
 
     const {connection} = useConnection()
-    const {network} = useContext(NetworkContext)
 
     const data = require("src/daos/devnet/tj-test-dao.json")
 
-    const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number|null>()
-    // const [treasuryStockBalance, setTreasuryStockBalance] = useState()
-    const [distributionsBalance, setDistributionsBalance] = useState<number|null>()
+    const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number | null>()
+    const [distributionsBalance, setDistributionsBalance] = useState<number | null>()
 
     useEffect(() => {
 
         connection.getTokenAccountBalance(new PublicKey(data.addresses.treasury.capital_supply))
-            .then(response => setCapitalSupplyBalance(response.value.uiAmount))
+            .then(response => {
+                setCapitalSupplyBalance(response.value.uiAmount)
+            })
 
         // TODO - set up and incorporate Treasury Stock account
 
         connection.getTokenAccountBalance(new PublicKey(data.addresses.treasury.distributions))
-            .then(response => setDistributionsBalance(response.value.uiAmount))
+            .then(response => {
+                setDistributionsBalance(response.value.uiAmount)
+            })
 
     }, [connection, data.addresses.treasury.capital_supply, data.addresses.treasury.distributions])
 
