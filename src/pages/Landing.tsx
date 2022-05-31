@@ -282,23 +282,41 @@ const Landing = () => {
 
             <section style={{
                 height: "600px",
-                backgroundImage: "url(" + require("src/assets/fullstack_BW.png") + ")",
-                backgroundPosition: "center",
-                backgroundSize: "cover"
+                backgroundImage: "url(" + require("src/assets/particles_background.png") + ")",
+                backgroundPosition: "left",
+                backgroundSize: "cover",
             }}>
-                <div style={{
-                    height: "100%",
-                    maxWidth: "600px",
-                    background: "rgba(190,0,255,0.8)",
-                    position: "relative"
-                }}/>
-                {/* TODO - bad practice, fix this*/}
-                <Container style={{marginTop: "-419px", position: "relative"}}>
-                    <div style={{maxWidth: "350px"}}>
-                        <h3 style={{letterSpacing: "3.75px"}}>REAL ESTATE MEETS DEFI</h3>
-                        <p style={{fontFamily: theme.fonts.mono.computedValue}}>
-                            Invest your crypto and earn yield from stable, uncorrelated real
-                            estate assets by providing property owners with capital and liquidity.
+                <Container style={{height: "100%"}}>
+                    <div style={{
+                        height: "100%",
+                        maxWidth: "350px",
+                        display: "flex",
+                        flexDirection: "column",
+                        justifyContent: "center",
+                        color: "black"
+                    }}>
+                        <p style={{
+                            opacity: 1,
+                            fontSize: "34px",
+                            fontWeight: 700,
+                            letterSpacing: "0px",
+                            textTransform: "uppercase"
+                        }}>
+                            DEFI MEETS<br/>
+                            REAL ESTATE
+                        </p>
+                        <p style={{
+                            fontSize: "14px",
+                            fontFamily: theme.fonts.mono.computedValue
+                        }}>
+                            Fullstak is your opportunity to generate yield on cryptoassets from
+                            direct investments in real-world real estate.
+                        </p>
+                        <p style={{
+                            fontSize: "24px",
+                            fontWeight: "bold"
+                        }}>
+                            Learn More
                         </p>
                     </div>
                 </Container>
