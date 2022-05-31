@@ -64,7 +64,7 @@ const Landing = () => {
                 fontSize: "13px"
             }}>
                 <img
-                    src={require("src/assets/riptide_logo.png")}
+                    src={require("src/assets/solana/riptide_logo.png")}
                     height={"20px"}
                     width={"auto"}
                     alt={"Riptide logo"}
@@ -84,7 +84,7 @@ const Landing = () => {
                     </a>
                 </b>
                 <img
-                    src={require("src/assets/riptide_logo.png")}
+                    src={require("src/assets/solana/riptide_logo.png")}
                     height={"20px"}
                     width={"auto"}
                     alt={"Riptide logo"}
@@ -178,7 +178,7 @@ const Landing = () => {
                     }}>
                         Powered by
                         <img
-                            src={require("src/assets/tokr_dark.png")}
+                            src={require("src/assets/brand/tokr_dark.png")}
                             height={"20px"}
                             width={"auto"}
                             alt={"Tokr logo"}
@@ -186,7 +186,7 @@ const Landing = () => {
                         />
                         and
                         <img
-                            src={require("src/assets/solana_logo_dark.png")}
+                            src={require("src/assets/solana/solana_logo_dark.png")}
                             height={"20px"}
                             width={"auto"}
                             alt={"Solana logo"}
