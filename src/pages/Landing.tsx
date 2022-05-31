@@ -37,6 +37,7 @@ const Landing = () => {
                                 <Button
                                     color="primary"
                                     style={{
+                                        width: "200px",
                                         borderRadius: 19,
                                         color: "white",
                                         fontWeight: "bold",
@@ -92,79 +93,107 @@ const Landing = () => {
             </section>
 
             <section style={{
-                height: "max(calc(100vh - 50px), 850px)",
-                background: "#170037"
+                height: "max(calc(100vh - 142px), 600px)",
+                opacity: 1,
+                background: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
             }}>
-                <Container style={{height: "100%"}}>
-                    <Grid.Container style={{paddingTop: "25px"}}>
-                        <Grid xs={6}>
-                            <img
-                                src={require("src/assets/brand/fullstak_icon_white.png")}
-                                height="35px"
-                                width="auto"
-                                alt="Fullstak icon"
-                            />
-                        </Grid>
-                        <Grid xs={6} justify={"flex-end"}>
-                            {/*<Link to={"/markets"}>*/}
-                            <Button
-                                ghost
-                                color="primary"
-                                style={{borderRadius: 0, color: "white"}}
-                            >
-                                Coming Soon
-                            </Button>
-                            {/*</Link>*/}
-                        </Grid>
-                    </Grid.Container>
-                    <Spacer y={5}/>
-                    <Grid.Container justify={"center"}>
-                        <Grid xs={12} justify={"center"}>
-                            <img src={fullstakLogo}
-                                 alt="Fullstak logo"
-                                 style={{maxWidth: "min(650px, 95vw)", height: "auto", padding: "0 20px"}}
-                            />
-                        </Grid>
-                        <Spacer y={2}/>
-                        <Grid xs={12} justify={"center"}>
-                            <div style={{
-                                padding: "20px 30px",
-                                background: "#0C0223",
-                                maxWidth: "842px"
-                            }}>
-                                <h2 style={{
-                                    margin: "0",
-                                    letterSpacing: "5px",
-                                    textAlign: "center"
-                                }}>
-                                    OPEN FINANCE FOR REAL ESTATE
-                                </h2>
-                            </div>
-                        </Grid>
-                        <Grid xs={12} justify={"center"}>
-                            <p style={{
-                                padding: "30px 10px",
-                                background: "#0C0223",
-                                textAlign: "center",
-                                width: "100%",
-                                maxWidth: "842px",
-                                fontFamily: theme.fonts.mono.computedValue
-                            }}>
-                                Bankless real estate finance for the full capital stack.
-                            </p>
-                        </Grid>
-                        <Spacer y={1}/>
-                        <Grid xs={12} justify={"center"}>
-                            <div className={"logos"}>
-                                <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} alt="Discord icon"/>
-                                </a>
-                                <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Twitter icon"/>
-                                </a>
-                            </div>
-                        </Grid>
-                    </Grid.Container>
+                <Container style={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+
+                    <div style={{
+                        padding: "20px 30px",
+                        background: "#0C0223",
+                        maxWidth: "1000px",
+                        marginTop: "auto"
+                    }}>
+                        <p style={{
+                            margin: "0",
+                            fontSize: "80px",
+                            fontWeight: "bold",
+                            textAlign: "center",
+                            lineHeight: "120%",
+                            letterSpacing: 1
+                        }}>
+                            OPEN FINANCE FOR REAL ESTATE
+                        </p>
+                    </div>
+
+                    <p style={{
+                        padding: "30px 10px",
+                        background: "#0C0223",
+                        textAlign: "center",
+                        width: "100%",
+                        maxWidth: "580px",
+                        fontFamily: theme.fonts.mono.computedValue,
+                        fontSize: "14px"
+                    }}>
+                        Fullstak brings the value of real-world assets on-chain.
+                    </p>
+
+                    <Spacer y={1}/>
+
+                    <Link to={"/markets"}>
+                        <Button
+                            color="primary"
+                            style={{
+                                width: "200px",
+                                borderRadius: 19,
+                                color: "white",
+                                fontWeight: "bold",
+                                letterSpacing: 2.46
+                            }}
+                        >
+                            LAUNCH APP
+                        </Button>
+                    </Link>
+
+                    <Spacer y={1}/>
+
+                    <div className={"logos"}>
+                        <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
+                            <img src={discordIcon} alt="Discord icon"/>
+                        </a>
+                        <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
+                            <img src={twitterIcon} alt="Twitter icon"/>
+                        </a>
+                    </div>
+
+                    <p style={{
+                        marginTop: "auto",
+                        alignSelf: "flex-end",
+                        paddingBottom: "20px",
+                        display: "flex",
+                        alignItems: "center"
+                    }}>
+                        Powered by
+                        <img
+                            src={require("src/assets/tokr_dark.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Tokr logo"}
+                            style={{margin: "0 10px"}}
+                        />
+                        and
+                        <img
+                            src={require("src/assets/solana_logo_dark.png")}
+                            height={"20px"}
+                            width={"auto"}
+                            alt={"Solana logo"}
+                            style={{margin: "0 10px"}}
+                        />
+                    </p>
+
                 </Container>
             </section>
 
