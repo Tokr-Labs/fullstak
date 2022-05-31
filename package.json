@@ -3,9 +3,12 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "build": "craco build",
     "start": "craco start",
-    "test": "craco test"
+    "test": "craco test",
+    "build": "sh -ac '. ./.env.${REACT_APP_ENV}; craco build'",
+    "build:development": "CI=false REACT_APP_ENV=development craco build",
+    "build:production": "CI=true REACT_APP_ENV=production craco build",
+    "build:serve": "npm run build:production; serve -s build"
   },
   "browserslist": {
     "production": [
