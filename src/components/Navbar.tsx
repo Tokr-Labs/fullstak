@@ -72,14 +72,14 @@ export const Navbar = () => {
                     >
                         <Button
                             ghost={tab !== "Markets"}
-                            style={{fontWeight: "bold", minWidth: "150px"}}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Markets")}
                         >
                             MARKETS
                         </Button>
                         <Button
                             ghost={tab !== "Portfolio"}
-                            style={{fontWeight: "bold", minWidth: "150px"}}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Portfolio")}
                         >
                             PORTFOLIO
