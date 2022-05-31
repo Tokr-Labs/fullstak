@@ -176,7 +176,8 @@ const Landing = () => {
                         alignSelf: "flex-end",
                         paddingBottom: "20px",
                         display: "flex",
-                        alignItems: "center"
+                        alignItems: "center",
+                        fontFamily: theme.fonts.mono.computedValue
                     }}>
                         Powered by
                         <img
