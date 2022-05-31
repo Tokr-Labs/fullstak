@@ -1,0 +1,36 @@
+import React from "react";
+import {Grid, theme} from "@nextui-org/react";
+
+export const AttributeGridItem = (props) => {
+
+    return (
+        <Grid xs={12} lg={3} direction={"column"}>
+            <div style={{
+                height: "100px",
+                width: "100px",
+                background: "gray",
+                borderRadius: "50%",
+                alignSelf: "center"
+            }}/>
+            <p style={{
+                opacity: 1,
+                fontSize: "28px",
+                fontWeight: 700,
+                letterSpacing: "3px",
+                textAlign: "center",
+                textTransform: "uppercase",
+            }}>
+                {props.title}
+            </p>
+            <p style={{
+                marginTop: 0,
+                textAlign: "center",
+                fontFamily: theme.fonts.mono.computedValue,
+                fontSize: "14px"
+            }}>
+                {props.description}
+            </p>
+        </Grid>
+    )
+
+}

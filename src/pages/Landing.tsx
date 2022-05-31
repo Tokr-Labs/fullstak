@@ -4,6 +4,7 @@ import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
+import {AttributeGridItem} from "../components/AttributeGridItem";
 
 const Landing = () => {
 
@@ -220,6 +221,62 @@ const Landing = () => {
                     }}>
                         Rebuilding real estate finance,<br/> one lego at a time.
                     </p>
+                </Container>
+            </section>
+
+            <section style={{
+                height: "100%",
+                color: "black",
+                padding: "80px 0",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+            }}>
+                <Container style={{height: "100%"}}>
+                    <Grid.Container gap={2} justify={"center"}>
+
+                        <Grid xs={12} justify={"center"}>
+                            <p style={{
+                                opacity: 1,
+                                fontSize: "36px",
+                                fontWeight: 700,
+                                letterSpacing: "3.86px",
+                                textAlign: "center",
+                                textTransform: "uppercase"
+                            }}>
+                                REAL ESTATE WITHOUT BANKS
+                            </p>
+                        </Grid>
+
+                        <AttributeGridItem
+                            title={"Programmable"}
+                            description={
+                                "Fullstak is a platform composed of trustless programs that " +
+                                "enable frictionless capital coordination, 24/7."
+                            }
+                        />
+
+                        <Grid xs={0} lg={1}/>
+
+                        <AttributeGridItem
+                            title={"Frictionless"}
+                            description={
+                                "Finance and invest in real estate on your terms, without " +
+                                "traditional institutions and intermediaries."
+                            }
+                        />
+
+                        <Grid xs={0} lg={1}/>
+
+                        <AttributeGridItem
+                            title={"Compliant"}
+                            description={
+                                "Embracing compliance and privacy in web3 to create " +
+                                "lasting value and reliable innovation."
+                            }
+                        />
+
+                    </Grid.Container>
                 </Container>
             </section>
 
