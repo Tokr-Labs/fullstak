@@ -10,11 +10,11 @@ export class CurrencyFormatter {
      * Format usdc based on size
      * @param value
      */
-    static formatUsdc(value: number): string {
+    static formatUsdc(value: number, long = false): string {
 
         const millions = value / 1000000;
 
-        if (millions < 1) {
+        if (millions < 1 || long) {
             return `${value.toLocaleString("en-US")} USDC`
         }
 

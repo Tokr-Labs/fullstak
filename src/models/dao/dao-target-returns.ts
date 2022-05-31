@@ -18,6 +18,8 @@ export class DaoTargetReturns {
 
         returns.irr = info?.irr ?? 0;
         returns.coc = info?.coc ?? 0;
+        returns.tvpi = info?.tvpi ?? 0;
+        returns.dpi = info?.dpi ?? 0;
 
         return returns;
 
@@ -35,6 +37,12 @@ export class DaoTargetReturns {
     /// cash on cash
     coc: number
 
+    /// target total value to paid in
+    tvpi: number
+
+    /// target distributions to paid in
+    dpi: number
+
     /// percentage formatting of irr
     get formattedIrr(): string {
         return NumberFormatter.formatPercentage(this.irr);
@@ -44,4 +52,15 @@ export class DaoTargetReturns {
     get formattedCoc(): string {
         return NumberFormatter.formatPercentage(this.coc);
     }
+
+    /// percentage formatting of coc
+    get formattedTvpi(): string {
+        return NumberFormatter.formatPercentage(this.tvpi, 2, "x");
+    }
+
+    /// percentage formatting of coc
+    get formattedDpi(): string {
+        return NumberFormatter.formatPercentage(this.dpi, 2, "x");
+    }
+
 }

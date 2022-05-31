@@ -3,6 +3,7 @@ import {DaoAddresses} from "./dao-addresses";
 import {DaoStakeholders} from "./dao-stakeholders";
 import {DaoTokenInfo} from "./dao-token-info";
 import {DaoPerformanceMetrics} from "./dao-performance-metrics";
+import {DaoFundStrategy, DaoFundStrategyType} from "./dao-fund-strategy";
 
 export class DaoInfo {
 
@@ -23,6 +24,7 @@ export class DaoInfo {
         daoInfo.name = info?.name ?? "";
         daoInfo.description = info?.description ?? "";
         daoInfo.active = info?.active ?? false;
+        daoInfo.strategy = DaoFundStrategy.with(info?.strategy ?? DaoFundStrategyType.unknown)
         daoInfo.token = DaoTokenInfo.with(info?.token ?? {});
         daoInfo.stakeholders = DaoStakeholders.with(info?.stakeholders ?? {});
         daoInfo.details = DaoFundDetails.with(info?.details ?? {});
@@ -47,6 +49,9 @@ export class DaoInfo {
 
     /// whether or not the dao is active (dont raising) or currently open (currently raising)
     active: boolean
+
+    /// investment fund strategy
+    strategy: DaoFundStrategy
 
     /// LP Token associated with the dao
     token: DaoTokenInfo
