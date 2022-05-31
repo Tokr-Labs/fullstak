@@ -464,7 +464,7 @@ export const PoolDetail = () => {
                                     <Spacer y={0.5}/>
                                     <Button
                                         ghost
-                                        disabled={!data.details.data_room}
+                                        disabled={!dao.details.dataRoom}
                                         color={"primary"}
                                         style={{fontWeight: "bold", borderRadius: 0}}
                                     >
