@@ -4,13 +4,9 @@ import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
-<<<<<<< HEAD
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {PublicKey} from "@solana/web3.js";
-=======
-import {DaoInfo} from "../../models/dao/dao-info";
 import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
->>>>>>> develop
 
 export const PoolMembers = () => {
 
