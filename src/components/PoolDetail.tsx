@@ -416,7 +416,7 @@ export const PoolDetail = () => {
                             <Spacer y={2}/>
 
                             <Grid.Container>
-                                <Grid xs={7} direction={"column"}>
+                                <Grid xs={12} direction={"column"}>
                                     <Text weight={"bold"}>Fund Overview</Text>
                                     <Text>{data.description}</Text>
                                 </Grid>
