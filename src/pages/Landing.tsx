@@ -161,12 +161,13 @@ const Landing = () => {
 
                     <Spacer y={1}/>
 
-                    <div className={"logos"}>
+                    <div style={{display: "flex", justifyContent: "center"}}>
                         <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                            <img src={discordIcon} alt="Discord icon"/>
+                            <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
                         </a>
+                        <Spacer x={1}/>
                         <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                            <img src={twitterIcon} alt="Twitter icon"/>
+                            <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
                         </a>
                     </div>
 
@@ -384,12 +385,13 @@ const Landing = () => {
                             </p>
                         </Grid>
                         <Grid xs={6} sm={3} justify={"flex-end"} alignItems={"center"}>
-                            <div className={"logos"}>
+                            <div style={{display: "flex", justifyContent: "center"}}>
                                 <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} alt="Discord icon"/>
+                                    <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
                                 </a>
+                                <Spacer x={1}/>
                                 <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} alt="Twitter icon"/>
+                                    <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
                                 </a>
                             </div>
                         </Grid>

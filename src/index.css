@@ -4,17 +4,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-.logos {
-  display: flex;
-  justify-content: center;
-}
-
-.logos a {
-  margin: 0 20px;
-}
-
-.logos img {
-  height: 30px;
-  width: auto;
-}
