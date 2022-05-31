@@ -79,7 +79,7 @@ export const EquityMarkets = () => {
                                     {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
                                     <Table.Cell css={{minWidth: "200px", padding: "15px 20px 5px 20px"}}>
                                         <Progress size={"sm"} value={58} color={"success"} status={"success"}/>
-                                        <Text size={12} color={"gray"}>$5,800,000 Raised</Text>
+                                        <Text size={12} color={"gray"}>5,800,000 USDC Raised</Text>
                                     </Table.Cell>
                                     <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
                                         <Link to={"/markets/equity/pool-details"}>
