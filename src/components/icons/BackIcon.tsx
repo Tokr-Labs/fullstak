@@ -4,7 +4,7 @@ export const BackIcon = () => {
 
     return (
         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24">
-            <path d="M21 11H6.414l5.293-5.293-1.414-1.414L2.586 12l7.707 7.707 1.414-1.414L6.414 13H21z"
+            <path d="M13.293 6.293 7.586 12l5.707 5.707 1.414-1.414L10.414 12l4.293-4.293z"
                   fill={"white"}
             />
         </svg>
