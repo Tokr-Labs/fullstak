@@ -55,7 +55,7 @@ export const Navbar = () => {
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
-                        <img src={require("src/assets/brand/fullstak_logo_white.png")}
+                        <img src={require("src/assets/brand/fullstak_icon_white.png")}
                              height={"36px"}
                              width={"auto"}
                              alt={"Fullstak logo"}/>
