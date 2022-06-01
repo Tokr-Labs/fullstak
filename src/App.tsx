@@ -83,6 +83,7 @@ export const App = () => {
     const globalStyles = globalCss({
         hr: {
             margin: "5px 0",
+            opacity: 0.5,
             border: "1px solid " + theme.colors.primary.computedValue + " !important"
         },
         "box-icon": {marginRight: "10px"},

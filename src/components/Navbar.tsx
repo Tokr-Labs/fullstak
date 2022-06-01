@@ -51,7 +51,13 @@ export const Navbar = () => {
                 </Grid>
             </Grid.Container>
 
-            <Grid.Container gap={1} style={{padding: "40px 0 30px 0"}}>
+            <Grid.Container
+                gap={1}
+                style={{
+                    paddingBottom: "30px",
+                    paddingTop: network === WalletAdapterNetwork.Devnet ? "1px" : "40px"
+                }}
+            >
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">

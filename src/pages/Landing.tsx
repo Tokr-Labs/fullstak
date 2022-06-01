@@ -364,7 +364,7 @@ const Landing = () => {
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
                             <img
-                                src={fullstakLogo}
+                                src={require("src/assets/brand/fullstak_logo_white.png")}
                                 height="40px"
                                 width="auto"
                                 alt="Tokr logo"

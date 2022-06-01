@@ -442,7 +442,7 @@ export const PoolDetail = () => {
 
                             <Grid.Container>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Token
                                     </Text>
                                     <Spacer y={0.3}/>
@@ -466,7 +466,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 3.2
+                                                letterSpacing: 1
                                             }}
                                         >
                                             {dao.token.ticker}
@@ -474,7 +474,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         General Partner
                                         <TooltipWithIcon
                                             color={"black"}
@@ -509,7 +509,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 3.2
+                                                letterSpacing: 1
                                             }}
                                         >
                                             {dao.stakeholders.sponsor.name}
@@ -517,7 +517,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Fund Administrator
                                         <TooltipWithIcon
                                             color={"black"}
@@ -551,7 +551,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 3.2
+                                                letterSpacing: 1
                                             }}
                                         >
                                             {dao.stakeholders.delegate.name}
@@ -573,7 +573,7 @@ export const PoolDetail = () => {
                                     </Text>
                                     <Text
                                         size={18}
-                                        style={{letterSpacing: 2.4}}
+                                        style={{letterSpacing: 0.75}}
                                     >
                                         {dao.description}
                                     </Text>
