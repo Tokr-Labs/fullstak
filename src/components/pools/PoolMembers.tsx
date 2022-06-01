@@ -1,5 +1,5 @@
 import React, {useContext, useMemo, useState} from "react";
-import {Link, Table} from "@nextui-org/react";
+import {Link, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
@@ -46,8 +46,8 @@ export const PoolMembers = () => {
 
             <Table.Header>
                 <Table.Column>Member</Table.Column>
-                <Table.Column>Amount</Table.Column>
-                <Table.Column>Ownership</Table.Column>
+                <Table.Column align={"end"}>Amount</Table.Column>
+                <Table.Column align={"end"}>Ownership</Table.Column>
             </Table.Header>
 
             <Table.Body>
@@ -60,7 +60,9 @@ export const PoolMembers = () => {
 
                                 <Link icon
                                       href={`https://explorer.solana.com/address/${entry.holder}?cluster=${network}`}
-                                      target={"_blank"}>
+                                      target={"_blank"}
+                                      style={{fontFamily: theme.fonts.mono.computedValue}}
+                                >
 
                                     {entry.holder.toString()}
 
@@ -68,11 +70,11 @@ export const PoolMembers = () => {
 
                             </Table.Cell>
 
-                            <Table.Cell>
+                            <Table.Cell css={{textAlign: "end"}}>
                                 {entry.tokensHeld} {dao.token.ticker}
                             </Table.Cell>
 
-                            <Table.Cell>
+                            <Table.Cell css={{textAlign: "end"}}>
                                 {entry.formattedPercentage}
                             </Table.Cell>
 

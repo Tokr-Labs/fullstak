@@ -6,12 +6,11 @@ export const AttributeGridItem = (props) => {
     return (
         <Grid xs={12} lg={3} direction={"column"}>
             <div style={{
-                height: "100px",
-                width: "100px",
-                background: "gray",
-                borderRadius: "50%",
-                alignSelf: "center"
-            }}/>
+                textAlign: "center",
+                fontSize: "100px"
+            }}>
+                {props.image}
+            </div>
             <p style={{
                 opacity: 1,
                 fontSize: "28px",

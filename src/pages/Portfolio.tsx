@@ -1,8 +1,9 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Navbar} from "../components/Navbar";
-import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
+import {Button, Card, Container, Grid, Spacer, Table, theme} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
 import {Link} from "react-router-dom";
+import {Link as NextUiLink} from "@nextui-org/react"
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
@@ -47,7 +48,7 @@ export const Portfolio = () => {
             {/*Background for header*/}
             <div style={{
                 background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
-                height: "225px",
+                height: "238px",
                 zIndex: -1,
                 width: "100vw",
                 top: 0,
@@ -68,7 +69,7 @@ export const Portfolio = () => {
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
-                            <span>{usdcAmount} USDC</span>
+                            <span>{usdcAmount ?? 0} USDC</span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
@@ -87,24 +88,33 @@ export const Portfolio = () => {
                             <Table shadow={false} sticked headerLined>
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
-                                    <Table.Column>Amount</Table.Column>
+                                    <Table.Column align={"end"}>Amount</Table.Column>
                                     <Table.Column children=""/>
                                 </Table.Header>
                                 <Table.Body>
 
-                                    {(holdings ?? []).map( holding => {
+                                    {(holdings ?? []).map(holding => {
+
+                                        const mint = holding.account.data.parsed.info.mint;
 
                                         return (
                                             <Table.Row>
-                                                <Table.Cell>
-                                                    {holding.account.data.parsed.info.mint}
+                                                <Table.Cell css={{fontFamily: theme.fonts.mono.computedValue}}>
+                                                    <NextUiLink
+                                                        icon
+                                                        rel={"noreferrer"}
+                                                        target={"_blank"}
+                                                        href={`https://explorer.solana.com/address/${mint}?cluster=${network}`}
+                                                    >
+                                                        {mint}
+                                                    </NextUiLink>
                                                 </Table.Cell>
-                                                <Table.Cell>
+                                                <Table.Cell css={{textAlign: "end"}}>
                                                     {holding.account.data.parsed.info.tokenAmount.uiAmount}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        holding.account.data.parsed.info.mint.toString() === usdc.toString()
+                                                        mint.toString() === usdc.toString()
                                                             ? <Link to={"/markets/equity"}>
                                                                 <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
                                                             </Link>
@@ -121,6 +131,8 @@ export const Portfolio = () => {
                 </Card.Body>
                 <Card.Footer/>
             </Card>
+
+            <Spacer y={1}/>
 
             <Footer/>
 

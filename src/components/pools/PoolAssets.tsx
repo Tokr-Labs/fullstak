@@ -70,6 +70,7 @@ export const PoolAssets = () => {
                         <Table.Cell>
                             <Button
                                 light
+                                disabled
                                 size={"xs"}
                                 borderWeight={"light"}
                                 style={{margin: 0, fontWeight: "bold"}}
@@ -85,6 +86,7 @@ export const PoolAssets = () => {
                         <Table.Cell>
                             <Button
                                 light
+                                disabled
                                 size={"xs"}
                                 borderWeight={"light"}
                                 style={{margin: 0, fontWeight: "bold"}}

@@ -51,12 +51,12 @@ export const Navbar = () => {
                 </Grid>
             </Grid.Container>
 
-            <Grid.Container gap={1}>
+            <Grid.Container gap={1} style={{padding: "40px 0 30px 0"}}>
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
                         <img src={require("src/assets/brand/fullstak_logo_white.png")}
-                             height={"36px"}
+                             height={"46px"}
                              width={"auto"}
                              alt={"Fullstak logo"}/>
                     </Link>
@@ -72,14 +72,14 @@ export const Navbar = () => {
                     >
                         <Button
                             ghost={tab !== "Markets"}
-                            style={{fontWeight: "bold", minWidth: "150px"}}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Markets")}
                         >
                             MARKETS
                         </Button>
                         <Button
                             ghost={tab !== "Portfolio"}
-                            style={{fontWeight: "bold", minWidth: "150px"}}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Portfolio")}
                         >
                             PORTFOLIO
