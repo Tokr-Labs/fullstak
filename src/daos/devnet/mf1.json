@@ -2,8 +2,10 @@
   "name": "Miami Fund",
   "description": "Miami Fund is a private real estate investment fund focused on producing market-beating returns through a disciplined, value-add investing approach in one of the fastest growing markets in the world, Miami, FL. We pride ourselves on sourcing proprietary deal-flow below-market, and generating opportunities in under-managed assets.",
   "active": false,
+  "strategy": 0,
   "token": {
-    "ticker": "MF1"
+    "ticker": "MF1",
+    "image": "https://dummyimage.com/125x100/3ab327/ffffff&text=%20MF%20"
   },
   "stakeholders": {
     "sponsor": {
@@ -18,7 +20,7 @@
     }
   },
   "details": {
-    "min_raise": 1000000,
+    "min_raise": 7500000,
     "max_raise": 10000000,
     "min_investment": 100000,
     "raise_close": 1672531200,
@@ -27,7 +29,9 @@
     "data_room": "",
     "target_returns": {
       "irr": 2400,
-      "coc": 1000
+      "coc": 1000,
+      "tvpi": 430,
+      "dpi": 210
     },
     "fees": {
       "closing": 1000,

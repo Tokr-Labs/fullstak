@@ -34,9 +34,6 @@ export const PoolMembers = () => {
             ]
         ).then(capTable => {
             setCapTable(capTable);
-
-            console.log(capTable.entries)
-
         }).catch(error => {
             console.error(error.message);
         });

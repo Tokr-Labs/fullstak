@@ -3,18 +3,19 @@
   "description": "RE Enjoyoooors is a private real estate fund designed with a higher risk/return profile suitable for DeFi Degens. Deploying capital in secondary and tertiary markets for ground-up development and opportunistic acquisitions will be core to our approach. We belive non-coastal markets hold the most upside following a downturn, positioning us to take full advantage of the opportunities ahead.",
   "active": true,
   "token": {
-    "ticker": "ENJ"
+    "ticker": "ENJ",
+    "image": "https://dummyimage.com/125x100/2672b5/ffffff&text=%20EN%20"
   },
   "people": {
     "sponsor": {
       "name": "Enjoyoooors Capital",
       "company": "Enjoyoooors Capital",
-      "image": "src/assets/issuers/<SPONSOR_LOGO>.png"
+      "image": "https://dummyimage.com/100x100/000/fff"
     },
     "delegate": {
       "name": "Tokr Labs",
       "company": "Tokr Labs",
-      "image": "src/assets/issuers/<DELEGATE_LOGO>.png"
+      "image": "https://dummyimage.com/100x100/000/fff"
     }
   },
   "details": {
@@ -52,13 +53,13 @@
       "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
       "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
       "stock_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
-    },
-    "performance": {
-      "paid_in_capital": 100000000,
-      "carrying_value": 150000000,
-      "tvpi": 1500,
-      "dpi": 500,
-      "net_irr": 2247
     }
+  },
+  "performance": {
+    "paid_in_capital": 100000000,
+    "carrying_value": 150000000,
+    "tvpi": 1500,
+    "dpi": 500,
+    "net_irr": 2247
   }
 }
