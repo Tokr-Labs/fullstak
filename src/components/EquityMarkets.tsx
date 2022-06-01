@@ -54,7 +54,7 @@ export const EquityMarkets = () => {
                 funds.open.forEach((fund, i) => {
 
                     fundProgresses.push({
-                        amountRaised: CurrencyFormatter.formatUsdc(result[i] ?? 0, true),
+                        amountRaised: CurrencyFormatter.formatUsd(result[i] ?? 0, true),
                         percentageComplete: ((result[i] ?? 0) / fund.details.maxRaise) * 100
                     });
 
@@ -64,7 +64,7 @@ export const EquityMarkets = () => {
             })
 
 
-    }, [connection, funds])
+    }, [connection, funds, tokenServices])
 
     return (
         <Grid.Container gap={2}>
@@ -349,15 +349,15 @@ export const EquityMarkets = () => {
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedNetIrr}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
                                                 {fund.performance.formattedTvpi}
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end"}}>
                                                 {fund.performance.formattedDpi}
-                                            </Table.Cell>
-
-                                            <Table.Cell css={{textAlign: "end"}}>
-                                                {fund.performance.formattedNetIrr}
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end"}}>
