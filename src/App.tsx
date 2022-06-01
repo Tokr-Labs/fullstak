@@ -63,6 +63,7 @@ export const App = () => {
         theme: {
             colors: {
                 primary: "#be00ff",
+                primaryLight: "rgba(190,0,255,0.25)",
                 secondary: "#650087",
                 success: "#00ff4b",
                 gradient: "linear-gradient(" +
@@ -80,7 +81,6 @@ export const App = () => {
     })
 
     const globalStyles = globalCss({
-        hr: {border: "1px solid " + theme.colors.border, margin: "5px 0"},
         "box-icon": {marginRight: "10px"},
         ".wallet-adapter-button-trigger": {
             background: theme.colors.primary.computedValue + " !important",
@@ -89,12 +89,27 @@ export const App = () => {
             fontFamily: "Montserrat, sans-serif !important"
         },
         ".nextui-table-container": {width: "100%"},
+        ".nextui-table-column-header": {
+            fontSize: 12,
+            fontWeight: "normal",
+            letterSpacing: 1.6
+        },
+        ".nextui-table-cell": {
+            fontSize: 14,
+            fontWeight: "$semibold",
+            letterSpacing: 1.87
+        },
         ".skinny-rows .nextui-table-cell": {
             paddingTop: theme.space["2"].computedValue,
             paddingBottom: theme.space["2"].computedValue
         },
+        ".nextui-c-bfHnFD": {padding: "30px 0 0 30px !important"}, // Card headers
         ".dark-card": {background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%) !important"},
-        ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"}
+        ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"},
+        ".user-shadow .nextui-user-avatar": {
+            boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+            backgroundColor: "rgba(21,3,53, 1)"
+        }
     })
     globalStyles();
 

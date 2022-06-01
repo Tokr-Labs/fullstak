@@ -16,7 +16,7 @@ export const Markets = () => {
             {/*Background for header*/}
             <div style={{
                 background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
-                height: "225px",
+                height: "238px",
                 zIndex: -1,
                 width: "100vw",
                 top: 0,

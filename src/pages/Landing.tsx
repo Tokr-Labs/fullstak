@@ -12,8 +12,7 @@ const Landing = () => {
         <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
 
             <section style={{
-                height: "96px",
-                padding: "25px 0",
+                padding: "40px 0 30px 0",
                 opacity: 1,
                 background: `linear-gradient(
                     180deg, 
@@ -251,6 +250,7 @@ const Landing = () => {
                         </Grid>
 
                         <AttributeGridItem
+                            image={"🦾"}
                             title={"Programmable"}
                             description={
                                 "Fullstak is a platform composed of trustless programs that " +
@@ -261,6 +261,7 @@ const Landing = () => {
                         <Grid xs={0} lg={1}/>
 
                         <AttributeGridItem
+                            image={"🙌"}
                             title={"Frictionless"}
                             description={
                                 "Finance and invest in real estate on your terms, without " +
@@ -271,6 +272,7 @@ const Landing = () => {
                         <Grid xs={0} lg={1}/>
 
                         <AttributeGridItem
+                            image={"🤝"}
                             title={"Compliant"}
                             description={
                                 "Embracing compliance and privacy in web3 to create " +

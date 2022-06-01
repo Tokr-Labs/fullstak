@@ -51,12 +51,12 @@ export const Navbar = () => {
                 </Grid>
             </Grid.Container>
 
-            <Grid.Container gap={1}>
+            <Grid.Container gap={1} style={{padding: "40px 0 30px 0"}}>
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
-                        <img src={require("src/assets/brand/fullstak_icon_white.png")}
-                             height={"36px"}
+                        <img src={require("src/assets/brand/fullstak_logo_white.png")}
+                             height={"46px"}
                              width={"auto"}
                              alt={"Fullstak logo"}/>
                     </Link>

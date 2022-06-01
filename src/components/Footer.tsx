@@ -1,8 +1,7 @@
 import React from "react";
 import {Grid, Link, Text} from "@nextui-org/react";
 import solanaLogo from "src/assets/solana/solana_logo.svg"
-import gitbookLogo from "src/assets/icons/icons-gitbook_export.svg"
-import githubLogo from "src/assets/icons/icons-github_export.svg"
+import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
 
 require("boxicons");
@@ -15,27 +14,14 @@ export const Footer = () => {
                 <Grid xs={4}/>
                 <Grid xs={4} justify={"center"} alignItems={"center"}>
                     <Link
-                        href={"https://tokr.gitbook.io/tokr-main-docs/"}
+                        href={"https://discord.gg/nCGXWpFahv"}
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
                         <img
-                            src={gitbookLogo}
-                            alt={"GitBook logo"}
+                            src={discordLogo}
+                            alt={"Discord logo"}
                             height={"20px"}
-                            width={"auto"}
-                            style={{margin: "0 15px"}}
-                        />
-                    </Link>
-                    <Link
-                        href={"https://github.com/tokr-labs"}
-                        target={"_blank"}
-                        rel={"noreferrer"}
-                    >
-                        <img
-                            src={githubLogo}
-                            alt={"GitBook logo"}
-                            height={"22px"}
                             width={"auto"}
                             style={{margin: "0 15px"}}
                         />

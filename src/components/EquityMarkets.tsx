@@ -14,8 +14,14 @@ export const EquityMarkets = () => {
             <Grid xs={12}>
                 <Card>
 
-                    <Card.Header style={{padding: "20px 0 0 20px"}}>
-                        <Text h3 css={{letterSpacing: "2px"}}>OPEN FUNDS</Text>
+                    <Card.Header>
+                        <Text
+                            size={24}
+                            weight={"bold"}
+                            css={{letterSpacing: 3.2}}
+                        >
+                            OPEN FUNDS
+                        </Text>
                     </Card.Header>
 
                     <Card.Body>
@@ -69,7 +75,18 @@ export const EquityMarkets = () => {
                             <Table.Body>
                                 <Table.Row>
                                     <Table.Cell>
-                                        <User size={"sm"} name={data.name}/>
+                                        <img
+                                            src={require("src/assets/issuers/tj_kyner.png")}
+                                            height={20}
+                                            width={20}
+                                            alt={"Fund icon"}
+                                            style={{
+                                                borderRadius: "50%",
+                                                margin: "0 10px",
+                                                verticalAlign: "middle"
+                                            }}
+                                        />
+                                        {data.name}
                                     </Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>{data.details.target_returns.irr}</Table.Cell>
                                     <Table.Cell css={{textAlign: "end"}}>4.30x</Table.Cell>
@@ -78,8 +95,8 @@ export const EquityMarkets = () => {
                                     <Table.Cell css={{textAlign: "end"}}>{data.details.max_raise}</Table.Cell>
                                     {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
                                     <Table.Cell css={{minWidth: "200px", padding: "15px 20px 5px 20px"}}>
-                                        <Progress size={"sm"} value={58} color={"success"} status={"success"}/>
-                                        <Text size={12} color={"gray"}>5,800,000 USDC Raised</Text>
+                                        <Progress size={"sm"} value={58} color={"success"} status={"primary"}/>
+                                        <Text size={12} color={"gray"}>$5,800,000 Raised</Text>
                                     </Table.Cell>
                                     <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
                                         <Link to={"/markets/equity/pool-details"}>
@@ -109,8 +126,14 @@ export const EquityMarkets = () => {
 
                 <Card>
 
-                    <Card.Header style={{padding: "20px 0 0 20px"}}>
-                        <Text h3 css={{letterSpacing: "2px"}}>ACTIVE FUNDS</Text>
+                    <Card.Header>
+                        <Text
+                            size={24}
+                            weight={"bold"}
+                            css={{letterSpacing: 3.2}}
+                        >
+                            ACTIVE FUNDS
+                        </Text>
                     </Card.Header>
 
                     <Card.Body>

@@ -14,6 +14,7 @@ import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipIcon} from "./icons/TooltipIcon";
 import {TooltipWithIcon} from "./TooltipWithIcon";
+import {RaiseDetail} from "./pools/RaiseDetail";
 
 export const PoolDetail = () => {
 
@@ -133,16 +134,30 @@ export const PoolDetail = () => {
 
                         <Card.Header>
                             <Grid.Container gap={1} alignItems={"center"}>
-                                <Grid>
-                                    <div style={{
-                                        height: "100px",
-                                        width: "100px",
-                                        background: "gray",
-                                        borderRadius: "50%"
-                                    }}/>
+                                <Grid style={{paddingLeft: 0}}>
+                                    <img
+                                        src={require("src/assets/issuers/miami_fund_1.png")}
+                                        height={"100px"}
+                                        width={"100px"}
+                                        alt={"Miami Fund 1 logo"}
+                                        style={{
+                                            borderRadius: "50%",
+                                            boxShadow: "0px 0px 10px 10px rgba(190,0,255, 0.5)",
+                                        }}
+                                    />
                                 </Grid>
-                                <Grid>
-                                    <h1 style={{color: "white", margin: 0}}>{dao.name}</h1>
+                                <Grid style={{marginLeft: "20px"}}>
+                                    <Text
+                                        size={56}
+                                        weight={"bold"}
+                                        color={"white"}
+                                        style={{
+                                            margin: 0,
+                                            letterSpacing: 7.47
+                                        }}
+                                    >
+                                        {dao.name}
+                                    </Text>
                                     <div style={{
                                         display: dao.active ? "none" : "flex",
                                         alignItems: "center"
@@ -160,56 +175,90 @@ export const PoolDetail = () => {
                             </Grid.Container>
                         </Card.Header>
 
-                        <Card.Body style={{padding: "0 30px 20px 30px"}}>
+                        <Card.Body style={{padding: "30px 30px"}}>
 
-                            <Text h4>Fundraising Details</Text>
-                            <Spacer y={0.5}/>
+                            <Text
+                                size={15}
+                                weight={"bold"}
+                                color={"white"}
+                                style={{letterSpacing: 2}}
+                            >
+                                Fundraising Details
+                            </Text>
+                            <Spacer y={1.5}/>
                             <Progress
                                 value={58}
+                                style={{height: "8px"}}
                                 color={"success"}
-                                status={"success"}
+                                status={"primary"}
                             />
 
-                            <Spacer y={1}/>
+                            <Spacer y={1.5}/>
 
                             <Grid.Container>
                                 <Grid xs={6} direction={"column"}>
-                                    <Text>Raised</Text>
-                                    <Text weight={"bold"}>5.8M USDC</Text>
-                                    <Text>$5,800,000</Text>
+                                    <Text
+                                        size={12}
+                                        color={"white"}
+                                        style={{letterSpacing: 1.6}}
+                                    >
+                                        Raised
+                                    </Text>
+                                    <Text
+                                        size={18}
+                                        color={"white"}
+                                        weight={"semibold"}
+                                        style={{letterSpacing: 2.4}}
+                                    >
+                                        5.8M USDC
+                                    </Text>
+                                    <Text
+                                        size={10}
+                                        color={"white"}
+                                        style={{letterSpacing: 1.33}}
+                                    >
+                                        $5,800,000
+                                    </Text>
                                 </Grid>
                                 <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
-                                    <Text>Remaining</Text>
-                                    <Text weight={"bold"}>4.2M USDC</Text>
-                                    <Text>$4,200,000</Text>
+                                    <Text
+                                        size={12}
+                                        color={"white"}
+                                        style={{letterSpacing: 1.6}}
+                                    >
+                                        Remaining
+                                    </Text>
+                                    <Text
+                                        size={18}
+                                        color={"white"}
+                                        weight={"semibold"}
+                                        style={{letterSpacing: 2.4}}
+                                    >
+                                        4.2M USDC
+                                    </Text>
+                                    <Text
+                                        size={10}
+                                        color={"white"}
+                                        style={{letterSpacing: 1.33}}
+                                    >
+                                        $4,200,000
+                                    </Text>
                                 </Grid>
                             </Grid.Container>
 
                             <Spacer y={1}/>
-                            <hr/>
+                            <hr style={{
+                                margin: "5px 0",
+                                border: "1px solid " + theme.theme?.colors.primary.computedValue
+                            }}/>
                             <Spacer y={1}/>
 
                             <Grid.Container justify={"space-between"}>
-                                <Grid xs={2} direction={"column"}>
-                                    <Text weight={"bold"}>Investors</Text>
-                                    <Text>{entries?.length ?? "--"} investors</Text>
-                                </Grid>
-                                <Grid xs={2} direction={"column"}>
-                                    <Text weight={"bold"}>Max Raise</Text>
-                                    <Text>{dao.details.formattedMaxRaise}</Text>
-                                </Grid>
-                                <Grid xs={2} direction={"column"}>
-                                    <Text weight={"bold"}>Min Investment</Text>
-                                    <Text>{dao.details.formattedMinInvestment}</Text>
-                                </Grid>
-                                <Grid xs={2} direction={"column"}>
-                                    <Text weight={"bold"}>Annual Fee</Text>
-                                    <Text>{dao.details.fees.formattedAnnualFee}</Text>
-                                </Grid>
-                                <Grid xs={2} direction={"column"}>
-                                    <Text weight={"bold"}>Close Date</Text>
-                                    <Text>{dao.details.formattedRaiseClose}</Text>
-                                </Grid>
+                                <RaiseDetail title={"Investors"} text={(entries?.length ?? "--") + " investors"}/>
+                                <RaiseDetail title={"Max Raise"} text={dao.details.formattedMaxRaise}/>
+                                <RaiseDetail title={"Min Investment"} text={dao.details.formattedMinInvestment}/>
+                                <RaiseDetail title={"Annual Fee"} text={dao.details.fees.formattedAnnualFee}/>
+                                <RaiseDetail title={"Close Date"} text={dao.details.formattedRaiseClose}/>
                             </Grid.Container>
 
                         </Card.Body>
@@ -277,19 +326,6 @@ export const PoolDetail = () => {
                                                 </Modal.Footer>
                                             </Modal>
 
-
-                                            {/*<Spacer y={1}/>*/}
-                                            {/*<Input*/}
-                                            {/*    underlined*/}
-                                            {/*    css={{color: "white"}}*/}
-                                            {/*    color={"primary"}*/}
-                                            {/*    type={"number"}*/}
-                                            {/*    shadow={false}*/}
-                                            {/*    fullWidth={true}*/}
-                                            {/*    labelPlaceholder={"Enter a value"}*/}
-                                            {/*/>*/}
-                                            {/*<Spacer y={1}/>*/}
-
                                             <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
                                                 <Button
                                                     size={"lg"}
@@ -312,12 +348,25 @@ export const PoolDetail = () => {
                         <Grid xs={12}>
                             <Card className={"dark-card"}>
                                 <Card.Header style={{paddingBottom: 0}}>
-                                    <Text h4>Target Returns</Text>
+                                    <Text
+                                        size={15}
+                                        color={"white"}
+                                        weight={"bold"}
+                                        style={{letterSpacing: 2}}
+                                    >
+                                        Target Returns
+                                    </Text>
                                 </Card.Header>
                                 <Card.Body style={{paddingTop: 0}}>
                                     <Grid.Container alignItems={"center"} style={{height: "100%"}}>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
-                                            <Text h2>20%</Text>
+                                            <Text
+                                                size={48}
+                                                color={"white"}
+                                                weight={"bold"}
+                                            >
+                                                20%
+                                            </Text>
                                             <Text>
                                                 NET IRR
                                                 <TooltipWithIcon
@@ -335,7 +384,13 @@ export const PoolDetail = () => {
                                             </Text>
                                         </Grid>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
-                                            <Text h2>4.0x</Text>
+                                            <Text
+                                                size={48}
+                                                color={"white"}
+                                                weight={"bold"}
+                                            >
+                                                4.0x
+                                            </Text>
                                             <Text>
                                                 TVPI
                                                 <TooltipWithIcon
@@ -349,7 +404,13 @@ export const PoolDetail = () => {
                                             </Text>
                                         </Grid>
                                         <Grid xs={4} direction={"column"} alignItems={"center"}>
-                                            <Text h2>2.1x</Text>
+                                            <Text
+                                                size={48}
+                                                color={"white"}
+                                                weight={"bold"}
+                                            >
+                                                2.1x
+                                            </Text>
                                             <Text>
                                                 DPI
                                                 <TooltipWithIcon
@@ -373,27 +434,35 @@ export const PoolDetail = () => {
                     <Card>
 
                         <Card.Header>
-                            <Text h4>Fund Summary</Text>
+                            <Text
+                                size={24}
+                                weight={"bold"}
+                                style={{letterSpacing: 3.2}}
+                            >
+                                Fund Summary
+                            </Text>
                         </Card.Header>
 
-                        <Card.Body style={{padding: "0 30px 20px 30px"}}>
+                        <Card.Body style={{padding: "20px 30px 20px 30px"}}>
 
                             <Grid.Container>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>Token</Text>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
+                                        Token
+                                    </Text>
                                     <Spacer y={0.3}/>
                                     <User
-                                        bordered
-                                        size={"xl"}
+                                        size={"lg"}
                                         name={dao.name}
-                                        color={"secondary"}
                                         style={{paddingLeft: 0}}
+                                        className={"user-shadow"}
+                                        src={require("src/assets/issuers/miami_fund_1.png")}
                                     >
                                         M27
                                     </User>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
                                         General Partner
                                         <TooltipWithIcon
                                             color={"black"}
@@ -409,18 +478,15 @@ export const PoolDetail = () => {
                                     </Text>
                                     <Spacer y={0.3}/>
                                     <User
-                                        bordered
-                                        size={"xl"}
+                                        size={"lg"}
                                         name={dao.stakeholders.sponsor.name}
-                                        color={"secondary"}
                                         style={{paddingLeft: 0}}
-                                        src={dao.stakeholders.sponsor.image}
-                                    >
-                                        {dao.stakeholders.sponsor.company}
-                                    </User>
+                                        className={"user-shadow"}
+                                        src={require("src/assets/issuers/miami_capital.png")}
+                                    />
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
-                                    <Text weight={"bold"}>
+                                    <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
                                         Fund Administrator
                                         <TooltipWithIcon
                                             color={"black"}
@@ -435,15 +501,12 @@ export const PoolDetail = () => {
                                     </Text>
                                     <Spacer y={0.3}/>
                                     <User
-                                        bordered
-                                        size={"xl"}
+                                        size={"lg"}
                                         name={dao.stakeholders.delegate.name}
-                                        color={"secondary"}
                                         style={{paddingLeft: 0}}
-                                        src={dao.stakeholders.delegate.image}
-                                    >
-                                        {dao.stakeholders.delegate.company}
-                                    </User>
+                                        className={"user-shadow"}
+                                        src={require("src/assets/issuers/tokr_labs.png")}
+                                    />
                                 </Grid>
                             </Grid.Container>
 
@@ -451,8 +514,19 @@ export const PoolDetail = () => {
 
                             <Grid.Container>
                                 <Grid xs={12} direction={"column"}>
-                                    <Text weight={"bold"}>Fund Overview</Text>
-                                    <Text>{dao.description}</Text>
+                                    <Text
+                                        size={15}
+                                        weight={"bold"}
+                                        style={{letterSpacing: 2}}
+                                    >
+                                        Fund Overview
+                                    </Text>
+                                    <Text
+                                        size={18}
+                                        style={{letterSpacing: 2.4}}
+                                    >
+                                        {dao.description}
+                                    </Text>
                                 </Grid>
                             </Grid.Container>
 
@@ -460,7 +534,13 @@ export const PoolDetail = () => {
 
                             <Grid.Container>
                                 <Grid direction={"column"}>
-                                    <Text weight={"bold"}>Data Room</Text>
+                                    <Text
+                                        size={15}
+                                        weight={"bold"}
+                                        style={{letterSpacing: 2}}
+                                    >
+                                        Data Room
+                                    </Text>
                                     <Spacer y={0.5}/>
                                     <Button
                                         ghost
@@ -491,9 +571,15 @@ export const PoolDetail = () => {
                             {tabs.map(tab => {
                                 return (
                                     <Button
-                                        ghost={activeTab !== tab}
+                                        style={{
+                                            color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
+                                            fontSize: 15,
+                                            fontWeight: "bold",
+                                            backgroundColor: activeTab === tab
+                                                ? theme.theme?.colors.primary.computedValue
+                                                : "#150335"
+                                        }}
                                         disabled={tab === "Transactions" || tab === "Proposals"}
-                                        style={{fontWeight: "bold"}}
                                         animated={false}
                                         ripple={false}
                                         onClick={() => handleClick(tab)}
@@ -510,7 +596,13 @@ export const PoolDetail = () => {
                     <Card style={{minHeight: "300px"}}>
 
                         <Card.Header>
-                            <Text h3>{activeTab}</Text>
+                            <Text
+                                size={15}
+                                weight={"bold"}
+                                style={{letterSpacing: 2}}
+                            >
+                                {activeTab}
+                            </Text>
                         </Card.Header>
 
                         <Card.Body>
