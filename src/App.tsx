@@ -81,6 +81,10 @@ export const App = () => {
     })
 
     const globalStyles = globalCss({
+        hr: {
+            margin: "5px 0",
+            border: "1px solid " + theme.colors.primary.computedValue + " !important"
+        },
         "box-icon": {marginRight: "10px"},
         ".wallet-adapter-button-trigger": {
             background: theme.colors.primary.computedValue + " !important",
@@ -106,10 +110,6 @@ export const App = () => {
         ".nextui-c-bfHnFD": {padding: "30px 0 0 30px !important"}, // Card headers
         ".dark-card": {background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%) !important"},
         ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"},
-        ".user-shadow .nextui-user-avatar": {
-            boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
-            backgroundColor: "rgba(21,3,53, 1)"
-        }
     })
     globalStyles();
 

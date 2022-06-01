@@ -1,6 +1,6 @@
 import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
-import {Link, Outlet, useLocation, useNavigate} from "react-router-dom";
+import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {PublicKey, Transaction} from "@solana/web3.js";
 import {NetworkContext} from "../App";
@@ -8,11 +8,9 @@ import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adap
 import {TokenServices} from "../services/token-services";
 import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
-import {DaoInfo} from "../models/dao/dao-info";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {generateCapTable} from "@tokr-labs/cap-table";
-import {TooltipIcon} from "./icons/TooltipIcon";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 import {RaiseDetail} from "./pools/RaiseDetail";
 
@@ -247,10 +245,7 @@ export const PoolDetail = () => {
                             </Grid.Container>
 
                             <Spacer y={1}/>
-                            <hr style={{
-                                margin: "5px 0",
-                                border: "1px solid " + theme.theme?.colors.primary.computedValue
-                            }}/>
+                            <hr/>
                             <Spacer y={1}/>
 
                             <Grid.Container justify={"space-between"}>
@@ -451,15 +446,32 @@ export const PoolDetail = () => {
                                         Token
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <User
-                                        size={"lg"}
-                                        name={dao.name}
-                                        style={{paddingLeft: 0}}
-                                        className={"user-shadow"}
-                                        src={require("src/assets/issuers/miami_fund_1.png")}
-                                    >
-                                        M27
-                                    </User>
+                                    <div>
+                                        <img
+                                            src={require("src/assets/issuers/miami_fund_1.png")}
+                                            alt={"Token"}
+                                            height={40}
+                                            width={40}
+                                            style={{
+                                                verticalAlign: "middle",
+                                                borderRadius: "50%",
+                                                boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                                backgroundColor: "rgba(21,3,53, 1)"
+                                            }}
+                                        />
+                                        <Text
+                                            size={24}
+                                            weight={"bold"}
+                                            style={{
+                                                display: "inline",
+                                                marginLeft: "10px",
+                                                verticalAlign: "middle",
+                                                letterSpacing: 3.2
+                                            }}
+                                        >
+                                            {dao.token.ticker}
+                                        </Text>
+                                    </div>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
@@ -477,13 +489,32 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <User
-                                        size={"lg"}
-                                        name={dao.stakeholders.sponsor.name}
-                                        style={{paddingLeft: 0}}
-                                        className={"user-shadow"}
-                                        src={require("src/assets/issuers/miami_capital.png")}
-                                    />
+                                    <div>
+                                        <img
+                                            src={require("src/assets/issuers/miami_capital.png")}
+                                            alt={"General Partner"}
+                                            height={40}
+                                            width={40}
+                                            style={{
+                                                verticalAlign: "middle",
+                                                borderRadius: "50%",
+                                                boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                                backgroundColor: "rgba(21,3,53, 1)"
+                                            }}
+                                        />
+                                        <Text
+                                            size={24}
+                                            weight={"bold"}
+                                            style={{
+                                                display: "inline",
+                                                marginLeft: "10px",
+                                                verticalAlign: "middle",
+                                                letterSpacing: 3.2
+                                            }}
+                                        >
+                                            {dao.stakeholders.sponsor.name}
+                                        </Text>
+                                    </div>
                                 </Grid>
                                 <Grid xs={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 2}}>
@@ -500,13 +531,32 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <User
-                                        size={"lg"}
-                                        name={dao.stakeholders.delegate.name}
-                                        style={{paddingLeft: 0}}
-                                        className={"user-shadow"}
-                                        src={require("src/assets/issuers/tokr_labs.png")}
-                                    />
+                                    <div>
+                                        <img
+                                            src={require("src/assets/issuers/tokr_labs.png")}
+                                            alt={"Fund Administrator"}
+                                            height={40}
+                                            width={40}
+                                            style={{
+                                                verticalAlign: "middle",
+                                                borderRadius: "50%",
+                                                boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                                backgroundColor: "rgba(21,3,53, 1)"
+                                            }}
+                                        />
+                                        <Text
+                                            size={24}
+                                            weight={"bold"}
+                                            style={{
+                                                display: "inline",
+                                                marginLeft: "10px",
+                                                verticalAlign: "middle",
+                                                letterSpacing: 3.2
+                                            }}
+                                        >
+                                            {dao.stakeholders.delegate.name}
+                                        </Text>
+                                    </div>
                                 </Grid>
                             </Grid.Container>
 
@@ -575,6 +625,8 @@ export const PoolDetail = () => {
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
                                             fontSize: 15,
                                             fontWeight: "bold",
+                                            letterSpacing: 2,
+                                            textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
                                                 ? theme.theme?.colors.primary.computedValue
                                                 : "#150335"
