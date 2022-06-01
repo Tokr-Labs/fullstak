@@ -127,8 +127,10 @@ export const EquityMarkets = () => {
                                         `}
                                     />
                                 </Table.Column>
-                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Strategy</Table.Column>
-                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Max Raise</Table.Column>
+                                <Table.Column align={"end"}
+                                              css={{paddingRight: theme.space["5"].computedValue}}>Strategy</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Max
+                                    Raise</Table.Column>
                                 <Table.Column align={"center"}>Progress</Table.Column>
                                 <Table.Column children=""/>
 
@@ -153,7 +155,9 @@ export const EquityMarkets = () => {
                                                         verticalAlign: "middle"
                                                     }}
                                                 />
-                                                {fund.name}
+                                                <span style={{verticalAlign: "middle"}}>
+                                                    {fund.name}
+                                                </span>
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end"}}>
@@ -337,7 +341,9 @@ export const EquityMarkets = () => {
                                                         verticalAlign: "middle"
                                                     }}
                                                 />
-                                                {fund.name}
+                                                <span style={{verticalAlign: "middle"}}>
+                                                    {fund.name}
+                                                </span>
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end"}}>
