@@ -94,9 +94,6 @@ export const Portfolio = () => {
 
                                     {(holdings ?? []).map( holding => {
 
-                                        console.log("Mint: " + holding.account.data.parsed.info.mint)
-                                        console.log("USDC: " + usdc)
-
                                         return (
                                             <Table.Row>
                                                 <Table.Cell>

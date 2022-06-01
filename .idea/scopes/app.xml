@@ -1,3 +1,3 @@
 <component name="DependencyValidationManager">
-  <scope name="app" pattern="file[tokr-fi]:src//*" />
+  <scope name="app" pattern="file[fullstak]:src//*" />
 </component>

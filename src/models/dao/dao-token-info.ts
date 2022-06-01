@@ -15,6 +15,7 @@ export class DaoTokenInfo {
         const token = new DaoTokenInfo();
 
         token.ticker = info?.ticker ?? ""
+        token.image = info?.image ?? ""
 
         return token
 
@@ -28,5 +29,8 @@ export class DaoTokenInfo {
 
     /// "ticker"(ish) string representing the dao lp token
     ticker: string
+
+    /// image location of token icon
+    image: string
 
 }
