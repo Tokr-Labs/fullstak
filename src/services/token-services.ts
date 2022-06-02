@@ -1,5 +1,10 @@
 import {Connection, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
+<<<<<<< HEAD
+=======
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+>>>>>>> develop
 
 export class TokenServices {
 
@@ -19,7 +24,15 @@ export class TokenServices {
             }]
         };
 
-        await this.connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, config)
+        return await this.connection.getParsedProgramAccounts(TOKEN_PROGRAM_ID, config)
+
+    }
+
+    async getTokenAccountBalance(tokenAccount: PublicKey) {
+
+        const tokenAccountBalance = await this.connection.getTokenAccountBalance(tokenAccount);
+
+        return tokenAccountBalance.value.uiAmount
 
     }
 
@@ -40,6 +53,10 @@ export class TokenServices {
 
         return tokenSupply.value.decimals
 
+    }
+
+    getUsdcMint = (network: WalletAdapterNetwork) => {
+        return network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
     }
 
 }

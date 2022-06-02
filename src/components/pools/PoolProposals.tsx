@@ -8,23 +8,24 @@ export const PoolProposals = () => {
 
     const connection = useConnection().connection;
 
+    const data = require("src/daos/devnet/tj-test-dao.json")
+
     const [proposals, setProposal] = useState<ProgramAccount<Proposal>[]>();
 
     useEffect(() => {
-        // UNQ Universe on devnet
         getAllProposals(
             connection,
-            new PublicKey("GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP"),
-            new PublicKey("HVywtno57PwcgWQzRaf3Pv8RKWWrF1zoqLZGULNC2jGm"),
+            new PublicKey(data.addresses.owner),
+            new PublicKey(data.addresses.pubkey),
         ).then(proposals => setProposal(proposals.flat().sort(
             (a, b) => {
                 return b.account.getStateTimestamp() - a.account.getStateTimestamp()
             }))
         )
-    }, [connection])
+    }, [connection, data.addresses.owner, data.addresses.pubkey])
 
     return (
-        <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
+        <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}}>
 
             <Table.Header>
                 <Table.Column>Date</Table.Column>
@@ -37,12 +38,17 @@ export const PoolProposals = () => {
 
                 {/*@ts-ignore*/}
                 {proposals?.map(proposal => {
+
+                    const date = new Date(proposal.account.getStateTimestamp() * 1000)
+
                     return (
                         <Table.Row>
-                            <Table.Cell>{new Date(proposal.account.getStateTimestamp() * 1000).toLocaleDateString()}</Table.Cell>
+                            <Table.Cell>
+                                {date.toLocaleDateString() + " " + date.toLocaleTimeString()}
+                            </Table.Cell>
                             <Table.Cell>{proposal.account.name}</Table.Cell>
                             <Table.Cell>{ProposalState[proposal.account.state]}</Table.Cell>
-                            <Table.Cell>{proposal.account.descriptionLink}</Table.Cell>
+                            <Table.Cell css={{maxWidth: "250px", textOverflow: "ellipsis"}}>{proposal.account.descriptionLink}</Table.Cell>
                         </Table.Row>
                     )
                 })}

@@ -51,33 +51,48 @@ export const Navbar = () => {
                 </Grid>
             </Grid.Container>
 
-            <Grid.Container gap={1}>
+            <Grid.Container
+                gap={1}
+                style={{
+                    paddingBottom: "30px",
+                    paddingTop: network === WalletAdapterNetwork.Devnet ? "1px" : "40px",
+                    paddingLeft: 0,
+                    paddingRight: 0
+                }}
+            >
 
                 <Grid xs={4} alignItems={"center"}>
                     <Link to="/">
-                        <img src={require("src/assets/tokr_" + (theme.isDark ? "dark" : "light") + ".png")}
-                             height={"auto"}
-                             width={"150px"}
-                             alt={"tokr logo"}/>
+                        <img src={require("src/assets/brand/fullstak_logo_white.png")}
+                             height={"46px"}
+                             width={"auto"}
+                             alt={"Fullstak logo"}/>
                     </Link>
                 </Grid>
 
                 <Grid xs={4} justify={"center"} alignItems={"center"}>
-                    <Button color={"gradient"}
+                    <Button.Group
+                        rounded
+                        borderWeight={"light"}
+                        animated={false}
+                        ripple={false}
+                        color={"secondary"}
+                    >
+                        <Button
                             ghost={tab !== "Markets"}
-                            shadow={tab === "Markets"}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Markets")}
-                    >
-                        Markets
-                    </Button>
-                    <Spacer x={1}/>
-                    <Button color={"gradient"}
+                        >
+                            MARKETS
+                        </Button>
+                        <Button
                             ghost={tab !== "Portfolio"}
-                            shadow={tab === "Portfolio"}
+                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Portfolio")}
-                    >
-                        Portfolio
-                    </Button>
+                        >
+                            PORTFOLIO
+                        </Button>
+                    </Button.Group>
                 </Grid>
 
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
@@ -90,23 +105,21 @@ export const Navbar = () => {
                         <Popover.Content>
                             <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
                                 <h4>Change Network</h4>
-                                <Button ghost={network !== WalletAdapterNetwork.Mainnet}
-                                        color={"gradient"}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
+                                <Button
+                                    disabled
+                                    ghost={network !== WalletAdapterNetwork.Mainnet}
+                                    color={"primary"}
+                                    style={{fontWeight: "bold"}}
+                                    onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
                                     Mainnet
                                 </Button>
                                 <Spacer y={0.5}/>
-                                <Button ghost={network !== WalletAdapterNetwork.Testnet}
-                                        color={"gradient"}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Testnet)}
-                                >
-                                    Testnet
-                                </Button>
-                                <Spacer y={0.5}/>
-                                <Button ghost={network !== WalletAdapterNetwork.Devnet}
-                                        color={"gradient"}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
+                                <Button
+                                    ghost={network !== WalletAdapterNetwork.Devnet}
+                                    color={"primary"}
+                                    style={{fontWeight: "bold"}}
+                                    onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >
                                     Devnet
                                 </Button>
@@ -117,9 +130,6 @@ export const Navbar = () => {
                 </Grid>
 
             </Grid.Container>
-            <div>
-                <hr/>
-            </div>
         </>
     )
 }

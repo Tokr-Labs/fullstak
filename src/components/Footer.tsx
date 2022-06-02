@@ -1,56 +1,53 @@
 import React from "react";
-import {Grid, Link, Spacer, Switch, Text, useTheme} from "@nextui-org/react";
-import {MoonIcon} from "./icons/MoonIcon";
-import {SunIcon} from "./icons/SunIcon";
-import useDarkMode from "use-dark-mode";
+import {Grid, Link, Text} from "@nextui-org/react";
+import solanaLogo from "src/assets/solana/solana_logo.svg"
+import discordLogo from "src/assets/icons/discord_icon.svg"
+import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
 
 require("boxicons");
 
 export const Footer = () => {
 
-    const theme = useTheme();
-    const darkMode = useDarkMode();
-
-    const getLogoColor = () => {
-        return theme.isDark ? "white" : "black";
-    }
-
     return (
-        <div style={{marginTop: "auto"}}>
-            <Spacer y={1}/>
-            <hr/>
-            <Grid.Container gap={2} style={{paddingBottom: 0}}>
-                <Grid xs={4} alignItems={"center"}>
-                    <a href={"https://twitter.com/tokrfi"}
-                       target={"_blank"}
-                       rel="noreferrer"
-                       style={{display: "flex"}}
+        <div style={{marginTop: "auto", height: "60px"}}>
+            <Grid.Container alignItems={"center"} css={{height: "100%"}}>
+                <Grid xs={4}/>
+                <Grid xs={4} justify={"center"} alignItems={"center"}>
+                    <Link
+                        href={"https://discord.gg/nCGXWpFahv"}
+                        target={"_blank"}
+                        rel={"noreferrer"}
                     >
-                        {/*@ts-ignore*/}
-                        <box-icon type={"logo"} name={"twitter"} color={getLogoColor()}/>
-                    </a>
-                    <a href={"https://github.com/TOKR-labs"}
-                       target={"_blank"}
-                       rel="noreferrer"
-                       style={{display: "flex"}}
+                        <img
+                            src={discordLogo}
+                            alt={"Discord logo"}
+                            height={"20px"}
+                            width={"auto"}
+                            style={{margin: "0 15px"}}
+                        />
+                    </Link>
+                    <Link
+                        href={"https://twitter.com/tokrlabs"}
+                        target={"_blank"}
+                        rel={"noreferrer"}
                     >
-                        {/*@ts-ignore*/}
-                        <box-icon type={"logo"} name={"github"} color={getLogoColor()}/>
-                    </a>
-                    {/* TODO - add link for discord */}
-                    {/*@ts-ignore*/}
-                    <box-icon type={"logo"} name={"discord-alt"} color={getLogoColor()}/>
-                </Grid>
-                <Grid xs={4} justify={"center"} alignItems={"center"} style={{textAlign: "center"}}>
-                    <Text color={"$gray500"}>Made with 💜 by <Link href={"https://tokrlabs.xyz"} target={"_blank"}>Tokr Labs</Link></Text>
+                        <img
+                            src={twitterLogo}
+                            alt={"GitBook logo"}
+                            height={"20px"}
+                            width={"auto"}
+                            style={{margin: "0 15px"}}
+                        />
+                    </Link>
                 </Grid>
                 <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
-                    <Switch checked={false}
-                            size={"lg"}
-                            color={"primary"}
-                            iconOff={<MoonIcon filled/>}
-                            iconOn={<SunIcon filled/>}
-                            onChange={() => darkMode.toggle()}
+                    <Text color={"white"}>Powered by</Text>
+                    <img
+                        src={solanaLogo}
+                        alt={"Solana logo"}
+                        height={"20px"}
+                        width={"auto"}
+                        style={{marginLeft: "10px"}}
                     />
                 </Grid>
             </Grid.Container>

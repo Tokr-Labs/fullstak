@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/tokr-fi.iml" filepath="$PROJECT_DIR$/.idea/tokr-fi.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/fullstak.iml" filepath="$PROJECT_DIR$/.idea/fullstak.iml" />
     </modules>
   </component>
 </project>

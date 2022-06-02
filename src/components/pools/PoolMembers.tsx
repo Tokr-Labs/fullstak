@@ -1,79 +1,102 @@
-import React, {useMemo, useState} from "react";
-import {Link, Table} from "@nextui-org/react";
-import {getAllTokenOwnerRecords, ProgramAccount, TokenOwnerRecord} from "@tokr-labs/governance";
-import {PublicKey} from "@solana/web3.js";
+import React, {useContext, useMemo, useState} from "react";
+import {Link, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
+import {NetworkContext} from "../../App";
+import {generateCapTable} from "@tokr-labs/cap-table";
+import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
+import {DaoInfoContext} from "../../models/contexts/dao-context";
+import {PublicKey} from "@solana/web3.js";
+import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
+import {CurrencyFormatter} from "../../utils/currency-formatter";
 
 export const PoolMembers = () => {
 
     const connection = useConnection().connection;
+    const {network} = useContext(NetworkContext);
+    const dao = useContext(DaoInfoContext);
 
-    const [members, setMembers] = useState<ProgramAccount<TokenOwnerRecord>[]>();
-    const [communityMintSupply, setCommunityMintSupply] = useState<number | null>();
+    const [capTable, setCapTable] = useState<CapTable>();
 
-    // TODO - needs to be filtered down to just the community token mint
     useMemo(() => {
 
+<<<<<<< HEAD
         const communityMint = "Hope16zbz1yraofEJezcpj6JcSLHHjpmJ632RUohvyWi";
         connection.getTokenSupply(new PublicKey(communityMint))
             .then(supply => setCommunityMintSupply(supply.value.uiAmount))
+=======
+        const lpTokenMint = dao.addresses.mint.lpTokenMint;
+        const treasuryStock = dao.addresses.treasury.stockSupply;
+>>>>>>> develop
 
-        // The Sanctuary on mainnet-beta
-        // TODO - seems to only return users with deposited tokens
-        getAllTokenOwnerRecords(
+        if (!lpTokenMint || !treasuryStock) {
+            return
+        }
+
+        generateCapTable(
             connection,
-            new PublicKey("Ghope52FuF6HU3AAhJuAAyS2fiqbVhkAotb7YprL5tdS"),
-            new PublicKey("CS3HBXBdZ44g7FdZfgPAz6nSBe4FSThg6ANuVdowTT6G"),
-        ).then(records => setMembers(
-                records.sort((a, b) => {
-                    return b.account.governingTokenDepositAmount.toNumber() - a.account.governingTokenDepositAmount.toNumber()
-                }).filter((member) => {
-                    return member.account.governingTokenMint.toBase58() === communityMint
-                        && member.account.governingTokenDepositAmount.toNumber() > 0
-                })
-            )
-        )
+            lpTokenMint,
+            treasuryStock,
+            [
+                // TODO - change this to be the actual Treasury Stock account
+                dao.addresses.governance.delegateTokenMintGovernance as PublicKey
+            ]
+        ).then(capTable => {
+            setCapTable(capTable);
+        }).catch(error => {
+            console.error(error.message);
+        });
 
-    }, [connection])
+    }, [connection, dao])
 
     return (
-        <Table shadow={false} sticked headerLined style={{paddingTop: 0}}>
+
+        <Table sticked headerLined shadow={false}>
 
             <Table.Header>
                 <Table.Column>Member</Table.Column>
-                <Table.Column>Share of Pool</Table.Column>
-                <Table.Column>Value</Table.Column>
+                <Table.Column align={"end"}>Amount</Table.Column>
+                <Table.Column align={"end"}>Ownership</Table.Column>
             </Table.Header>
 
             <Table.Body>
 
-                {/*@ts-ignore*/}
-                {members?.map(member => {
-                    return (
-                        <Table.Row>
+                {(capTable?.entries.sort((a, b) => {
+                    return b.tokensHeld - a.tokensHeld
+                }) ?? []).map((entry: CapTableEntry) => (
+
+                        <Table.Row key={`${entry.holder}`}>
+
                             <Table.Cell>
+
                                 <Link icon
-                                      href={"https://explorer.solana.com/address/" + member.account.governingTokenOwner.toBase58()}
+                                      href={`https://explorer.solana.com/address/${entry.holder}?cluster=${network}`}
                                       target={"_blank"}
+                                      style={{fontFamily: theme.fonts.mono.computedValue}}
                                 >
-                                    {member.account.governingTokenOwner.toBase58()}
+
+                                    {entry.holder.toString()}
+
                                 </Link>
+
                             </Table.Cell>
-                            <Table.Cell>
-                                {
-                                    ((member.account.governingTokenDepositAmount.toNumber()
-                                        / (10_000 * (communityMintSupply ?? 1)))
-                                    ).toFixed(3) + "%"
-                                }
+
+                            <Table.Cell css={{textAlign: "end"}}>
+                                {CurrencyFormatter.formatToken(entry.tokensHeld, dao.token.ticker, true)}
                             </Table.Cell>
-                            <Table.Cell>Incorporate Pyth?</Table.Cell>
+
+                            <Table.Cell css={{textAlign: "end"}}>
+                                {entry.formattedPercentage}
+                            </Table.Cell>
+
                         </Table.Row>
+
                     )
-                })}
+                )}
 
             </Table.Body>
 
         </Table>
+
     )
 
 }

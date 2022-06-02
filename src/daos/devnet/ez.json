@@ -1,0 +1,65 @@
+{
+  "name": "Easy Street",
+  "description": "The Easy Street fund is designed for the DeFi-curious who want access to proprietary deal-flow in and around primary coastal market urban cities. We create reliable investment vehicles by allocating capital to acquire cornerstone assets that generate predictable cash flows over the long term.",
+  "active": true,
+  "token": {
+    "ticker": "EZ",
+    "image": "https://dummyimage.com/125x100/b32694/ffffff&text=%20EZ%20"
+  },
+  "people": {
+    "sponsor": {
+      "name": "Easy Street Capital",
+      "company": "Easy Street Capital",
+      "image": "https://dummyimage.com/100x100/000/fff"
+    },
+    "delegate": {
+      "name": "Tokr Labs",
+      "company": "Tokr Labs",
+      "image": "https://dummyimage.com/100x100/000/fff"
+    }
+  },
+  "details": {
+    "min_raise": 100000000,
+    "max_raise": 250000000,
+    "min_investment": 1000000,
+    "raise_close": 1584576000,
+    "vintage_year": "2020",
+    "fund_term": 5,
+    "data_room": "",
+    "target_returns": {
+      "irr": 1200,
+      "coc": 6000
+    },
+    "fees": {
+      "closing": 1000,
+      "annual": 1000
+    }
+  },
+  "addresses": {
+    "pubkey": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "authority": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "owner": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "governance": {
+      "lp_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distribution_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "delegate_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "mint": {
+      "lp_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distribution_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "delegate_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    },
+    "treasury": {
+      "capital_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distributions": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "stock_supply": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+    }
+  },
+  "performance": {
+    "paid_in_capital": 250000000,
+    "carrying_value": 323000000,
+    "tvpi": 133,
+    "dpi": 133,
+    "net_irr": 1571
+  }
+}

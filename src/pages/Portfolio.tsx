@@ -1,34 +1,43 @@
-import React, {useEffect, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Navbar} from "../components/Navbar";
-import {Button, Card, Container, Grid, Spacer, Table} from "@nextui-org/react";
+import {Button, Card, Container, Grid, Spacer, Table, theme} from "@nextui-org/react";
 import {Footer} from "../components/Footer";
 import {Link} from "react-router-dom";
+import {Link as NextUiLink} from "@nextui-org/react"
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {AccountInfo, LAMPORTS_PER_SOL, PublicKey} from "@solana/web3.js";
-import {AccountLayout, TOKEN_PROGRAM_ID} from "@solana/spl-token"
+import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@solana/web3.js";
+import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
+import {NetworkContext} from "../App";
+import {TokenServices} from "../services/token-services";
 
 export const Portfolio = () => {
 
     const wallet = useWallet();
     const {connection} = useConnection();
+    const {network} = useContext(NetworkContext);
 
-    // TODO - store this as a constant somewhere
-    const usdc = "4zMMC9srt5Ri5X14GAgXhaHii3GnPAEERYPJgZJDncDU";
+    const tokenServices = useMemo(() => new TokenServices(connection), [connection]);
+
+    const usdc = tokenServices.getUsdcMint(network);
 
     const [balance, setBalance] = useState<number>(0);
-    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<Buffer> }>>();
+    const [usdcAmount, setUsdcAmount] = useState<number | null>();
+    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>();
 
     useEffect(() => {
 
         connection.getBalance(wallet.publicKey as PublicKey)
             .then(response => setBalance(response / LAMPORTS_PER_SOL));
 
-        connection.getTokenAccountsByOwner(
+        tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+            .then(response => setUsdcAmount(response))
+
+        connection.getParsedTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
             {programId: TOKEN_PROGRAM_ID}
         ).then(response => setHoldings(response.value));
 
-    }, [connection, wallet])
+    }, [connection, tokenServices, usdc, wallet])
 
     return (
         <Container style={{
@@ -36,14 +45,22 @@ export const Portfolio = () => {
             display: "flex",
             flexDirection: "column"
         }}>
-            <Navbar/>
+            {/*Background for header*/}
+            <div style={{
+                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                height: "238px",
+                zIndex: -1,
+                width: "100vw",
+                top: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
 
+            <Navbar/>
             <Spacer y={1}/>
 
             <Card>
-
                 <Card.Header/>
-
                 <Card.Body>
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
@@ -52,55 +69,52 @@ export const Portfolio = () => {
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
-                            <span style={{color: "red"}}>$100,000.00</span>
+                            <span>{usdcAmount ?? 0} USDC</span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
-
                 <Card.Footer/>
-
             </Card>
 
             <Spacer y={1}/>
 
             <Card>
-
                 <Card.Header style={{padding: "20px 0 0 20px"}}>
                     <h3>Holdings</h3>
                 </Card.Header>
-
                 <Card.Body>
-
                     <Grid.Container>
                         <Grid xs={8}>
-
                             <Table shadow={false} sticked headerLined>
-
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
-                                    <Table.Column>Amount</Table.Column>
+                                    <Table.Column align={"end"}>Amount</Table.Column>
                                     <Table.Column children=""/>
                                 </Table.Header>
-
                                 <Table.Body>
 
-                                    {/*@ts-ignore*/}
-                                    {holdings?.map(holding => {
+                                    {(holdings ?? []).map(holding => {
 
-                                        const accountInfo = AccountLayout.decode(holding.account.data)
+                                        const mint = holding.account.data.parsed.info.mint;
 
                                         return (
                                             <Table.Row>
-                                                <Table.Cell>
-                                                    {accountInfo.mint.toBase58()}
+                                                <Table.Cell css={{fontFamily: theme.fonts.mono.computedValue}}>
+                                                    <NextUiLink
+                                                        icon
+                                                        rel={"noreferrer"}
+                                                        target={"_blank"}
+                                                        href={`https://explorer.solana.com/address/${mint}?cluster=${network}`}
+                                                    >
+                                                        {mint}
+                                                    </NextUiLink>
                                                 </Table.Cell>
-                                                <Table.Cell>
-                                                    {/*TODO - need to fetch token decimals*/}
-                                                    {accountInfo.amount.toString()}
+                                                <Table.Cell css={{textAlign: "end"}}>
+                                                    {holding.account.data.parsed.info.tokenAmount.uiAmount}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        accountInfo.mint.toBase58() === usdc
+                                                        mint.toString() === usdc.toString()
                                                             ? <Link to={"/markets/equity"}>
                                                                 <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
                                                             </Link>
@@ -110,21 +124,28 @@ export const Portfolio = () => {
                                             </Table.Row>
                                         )
                                     })}
-
                                 </Table.Body>
-
                             </Table>
-
                         </Grid>
                     </Grid.Container>
-
                 </Card.Body>
-
                 <Card.Footer/>
-
             </Card>
 
+            <Spacer y={1}/>
+
             <Footer/>
+
+            {/*Background for footer*/}
+            <div style={{
+                background: "linear-gradient(0deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                height: "60px",
+                zIndex: -1,
+                width: "100vw",
+                bottom: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
         </Container>
     )
 

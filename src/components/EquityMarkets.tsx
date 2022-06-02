@@ -1,91 +1,225 @@
-import React from "react";
-import {Button, Card, Grid, Spacer, Table, theme} from "@nextui-org/react";
-import {Pill} from "./Pill";
+import React, {useEffect, useMemo, useState} from "react";
+import {Button, Card, Grid, Text, Table, theme, Progress} from "@nextui-org/react";
 import {Link} from "react-router-dom";
+import {TooltipWithIcon} from "./TooltipWithIcon";
+import {DaoInfo} from "../models/dao/dao-info";
+import {TokenServices} from "../services/token-services";
+import {useConnection} from "@solana/wallet-adapter-react";
+import {USDC_DEVNET} from "../models/constants";
+import {CurrencyFormatter} from "../utils/currency-formatter";
 
 export const EquityMarkets = () => {
 
     // TODO - iterate over available DAOs to build the table
-    const data = require("src/daos/devnet/tj-test-dao.json")
+
+    const connection = useConnection().connection;
+
+    const tokenServices = useMemo(() => new TokenServices(connection), [connection])
+
+    const [openFundProgress, setOpenFundProgress] = useState<{ amountRaised?: string, percentageComplete?: number }[]>([]);
+
+    const funds: { open: DaoInfo[], active: DaoInfo[] } = useMemo(() => {
+
+        const mf1 = require("../daos/devnet/mf1.json");
+        const enj = require("../daos/devnet/enj.json");
+        const ez = require("../daos/devnet/ez.json");
+
+        return {
+            open: [
+                DaoInfo.with(mf1)
+            ],
+            active: [
+                DaoInfo.with(enj),
+                DaoInfo.with(ez)
+            ]
+        }
+
+    }, []);
+
+    useEffect(() => {
+
+        const promises = funds.open.map(fund => {
+
+            const lpTokenMintGovernance = fund.addresses.governance.lpTokenMintGovernance!;
+
+            return tokenServices.getTokenHoldingAmount(USDC_DEVNET, lpTokenMintGovernance)
+
+        })
+
+        Promise.all(promises)
+            .then(result => {
+
+                const fundProgresses: { amountRaised?: string, percentageComplete?: number }[] = [];
+
+                funds.open.forEach((fund, i) => {
+
+                    fundProgresses.push({
+                        amountRaised: CurrencyFormatter.formatUsd(result[i] ?? 0, true),
+                        percentageComplete: ((result[i] ?? 0) / fund.details.maxRaise) * 100
+                    });
+
+                })
+
+                setOpenFundProgress(fundProgresses);
+            })
+
+
+    }, [connection, funds, tokenServices])
 
     return (
         <Grid.Container gap={2}>
 
+            {/* OPEN FUNDS */}
             <Grid xs={12}>
                 <Card>
 
                     <Card.Header>
-                        <h3 style={{paddingLeft: "20px"}}>Pools</h3>
+                        <Text
+                            size={24}
+                            weight={"bold"}
+                            css={{letterSpacing: 3.2}}
+                        >
+                            OPEN FUNDS
+                        </Text>
                     </Card.Header>
 
                     <Card.Body>
-
-                        <span style={{margin: "0 0 10px 10px"}}>
-                            <Pill color={theme.colors.primary.computedValue} text={"Raising"}/>
-                        </span>
                         <Table shadow={false} sticked headerLined>
+
                             <Table.Header>
-                                <Table.Column>Name</Table.Column>
-                                <Table.Column>Token</Table.Column>
-                                <Table.Column align={"end"}>Current Raise</Table.Column>
-                                <Table.Column align={"end"}>Max Raise</Table.Column>
-                                <Table.Column align={"end"}>Target IRR</Table.Column>
-                                <Table.Column align={"end"}>Target CoC</Table.Column>
-                                <Table.Column align={"end"}>Vintage Year</Table.Column>
-                                <Table.Column align={"end"}>Fund Term</Table.Column>
+                                <Table.Column>Fund</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Target IRR
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Internal Rate of Return (IRR) is a metric used to estimate 
+                                            the profitability of potential investments. IRR is a discount 
+                                            rate that makes the net present value (NPV) of all cash flows 
+                                            from an investment equal to zero in a discounted cash flow 
+                                            analysis––in other words, it is the annual rate of growth 
+                                            that an investment is expected to generate. Generally speaking, 
+                                            the higher an internal rate of return, the more desirable an 
+                                            investment is to undertake. 
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Target TVPI
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Total Value to Paid-in (“TVPI”) is the ratio of the current 
+                                            value of current investments within a fund, plus the total 
+                                            value of all distributions made to date, relative to the total 
+                                            amount of capital paid into the fund to date.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Target DPI
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Distributions to Paid-in (“DPI”) is the ratio of money distributed to 
+                                            investors by the fund, relative to the total amount of capital paid into 
+                                            the fund.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"}
+                                              css={{paddingRight: theme.space["5"].computedValue}}>Strategy</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>Max
+                                    Raise</Table.Column>
+                                <Table.Column align={"center"}>Progress</Table.Column>
                                 <Table.Column children=""/>
-                            </Table.Header>
-                            <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell>{data.name}</Table.Cell>
-                                    {/*TODO - include ticker of token and link to explorer page here*/}
-                                    <Table.Cell css={{color: "red"}}>Cell 2</Table.Cell>
-                                    {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
-                                    <Table.Cell css={{textAlign: "end", color: "red"}}>Cell 3</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.max_raise}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.target_returns.irr}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.target_returns.irr}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.vintage_year}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>{data.details.fund_term}</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end", float: "right"}}>
-                                        <Link to={"/markets/equity/pool-details"}>
-                                            <Button size={"xs"} style={{margin: 0}}>View Details</Button>
-                                        </Link>
-                                    </Table.Cell>
-                                </Table.Row>
-                            </Table.Body>
-                        </Table>
 
-                        <Spacer y={2}/>
-
-                        <span style={{margin: "0 0 10px 10px"}}>
-                            <Pill color={theme.colors.secondary.computedValue} text={"Active"}/>
-                        </span>
-                        <Table shadow={false} sticked headerLined>
-                            <Table.Header>
-                                <Table.Column>Name</Table.Column>
-                                <Table.Column>Token</Table.Column>
-                                <Table.Column align={"end"}>Total Supply</Table.Column>
-                                <Table.Column align={"end"}>Target IRR</Table.Column>
-                                <Table.Column align={"end"}>Current IRR</Table.Column>
-                                <Table.Column align={"end"}>Target CoC</Table.Column>
-                                <Table.Column align={"end"}>Current CoC</Table.Column>
-                                <Table.Column align={"end"}>Vintage Year</Table.Column>
-                                <Table.Column align={"end"}>Fund Term</Table.Column>
                             </Table.Header>
+
                             <Table.Body>
-                                <Table.Row>
-                                    <Table.Cell>Cell 1</Table.Cell>
-                                    <Table.Cell>Cell 2</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 3</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 4</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 5</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 6</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 7</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 8</Table.Cell>
-                                    <Table.Cell css={{textAlign: "end"}}>Cell 9</Table.Cell>
-                                </Table.Row>
+
+                                {
+                                    (funds.open ?? []).map((fund, i) => (
+
+                                        <Table.Row>
+
+                                            <Table.Cell>
+                                                <img
+                                                    src={fund.token.image}
+                                                    height={20}
+                                                    width={20}
+                                                    alt={"Fund icon"}
+                                                    style={{
+                                                        borderRadius: "50%",
+                                                        margin: "0 10px",
+                                                        verticalAlign: "middle"
+                                                    }}
+                                                />
+                                                <span style={{verticalAlign: "middle"}}>
+                                                    {fund.name}
+                                                </span>
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.details.targetReturns.formattedIrr}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.details.targetReturns.formattedTvpi}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.details.targetReturns.formattedDpi}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.strategy.description}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.details.formattedMaxRaise}
+                                            </Table.Cell>
+
+                                            {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
+
+                                            <Table.Cell css={{minWidth: "200px", padding: "15px 20px 5px 20px"}}>
+
+                                                <Progress
+                                                    size={"sm"}
+                                                    value={openFundProgress[i]?.percentageComplete ?? 0}
+                                                    color={"success"}
+                                                    status={"primary"}
+                                                />
+
+                                                <Text size={12} color={"gray"}>
+                                                    {openFundProgress[i]?.amountRaised ?? "--"} Raised
+                                                </Text>
+
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
+                                                <Link to={"/markets/equity/pool-details"}>
+                                                    <Button ghost
+                                                            color={"primary"}
+                                                            size={"xs"}
+                                                            borderWeight={"light"}
+                                                            style={{margin: 0, fontWeight: "bold", borderRadius: 0}}>
+
+                                                        DETAILS
+
+                                                    </Button>
+
+                                                </Link>
+
+                                            </Table.Cell>
+
+                                        </Table.Row>
+
+                                    ))
+
+                                }
                             </Table.Body>
+
                         </Table>
 
                     </Card.Body>
@@ -93,6 +227,173 @@ export const EquityMarkets = () => {
                     <Card.Footer/>
 
                 </Card>
+
+            </Grid>
+
+            {/* ACTIVE FUNDS */}
+            <Grid xs={12}>
+
+                <Card>
+
+                    <Card.Header>
+                        <Text
+                            size={24}
+                            weight={"bold"}
+                            css={{letterSpacing: 3.2}}
+                        >
+                            ACTIVE FUNDS
+                        </Text>
+                    </Card.Header>
+
+                    <Card.Body>
+                        <Table shadow={false} sticked headerLined>
+                            <Table.Header>
+                                <Table.Column>Fund</Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Paid-in Capital
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Paid-in Capital is the full amount of cash or other assets that 
+                                            shareholders have contributed to a fund in exchange for ownership shares.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Carrying Value
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Carrying Value of an asset is the original purchase price or most recently 
+                                            appraised value less any accumulated depreciation, amortization, or 
+                                            impairment expenses from its original cost. Relative to a fund, this 
+                                            metric measures the total carrying value of assets under management over 
+                                            time, less any depreciation, amortization, or impairment expenses from 
+                                            its original cost.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    Net IRR
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Internal Rate of Return (IRR) is a metric used to estimate 
+                                            the profitability of potential investments. IRR is a discount 
+                                            rate that makes the net present value (NPV) of all cash flows 
+                                            from an investment equal to zero in a discounted cash flow 
+                                            analysis––in other words, it is the annual rate of growth 
+                                            that an investment is expected to generate. Generally speaking, 
+                                            the higher an internal rate of return, the more desirable an 
+                                            investment is to undertake. 
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    TVPI
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Total Value to Paid-in (“TVPI”) is the ratio of the current 
+                                            value of current investments within a fund, plus the total 
+                                            value of all distributions made to date, relative to the total 
+                                            amount of capital paid into the fund to date.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
+                                    DPI
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Distributions to Paid-in (“DPI”) is the ratio of money distributed to 
+                                            investors by the fund, relative to the total amount of capital paid into 
+                                            the fund.
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column align={"end"}>
+                                    Fund Vintage
+                                    <TooltipWithIcon
+                                        color={"#666666"}
+                                        content={`
+                                            Fund Vintage refers to the year in which the first influx of investment 
+                                            capital is delivered to a fund. 
+                                        `}
+                                    />
+                                </Table.Column>
+                                <Table.Column children={""}/>
+                            </Table.Header>
+                            <Table.Body>
+                                {
+                                    (funds.active ?? []).map(fund => (
+                                        <Table.Row>
+
+                                            <Table.Cell>
+                                                <img
+                                                    src={fund.token.image}
+                                                    height={20}
+                                                    width={20}
+                                                    alt={"Fund icon"}
+                                                    style={{
+                                                        borderRadius: "50%",
+                                                        margin: "0 10px",
+                                                        verticalAlign: "middle"
+                                                    }}
+                                                />
+                                                <span style={{verticalAlign: "middle"}}>
+                                                    {fund.name}
+                                                </span>
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedPaidInCapital}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedCarryingValue}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedNetIrr}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedTvpi}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.performance.formattedDpi}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end"}}>
+                                                {fund.details.vintageYear}
+                                            </Table.Cell>
+
+                                            <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
+
+                                                <Button light
+                                                        disabled
+                                                        size={"xs"}
+                                                        borderWeight={"light"}
+                                                        style={{margin: 0, fontWeight: "bold"}}
+                                                >
+                                                    DETAILS
+                                                </Button>
+
+                                            </Table.Cell>
+                                        </Table.Row>
+                                    ))
+                                }
+
+                            </Table.Body>
+                        </Table>
+                    </Card.Body>
+
+                    <Card.Footer/>
+
+                </Card>
+
             </Grid>
 
         </Grid.Container>
