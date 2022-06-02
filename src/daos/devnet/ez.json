@@ -4,7 +4,7 @@
   "active": true,
   "token": {
     "ticker": "EZ",
-    "image": "https://dummyimage.com/125x100/b32694/ffffff&text=%20EZ%20"
+    "image": "/easy_street.png"
   },
   "people": {
     "sponsor": {
