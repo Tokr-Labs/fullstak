@@ -29,7 +29,7 @@ export const Navbar = () => {
 
     return (
         <>
-            <Grid.Container  style={{
+            <Grid.Container style={{
                 position: "sticky",
                 top: 0,
                 zIndex: 1000
