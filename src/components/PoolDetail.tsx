@@ -13,6 +13,7 @@ import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 import {RaiseDetail} from "./pools/RaiseDetail";
+import {CurrencyFormatter} from "../utils/currency-formatter";
 
 export const PoolDetail = () => {
 
@@ -74,6 +75,8 @@ export const PoolDetail = () => {
 
     const [usdcHoldings, setUsdcHoldings] = useState<number | null>(0);
 
+    const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0);
+
     useEffect(() => {
         if (wallet.connected) {
             tokenServices.getTokenHoldingAmount(
@@ -81,6 +84,10 @@ export const PoolDetail = () => {
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
         }
+
+        tokenServices.getTokenAccountBalance(
+            dao.addresses.treasury.capitalSupply as PublicKey
+        ).then(amount => setCapitalSupplyBalance(amount ?? 0))
     }, [network, tokenServices, wallet])
 
     const makeDeposit = useCallback(async () => {
@@ -185,7 +192,7 @@ export const PoolDetail = () => {
                             </Text>
                             <Spacer y={1.5}/>
                             <Progress
-                                value={58}
+                                value={(capitalSupplyBalance / dao.details.maxRaise) * 100}
                                 style={{height: "8px"}}
                                 color={"success"}
                                 status={"primary"}
@@ -208,14 +215,14 @@ export const PoolDetail = () => {
                                         weight={"semibold"}
                                         style={{letterSpacing: 2.4}}
                                     >
-                                        5.8M USDC
+                                        {CurrencyFormatter.formatUsdc(capitalSupplyBalance, false, 2)}
                                     </Text>
                                     <Text
                                         size={10}
                                         color={"white"}
                                         style={{letterSpacing: 1.33}}
                                     >
-                                        $5,800,000
+                                        {CurrencyFormatter.formatUsd(capitalSupplyBalance, true)}
                                     </Text>
                                 </Grid>
                                 <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
@@ -232,14 +239,14 @@ export const PoolDetail = () => {
                                         weight={"semibold"}
                                         style={{letterSpacing: 2.4}}
                                     >
-                                        4.2M USDC
+                                        {CurrencyFormatter.formatUsdc(dao.details.maxRaise - capitalSupplyBalance, false, 2)}
                                     </Text>
                                     <Text
                                         size={10}
                                         color={"white"}
                                         style={{letterSpacing: 1.33}}
                                     >
-                                        $4,200,000
+                                        {CurrencyFormatter.formatUsd(dao.details.maxRaise - capitalSupplyBalance, true)}
                                     </Text>
                                 </Grid>
                             </Grid.Container>
