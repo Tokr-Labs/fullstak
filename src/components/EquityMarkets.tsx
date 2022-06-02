@@ -7,6 +7,7 @@ import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
+import {PublicKey} from "@solana/web3.js";
 
 export const EquityMarkets = () => {
 
@@ -40,7 +41,7 @@ export const EquityMarkets = () => {
 
         const promises = funds.open.map(fund => {
 
-            const lpTokenMintGovernance = fund.addresses.governance.lpTokenMintGovernance!;
+            const lpTokenMintGovernance = fund?.addresses.governance.lpTokenMintGovernance as PublicKey;
 
             return tokenServices.getTokenHoldingAmount(USDC_DEVNET, lpTokenMintGovernance)
 

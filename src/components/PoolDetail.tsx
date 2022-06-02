@@ -88,7 +88,7 @@ export const PoolDetail = () => {
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
-    }, [network, tokenServices, wallet])
+    }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
 
     const makeDeposit = useCallback(async () => {
         if (!wallet.publicKey) throw new WalletNotConnectedError()

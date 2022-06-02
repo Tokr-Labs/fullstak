@@ -29,7 +29,7 @@ export const PoolAssets = () => {
         tokenServices.getTokenAccountBalance(dao.addresses.treasury.distributions as PublicKey)
             .then(amount => setDistributionsBalance(amount ?? 0))
 
-    }, [connection, dao])
+    }, [connection, dao, tokenServices])
 
 
     return (
