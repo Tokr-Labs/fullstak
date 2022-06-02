@@ -105,18 +105,21 @@ export const Navbar = () => {
                         <Popover.Content>
                             <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
                                 <h4>Change Network</h4>
-                                <Button ghost={network !== WalletAdapterNetwork.Mainnet}
-                                        color={"primary"}
-                                        style={{fontWeight: "bold"}}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
+                                <Button
+                                    disabled
+                                    ghost={network !== WalletAdapterNetwork.Mainnet}
+                                    color={"primary"}
+                                    style={{fontWeight: "bold"}}
+                                    onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
                                     Mainnet
                                 </Button>
                                 <Spacer y={0.5}/>
-                                <Button ghost={network !== WalletAdapterNetwork.Devnet}
-                                        color={"primary"}
-                                        style={{fontWeight: "bold"}}
-                                        onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
+                                <Button
+                                    ghost={network !== WalletAdapterNetwork.Devnet}
+                                    color={"primary"}
+                                    style={{fontWeight: "bold"}}
+                                    onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >
                                     Devnet
                                 </Button>
