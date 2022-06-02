@@ -73,17 +73,17 @@ export class DaoFundDetails {
 
     // formatted minimum raise
     get formattedMinRaise(): string {
-        return CurrencyFormatter.formatUsdc(this.minRaise)
+        return CurrencyFormatter.formatToken(this.minRaise, "USDC")
     }
 
     // formatted maximum raise
     get formattedMaxRaise(): string {
-        return CurrencyFormatter.formatUsdc(this.maxRaise)
+        return CurrencyFormatter.formatToken(this.maxRaise, "USDC")
     }
 
     // formatted minimum investment per limited partner
     get formattedMinInvestment(): string {
-        return CurrencyFormatter.formatUsdc(this.minInvestment)
+        return CurrencyFormatter.formatToken(this.minInvestment, "USDC")
     }
 
     // formatted date the fund closes assuming it has reached the min raise

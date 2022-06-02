@@ -215,7 +215,7 @@ export const PoolDetail = () => {
                                         weight={"semibold"}
                                         style={{letterSpacing: 2.4}}
                                     >
-                                        {CurrencyFormatter.formatUsdc(capitalSupplyBalance, false, 2)}
+                                        {CurrencyFormatter.formatToken(capitalSupplyBalance, "USDC")}
                                     </Text>
                                     <Text
                                         size={10}
@@ -239,7 +239,7 @@ export const PoolDetail = () => {
                                         weight={"semibold"}
                                         style={{letterSpacing: 2.4}}
                                     >
-                                        {CurrencyFormatter.formatUsdc(dao.details.maxRaise - capitalSupplyBalance, false, 2)}
+                                        {CurrencyFormatter.formatToken(dao.details.maxRaise - capitalSupplyBalance, "USDC")}
                                     </Text>
                                     <Text
                                         size={10}

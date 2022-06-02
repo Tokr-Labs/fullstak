@@ -9,22 +9,23 @@ export class CurrencyFormatter {
     /**
      * Format usdc based on size
      * @param value
+     * @param symbol
      * @param long
      * @param decimals
      */
-    static formatUsdc(value: number, long = false, decimals = 1): string {
+    static formatToken(value: number, symbol: string, long = false, decimals = 2): string {
 
         const millions = value / 1_000_000;
 
         if (millions < 1 || long) {
-            return `${value.toLocaleString("en-US")} USDC`
+            return `${value.toLocaleString("en-US")} ${symbol}`
         }
 
         if (millions % 1 !== 0) {
-            return `${(millions).toFixed(decimals)}M USDC`;
+            return `${(millions).toFixed(decimals)}M ${symbol}`;
         }
 
-        return `${millions}M USDC`
+        return `${millions}M ${symbol}`
     }
 
     /**
@@ -33,7 +34,7 @@ export class CurrencyFormatter {
      * @param long
      * @param decimals
      */
-    static formatUsd(value: number, long = false, decimals = 1): string {
+    static formatUsd(value: number, long = false, decimals = 2): string {
 
         const millions = value / 1_000_000;
 
