@@ -17,6 +17,7 @@ import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolConfiguration} from "./components/pools/PoolConfiguration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
+import Faucet from "./pages/Faucet";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -160,6 +161,8 @@ export const App = () => {
                                         </Route>
 
                                         <Route path="portfolio" element={<Portfolio/>}/>
+
+                                        <Route path="faucet" element={<Faucet/>}/>
 
                                     </Route>
                                 </Routes>
