@@ -7,6 +7,7 @@ import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {PublicKey} from "@solana/web3.js";
 import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
+import {CurrencyFormatter} from "../../utils/currency-formatter";
 
 export const PoolMembers = () => {
 
@@ -28,9 +29,10 @@ export const PoolMembers = () => {
         generateCapTable(
             connection,
             lpTokenMint,
-            treasuryStock, // treasury stock account
+            treasuryStock,
             [
-                new PublicKey("GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst")
+                // TODO - change this to be the actual Treasury Stock account
+                dao.addresses.governance.delegateTokenMintGovernance as PublicKey
             ]
         ).then(capTable => {
             setCapTable(capTable);
@@ -73,7 +75,7 @@ export const PoolMembers = () => {
                             </Table.Cell>
 
                             <Table.Cell css={{textAlign: "end"}}>
-                                {entry.tokensHeld} {dao.token.ticker}
+                                {CurrencyFormatter.formatToken(entry.tokensHeld, dao.token.ticker, true)}
                             </Table.Cell>
 
                             <Table.Cell css={{textAlign: "end"}}>

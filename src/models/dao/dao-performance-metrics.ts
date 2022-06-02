@@ -50,12 +50,12 @@ export class DaoPerformanceMetrics {
 
     /// formatted USDC amount
     get formattedPaidInCapital(): string {
-        return CurrencyFormatter.formatUsdc(this.paidInCapital)
+        return CurrencyFormatter.formatToken(this.paidInCapital, "USDC")
     }
 
     /// formatted USDC amount
     get formattedCarryingValue(): string {
-        return CurrencyFormatter.formatUsdc(this.carryingValue)
+        return CurrencyFormatter.formatToken(this.carryingValue, "USDC")
     }
 
     /// multiplier formatting of tvpi
