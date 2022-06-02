@@ -55,7 +55,9 @@ export const Navbar = () => {
                 gap={1}
                 style={{
                     paddingBottom: "30px",
-                    paddingTop: network === WalletAdapterNetwork.Devnet ? "1px" : "40px"
+                    paddingTop: network === WalletAdapterNetwork.Devnet ? "1px" : "40px",
+                    paddingLeft: 0,
+                    paddingRight: 0
                 }}
             >
 
