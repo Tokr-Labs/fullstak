@@ -20,7 +20,6 @@ export const PoolAssets = () => {
 
     useEffect(() => {
 
-        // @TODO: Get current balances
         tokenServices.getTokenAccountBalance(dao.addresses.treasury.capitalSupply as PublicKey)
             .then(amount => setCapitalSupplyBalance(amount ?? 0))
 
@@ -35,7 +34,6 @@ export const PoolAssets = () => {
 
     return (
         <>
-            {/*TODO - pull in treasury accounts data from on-chain*/}
             <Table sticked headerLined shadow={false} className={"skinny-rows"}>
                 <Table.Header>
                     <Table.Column>Account</Table.Column>
@@ -52,8 +50,8 @@ export const PoolAssets = () => {
                     </Table.Row>
                     <Table.Row>
                         <Table.Cell>Treasury Stock</Table.Cell>
-                        <Table.Cell>M27</Table.Cell>
-                        <Table.Cell>{CurrencyFormatter.formatToken(treasuryStockBalance, "M27")}</Table.Cell>
+                        <Table.Cell>{dao.token.ticker}</Table.Cell>
+                        <Table.Cell>{CurrencyFormatter.formatToken(treasuryStockBalance, "MF1")}</Table.Cell>
                         <Table.Cell>{CurrencyFormatter.formatUsd(treasuryStockBalance, true)}</Table.Cell>
                     </Table.Row>
                     <Table.Row>

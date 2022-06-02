@@ -7,6 +7,7 @@ import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {PublicKey} from "@solana/web3.js";
 import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
+import {CurrencyFormatter} from "../../utils/currency-formatter";
 
 export const PoolMembers = () => {
 
@@ -73,7 +74,7 @@ export const PoolMembers = () => {
                             </Table.Cell>
 
                             <Table.Cell css={{textAlign: "end"}}>
-                                {entry.tokensHeld} {dao.token.ticker}
+                                {CurrencyFormatter.formatToken(entry.tokensHeld, dao.token.ticker, true)}
                             </Table.Cell>
 
                             <Table.Cell css={{textAlign: "end"}}>
