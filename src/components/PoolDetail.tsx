@@ -84,10 +84,6 @@ export const PoolDetail = () => {
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
         }
-<<<<<<< HEAD
-    }, [network, tokenServices, wallet])
-=======
->>>>>>> develop
 
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey

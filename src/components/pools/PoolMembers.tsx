@@ -19,14 +19,8 @@ export const PoolMembers = () => {
 
     useMemo(() => {
 
-<<<<<<< HEAD
-        const communityMint = "Hope16zbz1yraofEJezcpj6JcSLHHjpmJ632RUohvyWi";
-        connection.getTokenSupply(new PublicKey(communityMint))
-            .then(supply => setCommunityMintSupply(supply.value.uiAmount))
-=======
         const lpTokenMint = dao.addresses.mint.lpTokenMint;
         const treasuryStock = dao.addresses.treasury.stockSupply;
->>>>>>> develop
 
         if (!lpTokenMint || !treasuryStock) {
             return

@@ -1,10 +1,7 @@
 import {Connection, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
-<<<<<<< HEAD
-=======
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
->>>>>>> develop
 
 export class TokenServices {
 
