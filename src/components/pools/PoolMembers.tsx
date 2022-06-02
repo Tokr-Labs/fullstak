@@ -52,7 +52,9 @@ export const PoolMembers = () => {
 
             <Table.Body>
 
-                {(capTable?.entries ?? []).map((entry: CapTableEntry) => (
+                {(capTable?.entries.sort((a, b) => {
+                    return b.tokensHeld - a.tokensHeld
+                }) ?? []).map((entry: CapTableEntry) => (
 
                         <Table.Row key={`${entry.holder}`}>
 
