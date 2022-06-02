@@ -5,6 +5,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {NetworkContext} from "../App";
 import {ServerIcon} from "./icons/ServerIcon";
+import {LOCALNET} from "../models/constants";
 
 export const Navbar = () => {
 
@@ -42,11 +43,11 @@ export const Navbar = () => {
                         padding: "5px",
                         marginBottom: "5px",
                         background: theme.theme?.colors.error.value,
-                        display: network === WalletAdapterNetwork.Devnet || network === WalletAdapterNetwork.Testnet
+                        display: network === WalletAdapterNetwork.Devnet || network === LOCALNET
                             ? "inline-block"
                             : "none"
                     }}>
-                        Notice: You are currently on {network.toUpperCase()}
+                        Notice: You are currently on {network === LOCALNET ? "LOCALNET" : network.toUpperCase()}
                     </div>
                 </Grid>
             </Grid.Container>
@@ -55,7 +56,7 @@ export const Navbar = () => {
                 gap={1}
                 style={{
                     paddingBottom: "30px",
-                    paddingTop: network === WalletAdapterNetwork.Devnet ? "1px" : "40px",
+                    paddingTop: network !== WalletAdapterNetwork.Mainnet ? "1px" : "40px",
                     paddingLeft: 0,
                     paddingRight: 0
                 }}
@@ -110,7 +111,7 @@ export const Navbar = () => {
                                         style={{fontWeight: "bold"}}
                                         onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
-                                    Mainnet
+                                    Mainnet-beta
                                 </Button>
                                 <Spacer y={0.5}/>
                                 <Button ghost={network !== WalletAdapterNetwork.Devnet}
@@ -119,6 +120,14 @@ export const Navbar = () => {
                                         onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >
                                     Devnet
+                                </Button>
+                                <Spacer y={0.5}/>
+                                <Button ghost={network !== LOCALNET}
+                                        color={"primary"}
+                                        style={{fontWeight: "bold"}}
+                                        onClick={() => setNetwork(LOCALNET)}
+                                >
+                                    Localnet
                                 </Button>
                             </div>
                         </Popover.Content>

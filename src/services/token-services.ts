@@ -1,7 +1,7 @@
 import {Connection, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+import {LOCALNET, USDC_DEVNET, USDC_LOCALNET, USDC_MAINNET} from "../models/constants";
 
 export class TokenServices {
 
@@ -44,8 +44,17 @@ export class TokenServices {
 
     }
 
-    getUsdcMint = (network: WalletAdapterNetwork) => {
-        return network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
+    getUsdcMint = (network: string) => {
+        switch (network) {
+            case "mainnet-beta":
+                return USDC_MAINNET
+            case "devnet":
+                return USDC_DEVNET
+            case LOCALNET:
+                return USDC_LOCALNET
+            default:
+                throw new Error("Unknown network selection")
+        }
     }
 
 }

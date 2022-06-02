@@ -17,20 +17,24 @@ import {PoolMembers} from "./components/pools/PoolMembers";
 import {PoolConfiguration} from "./components/pools/PoolConfiguration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
+import {LOCALNET} from "./models/constants";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
 
 // TODO - separate into contexts directory
 // TODO - add ability to pass in configs as well
-export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
+export const NetworkContext = createContext<{
+    network: WalletAdapterNetwork | string;
+    setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork | string>>;
+}>({
     network: WalletAdapterNetwork.Devnet,
     setNetwork: () => null
 });
 
 export const App = () => {
 
-    const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
+    const [network, setNetwork] = useState<WalletAdapterNetwork | string>(WalletAdapterNetwork.Devnet);
 
     const wallets = useMemo(
         () => [new PhantomWalletAdapter()],
@@ -126,7 +130,11 @@ export const App = () => {
     return (
         <NextUIProvider theme={lightTheme}>
             <NetworkContext.Provider value={{network, setNetwork}}>
-                <ConnectionProvider endpoint={clusterApiUrl(network)}>
+                <ConnectionProvider endpoint={
+                    network === LOCALNET
+                        ? network
+                        : clusterApiUrl(network as WalletAdapterNetwork)
+                }>
                     <WalletProvider wallets={wallets} autoConnect>
                         <WalletModalProvider>
 

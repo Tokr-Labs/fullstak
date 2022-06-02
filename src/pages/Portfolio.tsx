@@ -29,7 +29,7 @@ export const Portfolio = () => {
         connection.getBalance(wallet.publicKey as PublicKey)
             .then(response => setBalance(response / LAMPORTS_PER_SOL));
 
-        tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+        tokenServices.getTokenHoldingAmount(usdc as PublicKey, wallet.publicKey as PublicKey)
             .then(response => setUsdcAmount(response))
 
         connection.getParsedTokenAccountsByOwner(
@@ -114,7 +114,7 @@ export const Portfolio = () => {
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        mint.toString() === usdc.toString()
+                                                        mint.toString() === usdc?.toString()
                                                             ? <Link to={"/markets/equity"}>
                                                                 <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
                                                             </Link>
