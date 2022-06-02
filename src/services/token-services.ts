@@ -25,6 +25,14 @@ export class TokenServices {
 
     }
 
+    async getTokenAccountBalance(tokenAccount: PublicKey) {
+
+        const tokenAccountBalance = await this.connection.getTokenAccountBalance(tokenAccount);
+
+        return tokenAccountBalance.value.uiAmount
+
+    }
+
     async getTokenHoldingAmount(tokenMint: PublicKey, ownerAddress: PublicKey) {
 
         const tokenAccount = await this.connection.getTokenAccountsByOwner(ownerAddress, {mint: tokenMint})
