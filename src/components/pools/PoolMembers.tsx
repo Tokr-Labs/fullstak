@@ -29,9 +29,10 @@ export const PoolMembers = () => {
         generateCapTable(
             connection,
             lpTokenMint,
-            treasuryStock, // treasury stock account
+            treasuryStock,
             [
-                new PublicKey("GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst")
+                // TODO - change this to be the actual Treasury Stock account
+                dao.addresses.governance.delegateTokenMintGovernance as PublicKey
             ]
         ).then(capTable => {
             setCapTable(capTable);
