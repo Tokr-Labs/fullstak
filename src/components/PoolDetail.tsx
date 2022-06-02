@@ -320,7 +320,8 @@ export const PoolDetail = () => {
                                                     <Button
                                                         color={"primary"}
                                                         style={{fontWeight: "bold", borderRadius: 0}}
-                                                        disabled={tokensToReceive > (usdcHoldings ?? 0) || tokensToReceive === 0}
+                                                        disabled
+                                                        // disabled={tokensToReceive > (usdcHoldings ?? 0) || tokensToReceive === 0}
                                                         onClick={makeDeposit}
                                                     >
                                                         Invest
