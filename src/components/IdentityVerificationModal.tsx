@@ -5,12 +5,14 @@ import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
 import {CreateIdentityRecordAction} from "../services/actions/create-identity-record-action";
 import {ApproveIdentityRecordAction} from "../services/actions/approve-identity-record-action";
+import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
+import {IdentityStatus} from "@tokr-labs/identity-verification/lib/models/identity-status";
 
 export interface IdentityVerificationModalProps {
     isOpen: boolean,
     setIsOpen: (isOpen: boolean) => void,
     idvRecord?: IdentityRecord,
-    setIdvRecord: (idvRecord: IdentityRecord) => void
+    setIdvRecord: (idvRecord?: IdentityRecord) => void
 }
 
 export const IdentityVerificationModal = (props: IdentityVerificationModalProps) => {
@@ -27,15 +29,22 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
         return new ApproveIdentityRecordAction(wallet)
     }, [wallet])
 
+    const getIdentityRecordAction = useMemo<GetIdentityRecordAction>(() => {
+        return new GetIdentityRecordAction(connection, wallet)
+    }, [connection, wallet])
+
     const submitIdentity = useCallback(async () => {
 
         createIdentityRecordAction.execute(dao)
             .then(() => approveIdentityRecordAction.execute(dao))
+            .then(() => getIdentityRecordAction.execute(dao))
+            .then(record => props.setIdvRecord(record))
             .catch((error) => console.error(error))
+
 
         props.setIsOpen(false)
 
-    }, [dao, props])
+    }, [dao, createIdentityRecordAction, approveIdentityRecordAction, getIdentityRecordAction, props])
 
     return (
 
@@ -50,11 +59,16 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
 
                 <Text h3 id={"modal-title"}>
                     {
-                        props.idvRecord?.amlStatus === 3 &&
-                        props.idvRecord?.kycStatus === 3 &&
-                        props.idvRecord?.iaStatus === 3 ?
-                            "Access Denied" :
-                            "Verify Your Identity"
+                        props.idvRecord?.status === IdentityStatus.denied &&
+                            "Access Denied"
+                    }
+                    {
+                        props.idvRecord?.status === IdentityStatus.started &&
+                        "Identity Verification In Progress"
+                    }
+                    {
+                        props.idvRecord === undefined &&
+                        "Verify Your Identity"
                     }
                 </Text>
 
@@ -63,31 +77,36 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
             <Modal.Body>
 
                 {
-                    props.idvRecord?.amlStatus === 3 &&
-                    props.idvRecord?.kycStatus === 3 &&
-                    props.idvRecord?.iaStatus === 3 ?
-                        <p>This account has been denied access to invest in the <span>{dao.name}</span>. If you think
-                            this is in error, please contact us via email.</p> :
-                        <p>Clicking the "Submit" button below will launch a transaction preview window from your
-                            connected wallet for final approval.</p>
+                    props.idvRecord?.status === IdentityStatus.denied &&
+                    <p>This account has been denied access to invest in the <span>{dao.name}</span>. If you think
+                        this is in error, please contact us via email.</p>
+                }
+                {
+                    props.idvRecord?.status === IdentityStatus.started &&
+                    <p>Identity verification is an asynchronous process. Please try again later.</p>
+                }
+                {
+                    props.idvRecord === undefined &&
+                    <p>Clicking the "Submit" button below will launch a transaction preview window from your
+                        connected wallet for final approval.</p>
                 }
 
             </Modal.Body>
 
 
             <Modal.Footer>
+
                 {
-                    (
-                        props.idvRecord?.amlStatus !== 3 &&
-                        props.idvRecord?.kycStatus !== 3 &&
-                        props.idvRecord?.iaStatus !== 3
-                    ) ?
-                        <Button color="primary"
-                                style={{fontWeight: "bold", borderRadius: 0}}
-                                onClick={submitIdentity}>
-                            Submit
-                        </Button> :
-                        <Spacer y={2}/>
+                    (props.idvRecord?.status === IdentityStatus.denied || props.idvRecord?.status === IdentityStatus.started) &&
+                    <Spacer y={2}/>
+                }
+                {
+                    props.idvRecord === undefined &&
+                    <Button color="primary"
+                            style={{fontWeight: "bold", borderRadius: 0}}
+                            onClick={submitIdentity}>
+                        Submit
+                    </Button>
                 }
 
             </Modal.Footer>
