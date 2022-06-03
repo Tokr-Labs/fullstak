@@ -9,6 +9,8 @@ import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@sola
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
 import {NetworkContext} from "../App";
 import {TokenServices} from "../services/token-services";
+import {TokenListProvider} from "@solana/spl-token-registry";
+import {TranslatedToken} from "../components/TranslatedToken";
 
 export const Portfolio = () => {
 
@@ -106,7 +108,7 @@ export const Portfolio = () => {
                                                         target={"_blank"}
                                                         href={`https://explorer.solana.com/address/${mint}?cluster=${network}`}
                                                     >
-                                                        {mint}
+                                                        <TranslatedToken mint={mint} iconSize={20}/>
                                                     </NextUiLink>
                                                 </Table.Cell>
                                                 <Table.Cell css={{textAlign: "end"}}>
