@@ -13,13 +13,7 @@ const Landing = () => {
             <section style={{
                 padding: "40px 0 30px 0",
                 opacity: 1,
-                background: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`
+                background: theme.colors.gradient.computedValue
             }}>
                 <Container>
                     <Grid.Container>
@@ -94,13 +88,7 @@ const Landing = () => {
             <section style={{
                 height: "max(calc(100vh - 162px), 600px)",
                 opacity: 1,
-                background: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`
+                background: theme.colors.gradient.computedValue
             }}>
                 <Container style={{
                     height: "100%",
