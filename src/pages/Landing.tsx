@@ -63,7 +63,7 @@ const Landing = () => {
                     alt={"Riptide logo"}
                     style={{margin: "0 20px"}}
                 />
-                <b>NEWS: 2022 Solana Riptide Winner!&nbsp;
+                <b>NEWS: 2022 Solana Riptide Winner! {window.innerWidth > 550 ? " " : <br/>}
                     <a
                         href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
                         target={"_blank"}
