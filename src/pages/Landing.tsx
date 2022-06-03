@@ -1,7 +1,6 @@
 import "../index.css"
 import discordIcon from "src/assets/icons/discord_icon.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
-import fullstakLogo from "src/assets/brand/fullstak_logo_white.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {AttributeGridItem} from "../components/AttributeGridItem";
@@ -186,7 +185,7 @@ const Landing = () => {
                             alt={"Tokr logo"}
                             style={{margin: "0 10px"}}
                         />
-                        and
+                        on
                         <img
                             src={require("src/assets/solana/solana_logo_dark.png")}
                             height={"20px"}
