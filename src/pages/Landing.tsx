@@ -106,7 +106,7 @@ const Landing = () => {
                     }}>
                         <p style={{
                             margin: "0",
-                            fontSize: "80px",
+                            fontSize: "min(80px, 7vw)",
                             fontWeight: "bold",
                             textAlign: "center",
                             lineHeight: "120%",
