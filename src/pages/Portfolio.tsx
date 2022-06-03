@@ -84,7 +84,7 @@ export const Portfolio = () => {
                 </Card.Header>
                 <Card.Body>
                     <Grid.Container>
-                        <Grid xs={8}>
+                        <Grid xs={12} md={8}>
                             <Table shadow={false} sticked headerLined>
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
