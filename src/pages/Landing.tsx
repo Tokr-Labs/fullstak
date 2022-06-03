@@ -92,7 +92,7 @@ const Landing = () => {
             </section>
 
             <section style={{
-                height: "max(calc(100vh - 142px), 600px)",
+                height: "max(calc(100vh - 162px), 600px)",
                 opacity: 1,
                 background: `linear-gradient(
                     180deg, 
@@ -169,10 +169,10 @@ const Landing = () => {
                         </a>
                     </div>
 
-                    <p style={{
+                    <div style={{
+                        height: "60px",
                         marginTop: "auto",
                         alignSelf: "flex-end",
-                        paddingBottom: "20px",
                         display: "flex",
                         alignItems: "center",
                         fontFamily: theme.fonts.mono.computedValue
@@ -193,7 +193,7 @@ const Landing = () => {
                             alt={"Solana logo"}
                             style={{margin: "0 10px"}}
                         />
-                    </p>
+                    </div>
 
                 </Container>
             </section>
