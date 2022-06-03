@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Link, Text} from "@nextui-org/react";
+import {Grid, Link, Text, theme} from "@nextui-org/react";
 import solanaLogo from "src/assets/solana/solana_logo.svg"
 import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
@@ -40,14 +40,30 @@ export const Footer = () => {
                         />
                     </Link>
                 </Grid>
-                <Grid xs={4} justify={"flex-end"} alignItems={"center"}>
-                    <Text color={"white"}>Powered by</Text>
+                <Grid
+                    xs={4}
+                    justify={"flex-end"}
+                    alignItems={"center"}
+                    style={{
+                        color: "white",
+                        fontFamily: theme.fonts.mono.computedValue
+                    }}
+                >
+                    Powered by
                     <img
-                        src={solanaLogo}
-                        alt={"Solana logo"}
+                        src={require("src/assets/brand/tokr_dark.png")}
                         height={"20px"}
                         width={"auto"}
-                        style={{marginLeft: "10px"}}
+                        alt={"Tokr logo"}
+                        style={{margin: "0 10px"}}
+                    />
+                    on
+                    <img
+                        src={require("src/assets/solana/solana_logo_dark.png")}
+                        height={"20px"}
+                        width={"auto"}
+                        alt={"Solana logo"}
+                        style={{margin: "0 10px"}}
                     />
                 </Grid>
             </Grid.Container>
