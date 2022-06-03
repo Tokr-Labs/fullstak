@@ -6,7 +6,7 @@ import {PublicKey, Transaction} from "@solana/web3.js";
 import {NetworkContext} from "../App";
 import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
-import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
@@ -14,6 +14,11 @@ import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 import {RaiseDetail} from "./pools/RaiseDetail";
 import {CurrencyFormatter} from "../utils/currency-formatter";
+import {InvestModal} from "./InvestModal";
+import {getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
+import {isUndefined} from "underscore";
+import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
+import {IdentityVerificationModal} from "./IdentityVerificationModal";
 
 export const PoolDetail = () => {
 
@@ -32,8 +37,9 @@ export const PoolDetail = () => {
     const theme = useTheme();
 
     const [entries, setEntries] = useState<CapTableEntry[]>();
+    const [idvRecord, setIdvRecord] = useState<IdentityRecord>();
 
-    useMemo(() => {
+    useEffect(() => {
 
         const lpTokenMint = dao.addresses.mint.lpTokenMint;
         const treasuryStock = dao.addresses.treasury.stockSupply;
@@ -55,6 +61,29 @@ export const PoolDetail = () => {
 
     }, [connection, dao])
 
+    useEffect(() => {
+
+        const walletPk = wallet.publicKey;
+        const realmPk = dao.addresses.pubkey;
+
+        if (!wallet.connected || !walletPk || !realmPk) {
+            return
+        }
+
+        getIdentityVerificationRecord(
+            connection,
+            IDENTITY_VERIFICATION_PROGRAM_ID,
+            walletPk,
+            realmPk
+        )
+            .then(record => {
+                console.log(idvRecord);
+                setIdvRecord(record);
+            })
+            .catch(error => console.error)
+
+    }, [connection, dao, wallet.connected])
+
     const navigate = useNavigate();
 
     const handleClick = (tab) => {
@@ -66,10 +95,7 @@ export const PoolDetail = () => {
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
-        setTokensToReceive(0)
     }
-
-    const [tokensToReceive, setTokensToReceive] = useState<number>(0);
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
@@ -78,6 +104,7 @@ export const PoolDetail = () => {
     const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0);
 
     useEffect(() => {
+
         if (wallet.connected) {
             tokenServices.getTokenHoldingAmount(
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
@@ -85,48 +112,12 @@ export const PoolDetail = () => {
             ).then(amount => setUsdcHoldings(amount))
         }
 
+
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
+
     }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
-
-    const makeDeposit = useCallback(async () => {
-        if (!wallet.publicKey) throw new WalletNotConnectedError()
-
-        const capitalSupply = dao.addresses.treasury.capitalSupply;
-
-        if (!capitalSupply) {
-            return
-        }
-
-        const usdc = network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
-
-        const sourceTokenAccount = await getAssociatedTokenAddress(
-            usdc,
-            wallet.publicKey
-        )
-
-        const decimals = await tokenServices.getTokenDecimals(usdc)
-
-        const transaction = new Transaction().add(
-            createTransferInstruction(
-                sourceTokenAccount,
-                new PublicKey(capitalSupply),
-                wallet.publicKey,
-                tokensToReceive * (10 ** decimals),
-                [],
-                TOKEN_PROGRAM_ID
-            )
-        )
-
-        const signature = await wallet.sendTransaction(transaction, connection)
-
-        await connection.confirmTransaction(signature, "processed")
-
-        // TODO - hacky way to get rid of modal and update balances, refactor this
-        window.location.reload()
-
-    }, [connection, network, tokenServices, tokensToReceive, wallet, dao])
 
     return (
 
@@ -277,69 +268,30 @@ export const PoolDetail = () => {
                                 <Card.Body>
                                     <Grid.Container justify={"center"} alignItems={"center"} style={{height: "100%"}}>
                                         <Grid direction={"column"}>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={isModalOpen}
-                                                onClose={toggleModal}
-                                            >
-                                                <Modal.Header>
-                                                    <Text h3 id={"modal-title"}>
-                                                        Invest in <span>{dao.name}</span>
-                                                    </Text>
-                                                </Modal.Header>
-                                                <Modal.Body>
-                                                    <Input
-                                                        type={"number"}
-                                                        label={"Deposit"}
-                                                        status={tokensToReceive > (usdcHoldings ?? 0) ? "error" : "default"}
-                                                        labelRight={"USDC"}
-                                                        style={{textAlign: "right"}}
-                                                        helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
-                                                        onChange={(e) => {
-                                                            setTokensToReceive(Number(e.target.value))
-                                                        }}
-                                                    />
-                                                    <Spacer y={0.5}/>
-                                                    <Input
-                                                        readOnly
-                                                        value={tokensToReceive}
-                                                        type={"number"}
-                                                        label={"Receive"}
-                                                        labelRight={dao.token.ticker}
-                                                        style={{textAlign: "right"}}
-                                                        helperText={"These tokens represent your stake in the fund"}
-                                                    />
-                                                    <Spacer y={0.5}/>
-                                                    <p>
-                                                        Clicking the "Invest" button below will launch a transaction
-                                                        preview window from your connected wallet for final approval.
-                                                    </p>
-                                                </Modal.Body>
-                                                <Modal.Footer>
-                                                    <Button
-                                                        color={"primary"}
-                                                        style={{fontWeight: "bold", borderRadius: 0}}
-                                                        disabled
-                                                        // disabled={tokensToReceive > (usdcHoldings ?? 0) || tokensToReceive === 0}
-                                                        onClick={makeDeposit}
-                                                    >
-                                                        Invest
-                                                    </Button>
-                                                </Modal.Footer>
-                                            </Modal>
+
+                                            {
+                                                idvRecord && idvRecord.isVerified ?
+                                                    <InvestModal isOpen={isModalOpen}
+                                                                 setIsOpen={setIsModalOpen}
+                                                                 usdcHoldings={usdcHoldings}/> :
+                                                    <IdentityVerificationModal isOpen={isModalOpen}
+                                                                               setIsOpen={setIsModalOpen}
+                                                                               idvRecord={idvRecord}
+                                                                               setIdvRecord={setIdvRecord}/>
+                                            }
 
                                             <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
-                                                <Button
-                                                    size={"lg"}
-                                                    color={"primary"}
-                                                    onClick={toggleModal}
-                                                    style={{fontWeight: "bold", borderRadius: 0}}
-                                                    disabled={!wallet.connected}
-                                                >
+
+                                                <Button size={"lg"}
+                                                        color={"primary"}
+                                                        onClick={() => toggleModal()}
+                                                        style={{fontWeight: "bold", borderRadius: 0}}
+                                                        disabled={!wallet.connected}>
                                                     INVEST
                                                 </Button>
+
                                             </Tooltip>
+
                                         </Grid>
                                     </Grid.Container>
 
