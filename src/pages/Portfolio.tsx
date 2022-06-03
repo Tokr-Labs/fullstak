@@ -138,7 +138,17 @@ export const Portfolio = () => {
                                                     {
                                                         mint.toString() === usdc.toString()
                                                             ? <Link to={"/markets/equity"}>
-                                                                <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
+                                                                <Button
+                                                                    size={"xs"}
+                                                                    ghost
+                                                                    color={"primary"}
+                                                                    style={{
+                                                                        fontWeight: "bold",
+                                                                        borderRadius: 0
+                                                                }}
+                                                                >
+                                                                    INVEST
+                                                                </Button>
                                                             </Link>
                                                             : ""
                                                     }
