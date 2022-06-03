@@ -2,9 +2,9 @@ import {Button, Modal, Spacer, Text} from "@nextui-org/react";
 import React, {useCallback, useContext, useMemo} from "react";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {TOKR_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
-import {IdvService} from "../services/idv-service";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
+import {CreateIdentityRecordAction} from "../services/actions/create-identity-record-action";
+import {ApproveIdentityRecordAction} from "../services/actions/approve-identity-record-action";
 
 export interface IdentityVerificationModalProps {
     isOpen: boolean,
@@ -19,23 +19,23 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
     const wallet = useWallet();
     const {connection} = useConnection()
 
-    const idvService = useMemo(() => new IdvService(connection, TOKR_SERVICE_ENDPOINT_DEVNET), [connection])
+    const createIdentityRecordAction = useMemo<CreateIdentityRecordAction>(() => {
+        return new CreateIdentityRecordAction(connection, wallet)
+    }, [connection, wallet])
+
+    const approveIdentityRecordAction = useMemo<ApproveIdentityRecordAction>(() => {
+        return new ApproveIdentityRecordAction(wallet)
+    }, [wallet])
 
     const submitIdentity = useCallback(async () => {
 
-        if (!props.idvRecord) {
-            idvService.createAndApproveIdentity(wallet, dao.addresses.pubkey)
-                .then(record => props.setIdvRecord(record))
-                .then(error => console.error(error))
-        } else {
-            idvService.approveIdentity(wallet.publicKey, dao.addresses.pubkey)
-                .then(record => props.setIdvRecord(record))
-                .then(error => console.error(error))
-        }
+        createIdentityRecordAction.execute(dao)
+            .then(() => approveIdentityRecordAction.execute(dao))
+            .catch((error) => console.error(error))
 
         props.setIsOpen(false)
 
-    }, [idvService, wallet, dao, props])
+    }, [dao, props])
 
     return (
 

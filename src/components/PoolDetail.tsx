@@ -19,6 +19,8 @@ import {getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
 import {isUndefined} from "underscore";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
 import {IdentityVerificationModal} from "./IdentityVerificationModal";
+import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
+import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
 
 export const PoolDetail = () => {
 
@@ -38,6 +40,10 @@ export const PoolDetail = () => {
 
     const [entries, setEntries] = useState<CapTableEntry[]>();
     const [idvRecord, setIdvRecord] = useState<IdentityRecord>();
+
+    const getIdentityRecordAction = useMemo<GetIdentityRecordAction>(() => {
+        return new GetIdentityRecordAction(connection, wallet);
+    }, [connection, wallet])
 
     useEffect(() => {
 
@@ -63,26 +69,11 @@ export const PoolDetail = () => {
 
     useEffect(() => {
 
-        const walletPk = wallet.publicKey;
-        const realmPk = dao.addresses.pubkey;
+        getIdentityRecordAction.execute(dao)
+            .then(record => setIdvRecord(record))
+            .catch(console.error)
 
-        if (!wallet.connected || !walletPk || !realmPk) {
-            return
-        }
-
-        getIdentityVerificationRecord(
-            connection,
-            IDENTITY_VERIFICATION_PROGRAM_ID,
-            walletPk,
-            realmPk
-        )
-            .then(record => {
-                console.log(idvRecord);
-                setIdvRecord(record);
-            })
-            .catch(error => console.error)
-
-    }, [connection, dao, wallet.connected])
+    }, [connection, dao, getIdentityRecordAction])
 
     const navigate = useNavigate();
 
