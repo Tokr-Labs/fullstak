@@ -2,7 +2,7 @@ import "../index.css"
 import {Button, Card, Container, Input, Link, Loading, Row, Spacer, Text} from "@nextui-org/react";
 import React, {useMemo, useState} from "react";
 import {FaucetService} from "../services/faucet-service";
-import {FAUCET_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
+import {TOKR_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
 import {useWallet} from "@solana/wallet-adapter-react";
 import {Navbar} from "../components/Navbar";
 import {PublicKey} from "@solana/web3.js";
@@ -20,7 +20,7 @@ const Faucet = () => {
     const faucetService = useMemo(() => {
 
         // @TODO: update for different environments
-        return new FaucetService(FAUCET_SERVICE_ENDPOINT_DEVNET)
+        return new FaucetService(TOKR_SERVICE_ENDPOINT_DEVNET)
 
     }, []);
 

@@ -9,7 +9,8 @@ module.exports = {
                 "no-unused-expressions": "off",
                 "no-unused-vars": "off",
                 "@typescript-eslint/no-unused-vars": ["off"],
-                "@typescript-eslint/no-unused-expressions": ["off"]
+                "@typescript-eslint/no-unused-expressions": ["off"],
+                "@typescript-eslint/no-non-null-assertion": ["off"]
             };
 
             return eslintConfig;
@@ -18,6 +19,14 @@ module.exports = {
     },
     webpack: {
         configure: (webpackConfig, {env, paths}) => {
+
+
+            webpackConfig.module.rules = webpackConfig.module.rules.map(rule => {
+                if (rule.oneOf instanceof Array) {
+                    rule.oneOf[rule.oneOf.length - 1].exclude = [/\.(js|mjs|jsx|cjs|ts|tsx)$/, /\.html$/, /\.json$/];
+                }
+                return rule;
+            });
 
             webpackConfig.resolve.fallback = {
                 "fs": false,
