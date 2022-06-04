@@ -97,12 +97,13 @@ export const PoolDetail = () => {
     useEffect(() => {
 
         if (wallet.connected) {
+
             tokenServices.getTokenHoldingAmount(
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
-        }
 
+        }
 
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
