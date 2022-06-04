@@ -23,7 +23,7 @@ program/.anchor
 program/target
 **/*.rs.bk
 */owner.json
-src/localnet
+src/daos/localnet
 
 # ============================================================
 # === Node ===================================================
