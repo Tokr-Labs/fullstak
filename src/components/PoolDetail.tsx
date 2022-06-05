@@ -606,7 +606,7 @@ export const PoolDetail = () => {
                                 {activeTab}
                             </Text>
                         </Card.Header>
-
+g
                         <Card.Body>
                             <Outlet/>
                         </Card.Body>
