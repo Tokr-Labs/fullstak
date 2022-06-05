@@ -1,7 +1,7 @@
 name: Deploy PROD
 
 env:
-  TOKR_FI_IAC_WORKDIR: iac/
+  IAC_WORKDIR: iac/
   CDK_VERSION: 1.97.0
   SHARED_SERVICES_ACCOUNT_ID: 246443085994
   TARGET_ACCOUNT_ID: 479645179089
@@ -75,5 +75,5 @@ jobs:
               --env AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query 'Account' --output text) \
               ${{ env.SHARED_SERVICES_ACCOUNT_ID }}.dkr.ecr.us-east-2.amazonaws.com/awscdk:${{ env.CDK_VERSION }} \
               sh -c '
-                    cd ${{ env.TOKR_FI_IAC_WORKDIR }}; npm ci; npm run build; cdk context --clear; cdk deploy --all --require-approval=never --ci=true --no-color --progress=events;
+                    cd ${{ env.IAC_WORKDIR }}; npm ci; npm run build; cdk context --clear; cdk deploy --all --require-approval=never --ci=true --no-color --progress=events;
                     '

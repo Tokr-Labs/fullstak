@@ -6,7 +6,7 @@ import {PublicKey, Transaction} from "@solana/web3.js";
 import {NetworkContext} from "../App";
 import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
-import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
@@ -14,6 +14,13 @@ import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 import {RaiseDetail} from "./pools/RaiseDetail";
 import {CurrencyFormatter} from "../utils/currency-formatter";
+import {InvestModal} from "./InvestModal";
+import {getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
+import {isUndefined} from "underscore";
+import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
+import {IdentityVerificationModal} from "./IdentityVerificationModal";
+import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
+import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
 
 export const PoolDetail = () => {
 
@@ -32,8 +39,13 @@ export const PoolDetail = () => {
     const theme = useTheme();
 
     const [entries, setEntries] = useState<CapTableEntry[]>();
+    const [idvRecord, setIdvRecord] = useState<IdentityRecord>();
 
-    useMemo(() => {
+    const getIdentityRecordAction = useMemo<GetIdentityRecordAction>(() => {
+        return new GetIdentityRecordAction(connection, wallet);
+    }, [connection, wallet])
+
+    useEffect(() => {
 
         const lpTokenMint = dao.addresses.mint.lpTokenMint;
         const treasuryStock = dao.addresses.treasury.stockSupply;
@@ -55,6 +67,14 @@ export const PoolDetail = () => {
 
     }, [connection, dao])
 
+    useEffect(() => {
+
+        getIdentityRecordAction.execute(dao)
+            .then(record => setIdvRecord(record))
+            .catch(console.error)
+
+    }, [connection, dao, getIdentityRecordAction])
+
     const navigate = useNavigate();
 
     const handleClick = (tab) => {
@@ -66,10 +86,7 @@ export const PoolDetail = () => {
 
     const toggleModal = () => {
         setIsModalOpen(!isModalOpen)
-        setTokensToReceive(0)
     }
-
-    const [tokensToReceive, setTokensToReceive] = useState<number>(0);
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
@@ -78,6 +95,7 @@ export const PoolDetail = () => {
     const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0);
 
     useEffect(() => {
+
         if (wallet.connected) {
             tokenServices.getTokenHoldingAmount(
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
@@ -85,48 +103,12 @@ export const PoolDetail = () => {
             ).then(amount => setUsdcHoldings(amount))
         }
 
+
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
+
     }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
-
-    const makeDeposit = useCallback(async () => {
-        if (!wallet.publicKey) throw new WalletNotConnectedError()
-
-        const capitalSupply = dao.addresses.treasury.capitalSupply;
-
-        if (!capitalSupply) {
-            return
-        }
-
-        const usdc = network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET
-
-        const sourceTokenAccount = await getAssociatedTokenAddress(
-            usdc,
-            wallet.publicKey
-        )
-
-        const decimals = await tokenServices.getTokenDecimals(usdc)
-
-        const transaction = new Transaction().add(
-            createTransferInstruction(
-                sourceTokenAccount,
-                new PublicKey(capitalSupply),
-                wallet.publicKey,
-                tokensToReceive * (10 ** decimals),
-                [],
-                TOKEN_PROGRAM_ID
-            )
-        )
-
-        const signature = await wallet.sendTransaction(transaction, connection)
-
-        await connection.confirmTransaction(signature, "processed")
-
-        // TODO - hacky way to get rid of modal and update balances, refactor this
-        window.location.reload()
-
-    }, [connection, network, tokenServices, tokensToReceive, wallet, dao])
 
     return (
 
@@ -134,7 +116,7 @@ export const PoolDetail = () => {
 
             <Grid.Container gap={2}>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
                     <Card className={"dark-card"}>
 
                         <Card.Header>
@@ -146,6 +128,8 @@ export const PoolDetail = () => {
                                         width={"100px"}
                                         alt={"Miami Fund 1 logo"}
                                         style={{
+                                            maxHeight: "15vw",
+                                            maxWidth: "15vw",
                                             borderRadius: "50%",
                                             boxShadow: "0px 0px 10px 10px rgba(190,0,255, 0.5)",
                                         }}
@@ -153,13 +137,10 @@ export const PoolDetail = () => {
                                 </Grid>
                                 <Grid style={{marginLeft: "20px"}}>
                                     <Text
-                                        size={56}
+                                        size={"min(56px, 8vw)"}
                                         weight={"bold"}
                                         color={"white"}
-                                        style={{
-                                            margin: 0,
-                                            letterSpacing: 7.47
-                                        }}
+                                        style={{margin: 0}}
                                     >
                                         {dao.name}
                                     </Text>
@@ -255,7 +236,7 @@ export const PoolDetail = () => {
                             <hr/>
                             <Spacer y={1}/>
 
-                            <Grid.Container justify={"space-between"}>
+                            <Grid.Container gap={1} justify={"space-between"}>
                                 <RaiseDetail title={"Investors"} text={(entries?.length ?? "--") + " investors"}/>
                                 <RaiseDetail title={"Max Raise"} text={dao.details.formattedMaxRaise}/>
                                 <RaiseDetail title={"Min Investment"} text={dao.details.formattedMinInvestment}/>
@@ -268,7 +249,7 @@ export const PoolDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid xs={12} md={4}>
                     <Grid.Container gap={1} css={{padding: 0}}>
                         <Grid xs={12}>
 
@@ -277,69 +258,30 @@ export const PoolDetail = () => {
                                 <Card.Body>
                                     <Grid.Container justify={"center"} alignItems={"center"} style={{height: "100%"}}>
                                         <Grid direction={"column"}>
-                                            <Modal
-                                                closeButton
-                                                aria-labelledby="modal-title"
-                                                open={isModalOpen}
-                                                onClose={toggleModal}
-                                            >
-                                                <Modal.Header>
-                                                    <Text h3 id={"modal-title"}>
-                                                        Invest in <span>{dao.name}</span>
-                                                    </Text>
-                                                </Modal.Header>
-                                                <Modal.Body>
-                                                    <Input
-                                                        type={"number"}
-                                                        label={"Deposit"}
-                                                        status={tokensToReceive > (usdcHoldings ?? 0) ? "error" : "default"}
-                                                        labelRight={"USDC"}
-                                                        style={{textAlign: "right"}}
-                                                        helperText={"You have " + usdcHoldings + " USDC available in your wallet"}
-                                                        onChange={(e) => {
-                                                            setTokensToReceive(Number(e.target.value))
-                                                        }}
-                                                    />
-                                                    <Spacer y={0.5}/>
-                                                    <Input
-                                                        readOnly
-                                                        value={tokensToReceive}
-                                                        type={"number"}
-                                                        label={"Receive"}
-                                                        labelRight={dao.token.ticker}
-                                                        style={{textAlign: "right"}}
-                                                        helperText={"These tokens represent your stake in the fund"}
-                                                    />
-                                                    <Spacer y={0.5}/>
-                                                    <p>
-                                                        Clicking the "Invest" button below will launch a transaction
-                                                        preview window from your connected wallet for final approval.
-                                                    </p>
-                                                </Modal.Body>
-                                                <Modal.Footer>
-                                                    <Button
-                                                        color={"primary"}
-                                                        style={{fontWeight: "bold", borderRadius: 0}}
-                                                        disabled
-                                                        // disabled={tokensToReceive > (usdcHoldings ?? 0) || tokensToReceive === 0}
-                                                        onClick={makeDeposit}
-                                                    >
-                                                        Invest
-                                                    </Button>
-                                                </Modal.Footer>
-                                            </Modal>
+
+                                            {
+                                                idvRecord && idvRecord.isVerified ?
+                                                    <InvestModal isOpen={isModalOpen}
+                                                                 setIsOpen={setIsModalOpen}
+                                                                 usdcHoldings={usdcHoldings}/> :
+                                                    <IdentityVerificationModal isOpen={isModalOpen}
+                                                                               setIsOpen={setIsModalOpen}
+                                                                               idvRecord={idvRecord}
+                                                                               setIdvRecord={setIdvRecord}/>
+                                            }
 
                                             <Tooltip content={wallet.connected ? "" : "Connect your wallet!"}>
-                                                <Button
-                                                    size={"lg"}
-                                                    color={"primary"}
-                                                    onClick={toggleModal}
-                                                    style={{fontWeight: "bold", borderRadius: 0}}
-                                                    disabled={!wallet.connected}
-                                                >
+
+                                                <Button size={"lg"}
+                                                        color={"primary"}
+                                                        onClick={() => toggleModal()}
+                                                        style={{fontWeight: "bold", borderRadius: 0}}
+                                                        disabled={!wallet.connected}>
                                                     INVEST
                                                 </Button>
+
                                             </Tooltip>
+
                                         </Grid>
                                     </Grid.Container>
 
@@ -362,7 +304,7 @@ export const PoolDetail = () => {
                                 </Card.Header>
                                 <Card.Body style={{paddingTop: 0}}>
                                     <Grid.Container alignItems={"center"} style={{height: "100%"}}>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -386,7 +328,7 @@ export const PoolDetail = () => {
                                                 />
                                             </Text>
                                         </Grid>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -406,7 +348,7 @@ export const PoolDetail = () => {
                                                 />
                                             </Text>
                                         </Grid>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -432,7 +374,7 @@ export const PoolDetail = () => {
                     </Grid.Container>
                 </Grid>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
 
                     <Card>
 
@@ -449,12 +391,12 @@ export const PoolDetail = () => {
                         <Card.Body style={{padding: "20px 30px 20px 30px"}}>
 
                             <Grid.Container>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Token
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/miami_fund_1.png")}
                                             alt={"Token"}
@@ -481,7 +423,7 @@ export const PoolDetail = () => {
                                         </Text>
                                     </div>
                                 </Grid>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         General Partner
                                         <TooltipWithIcon
@@ -497,7 +439,7 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/miami_capital.png")}
                                             alt={"General Partner"}
@@ -524,7 +466,7 @@ export const PoolDetail = () => {
                                         </Text>
                                     </div>
                                 </Grid>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Fund Administrator
                                         <TooltipWithIcon
@@ -539,7 +481,7 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/tokr_labs.png")}
                                             alt={"Fund Administrator"}
@@ -568,7 +510,7 @@ export const PoolDetail = () => {
                                 </Grid>
                             </Grid.Container>
 
-                            <Spacer y={2}/>
+                            <Spacer y={1}/>
 
                             <Grid.Container>
                                 <Grid xs={12} direction={"column"}>
@@ -617,14 +559,14 @@ export const PoolDetail = () => {
 
                 </Grid>
 
-                <Grid.Container>
-                    <Grid>
-                        <Spacer y={1}/>
+                <Grid.Container style={{marginTop: "10px"}}>
+                    <Grid xs={12}>
                         <Button.Group
                             rounded
                             color={"secondary"}
                             borderWeight={"light"}
-                            css={{paddingLeft: "6px"}}
+                            vertical={window.innerWidth < 600}
+                            css={{width: "100%"}}
                         >
                             {tabs.map(tab => {
                                 return (
@@ -652,7 +594,7 @@ export const PoolDetail = () => {
                     </Grid>
                 </Grid.Container>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
                     <Card style={{minHeight: "300px"}}>
 
                         <Card.Header>
