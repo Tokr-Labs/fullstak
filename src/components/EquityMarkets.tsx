@@ -5,7 +5,7 @@ import {TooltipWithIcon} from "./TooltipWithIcon";
 import {DaoInfo} from "../models/dao/dao-info";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {USDC_DEVNET} from "../models/constants";
+import {ROUTE_POOL_DETAILS, USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
@@ -198,7 +198,7 @@ export const EquityMarkets = () => {
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
-                                                <Link to={"/markets/equity/pool-details"}>
+                                                <Link to={ROUTE_POOL_DETAILS}>
                                                     <Button ghost
                                                             color={"primary"}
                                                             size={"xs"}
