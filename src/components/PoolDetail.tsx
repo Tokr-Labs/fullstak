@@ -6,7 +6,7 @@ import {PublicKey, Transaction} from "@solana/web3.js";
 import {NetworkContext} from "../App";
 import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
-import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET} from "../models/constants";
+import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET, ROUTE_MARKETS_EQUITY} from "../models/constants";
 import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
@@ -30,6 +30,8 @@ export const PoolDetail = () => {
 
     const tabs = ["Assets", "Members", "Transactions", "Proposals", "Configuration"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
+    const [currentNetwork, setCurrentNetwork] = useState<string>();
+
 
     const wallet = useWallet();
     const {connection} = useConnection()
@@ -108,6 +110,14 @@ export const PoolDetail = () => {
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
+
+        // upon a network change, pool details are no longer relevant and we should redirect to the markets
+        if (currentNetwork !== undefined && network !== currentNetwork) {
+            navigate(ROUTE_MARKETS_EQUITY);
+        }
+
+        // set the current network on-load so we can determine a change in network
+        setCurrentNetwork(network);
 
     }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
 
