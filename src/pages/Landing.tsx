@@ -13,30 +13,27 @@ const Landing = () => {
             <section style={{
                 padding: "40px 0 30px 0",
                 opacity: 1,
-                background: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`
+                background: theme.colors.gradient.computedValue
             }}>
                 <Container>
-                    <Grid.Container>
+                    <Grid.Container alignItems={"center"}>
                         <Grid xs={6}>
                             <img
                                 src={require("src/assets/brand/fullstak_logo_white.png")}
                                 height="46px"
                                 width="auto"
                                 alt="Fullstak logo"
+                                style={{maxHeight: "min(46px, 7vw)"}}
                             />
                         </Grid>
-                        <Grid xs={6} justify={"flex-end"} alignItems={"center"}>
+                        <Grid xs={6} justify={"flex-end"}>
                             <Link to={"/markets"}>
                                 <Button
+                                    auto={window.innerWidth < 550}
                                     color="primary"
                                     style={{
-                                        width: "200px",
+                                        maxWidth: "200px",
+                                        maxHeight: "min(46px, 10vw)",
                                         borderRadius: 19,
                                         color: "white",
                                         fontWeight: "bold",
@@ -60,16 +57,16 @@ const Landing = () => {
                 background: "white",
                 color: "black",
                 height: "46px",
-                fontSize: "13px"
+                fontSize: "min(13px, 2vw)"
             }}>
                 <img
                     src={require("src/assets/solana/riptide_logo.png")}
                     height={"20px"}
                     width={"auto"}
                     alt={"Riptide logo"}
-                    style={{margin: "0 20px"}}
+                    style={{margin: "0 20px", maxHeight: "min(20px, 4vw)"}}
                 />
-                <b>NEWS: 2022 Solana Riptide Winner!&nbsp;
+                <b>NEWS: 2022 Solana Riptide Winner! {window.innerWidth > 550 ? " " : <br/>}
                     <a
                         href={"https://solana.com/news/riptide-hackathon-winners-solana#daos-track"}
                         target={"_blank"}
@@ -87,20 +84,14 @@ const Landing = () => {
                     height={"20px"}
                     width={"auto"}
                     alt={"Riptide logo"}
-                    style={{margin: "0 20px"}}
+                    style={{margin: "0 20px", maxHeight: "min(20px, 4vw)"}}
                 />
             </section>
 
             <section style={{
                 height: "max(calc(100vh - 162px), 600px)",
                 opacity: 1,
-                background: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`
+                background: theme.colors.gradient.computedValue
             }}>
                 <Container style={{
                     height: "100%",
@@ -118,7 +109,7 @@ const Landing = () => {
                     }}>
                         <p style={{
                             margin: "0",
-                            fontSize: "80px",
+                            fontSize: "min(80px, 7vw)",
                             fontWeight: "bold",
                             textAlign: "center",
                             lineHeight: "120%",
@@ -172,9 +163,10 @@ const Landing = () => {
                     <div style={{
                         height: "60px",
                         marginTop: "auto",
-                        alignSelf: "flex-end",
+                        alignSelf: window.innerWidth > 500 ? "flex-end" : "center",
                         display: "flex",
                         alignItems: "center",
+                        fontSize: "min(3vw, 1rem)",
                         fontFamily: theme.fonts.mono.computedValue
                     }}>
                         Powered by

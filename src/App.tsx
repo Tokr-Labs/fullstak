@@ -67,12 +67,13 @@ export const App = () => {
                 primaryLight: "rgba(190,0,255,0.25)",
                 secondary: "#650087",
                 success: "#00ff4b",
-                gradient: "linear-gradient(" +
-                    "112deg, " +
-                    "var(--nextui-colors-cyan500) -63.59%, " +
-                    "#be00ff 20.3%, " +
-                    "var(--nextui-colors-blue500) 75.46%" +
-                    ")"
+                gradient: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
             },
             fonts: {
                 sans: "Montserrat, sans-serif",

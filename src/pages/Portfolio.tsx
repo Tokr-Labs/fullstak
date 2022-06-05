@@ -47,7 +47,7 @@ export const Portfolio = () => {
         }}>
             {/*Background for header*/}
             <div style={{
-                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                background: theme.colors.gradient.computedValue,
                 height: "238px",
                 zIndex: -1,
                 width: "100vw",
@@ -84,7 +84,7 @@ export const Portfolio = () => {
                 </Card.Header>
                 <Card.Body>
                     <Grid.Container>
-                        <Grid xs={8}>
+                        <Grid xs={12} md={8}>
                             <Table shadow={false} sticked headerLined>
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>

@@ -1,5 +1,5 @@
 import React from "react";
-import {Container} from "@nextui-org/react";
+import {Container, theme} from "@nextui-org/react";
 import {Navbar} from "../components/Navbar";
 import {SubNavbar} from "../components/SubNavbar";
 import {Footer} from "../components/Footer";
@@ -15,7 +15,7 @@ export const Markets = () => {
         }}>
             {/*Background for header*/}
             <div style={{
-                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                background: theme.colors.gradient.computedValue,
                 height: "238px",
                 zIndex: -1,
                 width: "100vw",

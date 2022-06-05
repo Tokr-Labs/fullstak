@@ -1,6 +1,5 @@
 import React from "react";
 import {Grid, Link, Text, theme} from "@nextui-org/react";
-import solanaLogo from "src/assets/solana/solana_logo.svg"
 import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
 
@@ -11,8 +10,8 @@ export const Footer = () => {
     return (
         <div style={{marginTop: "auto", height: "60px"}}>
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
-                <Grid xs={4}/>
-                <Grid xs={4} justify={"center"} alignItems={"center"}>
+                <Grid xs={0} md={4}/>
+                <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>
                     <Link
                         href={"https://discord.gg/nCGXWpFahv"}
                         target={"_blank"}
@@ -41,11 +40,12 @@ export const Footer = () => {
                     </Link>
                 </Grid>
                 <Grid
-                    xs={4}
-                    justify={"flex-end"}
+                    xs={12} md={4}
+                    justify={window.innerWidth > 500 ? "flex-end" : "center"}
                     alignItems={"center"}
                     style={{
                         color: "white",
+                        fontSize: "min(3vw, 1rem)",
                         fontFamily: theme.fonts.mono.computedValue
                     }}
                 >
