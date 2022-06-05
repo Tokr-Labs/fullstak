@@ -29,20 +29,22 @@ export const Portfolio = () => {
 
     useEffect(() => {
 
-        // @TODO: better error handling when accounts dont return a balance
-        connection.getBalance(wallet.publicKey as PublicKey)
-            .then(response => setSolBalance(response / LAMPORTS_PER_SOL))
-            .catch(error => console.log(error));
+        if (wallet.publicKey !== null) {
+            // @TODO: better error handling when accounts dont return a balance
+            connection.getBalance(wallet.publicKey as PublicKey)
+                .then(response => setSolBalance(response / LAMPORTS_PER_SOL))
+                .catch(_ => console.log(`Could not fetch SOL balance of ${wallet.publicKey}`));
 
-        tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
-            .then(response => setUsdcBalance(response))
-            .catch(error => console.log(error));
+            tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+                .then(response => setUsdcBalance(response))
+                .catch(_ => console.log(`Could not fetch USDC balance of ${wallet.publicKey}`));
 
-        connection.getParsedTokenAccountsByOwner(
-            wallet.publicKey as PublicKey,
-            {programId: TOKEN_PROGRAM_ID}
-        ).then(response => setHoldings(response.value))
-        .catch(error => console.log(error));
+            connection.getParsedTokenAccountsByOwner(
+                wallet.publicKey as PublicKey,
+                {programId: TOKEN_PROGRAM_ID}
+            ).then(response => setHoldings(response.value))
+            .catch(_ => `Could not fetch holdings of ${wallet.publicKey}`);
+        }
 
     }, [connection, tokenServices, usdc, wallet])
 

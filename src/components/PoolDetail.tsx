@@ -102,12 +102,14 @@ export const PoolDetail = () => {
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
+            .catch(_ => console.log(`Could not fetch USDC holdings for ${wallet.publicKey}`))
 
         }
 
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
+        .catch(_ => console.log(`Could not get Capital Supply of ${dao.addresses.treasury.capitalSupply}`))
 
     }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
 
