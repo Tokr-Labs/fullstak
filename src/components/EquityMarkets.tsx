@@ -141,7 +141,7 @@ export const EquityMarkets = () => {
                                 {
                                     (collection.open ?? []).map((fund, i) => (
 
-                                        <Table.Row>
+                                        <Table.Row key={`open-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img
@@ -326,8 +326,8 @@ export const EquityMarkets = () => {
                             </Table.Header>
                             <Table.Body>
                                 {
-                                    (collection.active ?? []).map(fund => (
-                                        <Table.Row>
+                                    (collection.active ?? []).map((fund, i) => (
+                                        <Table.Row key={`active-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img
