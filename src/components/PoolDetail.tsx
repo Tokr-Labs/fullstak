@@ -569,9 +569,10 @@ export const PoolDetail = () => {
                             vertical={window.innerWidth < 600}
                             css={{width: "100%"}}
                         >
-                            {tabs.map(tab => {
+                            {tabs.map((tab, i) => {
                                 return (
                                     <Button
+                                        key={`tab-${i}`}
                                         style={{
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
                                             fontSize: 15,
