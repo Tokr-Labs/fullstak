@@ -117,7 +117,6 @@ export const Navbar = () => {
                             <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
                                 <h4>Change Network</h4>
                                 <Button
-                                    disabled
                                     ghost={network !== WalletAdapterNetwork.Mainnet}
                                     color={"primary"}
                                     style={{fontWeight: "bold"}}
