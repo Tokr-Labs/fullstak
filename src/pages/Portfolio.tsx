@@ -12,6 +12,7 @@ import {TokenServices} from "../services/token-services";
 import {TokenListProvider} from "@solana/spl-token-registry";
 import {TranslatedToken} from "../components/TranslatedToken";
 import {CurrencyFormatter} from "../utils/currency-formatter";
+import { ROUTE_MARKETS_EQUITY } from "../models/constants";
 
 export const Portfolio = () => {
 
@@ -137,7 +138,7 @@ export const Portfolio = () => {
                                                 <Table.Cell>
                                                     {
                                                         mint.toString() === usdc.toString()
-                                                            ? <Link to={"/markets/equity"}>
+                                                            ? <Link to={ROUTE_MARKETS_EQUITY}>
                                                                 <Button
                                                                     size={"xs"}
                                                                     ghost
