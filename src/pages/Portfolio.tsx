@@ -9,6 +9,9 @@ import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@sola
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
 import {NetworkContext} from "../App";
 import {TokenServices} from "../services/token-services";
+import {TokenListProvider} from "@solana/spl-token-registry";
+import {TranslatedToken} from "../components/TranslatedToken";
+import {CurrencyFormatter} from "../utils/currency-formatter";
 
 export const Portfolio = () => {
 
@@ -20,17 +23,17 @@ export const Portfolio = () => {
 
     const usdc = tokenServices.getUsdcMint(network);
 
-    const [balance, setBalance] = useState<number>(0);
-    const [usdcAmount, setUsdcAmount] = useState<number | null>();
+    const [solBalance, setSolBalance] = useState<number>(0);
+    const [usdcBalance, setUsdcBalance] = useState<number | null>();
     const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>();
 
     useEffect(() => {
 
         connection.getBalance(wallet.publicKey as PublicKey)
-            .then(response => setBalance(response / LAMPORTS_PER_SOL));
+            .then(response => setSolBalance(response / LAMPORTS_PER_SOL));
 
         tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
-            .then(response => setUsdcAmount(response))
+            .then(response => setUsdcBalance(response))
 
         connection.getParsedTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
@@ -65,11 +68,25 @@ export const Portfolio = () => {
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
                             <h3>Balance</h3>
-                            <span>{balance} SOL</span>
+                            <span>
+                                {CurrencyFormatter.formatToken(
+                                    solBalance ?? 0,
+                                    "SOL",
+                                    false,
+                                    4
+                                )}
+                            </span>
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
-                            <span>{usdcAmount ?? 0} USDC</span>
+                            <span>
+                                {CurrencyFormatter.formatToken(
+                                    usdcBalance ?? 0,
+                                    "USDC",
+                                    false,
+                                    2
+                                )}
+                            </span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
@@ -106,17 +123,32 @@ export const Portfolio = () => {
                                                         target={"_blank"}
                                                         href={`https://explorer.solana.com/address/${mint}?cluster=${network}`}
                                                     >
-                                                        {mint}
+                                                        <TranslatedToken mint={mint} iconSize={20}/>
                                                     </NextUiLink>
                                                 </Table.Cell>
                                                 <Table.Cell css={{textAlign: "end"}}>
-                                                    {holding.account.data.parsed.info.tokenAmount.uiAmount}
+                                                    {CurrencyFormatter.formatToken(
+                                                        holding.account.data.parsed.info.tokenAmount.uiAmount,
+                                                        "",
+                                                        true,
+                                                        4
+                                                    )}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
                                                         mint.toString() === usdc.toString()
                                                             ? <Link to={"/markets/equity"}>
-                                                                <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
+                                                                <Button
+                                                                    size={"xs"}
+                                                                    ghost
+                                                                    color={"primary"}
+                                                                    style={{
+                                                                        fontWeight: "bold",
+                                                                        borderRadius: 0
+                                                                }}
+                                                                >
+                                                                    INVEST
+                                                                </Button>
                                                             </Link>
                                                             : ""
                                                     }
