@@ -134,7 +134,7 @@ export const PoolDetail = () => {
 
             <Grid.Container gap={2}>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
                     <Card className={"dark-card"}>
 
                         <Card.Header>
@@ -146,6 +146,8 @@ export const PoolDetail = () => {
                                         width={"100px"}
                                         alt={"Miami Fund 1 logo"}
                                         style={{
+                                            maxHeight: "15vw",
+                                            maxWidth: "15vw",
                                             borderRadius: "50%",
                                             boxShadow: "0px 0px 10px 10px rgba(190,0,255, 0.5)",
                                         }}
@@ -153,13 +155,10 @@ export const PoolDetail = () => {
                                 </Grid>
                                 <Grid style={{marginLeft: "20px"}}>
                                     <Text
-                                        size={56}
+                                        size={"min(56px, 8vw)"}
                                         weight={"bold"}
                                         color={"white"}
-                                        style={{
-                                            margin: 0,
-                                            letterSpacing: 7.47
-                                        }}
+                                        style={{margin: 0}}
                                     >
                                         {dao.name}
                                     </Text>
@@ -255,7 +254,7 @@ export const PoolDetail = () => {
                             <hr/>
                             <Spacer y={1}/>
 
-                            <Grid.Container justify={"space-between"}>
+                            <Grid.Container gap={1} justify={"space-between"}>
                                 <RaiseDetail title={"Investors"} text={(entries?.length ?? "--") + " investors"}/>
                                 <RaiseDetail title={"Max Raise"} text={dao.details.formattedMaxRaise}/>
                                 <RaiseDetail title={"Min Investment"} text={dao.details.formattedMinInvestment}/>
@@ -268,7 +267,7 @@ export const PoolDetail = () => {
                     </Card>
                 </Grid>
 
-                <Grid xs={4}>
+                <Grid xs={12} md={4}>
                     <Grid.Container gap={1} css={{padding: 0}}>
                         <Grid xs={12}>
 
@@ -362,7 +361,7 @@ export const PoolDetail = () => {
                                 </Card.Header>
                                 <Card.Body style={{paddingTop: 0}}>
                                     <Grid.Container alignItems={"center"} style={{height: "100%"}}>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -386,7 +385,7 @@ export const PoolDetail = () => {
                                                 />
                                             </Text>
                                         </Grid>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -406,7 +405,7 @@ export const PoolDetail = () => {
                                                 />
                                             </Text>
                                         </Grid>
-                                        <Grid xs={4} direction={"column"} alignItems={"center"}>
+                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -432,7 +431,7 @@ export const PoolDetail = () => {
                     </Grid.Container>
                 </Grid>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
 
                     <Card>
 
@@ -449,12 +448,12 @@ export const PoolDetail = () => {
                         <Card.Body style={{padding: "20px 30px 20px 30px"}}>
 
                             <Grid.Container>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Token
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/miami_fund_1.png")}
                                             alt={"Token"}
@@ -481,7 +480,7 @@ export const PoolDetail = () => {
                                         </Text>
                                     </div>
                                 </Grid>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         General Partner
                                         <TooltipWithIcon
@@ -497,7 +496,7 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/miami_capital.png")}
                                             alt={"General Partner"}
@@ -524,7 +523,7 @@ export const PoolDetail = () => {
                                         </Text>
                                     </div>
                                 </Grid>
-                                <Grid xs={4} direction={"column"}>
+                                <Grid xs={12} md={4} direction={"column"}>
                                     <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
                                         Fund Administrator
                                         <TooltipWithIcon
@@ -539,7 +538,7 @@ export const PoolDetail = () => {
                                         />
                                     </Text>
                                     <Spacer y={0.3}/>
-                                    <div>
+                                    <div style={{marginBottom: "20px"}}>
                                         <img
                                             src={require("src/assets/issuers/tokr_labs.png")}
                                             alt={"Fund Administrator"}
@@ -568,7 +567,7 @@ export const PoolDetail = () => {
                                 </Grid>
                             </Grid.Container>
 
-                            <Spacer y={2}/>
+                            <Spacer y={1}/>
 
                             <Grid.Container>
                                 <Grid xs={12} direction={"column"}>
@@ -617,14 +616,14 @@ export const PoolDetail = () => {
 
                 </Grid>
 
-                <Grid.Container>
-                    <Grid>
-                        <Spacer y={1}/>
+                <Grid.Container style={{marginTop: "10px"}}>
+                    <Grid xs={12}>
                         <Button.Group
                             rounded
                             color={"secondary"}
                             borderWeight={"light"}
-                            css={{paddingLeft: "6px"}}
+                            vertical={window.innerWidth < 600}
+                            css={{width: "100%"}}
                         >
                             {tabs.map(tab => {
                                 return (
@@ -652,7 +651,7 @@ export const PoolDetail = () => {
                     </Grid>
                 </Grid.Container>
 
-                <Grid xs={8}>
+                <Grid xs={12} md={8}>
                     <Card style={{minHeight: "300px"}}>
 
                         <Card.Header>

@@ -5,7 +5,7 @@ export const PoolConfiguration = () => {
 
     const Section = (props) => {
         return (
-            <Grid xs={3} direction={"column"}>
+            <Grid xs={6} md={3} direction={"column"}>
                 <Text
                     size={10}
                     weight={"normal"}
