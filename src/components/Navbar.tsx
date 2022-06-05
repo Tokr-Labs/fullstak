@@ -147,6 +147,7 @@ export const Navbar = () => {
                         open={menuOpen}
                         onClose={toggleMenu}
                     >
+
                         <Modal.Header>
                             <Text id={"menu-modal-title"} size={18} weight={"bold"}>Menu</Text>
                         </Modal.Header>
@@ -201,6 +202,8 @@ export const Navbar = () => {
                             </Popover>
 
                         </Modal.Body>
+
+                        <Modal.Footer/>
 
                     </Modal>
 
