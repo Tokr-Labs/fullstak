@@ -24,21 +24,25 @@ export const Portfolio = () => {
     const usdc = tokenServices.getUsdcMint(network);
 
     const [solBalance, setSolBalance] = useState<number>(0);
-    const [usdcBalance, setUsdcBalance] = useState<number | null>();
-    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>();
+    const [usdcBalance, setUsdcBalance] = useState<number | null>(0);
+    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>([]);
 
     useEffect(() => {
 
+        // @TODO: better error handling when accounts dont return a balance
         connection.getBalance(wallet.publicKey as PublicKey)
-            .then(response => setSolBalance(response / LAMPORTS_PER_SOL));
+            .then(response => setSolBalance(response / LAMPORTS_PER_SOL))
+            .catch(error => console.log(error));
 
         tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
             .then(response => setUsdcBalance(response))
+            .catch(error => console.log(error));
 
         connection.getParsedTokenAccountsByOwner(
             wallet.publicKey as PublicKey,
             {programId: TOKEN_PROGRAM_ID}
-        ).then(response => setHoldings(response.value));
+        ).then(response => setHoldings(response.value))
+        .catch(error => console.log(error));
 
     }, [connection, tokenServices, usdc, wallet])
 
@@ -102,7 +106,7 @@ export const Portfolio = () => {
                 <Card.Body>
                     <Grid.Container>
                         <Grid xs={12} md={8}>
-                            <Table shadow={false} sticked headerLined>
+                            <Table shadow={false} sticked headerLined aria-label="balances">
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
                                     <Table.Column align={"end"}>Amount</Table.Column>
