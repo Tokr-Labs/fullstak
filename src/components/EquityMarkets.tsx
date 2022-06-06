@@ -84,7 +84,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined>
+                        <Table shadow={false} sticked headerLined aria-label="open funds">
 
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
@@ -141,7 +141,7 @@ export const EquityMarkets = () => {
                                 {
                                     (collection.open ?? []).map((fund, i) => (
 
-                                        <Table.Row>
+                                        <Table.Row key={`open-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img
@@ -246,7 +246,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined>
+                        <Table shadow={false} sticked headerLined aria-label="active funds">
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
@@ -326,8 +326,8 @@ export const EquityMarkets = () => {
                             </Table.Header>
                             <Table.Body>
                                 {
-                                    (collection.active ?? []).map(fund => (
-                                        <Table.Row>
+                                    (collection.active ?? []).map((fund, i) => (
+                                        <Table.Row key={`active-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img

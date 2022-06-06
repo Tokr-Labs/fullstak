@@ -44,7 +44,7 @@ export const PoolMembers = () => {
 
     return (
 
-        <Table sticked headerLined shadow={false}>
+        <Table sticked headerLined shadow={false} aria-label='pool members'>
 
             <Table.Header>
                 <Table.Column>Member</Table.Column>

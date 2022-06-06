@@ -104,12 +104,14 @@ export const PoolDetail = () => {
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
+            .catch(_ => console.log(`Could not fetch USDC holdings for ${wallet.publicKey}`))
 
         }
 
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
+        .catch(_ => console.log(`Could not get Capital Supply of ${dao.addresses.treasury.capitalSupply}`))
 
         // upon a network change, pool details are no longer relevant and we should redirect to the markets
         if (currentNetwork !== undefined && network !== currentNetwork) {
@@ -579,9 +581,10 @@ export const PoolDetail = () => {
                             vertical={window.innerWidth < 600}
                             css={{width: "100%"}}
                         >
-                            {tabs.map(tab => {
+                            {tabs.map((tab, i) => {
                                 return (
                                     <Button
+                                        key={`tab-${i}`}
                                         style={{
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
                                             fontSize: 15,
