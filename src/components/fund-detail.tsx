@@ -1,8 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useEffect, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FundOpen} from "./fund/fund-open";
 import {FundSummary} from "./fund/fund-summary";
+import {FundActive} from "./fund/fund-active";
+import {ROUTE_MARKETS_EQUITY} from "../models/constants";
+import {NetworkContext} from "../App";
 
 export const FundDetail = () => {
 
@@ -14,7 +17,7 @@ export const FundDetail = () => {
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const theme = useTheme();
-
+    const {network} = useContext(NetworkContext);
     const navigate = useNavigate();
 
     const handleClick = (tab) => {
@@ -22,11 +25,26 @@ export const FundDetail = () => {
         navigate(tab.toLowerCase());
     }
 
+    const [currentNetwork, setCurrentNetwork] = useState<string>();
+
+    useEffect(() => {
+
+        // upon a network change, pool details are no longer relevant and we should redirect to the markets
+        if (currentNetwork !== undefined && network !== currentNetwork) {
+            navigate(ROUTE_MARKETS_EQUITY);
+        }
+
+        // set the current network on-load so we can determine a change in network
+        setCurrentNetwork(network);
+
+    }, [currentNetwork, navigate, network])
+
     return (
         <>
             <Grid.Container gap={2}>
 
-                <FundOpen/>
+                {/*<FundOpen/>*/}
+                <FundActive/>
 
                 <FundSummary/>
 

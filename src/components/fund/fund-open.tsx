@@ -6,7 +6,7 @@ import {InvestModal} from "../InvestModal";
 import {IdentityVerificationModal} from "../IdentityVerificationModal";
 import {TooltipWithIcon} from "../TooltipWithIcon";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {ROUTE_MARKETS_EQUITY, USDC_DEVNET, USDC_MAINNET} from "../../models/constants";
+import {USDC_DEVNET, USDC_MAINNET} from "../../models/constants";
 import {PublicKey} from "@solana/web3.js";
 import {TokenServices} from "../../services/token-services";
 import {NetworkContext} from "../../App";
@@ -27,8 +27,6 @@ export const FundOpen = () => {
     const {network} = useContext(NetworkContext)
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
-
-    const [currentNetwork, setCurrentNetwork] = useState<string>();
 
     const [usdcHoldings, setUsdcHoldings] = useState<number | null>(0);
 
@@ -94,15 +92,7 @@ export const FundOpen = () => {
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
             .catch(_ => console.log(`Could not get Capital Supply of ${dao.addresses.treasury.capitalSupply}`))
 
-        // upon a network change, pool details are no longer relevant and we should redirect to the markets
-        if (currentNetwork !== undefined && network !== currentNetwork) {
-            navigate(ROUTE_MARKETS_EQUITY);
-        }
-
-        // set the current network on-load so we can determine a change in network
-        setCurrentNetwork(network);
-
-    }, [currentNetwork, dao.addresses.treasury.capitalSupply, navigate, network, tokenServices, wallet])
+    }, [dao.addresses.treasury.capitalSupply, navigate, network, tokenServices, wallet])
 
     return (
         <>
@@ -145,7 +135,7 @@ export const FundOpen = () => {
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                    <Text size={15} color={"white"}>{dao.active ? "Active" : "Open"}</Text>
+                                    <Text size={15} color={"white"}>Open</Text>
                                 </div>
                             </Grid>
                         </Grid.Container>
