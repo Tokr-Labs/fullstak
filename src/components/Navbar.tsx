@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Grid, Modal, Popover, Spacer, Text, useTheme} from "@nextui-org/react";
+import {Button, Grid, Modal, Popover, Spacer, Text, theme, useTheme} from "@nextui-org/react";
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
@@ -35,6 +35,17 @@ export const Navbar = () => {
 
     return (
         <>
+            {/*Background - escapes the bounds of the container*/}
+            <div style={{
+                background: theme.theme?.colors.gradient.value,
+                height: "238px",
+                zIndex: -1,
+                width: "100vw",
+                top: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
+
             <Grid.Container style={{
                 position: "sticky",
                 top: 0,
