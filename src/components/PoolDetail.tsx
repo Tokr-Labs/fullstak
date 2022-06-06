@@ -317,7 +317,11 @@ export const PoolDetail = () => {
                                 </Card.Header>
                                 <Card.Body style={{paddingTop: 0}}>
                                     <Grid.Container alignItems={"center"} style={{height: "100%"}}>
-                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
+                                        <Grid
+                                            xs={12} md={4}
+                                            direction={"column"} alignItems={"center"}
+                                            style={{color: "white"}}
+                                        >
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -325,7 +329,7 @@ export const PoolDetail = () => {
                                             >
                                                 20%
                                             </Text>
-                                            <Text>
+                                            <div>
                                                 NET IRR
                                                 <TooltipWithIcon
                                                     content={`
@@ -339,9 +343,14 @@ export const PoolDetail = () => {
                                                         investment is to undertake. 
                                                     `}
                                                 />
-                                            </Text>
+                                            </div>
                                         </Grid>
-                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
+                                        <Grid
+                                            xs={12} md={4}
+                                            direction={"column"}
+                                            alignItems={"center"}
+                                            style={{color: "white"}}
+                                        >
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -349,7 +358,7 @@ export const PoolDetail = () => {
                                             >
                                                 4.0x
                                             </Text>
-                                            <Text>
+                                            <div>
                                                 TVPI
                                                 <TooltipWithIcon
                                                     content={`
@@ -359,9 +368,14 @@ export const PoolDetail = () => {
                                                         amount of capital paid into the fund to date.
                                                     `}
                                                 />
-                                            </Text>
+                                            </div>
                                         </Grid>
-                                        <Grid xs={12} md={4} direction={"column"} alignItems={"center"}>
+                                        <Grid
+                                            xs={12} md={4}
+                                            direction={"column"}
+                                            alignItems={"center"}
+                                            style={{color: "white"}}
+                                        >
                                             <Text
                                                 size={48}
                                                 color={"white"}
@@ -369,7 +383,7 @@ export const PoolDetail = () => {
                                             >
                                                 2.1x
                                             </Text>
-                                            <Text>
+                                            <div>
                                                 DPI
                                                 <TooltipWithIcon
                                                     content={`
@@ -378,7 +392,7 @@ export const PoolDetail = () => {
                                                         amount of capital paid into the fund.
                                                     `}
                                                 />
-                                            </Text>
+                                            </div>
                                         </Grid>
                                     </Grid.Container>
                                 </Card.Body>
@@ -405,9 +419,9 @@ export const PoolDetail = () => {
 
                             <Grid.Container>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
+                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
                                         Token
-                                    </Text>
+                                    </div>
                                     <Spacer y={0.3}/>
                                     <div style={{marginBottom: "20px"}}>
                                         <img
@@ -437,7 +451,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
+                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
                                         General Partner
                                         <TooltipWithIcon
                                             color={"black"}
@@ -450,7 +464,7 @@ export const PoolDetail = () => {
                                                 any time by investors.
                                             `}
                                         />
-                                    </Text>
+                                    </div>
                                     <Spacer y={0.3}/>
                                     <div style={{marginBottom: "20px"}}>
                                         <img
@@ -480,7 +494,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <Text weight={"bold"} size={15} style={{letterSpacing: 1}}>
+                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
                                         Fund Administrator
                                         <TooltipWithIcon
                                             color={"black"}
@@ -492,7 +506,7 @@ export const PoolDetail = () => {
                                                 removed at any time through a vote by investors.
                                             `}
                                         />
-                                    </Text>
+                                    </div>
                                     <Spacer y={0.3}/>
                                     <div style={{marginBottom: "20px"}}>
                                         <img
