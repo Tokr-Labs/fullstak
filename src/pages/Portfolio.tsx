@@ -117,12 +117,12 @@ export const Portfolio = () => {
                                 </Table.Header>
                                 <Table.Body>
 
-                                    {(holdings ?? []).map(holding => {
+                                    {(holdings ?? []).map((holding, i) => {
 
                                         const mint = holding.account.data.parsed.info.mint;
 
                                         return (
-                                            <Table.Row>
+                                            <Table.Row key={i}>
                                                 <Table.Cell css={{fontFamily: theme.fonts.mono.computedValue}}>
                                                     <NextUiLink
                                                         icon
