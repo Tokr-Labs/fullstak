@@ -1,5 +1,5 @@
-import React, {useContext} from "react";
-import {Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
+import React, {useContext, useState} from "react";
+import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TooltipWithIcon} from "../TooltipWithIcon";
 
@@ -7,6 +7,17 @@ export const FundActive = () => {
 
     const {theme} = useTheme();
     const dao = useContext(DaoInfoContext)
+
+    const [performanceTimeframe, setPerformanceTimeframe] = useState("All");
+    const [performanceMetric, setPerformanceMetric] = useState("CV");
+
+    const updateTimeframe = (timeframe) => {
+        setPerformanceTimeframe(timeframe)
+    }
+
+    const updateMetric = (metric) => {
+        setPerformanceMetric(metric)
+    }
 
     const DetailsSection = (props: { title: string, tooltipContent: string, value: string }) => {
         return (
@@ -79,7 +90,7 @@ export const FundActive = () => {
                                 </Grid>
                             </Grid.Container>
 
-                            <Spacer y={1}/>
+                            <Spacer y={3}/>
 
                             <Grid.Container gap={1}>
                                 <DetailsSection
@@ -149,8 +160,49 @@ export const FundActive = () => {
 
                         </Grid>
 
-                        <Grid xs={6}>
-                            <Text color={"white"}>Test</Text>
+                        <Grid xs={6} direction={"column"}>
+                            <Spacer y={1}/>
+
+                            <Text size={15} weight={"bold"} color={"white"}>Performance</Text>
+
+                            <Button.Group size={"sm"}>
+                                {Array.of("1D", "1W", "1M", "3M", "6M", "1Y", "All")
+                                    .map((timeframe, i) => {
+                                        return (
+                                            <Button
+                                                onClick={() => updateTimeframe(timeframe)}
+                                                style={{
+                                                    backgroundColor: performanceTimeframe === timeframe
+                                                        ? theme?.colors.secondary.value
+                                                        : "#150335"
+                                                }}
+                                            >
+                                                {timeframe}
+                                            </Button>
+                                        )
+                                    })
+                                }
+                            </Button.Group>
+
+                            <Button.Group size={"sm"}>
+                                {Array.of("CV", "TVPI", "DPI", "IRR")
+                                    .map((metric, i) => {
+                                        return (
+                                            <Button
+                                                onClick={() => updateMetric(metric)}
+                                                style={{
+                                                    backgroundColor: performanceMetric === metric
+                                                        ? theme?.colors.secondary.value
+                                                        : "#150335"
+                                                }}
+                                            >
+                                                {metric}
+                                            </Button>
+                                        )
+                                    })
+                                }
+                            </Button.Group>
+
                         </Grid>
 
                     </Grid.Container>
