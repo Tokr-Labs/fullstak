@@ -30,7 +30,7 @@ export const PoolTransactions = () => {
 
     return (
         <>
-            <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}} aria-label='pool-transactions'>
+            <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}} aria-label='pool transactions'>
 
                 <Table.Header>
                     <Table.Column>Date</Table.Column>

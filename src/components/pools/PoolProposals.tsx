@@ -25,7 +25,7 @@ export const PoolProposals = () => {
     }, [connection, data.addresses.owner, data.addresses.pubkey])
 
     return (
-        <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}} aria-label="pool-proposals">
+        <Table shadow={false} sticked headerLined style={{paddingTop: 0, maxWidth: "1000px"}} aria-label="pool proposals">
 
             <Table.Header>
                 <Table.Column>Date</Table.Column>

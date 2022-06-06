@@ -84,7 +84,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined aria-label="open-funds">
+                        <Table shadow={false} sticked headerLined aria-label="open funds">
 
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
@@ -246,7 +246,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined aria-label="active-funds">
+                        <Table shadow={false} sticked headerLined aria-label="active funds">
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
