@@ -14,8 +14,6 @@ import {DaoService} from "../services/dao-service";
 
 export const EquityMarkets = () => {
 
-    // TODO - iterate over available DAOs to build the table
-
     const connection = useConnection().connection;
     const network = useContext(NetworkContext)
 
@@ -179,8 +177,6 @@ export const EquityMarkets = () => {
                                             <Table.Cell css={{textAlign: "end"}}>
                                                 {fund.details.formattedMaxRaise}
                                             </Table.Cell>
-
-                                            {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
 
                                             <Table.Cell css={{minWidth: "200px", padding: "15px 20px 5px 20px"}}>
 
