@@ -10,11 +10,11 @@ import Landing from "./pages/Landing";
 import {Markets} from "./pages/Markets";
 import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
-import {PoolDetail} from "./components/PoolDetail";
+import {FundDetail} from "./components/fund-detail";
 import {Portfolio} from "./pages/Portfolio";
-import {PoolAssets} from "./components/pools/PoolAssets";
-import {PoolMembers} from "./components/pools/PoolMembers";
-import {PoolConfiguration} from "./components/pools/PoolConfiguration";
+import {FundAssets} from "./components/fund/fund-assets";
+import {FundMembers} from "./components/fund/fund-members";
+import {FundConfiguration} from "./components/fund/fund-configuration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
 import Faucet from "./pages/Faucet";
@@ -150,17 +150,17 @@ export const App = () => {
                                                 <Route index element={<EquityMarkets/>}/>
                                                 <Route path="equity" element={<EquityMarkets/>}/>
 
-                                                <Route path="equity/pool-details" element={
+                                                <Route path="equity/fund-details" element={
                                                     <DaoInfoContext.Provider value={dao}>
-                                                        <PoolDetail/>
+                                                        <FundDetail/>
                                                     </DaoInfoContext.Provider>
                                                 }>
-                                                    <Route index element={<PoolAssets/>}/>
-                                                    <Route path="assets" element={<PoolAssets/>}/>
-                                                    <Route path="members" element={<PoolMembers/>}/>
-                                                    <Route path="configuration" element={<PoolConfiguration/>}/>
-                                                    {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
-                                                    {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
+                                                    <Route index element={<FundAssets/>}/>
+                                                    <Route path="assets" element={<FundAssets/>}/>
+                                                    <Route path="members" element={<FundMembers/>}/>
+                                                    <Route path="configuration" element={<FundConfiguration/>}/>
+                                                    {/*<Route path="proposals" element={<FundProposals/>}/>*/}
+                                                    {/*<Route path="transactions" element={<FundTransactions/>}/>*/}
                                                 </Route>
 
                                                 <Route path="debt" element={<DebtMarkets/>}/>

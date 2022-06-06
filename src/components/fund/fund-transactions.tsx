@@ -5,7 +5,7 @@ import {ParsedTransactionWithMeta, PublicKey} from "@solana/web3.js";
 import {NetworkContext} from "../../App";
 import {Pill} from "../Pill";
 
-export const PoolTransactions = () => {
+export const FundTransactions = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);

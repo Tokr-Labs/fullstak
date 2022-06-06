@@ -1,28 +1,24 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
+import {Button, Card, Grid, Progress, Spacer, Text, Tooltip, useTheme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {PublicKey, Transaction} from "@solana/web3.js";
+import {PublicKey} from "@solana/web3.js";
 import {NetworkContext} from "../App";
-import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
-import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET, ROUTE_MARKETS_EQUITY} from "../models/constants";
-import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {USDC_DEVNET, USDC_MAINNET, ROUTE_MARKETS_EQUITY} from "../models/constants";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {TooltipWithIcon} from "./TooltipWithIcon";
-import {RaiseDetail} from "./pools/RaiseDetail";
+import {RaiseDetails} from "./fund/raise-details";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {InvestModal} from "./InvestModal";
-import {getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
-import {isUndefined} from "underscore";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
 import {IdentityVerificationModal} from "./IdentityVerificationModal";
-import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
 import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
 
-export const PoolDetail = () => {
+export const FundDetail = () => {
 
     const pathname = useLocation().pathname;
     const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -250,11 +246,11 @@ export const PoolDetail = () => {
                             <Spacer y={1}/>
 
                             <Grid.Container gap={1} justify={"space-between"}>
-                                <RaiseDetail title={"Investors"} text={(entries?.length ?? "--") + " investors"}/>
-                                <RaiseDetail title={"Max Raise"} text={dao.details.formattedMaxRaise}/>
-                                <RaiseDetail title={"Min Investment"} text={dao.details.formattedMinInvestment}/>
-                                <RaiseDetail title={"Annual Fee"} text={dao.details.fees.formattedAnnualFee}/>
-                                <RaiseDetail title={"Close Date"} text={dao.details.formattedRaiseClose}/>
+                                <RaiseDetails title={"Investors"} text={(entries?.length ?? "--") + " investors"}/>
+                                <RaiseDetails title={"Max Raise"} text={dao.details.formattedMaxRaise}/>
+                                <RaiseDetails title={"Min Investment"} text={dao.details.formattedMinInvestment}/>
+                                <RaiseDetails title={"Annual Fee"} text={dao.details.fees.formattedAnnualFee}/>
+                                <RaiseDetails title={"Close Date"} text={dao.details.formattedRaiseClose}/>
                             </Grid.Container>
 
                         </Card.Body>

@@ -1,7 +1,7 @@
 import React from "react";
 import {Grid, Text} from "@nextui-org/react";
 
-export const RaiseDetail = (props) => {
+export const RaiseDetails = (props) => {
 
     return (
         <Grid xs={6} md={2} direction={"column"}>
