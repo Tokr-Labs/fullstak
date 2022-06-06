@@ -9,7 +9,6 @@ import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@sola
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
 import {NetworkContext} from "../App";
 import {TokenServices} from "../services/token-services";
-import {TokenListProvider} from "@solana/spl-token-registry";
 import {TranslatedToken} from "../components/TranslatedToken";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import { ROUTE_MARKETS_EQUITY } from "../models/constants";
@@ -55,16 +54,6 @@ export const Portfolio = () => {
             display: "flex",
             flexDirection: "column"
         }}>
-            {/*Background for header*/}
-            <div style={{
-                background: theme.colors.gradient.computedValue,
-                height: "238px",
-                zIndex: -1,
-                width: "100vw",
-                top: 0,
-                left: 0,
-                position: "absolute"
-            }}/>
 
             <Navbar/>
             <Spacer y={1}/>
@@ -175,16 +164,6 @@ export const Portfolio = () => {
 
             <Footer/>
 
-            {/*Background for footer*/}
-            <div style={{
-                background: "linear-gradient(0deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
-                height: "60px",
-                zIndex: -1,
-                width: "100vw",
-                bottom: 0,
-                left: 0,
-                position: "absolute"
-            }}/>
         </Container>
     )
 

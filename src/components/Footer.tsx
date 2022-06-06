@@ -9,6 +9,18 @@ export const Footer = () => {
 
     return (
         <div style={{marginTop: "auto", height: "60px"}}>
+
+            {/*Background - escapes bounds of the container*/}
+            <div style={{
+                background: "linear-gradient(0deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                height: "60px",
+                zIndex: -1,
+                width: "100vw",
+                bottom: 0,
+                left: 0,
+                position: "absolute"
+            }}/>
+
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
                 <Grid xs={0} md={4}/>
                 <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>
@@ -67,6 +79,7 @@ export const Footer = () => {
                     />
                 </Grid>
             </Grid.Container>
+
         </div>
     )
 
