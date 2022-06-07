@@ -1,7 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer } from "@nextui-org/react";
-import _ from "underscore";
-import DropdownItem from "@nextui-org/react/types/dropdown/dropdown-item";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea } from "@nextui-org/react";
 
 // @TODO: organize into a different file?
 export const FundCreationStep = {
@@ -18,7 +16,6 @@ export const CreateFund = () => {
     const [assetClass, setAssetClass] = useState<any>(new Set([]));
     const formattedAssetClass = useMemo(
         () => {
-            console.log(assetClass);
             return Array.from(assetClass).sort().join(", ").replaceAll("_", " ")
         },
         [assetClass]
@@ -28,6 +25,7 @@ export const CreateFund = () => {
 
     // styling objects
     const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
+    const navigationStyle: any = {borderRadius: 30}
 
     const closeHandler = () => {
         setVisible(false);
@@ -47,6 +45,10 @@ export const CreateFund = () => {
                 break;
             case FundCreationStep.SUBMIT:
                 // Construct & send transaction for Fund (DAO) creation
+
+                // reset the state?
+                setVisible(false);
+                setStep(FundCreationStep.NAME);
                 break;
         }
     }
@@ -88,12 +90,19 @@ export const CreateFund = () => {
                         step === FundCreationStep.NAME &&
                         <div>
                             <Grid.Container gap={2}>
-                                <Grid xs={12}>
+                                <Grid.Container xs={6}>
+                                <Grid xs={12} justify='center'>
                                     <Input labelPlaceholder="Fund Name"/>
                                 </Grid>
-                                <Grid xs={12}>
+                                <Grid xs={12} justify='center'>
                                     <Input labelPlaceholder="Delegate (Public Key)"/>
                                 </Grid>
+                                </Grid.Container>
+                                <Grid.Container xs={6}>
+                                    <Grid xs={12} justify='center'>
+                                        <Textarea labelPlaceholder="Description" fullWidth rows={5}/>
+                                    </Grid>
+                                </Grid.Container>
                                 <Grid xs={6} justify='center'>
                                     <Input labelPlaceholder="Min Raise"/>
                                 </Grid>
@@ -174,7 +183,7 @@ export const CreateFund = () => {
                                     <Input labelPlaceholder="Internal Rate of Return" type="number"/>
                                 </Grid>
                                 <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="COC" type="number"/>
+                                    <Input labelPlaceholder="Cash on Cash" type="number"/>
                                 </Grid>
                                 <Grid xs={6} justify='center'>
                                     <Input labelPlaceholder="Total Value to Paid-in" type="number"/>
@@ -188,8 +197,11 @@ export const CreateFund = () => {
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={handleBack}>Back</Button>
-                    <Button onClick={handleNext}>{step === FundCreationStep.SUBMIT ? "Create" : "Next"}</Button>
+                    {
+                        step !== FundCreationStep.NAME &&
+                        <Button onClick={handleBack} style={navigationStyle}>Back</Button>
+                    }
+                    <Button onClick={handleNext} style={navigationStyle}>{step === FundCreationStep.SUBMIT ? "Create" : "Next"}</Button>
                 </Modal.Footer>
             </Modal>
         </div>
