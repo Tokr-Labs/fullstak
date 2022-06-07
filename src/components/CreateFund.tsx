@@ -77,6 +77,7 @@ export const CreateFund = () => {
                 open={visible}
                 onClose={closeHandler}
                 width="66%"
+                blur
             >
                 <Modal.Header>
                     <Text>Create Fund</Text>
@@ -93,13 +94,16 @@ export const CreateFund = () => {
                                 <Grid xs={12}>
                                     <Input labelPlaceholder="Delegate (Public Key)"/>
                                 </Grid>
-                                <Grid xs={4} justify='center'>
+                                <Grid xs={6} justify='center'>
+                                    <Input labelPlaceholder="Min Raise"/>
+                                </Grid>
+                                <Grid xs={6} justify='center'>
                                     <Input labelPlaceholder="Max Raise"/>
                                 </Grid>
-                                <Grid xs={4} justify='center'>
+                                <Grid xs={6} justify='center'>
                                     <Input labelPlaceholder="Minimum Investment"/>
                                 </Grid>
-                                <Grid xs={4} justify='center'>
+                                <Grid xs={6} justify='center'>
                                     <Input labelPlaceholder="Close Date"/>
                                 </Grid>
                             </Grid.Container>
@@ -163,7 +167,24 @@ export const CreateFund = () => {
                     }
                     {
                         step === FundCreationStep.TARGET_RETURNS &&
-                        <div>RETURNS</div>
+                        <div>
+                            {/* @TODO: input validation -- limit to 2 decimals and must be in the range of [0, 100] */}
+                            <Grid.Container gap={2}>
+                                <Grid xs={6} justify='center'>
+                                    <Input labelPlaceholder="Internal Rate of Return" type="number"/>
+                                </Grid>
+                                <Grid xs={6} justify='center'>
+                                    <Input labelPlaceholder="COC" type="number"/>
+                                </Grid>
+                                <Grid xs={6} justify='center'>
+                                    <Input labelPlaceholder="Total Value to Paid-in" type="number"/>
+                                </Grid>
+                                
+                                <Grid xs={6} justify='center'>
+                                    <Input labelPlaceholder="Distributions to Paid-in" type="number"/>
+                                </Grid>
+                            </Grid.Container>
+                        </div>
                     }
                 </Modal.Body>
                 <Modal.Footer>
