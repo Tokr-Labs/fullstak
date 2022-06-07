@@ -235,8 +235,6 @@ export const FundActive = () => {
                                 }
                             </Button.Group>
 
-
-                            {/*TODO - figure out how to change font color*/}
                             <ResponsiveContainer width="100%" height="100%">
                                 <AreaChart
                                     data={data}
@@ -253,8 +251,11 @@ export const FundActive = () => {
                                             <stop offset="100%" stopColor={theme?.colors.primary.value} stopOpacity={0}/>
                                         </linearGradient>
                                     </defs>
-                                    <XAxis dataKey="x"/>
-                                    <YAxis/>
+                                    <XAxis
+                                        dataKey="x"
+                                        tick={{ fill: "white"}}
+                                    />
+                                    <YAxis tick={{ fill: "white" }}/>
                                     <Area
                                         type="monotone"
                                         dataKey="y"
