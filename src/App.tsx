@@ -20,7 +20,11 @@ import {DaoInfo} from "./models/dao/dao-info";
 import Faucet from "./pages/Faucet";
 import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
+<<<<<<< Updated upstream
 import {NotFound} from "./pages/not-found";
+=======
+import { Admin } from './pages/Admin';
+>>>>>>> Stashed changes
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -171,7 +175,11 @@ export const App = () => {
 
                                             <Route path="faucet" element={<Faucet/>}/>
 
+<<<<<<< Updated upstream
                                             <Route path="*" element={<NotFound/>}/>
+=======
+                                            <Route path="admin" element={<Admin/>}/>
+>>>>>>> Stashed changes
 
                                         </Route>
                                     </Routes>
