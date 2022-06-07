@@ -2,11 +2,14 @@ import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
+import Stakeholders from "./create-fund-views/Stakeholders";
 
 // enu for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
     // fund creator sets the high-level information about the fund
     NAME: "name",
+
+    STAKEHOLDERS: "stakeholders",
 
     // fund creator specifies property data (i.e. asset type / class)
     FUND_CONFIG: "fund-configuration",
@@ -17,6 +20,15 @@ export const FundCreationStep = {
     // final review before solana transaction submission
     SUBMIT: "submit"
 }
+
+// Determines the ordering of fund creation stages
+export const FundCreationOrder = [
+    FundCreationStep.NAME,
+    FundCreationStep.STAKEHOLDERS,
+    FundCreationStep.FUND_CONFIG,
+    FundCreationStep.TARGET_RETURNS,
+    FundCreationStep.SUBMIT
+]
 
 export const CreateFund = () => {
     const [visible, setVisible] = useState<boolean>(true);
@@ -70,41 +82,25 @@ export const CreateFund = () => {
 
     // handle when the next button is clicked
     const handleNext = () => {
-        switch(step) {
-            case FundCreationStep.NAME:
-                setStep(FundCreationStep.FUND_CONFIG);
-                break;
-            case FundCreationStep.FUND_CONFIG:
-                setStep(FundCreationStep.TARGET_RETURNS);
-                break;
-            case FundCreationStep.TARGET_RETURNS:
-                setStep(FundCreationStep.SUBMIT);
-                break;
-            case FundCreationStep.SUBMIT:
-                // Construct & send transaction for Fund (DAO) creation
-
-                // reset the state?
-                setVisible(false);
-                setStep(FundCreationStep.NAME);
-                break;
+        const currentStepIndex = FundCreationOrder.indexOf(step);        
+        // newStepIndex should not index outside of FundCreationOrder (array)
+        const newStepIndex = currentStepIndex + 1;
+        if (newStepIndex === FundCreationOrder.length) {
+            // @TODO: Construct & broadcast solana transaction here
+            setVisible(false);
+            setStep(FundCreationStep.NAME);
+        } else {
+            // advance to the next stage of fund creation
+            setStep(FundCreationOrder[newStepIndex]);
         }
     }
 
     // handle when the Back button is clicked
     const handleBack = () => {
-        switch(step) {
-            case FundCreationStep.NAME:
-                break;
-            case FundCreationStep.FUND_CONFIG:
-                setStep(FundCreationStep.NAME);
-                break;
-            case FundCreationStep.TARGET_RETURNS:
-                setStep(FundCreationStep.FUND_CONFIG);
-                break;
-            case FundCreationStep.SUBMIT:
-                setStep(FundCreationStep.TARGET_RETURNS);
-                break;
-        }
+        const currentStepIndex = FundCreationOrder.indexOf(step);
+        // cannot go back past index 0 (FundCreationStep.NAME)
+        const newStepIndex = 0 <= currentStepIndex - 1 ? currentStepIndex - 1 : 0;
+        setStep(FundCreationOrder[newStepIndex]);
     }
 
     return (
@@ -153,6 +149,12 @@ export const CreateFund = () => {
                                     <Input labelPlaceholder="Close Date"/>
                                 </Grid>
                             </Grid.Container>
+                        </div>
+                    }
+                    {
+                        step === FundCreationStep.STAKEHOLDERS &&
+                        <div>
+                            <Stakeholders/>
                         </div>
                     }
                     {
