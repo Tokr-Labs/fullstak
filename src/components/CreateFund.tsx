@@ -1,11 +1,19 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table } from "@nextui-org/react";
+import TargetReturns from "./create-fund-views/TargetReturns";
 
-// @TODO: organize into a different file?
+// enu for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
+    // fund creator sets the high-level information about the fund
     NAME: "name",
+
+    // fund creator specifies property data (i.e. asset type / class)
     FUND_CONFIG: "fund-configuration",
+
+    // fund creator sets the expected/target capital returns of the fund
     TARGET_RETURNS: "target-returns",
+
+    // final review before solana transaction submission
     SUBMIT: "submit"
 }
 
@@ -29,10 +37,24 @@ export const CreateFund = () => {
     );
     const validAssetClasses = ["A", "B", "C", "D"];
 
+    // Form state -- Target Returns
+    const [irr, setIRR] = useState<number>();
+    const [coc, setCOC] = useState<number>();
+    const [tvpi, setTVPI] = useState<number>();
+    const [dpi, setDPI] = useState<number>();
+
+
+    // capture and structure all user input, which will be 
+    // presented as a final confirmation before
+    // solana transaction is broadcasted
     const data = [
         {name: 'Fund Name', value: fundName},
         {name: 'Description', value: fundDescription},
         {name: 'Delegate', value: delegate},
+        {name: 'Internal Rate of Return', value: irr},
+        {name: 'Cash on Cash', value: coc},
+        {name: 'Total Value to Paid-in', value: tvpi},
+        {name: 'Distributions to Paid-in', value: dpi},
     ]
 
     // styling objects
@@ -188,24 +210,12 @@ export const CreateFund = () => {
                     }
                     {
                         step === FundCreationStep.TARGET_RETURNS &&
-                        <div>
-                            {/* @TODO: input validation -- limit to 2 decimals and must be in the range of [0, 100] */}
-                            <Grid.Container gap={2}>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Internal Rate of Return" type="number"/>
-                                </Grid>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Cash on Cash" type="number"/>
-                                </Grid>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Total Value to Paid-in" type="number"/>
-                                </Grid>
-                                
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Distributions to Paid-in" type="number"/>
-                                </Grid>
-                            </Grid.Container>
-                        </div>
+                        <TargetReturns
+                            irr={irr} setIRR={setIRR}
+                            coc={coc} setCOC={setCOC}
+                            tvpi={tvpi} setTVPI={setTVPI}
+                            dpi={dpi} setDPI={setDPI}
+                        />
                     }
                     {
                         step === FundCreationStep.SUBMIT &&
