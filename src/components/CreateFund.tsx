@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table } from "@nextui-org/react";
 
 // @TODO: organize into a different file?
 export const FundCreationStep = {
@@ -12,6 +12,13 @@ export const FundCreationStep = {
 export const CreateFund = () => {
     const [visible, setVisible] = useState<boolean>(true);
     const [step, setStep] = useState<string>(FundCreationStep.NAME);
+
+    // Form state -- Name Step
+    const [fundName, setFundName] = useState<string>();
+    const [fundDescription, setFundDescription] = useState<string>();
+    const [delegate, setDelegate] = useState<string>();
+
+    // Form state -- Fund Configuration
     const [assetType, setAssetType] = useState<any>(new Set(["Asset Type"]));
     const [assetClass, setAssetClass] = useState<any>(new Set([]));
     const formattedAssetClass = useMemo(
@@ -20,8 +27,13 @@ export const CreateFund = () => {
         },
         [assetClass]
     );
-
     const validAssetClasses = ["A", "B", "C", "D"];
+
+    const data = [
+        {name: 'Fund Name', value: fundName},
+        {name: 'Description', value: fundDescription},
+        {name: 'Delegate', value: delegate},
+    ]
 
     // styling objects
     const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
@@ -92,15 +104,15 @@ export const CreateFund = () => {
                             <Grid.Container gap={2}>
                                 <Grid.Container xs={6}>
                                 <Grid xs={12} justify='center'>
-                                    <Input labelPlaceholder="Fund Name"/>
+                                    <Input labelPlaceholder="Fund Name" value={fundName} onChange={event => setFundName(event.target.value)}/>
                                 </Grid>
                                 <Grid xs={12} justify='center'>
-                                    <Input labelPlaceholder="Delegate (Public Key)"/>
+                                    <Input labelPlaceholder="Delegate (Public Key)" value={delegate} onChange={event => setDelegate(event.target.value)}/>
                                 </Grid>
                                 </Grid.Container>
                                 <Grid.Container xs={6}>
                                     <Grid xs={12} justify='center'>
-                                        <Textarea labelPlaceholder="Description" fullWidth rows={5}/>
+                                        <Textarea labelPlaceholder="Description" fullWidth rows={5} value={fundDescription} onChange={event => setFundDescription(event.target.value)}/>
                                     </Grid>
                                 </Grid.Container>
                                 <Grid xs={6} justify='center'>
@@ -193,6 +205,31 @@ export const CreateFund = () => {
                                     <Input labelPlaceholder="Distributions to Paid-in" type="number"/>
                                 </Grid>
                             </Grid.Container>
+                        </div>
+                    }
+                    {
+                        step === FundCreationStep.SUBMIT &&
+                        <div>
+                            <Table
+                                aria-label="fund creation review"
+                            >
+                                <Table.Header>
+                                    <Table.Column>NAME</Table.Column>
+                                    <Table.Column>VALUE</Table.Column>
+                                </Table.Header>
+                                <Table.Body>
+                                    {
+                                        data.map((row, i) => {
+                                            return (
+                                                <Table.Row key={i}>
+                                                    <Table.Cell>{row.name}</Table.Cell>
+                                                    <Table.Cell>{row.value}</Table.Cell>
+                                                </Table.Row>
+                                            )
+                                        })
+                                    }
+                                </Table.Body>
+                            </Table>
                         </div>
                     }
                 </Modal.Body>
