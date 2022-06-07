@@ -194,7 +194,7 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
+                                                <Link to={fund.token.ticker + "/fund-details"}>
                                                     <Button
                                                         ghost
                                                         color={"primary"}
@@ -367,7 +367,7 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
+                                                <Link to={fund.token.ticker + "/fund-details"}>
                                                     <Button
                                                         ghost
                                                         color={"primary"}
