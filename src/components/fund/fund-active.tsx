@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TooltipWithIcon} from "../TooltipWithIcon";
-import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
+import {Area, AreaChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 
 export const FundActive = () => {
 
@@ -44,32 +44,28 @@ export const FundActive = () => {
 
     const data = [
         {
-            x: 'A',
+            x: 'Jan',
             y: 2400,
         },
         {
-            x: 'B',
+            x: 'Feb',
             y: 1398,
         },
         {
-            x: 'C',
-            y: 9800,
+            x: 'Mar',
+            y: 4000,
         },
         {
-            x: 'D',
-            y: 3908,
+            x: 'Apr',
+            y: 3600,
         },
         {
-            x: 'E',
-            y: 4800,
+            x: 'May',
+            y: 8800,
         },
         {
-            x: 'F',
-            y: 3800,
-        },
-        {
-            x: 'G',
-            y: 4300,
+            x: 'Jun',
+            y: 7200,
         },
     ];
 
