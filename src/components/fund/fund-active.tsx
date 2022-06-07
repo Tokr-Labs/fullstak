@@ -2,7 +2,7 @@ import React, {useContext, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TooltipWithIcon} from "../TooltipWithIcon";
-import Plot from "react-plotly.js"
+import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
 export const FundActive = () => {
 
@@ -41,6 +41,37 @@ export const FundActive = () => {
             </Grid>
         )
     }
+
+    const data = [
+        {
+            x: 'A',
+            y: 2400,
+        },
+        {
+            x: 'B',
+            y: 1398,
+        },
+        {
+            x: 'C',
+            y: 9800,
+        },
+        {
+            x: 'D',
+            y: 3908,
+        },
+        {
+            x: 'E',
+            y: 4800,
+        },
+        {
+            x: 'F',
+            y: 3800,
+        },
+        {
+            x: 'G',
+            y: 4300,
+        },
+    ];
 
     return (
         <Grid xs={12}>
@@ -125,16 +156,6 @@ export const FundActive = () => {
                                     value={"--"}
                                 />
                                 <DetailsSection
-                                    title={"TVPI"}
-                                    tooltipContent={`
-                                        Total Value to Paid-in (“TVPI”) is the ratio of the current 
-                                        value of current investments within a fund, plus the total 
-                                        value of all distributions made to date, relative to the total 
-                                        amount of capital paid into the fund to date.
-                                    `}
-                                    value={"--"}
-                                />
-                                <DetailsSection
                                     title={"Net IRR"}
                                     tooltipContent={`
                                         Internal Rate of Return (IRR) is a metric used to estimate 
@@ -145,6 +166,16 @@ export const FundActive = () => {
                                         annual rate of growth that an investment is expected to 
                                         generate. Generally speaking, the higher an internal rate 
                                         of return, the more desirable an investment is to undertake.
+                                    `}
+                                    value={"--"}
+                                />
+                                <DetailsSection
+                                    title={"TVPI"}
+                                    tooltipContent={`
+                                        Total Value to Paid-in (“TVPI”) is the ratio of the current 
+                                        value of current investments within a fund, plus the total 
+                                        value of all distributions made to date, relative to the total 
+                                        amount of capital paid into the fund to date.
                                     `}
                                     value={"--"}
                                 />
@@ -186,7 +217,7 @@ export const FundActive = () => {
                             </Button.Group>
 
                             <Button.Group size={"sm"}>
-                                {Array.of("CV", "TVPI", "DPI", "IRR")
+                                {Array.of("CV", "IRR", "TVPI", "DPI")
                                     .map((metric, i) => {
                                         return (
                                             <Button
@@ -204,22 +235,35 @@ export const FundActive = () => {
                                 }
                             </Button.Group>
 
-                            <Plot
-                                data={[
-                                    {
-                                        x: [1, 2, 3],
-                                        y: [2, 6, 3],
-                                        type: 'scatter',
-                                        marker: {color: 'red'},
-                                    }
-                                ]}
-                                showlegend={false}
-                                layout={{
-                                    width: "100%",
-                                    height: 300,
-                                    margin: 0
-                                }}
-                            />
+
+                            {/*TODO - figure out how to change font color*/}
+                            <ResponsiveContainer width="100%" height="100%">
+                                <AreaChart
+                                    data={data}
+                                    margin={{
+                                        top: 30,
+                                        right: 30,
+                                        left: 0,
+                                        bottom: 0,
+                                    }}
+                                >
+                                    <defs>
+                                        <linearGradient id="colorY" x1="0" y1="0" x2="0" y2="1">
+                                            <stop offset="0%" stopColor={theme?.colors.primary.value} stopOpacity={1}/>
+                                            <stop offset="100%" stopColor={theme?.colors.primary.value} stopOpacity={0}/>
+                                        </linearGradient>
+                                    </defs>
+                                    <XAxis dataKey="x"/>
+                                    <YAxis/>
+                                    <Area
+                                        type="monotone"
+                                        dataKey="y"
+                                        stroke={theme?.colors.primary.value}
+                                        strokeWidth={2}
+                                        fill="url(#colorY)"
+                                    />
+                                </AreaChart>
+                            </ResponsiveContainer>
 
                         </Grid>
 
