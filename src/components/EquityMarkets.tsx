@@ -15,7 +15,7 @@ import {DaoService} from "../services/dao-service";
 export const EquityMarkets = () => {
 
     const connection = useConnection().connection;
-    const network = useContext(NetworkContext)
+    const {network} = useContext(NetworkContext)
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
@@ -28,7 +28,7 @@ export const EquityMarkets = () => {
 
     useEffect(() => {
 
-        daoService.getDaos(network.network)
+        daoService.getDaos(network)
             .then(setCollection)
             .catch(console.error)
 
