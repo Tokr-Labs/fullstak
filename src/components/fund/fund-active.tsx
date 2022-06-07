@@ -107,7 +107,7 @@ export const FundActive = () => {
                                         {dao.name}
                                     </Text>
                                     <div style={{
-                                        display: dao.active ? "none" : "flex",
+                                        display: "flex",
                                         alignItems: "center"
                                     }}>
                                         <span style={{
