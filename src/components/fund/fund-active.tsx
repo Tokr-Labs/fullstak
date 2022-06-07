@@ -2,6 +2,7 @@ import React, {useContext, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TooltipWithIcon} from "../TooltipWithIcon";
+import Plot from "react-plotly.js"
 
 export const FundActive = () => {
 
@@ -202,6 +203,23 @@ export const FundActive = () => {
                                     })
                                 }
                             </Button.Group>
+
+                            <Plot
+                                data={[
+                                    {
+                                        x: [1, 2, 3],
+                                        y: [2, 6, 3],
+                                        type: 'scatter',
+                                        marker: {color: 'red'},
+                                    }
+                                ]}
+                                showlegend={false}
+                                layout={{
+                                    width: "100%",
+                                    height: 300,
+                                    margin: 0
+                                }}
+                            />
 
                         </Grid>
 
