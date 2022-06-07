@@ -121,7 +121,7 @@ export const PoolDetail = () => {
         // set the current network on-load so we can determine a change in network
         setCurrentNetwork(network);
 
-    }, [dao.addresses.treasury.capitalSupply, network, tokenServices, wallet])
+    }, [currentNetwork, dao.addresses.treasury.capitalSupply, navigate, network, tokenServices, wallet])
 
     return (
 
