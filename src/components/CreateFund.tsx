@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer } from "@nextui-org/react";
 import _ from "underscore";
+import DropdownItem from "@nextui-org/react/types/dropdown/dropdown-item";
 
 // @TODO: organize into a different file?
 export const FundCreationStep = {
@@ -14,15 +15,25 @@ export const CreateFund = () => {
     const [visible, setVisible] = useState<boolean>(true);
     const [step, setStep] = useState<string>(FundCreationStep.NAME);
     const [assetType, setAssetType] = useState<any>(new Set(["Asset Type"]));
-    const selectedAssetType = useMemo(
-        () => Array.from(assetType).join(", ").replaceAll("_", " "),
-        [assetType]
+    const [assetClass, setAssetClass] = useState<any>(new Set([]));
+    const formattedAssetClass = useMemo(
+        () => {
+            console.log(assetClass);
+            return Array.from(assetClass).sort().join(", ").replaceAll("_", " ")
+        },
+        [assetClass]
     );
+
+    const validAssetClasses = ["A", "B", "C", "D"];
+
+    // styling objects
+    const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
 
     const closeHandler = () => {
         setVisible(false);
     }
 
+    // handle when the next button is clicked
     const handleNext = () => {
         switch(step) {
             case FundCreationStep.NAME:
@@ -40,6 +51,7 @@ export const CreateFund = () => {
         }
     }
 
+    // handle when the Back button is clicked
     const handleBack = () => {
         switch(step) {
             case FundCreationStep.NAME:
@@ -99,7 +111,7 @@ export const CreateFund = () => {
                             <Grid.Container gap={2}>                        
                                 <Grid xs={3} justify='center'>
                                     <Dropdown>
-                                        <Dropdown.Button flat color='secondary' style={{borderRadius: 19, textTransform: "capitalize"}}>{assetType}</Dropdown.Button>
+                                        <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>{assetType}</Dropdown.Button>
                                         <Dropdown.Menu
                                             aria-label="asset type selection"
                                             disallowEmptySelection
@@ -116,9 +128,20 @@ export const CreateFund = () => {
 
                                 <Grid xs={3} justify='center'>
                                     <Dropdown>
-                                        <Dropdown.Button flat color='secondary' style={{borderRadius: 19}}>Asset Class</Dropdown.Button>
-                                        <Dropdown.Menu>
-
+                                        <Dropdown.Button flat color='secondary' style={dropDownButtonStyle} >{assetClass.size === 0 ? "Asset Class" : `Class ${formattedAssetClass}`}</Dropdown.Button>
+                                        <Dropdown.Menu
+                                            aria-label="asset class selection"
+                                            disallowEmptySelection
+                                            selectionMode="multiple"
+                                            selectedKeys={assetClass}
+                                            onSelectionChange={setAssetClass}
+                                        >
+                                            {validAssetClasses.map((classLetter) => {
+                                                return (
+                                                    <Dropdown.Item key={classLetter}>{`Class ${classLetter}`}</Dropdown.Item>
+                                                )
+                                                })
+                                            }   
                                         </Dropdown.Menu>
                                     </Dropdown>
                                 </Grid>
