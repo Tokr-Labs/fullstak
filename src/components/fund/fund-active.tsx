@@ -198,6 +198,7 @@ export const FundActive = () => {
                                     .map((timeframe, i) => {
                                         return (
                                             <Button
+                                                key={timeframe}
                                                 onClick={() => updateTimeframe(timeframe)}
                                                 style={{
                                                     backgroundColor: performanceTimeframe === timeframe
@@ -217,6 +218,7 @@ export const FundActive = () => {
                                     .map((metric, i) => {
                                         return (
                                             <Button
+                                                key={metric}
                                                 onClick={() => updateMetric(metric)}
                                                 style={{
                                                     backgroundColor: performanceMetric === metric
