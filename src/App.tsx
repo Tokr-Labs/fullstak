@@ -18,6 +18,9 @@ import {PoolConfiguration} from "./components/pools/PoolConfiguration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
 import Faucet from "./pages/Faucet";
+import {useTokenRegistry} from "./hooks/token-registry";
+import {TokenRegistryContext} from "./models/contexts/token-registry-context";
+import {NotFound} from "./pages/not-found";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -32,6 +35,8 @@ export const NetworkContext = createContext<{ network: WalletAdapterNetwork; set
 export const App = () => {
 
     const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
+
+    const tokenMap = useTokenRegistry();
 
     const wallets = useMemo(
         () => [new PhantomWalletAdapter()],
@@ -67,12 +72,13 @@ export const App = () => {
                 primaryLight: "rgba(190,0,255,0.25)",
                 secondary: "#650087",
                 success: "#00ff4b",
-                gradient: "linear-gradient(" +
-                    "112deg, " +
-                    "var(--nextui-colors-cyan500) -63.59%, " +
-                    "#be00ff 20.3%, " +
-                    "var(--nextui-colors-blue500) 75.46%" +
-                    ")"
+                gradient: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`
             },
             fonts: {
                 sans: "Montserrat, sans-serif",
@@ -130,44 +136,48 @@ export const App = () => {
                 <ConnectionProvider endpoint={clusterApiUrl(network)}>
                     <WalletProvider wallets={wallets} autoConnect>
                         <WalletModalProvider>
+                            <TokenRegistryContext.Provider value={tokenMap}>
 
-                            {/* Components must be contained within here to maintain context */}
-                            <BrowserRouter>
-                                <Routes>
-                                    <Route path="/">
+                                {/* Components must be contained within here to maintain context */}
+                                <BrowserRouter>
+                                    <Routes>
+                                        <Route path="/">
 
-                                        <Route index element={<Landing/>}/>
+                                            <Route index element={<Landing/>}/>
 
-                                        <Route path="markets" element={<Markets/>}>
+                                            <Route path="markets" element={<Markets/>}>
 
-                                            <Route index element={<EquityMarkets/>}/>
-                                            <Route path="equity" element={<EquityMarkets/>}/>
+                                                <Route index element={<EquityMarkets/>}/>
+                                                <Route path="equity" element={<EquityMarkets/>}/>
 
-                                            <Route path="equity/pool-details" element={
-                                                <DaoInfoContext.Provider value={dao}>
-                                                    <PoolDetail/>
-                                                </DaoInfoContext.Provider>
-                                            }>
-                                                <Route index element={<PoolAssets/>}/>
-                                                <Route path="assets" element={<PoolAssets/>}/>
-                                                <Route path="members" element={<PoolMembers/>}/>
-                                                <Route path="configuration" element={<PoolConfiguration/>}/>
-                                                {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
-                                                {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
+                                                <Route path="equity/pool-details" element={
+                                                    <DaoInfoContext.Provider value={dao}>
+                                                        <PoolDetail/>
+                                                    </DaoInfoContext.Provider>
+                                                }>
+                                                    <Route index element={<PoolAssets/>}/>
+                                                    <Route path="assets" element={<PoolAssets/>}/>
+                                                    <Route path="members" element={<PoolMembers/>}/>
+                                                    <Route path="configuration" element={<PoolConfiguration/>}/>
+                                                    {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
+                                                    {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
+                                                </Route>
+
+                                                <Route path="debt" element={<DebtMarkets/>}/>
+
                                             </Route>
 
-                                            <Route path="debt" element={<DebtMarkets/>}/>
+                                            <Route path="portfolio" element={<Portfolio/>}/>
+
+                                            <Route path="faucet" element={<Faucet/>}/>
+
+                                            <Route path="*" element={<NotFound/>}/>
 
                                         </Route>
+                                    </Routes>
+                                </BrowserRouter>
 
-                                        <Route path="portfolio" element={<Portfolio/>}/>
-
-                                        <Route path="faucet" element={<Faucet/>}/>
-
-                                    </Route>
-                                </Routes>
-                            </BrowserRouter>
-
+                            </TokenRegistryContext.Provider>
                         </WalletModalProvider>
                     </WalletProvider>
                 </ConnectionProvider>

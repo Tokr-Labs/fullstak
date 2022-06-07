@@ -9,6 +9,9 @@ import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@sola
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
 import {NetworkContext} from "../App";
 import {TokenServices} from "../services/token-services";
+import {TranslatedToken} from "../components/TranslatedToken";
+import {CurrencyFormatter} from "../utils/currency-formatter";
+import { ROUTE_MARKETS_EQUITY } from "../models/constants";
 
 export const Portfolio = () => {
 
@@ -20,22 +23,28 @@ export const Portfolio = () => {
 
     const usdc = tokenServices.getUsdcMint(network);
 
-    const [balance, setBalance] = useState<number>(0);
-    const [usdcAmount, setUsdcAmount] = useState<number | null>();
-    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>();
+    const [solBalance, setSolBalance] = useState<number>(0);
+    const [usdcBalance, setUsdcBalance] = useState<number | null>(0);
+    const [holdings, setHoldings] = useState<Array<{ pubkey: PublicKey, account: AccountInfo<ParsedAccountData> }>>([]);
 
     useEffect(() => {
 
-        connection.getBalance(wallet.publicKey as PublicKey)
-            .then(response => setBalance(response / LAMPORTS_PER_SOL));
+        if (wallet.publicKey !== null) {
+            // @TODO: better error handling when accounts dont return a balance
+            connection.getBalance(wallet.publicKey as PublicKey)
+                .then(response => setSolBalance(response / LAMPORTS_PER_SOL))
+                .catch(_ => console.log(`Could not fetch SOL balance of ${wallet.publicKey}`));
 
-        tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
-            .then(response => setUsdcAmount(response))
+            tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+                .then(response => setUsdcBalance(response))
+                .catch(_ => console.log(`Could not fetch USDC balance of ${wallet.publicKey}`));
 
-        connection.getParsedTokenAccountsByOwner(
-            wallet.publicKey as PublicKey,
-            {programId: TOKEN_PROGRAM_ID}
-        ).then(response => setHoldings(response.value));
+            connection.getParsedTokenAccountsByOwner(
+                wallet.publicKey as PublicKey,
+                {programId: TOKEN_PROGRAM_ID}
+            ).then(response => setHoldings(response.value))
+            .catch(_ => `Could not fetch holdings of ${wallet.publicKey}`);
+        }
 
     }, [connection, tokenServices, usdc, wallet])
 
@@ -45,16 +54,6 @@ export const Portfolio = () => {
             display: "flex",
             flexDirection: "column"
         }}>
-            {/*Background for header*/}
-            <div style={{
-                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
-                height: "238px",
-                zIndex: -1,
-                width: "100vw",
-                top: 0,
-                left: 0,
-                position: "absolute"
-            }}/>
 
             <Navbar/>
             <Spacer y={1}/>
@@ -65,11 +64,25 @@ export const Portfolio = () => {
                     <Grid.Container justify={"space-evenly"} style={{textAlign: "center"}}>
                         <Grid>
                             <h3>Balance</h3>
-                            <span>{balance} SOL</span>
+                            <span>
+                                {CurrencyFormatter.formatToken(
+                                    solBalance ?? 0,
+                                    "SOL",
+                                    false,
+                                    4
+                                )}
+                            </span>
                         </Grid>
                         <Grid>
                             <h3>Available to Invest</h3>
-                            <span>{usdcAmount ?? 0} USDC</span>
+                            <span>
+                                {CurrencyFormatter.formatToken(
+                                    usdcBalance ?? 0,
+                                    "USDC",
+                                    false,
+                                    2
+                                )}
+                            </span>
                         </Grid>
                     </Grid.Container>
                 </Card.Body>
@@ -84,8 +97,8 @@ export const Portfolio = () => {
                 </Card.Header>
                 <Card.Body>
                     <Grid.Container>
-                        <Grid xs={8}>
-                            <Table shadow={false} sticked headerLined>
+                        <Grid xs={12} md={8}>
+                            <Table shadow={false} sticked headerLined aria-label="balances">
                                 <Table.Header>
                                     <Table.Column>Token</Table.Column>
                                     <Table.Column align={"end"}>Amount</Table.Column>
@@ -93,12 +106,12 @@ export const Portfolio = () => {
                                 </Table.Header>
                                 <Table.Body>
 
-                                    {(holdings ?? []).map(holding => {
+                                    {(holdings ?? []).map((holding, i) => {
 
                                         const mint = holding.account.data.parsed.info.mint;
 
                                         return (
-                                            <Table.Row>
+                                            <Table.Row key={i}>
                                                 <Table.Cell css={{fontFamily: theme.fonts.mono.computedValue}}>
                                                     <NextUiLink
                                                         icon
@@ -106,17 +119,32 @@ export const Portfolio = () => {
                                                         target={"_blank"}
                                                         href={`https://explorer.solana.com/address/${mint}?cluster=${network}`}
                                                     >
-                                                        {mint}
+                                                        <TranslatedToken mint={mint} iconSize={20}/>
                                                     </NextUiLink>
                                                 </Table.Cell>
                                                 <Table.Cell css={{textAlign: "end"}}>
-                                                    {holding.account.data.parsed.info.tokenAmount.uiAmount}
+                                                    {CurrencyFormatter.formatToken(
+                                                        holding.account.data.parsed.info.tokenAmount.uiAmount,
+                                                        "",
+                                                        true,
+                                                        4
+                                                    )}
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
                                                         mint.toString() === usdc.toString()
-                                                            ? <Link to={"/markets/equity"}>
-                                                                <Button size={"xs"} ghost color={"gradient"}>Invest</Button>
+                                                            ? <Link to={ROUTE_MARKETS_EQUITY}>
+                                                                <Button
+                                                                    size={"xs"}
+                                                                    ghost
+                                                                    color={"primary"}
+                                                                    style={{
+                                                                        fontWeight: "bold",
+                                                                        borderRadius: 0
+                                                                }}
+                                                                >
+                                                                    INVEST
+                                                                </Button>
                                                             </Link>
                                                             : ""
                                                     }
@@ -136,16 +164,6 @@ export const Portfolio = () => {
 
             <Footer/>
 
-            {/*Background for footer*/}
-            <div style={{
-                background: "linear-gradient(0deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
-                height: "60px",
-                zIndex: -1,
-                width: "100vw",
-                bottom: 0,
-                left: 0,
-                position: "absolute"
-            }}/>
         </Container>
     )
 

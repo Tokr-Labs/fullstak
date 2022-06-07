@@ -4,7 +4,7 @@ import {Grid, Text} from "@nextui-org/react";
 export const RaiseDetail = (props) => {
 
     return (
-        <Grid xs={2} direction={"column"}>
+        <Grid xs={6} md={2} direction={"column"}>
             <Text
                 size={12}
                 color={"white"}

@@ -1,45 +1,44 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Text, Table, theme, Progress} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {TooltipWithIcon} from "./TooltipWithIcon";
 import {DaoInfo} from "../models/dao/dao-info";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {USDC_DEVNET} from "../models/constants";
+import {ROUTE_POOL_DETAILS, USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
+import {DaoCollection} from "../models/dao/dao-collection";
+import {NetworkContext} from "../App";
+import {DaoService} from "../services/dao-service";
 
 export const EquityMarkets = () => {
 
     // TODO - iterate over available DAOs to build the table
 
     const connection = useConnection().connection;
+    const network = useContext(NetworkContext)
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
     const [openFundProgress, setOpenFundProgress] = useState<{ amountRaised?: string, percentageComplete?: number }[]>([]);
+    const [collection, setCollection] = useState<DaoCollection>({open: [], active: []});
 
-    const funds: { open: DaoInfo[], active: DaoInfo[] } = useMemo(() => {
-
-        const mf1 = require("../daos/devnet/mf1.json");
-        const enj = require("../daos/devnet/enj.json");
-        const ez = require("../daos/devnet/ez.json");
-
-        return {
-            open: [
-                DaoInfo.with(mf1)
-            ],
-            active: [
-                DaoInfo.with(enj),
-                DaoInfo.with(ez)
-            ]
-        }
-
+    const daoService = useMemo<DaoService>(() => {
+        return new DaoService()
     }, []);
 
     useEffect(() => {
 
-        const promises = funds.open.map(fund => {
+        daoService.getDaos(network.network)
+            .then(setCollection)
+            .catch(console.error)
+
+    }, [network, daoService]);
+
+    useEffect(() => {
+
+        const promises = collection.open.map(fund => {
 
             const lpTokenMintGovernance = fund?.addresses.governance.lpTokenMintGovernance as PublicKey;
 
@@ -47,12 +46,12 @@ export const EquityMarkets = () => {
 
         })
 
-        Promise.all(promises)
+        Promise.all(promises ?? [])
             .then(result => {
 
                 const fundProgresses: { amountRaised?: string, percentageComplete?: number }[] = [];
 
-                funds.open.forEach((fund, i) => {
+                collection.open.forEach((fund, i) => {
 
                     fundProgresses.push({
                         amountRaised: CurrencyFormatter.formatUsd(result[i] ?? 0, true),
@@ -65,7 +64,7 @@ export const EquityMarkets = () => {
             })
 
 
-    }, [connection, funds, tokenServices])
+    }, [connection, collection, tokenServices])
 
     return (
         <Grid.Container gap={2}>
@@ -85,7 +84,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined>
+                        <Table shadow={false} sticked headerLined aria-label="open funds">
 
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
@@ -140,9 +139,9 @@ export const EquityMarkets = () => {
                             <Table.Body>
 
                                 {
-                                    (funds.open ?? []).map((fund, i) => (
+                                    (collection.open ?? []).map((fund, i) => (
 
-                                        <Table.Row>
+                                        <Table.Row key={`open-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img
@@ -199,7 +198,7 @@ export const EquityMarkets = () => {
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
-                                                <Link to={"/markets/equity/pool-details"}>
+                                                <Link to={ROUTE_POOL_DETAILS}>
                                                     <Button ghost
                                                             color={"primary"}
                                                             size={"xs"}
@@ -247,7 +246,7 @@ export const EquityMarkets = () => {
                     </Card.Header>
 
                     <Card.Body>
-                        <Table shadow={false} sticked headerLined>
+                        <Table shadow={false} sticked headerLined aria-label="active funds">
                             <Table.Header>
                                 <Table.Column>Fund</Table.Column>
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
@@ -327,8 +326,8 @@ export const EquityMarkets = () => {
                             </Table.Header>
                             <Table.Body>
                                 {
-                                    (funds.active ?? []).map(fund => (
-                                        <Table.Row>
+                                    (collection.active ?? []).map((fund, i) => (
+                                        <Table.Row key={`active-fund-${i}`}>
 
                                             <Table.Cell>
                                                 <img

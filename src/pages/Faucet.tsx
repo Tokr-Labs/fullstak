@@ -1,8 +1,8 @@
 import "../index.css"
-import {Button, Card, Container, Input, Link, Loading, Row, Spacer, Text} from "@nextui-org/react";
+import {Button, Card, Container, Input, Link, Loading, Row, Spacer, Text, theme} from "@nextui-org/react";
 import React, {useMemo, useState} from "react";
 import {FaucetService} from "../services/faucet-service";
-import {FAUCET_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
+import {TOKR_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
 import {useWallet} from "@solana/wallet-adapter-react";
 import {Navbar} from "../components/Navbar";
 import {PublicKey} from "@solana/web3.js";
@@ -20,7 +20,7 @@ const Faucet = () => {
     const faucetService = useMemo(() => {
 
         // @TODO: update for different environments
-        return new FaucetService(FAUCET_SERVICE_ENDPOINT_DEVNET)
+        return new FaucetService(TOKR_SERVICE_ENDPOINT_DEVNET)
 
     }, []);
 
@@ -75,7 +75,7 @@ const Faucet = () => {
         }}>
 
             <div style={{
-                background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%)",
+                background: theme.colors.gradient.computedValue,
                 height: "100%",
                 zIndex: -1,
                 width: "100%",

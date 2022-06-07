@@ -34,7 +34,7 @@ export const PoolAssets = () => {
 
     return (
         <>
-            <Table sticked headerLined shadow={false} className={"skinny-rows"}>
+            <Table sticked headerLined shadow={false} className={"skinny-rows"} aria-label="pool assets account">
                 <Table.Header>
                     <Table.Column>Account</Table.Column>
                     <Table.Column>Token</Table.Column>
@@ -66,7 +66,7 @@ export const PoolAssets = () => {
             <Spacer y={2}/>
 
             {/*TODO - pull in this data from json file*/}
-            <Table sticked headerLined shadow={false} className={"skinny-rows"}>
+            <Table sticked headerLined shadow={false} className={"skinny-rows"} aria-label="pool assets real world assets">
                 <Table.Header>
                     <Table.Column>Real-World Asset</Table.Column>
                     <Table.Column>Fund Allocation</Table.Column>
