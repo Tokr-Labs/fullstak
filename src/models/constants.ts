@@ -13,4 +13,4 @@ export const TOKR_SERVICE_ENDPOINT_DEVNET = "https://tokr-services.herokuapp.com
 export const ROUTE_MARKETS = "/markets";
 export const ROUTE_MARKETS_EQUITY = `${ROUTE_MARKETS}/equity`;
 export const ROUTE_MARKETS_DEBT = `${ROUTE_MARKETS}/debt`;
-export const ROUTE_POOL_DETAILS = `${ROUTE_MARKETS_EQUITY}/fund-details`
+export const ROUTE_FUND_DETAILS = `${ROUTE_MARKETS_EQUITY}/fund-details`

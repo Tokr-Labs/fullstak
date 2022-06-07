@@ -10,7 +10,7 @@ import Landing from "./pages/Landing";
 import {Markets} from "./pages/Markets";
 import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
-import {FundDetail} from "./components/fund-detail";
+import {FundDetails} from "./components/fund-details";
 import {Portfolio} from "./pages/Portfolio";
 import {FundAssets} from "./components/fund/fund-assets";
 import {FundMembers} from "./components/fund/fund-members";
@@ -152,7 +152,7 @@ export const App = () => {
 
                                                 <Route path="equity/fund-details" element={
                                                     <DaoInfoContext.Provider value={dao}>
-                                                        <FundDetail/>
+                                                        <FundDetails/>
                                                     </DaoInfoContext.Provider>
                                                 }>
                                                     <Route index element={<FundAssets/>}/>

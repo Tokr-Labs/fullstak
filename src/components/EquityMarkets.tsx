@@ -5,7 +5,7 @@ import {TooltipWithIcon} from "./TooltipWithIcon";
 import {DaoInfo} from "../models/dao/dao-info";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {ROUTE_POOL_DETAILS, USDC_DEVNET} from "../models/constants";
+import {ROUTE_FUND_DETAILS, USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
@@ -194,17 +194,17 @@ export const EquityMarkets = () => {
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
-                                                <Link to={ROUTE_POOL_DETAILS}>
-                                                    <Button ghost
-                                                            color={"primary"}
-                                                            size={"xs"}
-                                                            borderWeight={"light"}
-                                                            style={{margin: 0, fontWeight: "bold", borderRadius: 0}}>
 
+                                                <Link to={ROUTE_FUND_DETAILS}>
+                                                    <Button
+                                                        ghost
+                                                        color={"primary"}
+                                                        size={"xs"}
+                                                        borderWeight={"light"}
+                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                    >
                                                         DETAILS
-
                                                     </Button>
-
                                                 </Link>
 
                                             </Table.Cell>
@@ -368,14 +368,17 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Button light
-                                                        disabled
+                                                <Link to={ROUTE_FUND_DETAILS}>
+                                                    <Button
+                                                        ghost
+                                                        color={"primary"}
                                                         size={"xs"}
                                                         borderWeight={"light"}
-                                                        style={{margin: 0, fontWeight: "bold"}}
-                                                >
-                                                    DETAILS
-                                                </Button>
+                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                    >
+                                                        DETAILS
+                                                    </Button>
+                                                </Link>
 
                                             </Table.Cell>
                                         </Table.Row>

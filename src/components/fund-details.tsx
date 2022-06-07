@@ -6,8 +6,9 @@ import {FundSummary} from "./fund/fund-summary";
 import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
 import {NetworkContext} from "../App";
+import {DaoInfoContext} from "../models/contexts/dao-context";
 
-export const FundDetail = () => {
+export const FundDetails = () => {
 
     const pathname = useLocation().pathname;
     const segment = pathname.substring(pathname.lastIndexOf("/") + 1);
@@ -17,8 +18,9 @@ export const FundDetail = () => {
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
     const theme = useTheme();
-    const {network} = useContext(NetworkContext);
     const navigate = useNavigate();
+    const dao = useContext(DaoInfoContext);
+    const {network} = useContext(NetworkContext);
 
     const handleClick = (tab) => {
         setActiveTab(tab);
@@ -43,8 +45,9 @@ export const FundDetail = () => {
         <>
             <Grid.Container gap={2}>
 
-                {/*<FundOpen/>*/}
-                <FundActive/>
+                <>
+                    {dao.active ? <FundActive/> : <FundOpen/>}
+                </>
 
                 <FundSummary/>
 
