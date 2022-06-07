@@ -80,7 +80,7 @@ export const FundActive = () => {
                 <Card.Body style={{padding: "30px 30px", color: "white"}}>
                     <Grid.Container>
 
-                        <Grid xs={6} direction={"column"}>
+                        <Grid xs={12} md={6} direction={"column"}>
 
                             <Grid.Container gap={1} alignItems={"center"}>
                                 <Grid style={{paddingLeft: 0}}>
@@ -192,7 +192,7 @@ export const FundActive = () => {
 
                         </Grid>
 
-                        <Grid xs={6} direction={"column"}>
+                        <Grid xs={12} md={6} direction={"column"}>
                             <Spacer y={1}/>
 
                             <Text size={15} weight={"bold"} color={"white"}>Performance</Text>
