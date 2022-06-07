@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from "react";
 import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
+import KeyValueTable from "./create-fund-views/KeyValueTable";
 
 // enu for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
@@ -47,10 +48,12 @@ export const CreateFund = () => {
     // capture and structure all user input, which will be 
     // presented as a final confirmation before
     // solana transaction is broadcasted
-    const data = [
+    const infoData = [
         {name: 'Fund Name', value: fundName},
         {name: 'Description', value: fundDescription},
         {name: 'Delegate', value: delegate},
+    ]
+    const returnData = [
         {name: 'Internal Rate of Return', value: irr},
         {name: 'Cash on Cash', value: coc},
         {name: 'Total Value to Paid-in', value: tvpi},
@@ -220,26 +223,8 @@ export const CreateFund = () => {
                     {
                         step === FundCreationStep.SUBMIT &&
                         <div>
-                            <Table
-                                aria-label="fund creation review"
-                            >
-                                <Table.Header>
-                                    <Table.Column>NAME</Table.Column>
-                                    <Table.Column>VALUE</Table.Column>
-                                </Table.Header>
-                                <Table.Body>
-                                    {
-                                        data.map((row, i) => {
-                                            return (
-                                                <Table.Row key={i}>
-                                                    <Table.Cell>{row.name}</Table.Cell>
-                                                    <Table.Cell>{row.value}</Table.Cell>
-                                                </Table.Row>
-                                            )
-                                        })
-                                    }
-                                </Table.Body>
-                            </Table>
+                            <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
+                            <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
                         </div>
                     }
                 </Modal.Body>
