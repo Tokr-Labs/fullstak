@@ -150,7 +150,7 @@ export const App = () => {
                                                 <Route index element={<EquityMarkets/>}/>
                                                 <Route path="equity" element={<EquityMarkets/>}/>
 
-                                                <Route path="equity/fund-details" element={
+                                                <Route path="equity/:ticker/fund-details" element={
                                                     <DaoInfoContext.Provider value={dao}>
                                                         <FundDetails/>
                                                     </DaoInfoContext.Provider>

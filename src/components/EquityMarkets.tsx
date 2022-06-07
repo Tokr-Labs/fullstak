@@ -1,11 +1,10 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Text, Table, theme, Progress} from "@nextui-org/react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
+import {Button, Card, Grid, Progress, Table, Text, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {TooltipWithIcon} from "./TooltipWithIcon";
-import {DaoInfo} from "../models/dao/dao-info";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {ROUTE_FUND_DETAILS, USDC_DEVNET} from "../models/constants";
+import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
@@ -195,7 +194,7 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Link to={ROUTE_FUND_DETAILS}>
+                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
                                                     <Button
                                                         ghost
                                                         color={"primary"}
@@ -368,7 +367,7 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Link to={ROUTE_FUND_DETAILS}>
+                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
                                                     <Button
                                                         ghost
                                                         color={"primary"}
