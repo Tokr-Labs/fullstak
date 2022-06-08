@@ -65,6 +65,8 @@ export const CreateFund = () => {
         },
         [assetClass]
     );
+    const [strategy, setStrategy] = useState<string>();
+    const [fundTerm, setFundTerm] = useState<number>();
 
     // Form state -- Target Returns
     const [irr, setIRR] = useState<number>();
@@ -98,7 +100,9 @@ export const CreateFund = () => {
         {name: 'Asset Class', value: assetClass},
         {name: 'Asset Vintage', value: assetVintage},
         {name: 'Asset Size', value: assetSize},
-        {name: 'Target Market', value: targetMarket}
+        {name: 'Target Market', value: targetMarket},
+        {name: 'Investment Strategy', value: strategy},
+        {name: 'Fund Term', value: fundTerm}
     ]
     const returnData = [
         {name: 'Internal Rate of Return', value: irr},
@@ -190,6 +194,8 @@ export const CreateFund = () => {
                                 assetVintage={assetVintage} setAssetVintage={setAssetVintage}
                                 assetSize={assetSize} setAssetSize={setAssetSize}
                                 targetMarket={targetMarket} setTargetMarket={setTargetMarket}
+                                strategy={strategy} setStrategy={setStrategy}
+                                fundTerm={fundTerm} setFundTerm={setFundTerm}
                             />
                         </div>
                     }

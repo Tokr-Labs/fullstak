@@ -60,6 +60,12 @@ const FundConfig = (props) => {
             <Grid xs={3} justify='center'>
                 <Input labelPlaceholder="Target Market" value={props.targetMarket} onChange={event => props.setTargetMarket(event.target.value)}/>
             </Grid>
+            <Grid xs={3} justify='center'>
+                <Input labelPlaceholder="Investment Strategy" value={props.strategy} onChange={event => props.setStrategy(event.target.value)}/>
+            </Grid>
+            <Grid xs={3} justify='center'>
+                <Input labelPlaceholder="Fund Term" type="number" value={props.fundTerm} onChange={event => props.setFundTerm(event.target.value)}/>
+            </Grid>
         </Grid.Container>
         </div>
     )
