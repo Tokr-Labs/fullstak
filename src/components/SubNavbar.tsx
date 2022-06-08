@@ -31,7 +31,7 @@ export const SubNavbar = () => {
                             style={{
                                 color: "white",
                                 fontWeight: "bold",
-                                letterSpacing: "2px",
+                                letterSpacing: "1px",
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}
@@ -54,7 +54,7 @@ export const SubNavbar = () => {
                                             color={"secondary"}
                                             style={{
                                                 fontWeight: "bold",
-                                                letterSpacing: "2px",
+                                                letterSpacing: "1px",
                                                 padding: "0 30px",
                                                 borderRadius: theme.radii.pill.computedValue
                                             }}

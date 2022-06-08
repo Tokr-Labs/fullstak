@@ -46,6 +46,9 @@ export class DepositCapitalAction implements ActionProtocol {
             dao!.addresses.pubkey!
         )
 
+        console.log("record", record);
+        console.log("record.address", record.address.toBase58())
+
         if (!record || !record.isVerified) {
             throw new Error("Identity not verified.")
         }
@@ -54,9 +57,15 @@ export class DepositCapitalAction implements ActionProtocol {
 
         const realm = addresses.pubkey
         const delegateMintGovernance = addresses.governance.delegateTokenMintGovernance
-        const lpGovernance = addresses.governance.lpTokenMintGovernance
+        const lpGovernance = addresses.governance.lpTokenGovernance
         const lpTokenMint = addresses.mint.lpTokenMint
         const delegateTokenMint = addresses.mint.delegateTokenMint
+
+        console.log("realm", addresses.pubkey)
+        console.log("delegateTokenMintGovernance", addresses.governance.delegateTokenMintGovernance)
+        console.log("lpTokenMintGovernance", addresses.governance.lpTokenGovernance)
+        console.log("lpTokenMint", addresses.mint.lpTokenMint)
+        console.log("delegateTokenMint", addresses.mint.delegateTokenMint)
 
         if (
             !realm ||
@@ -66,6 +75,7 @@ export class DepositCapitalAction implements ActionProtocol {
             !delegateTokenMint
         ) {
 
+            console.log("invalid public keys");
             throw new Error("Invalid public keys.")
 
         }
@@ -78,15 +88,22 @@ export class DepositCapitalAction implements ActionProtocol {
             this.wallet.publicKey!
         )
 
+        console.log("usdcTokenSource", usdcTokenSource.toBase58());
+
         const usdcMint = await getMint(
             this.connection,
             USDC_DEVNET
         )
 
+        console.log("usdcMint", usdcMint.address.toBase58())
+
         const lpTokenAccount = await getAssociatedTokenAddress(
             lpTokenMint,
             this.wallet.publicKey!
         )
+
+        console.log("lpTokenAccount", lpTokenAccount.toBase58())
+
 
         await withDepositCapital(
             txis,
@@ -106,6 +123,10 @@ export class DepositCapitalAction implements ActionProtocol {
         )
 
         tx.add(...txis)
+
+        console.log("txis:");
+        console.log(txis);
+
         return await this.wallet.sendTransaction(tx, this.connection, {skipPreflight: true})
 
     }

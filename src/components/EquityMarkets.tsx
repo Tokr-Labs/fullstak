@@ -40,7 +40,7 @@ export const EquityMarkets = () => {
 
         const promises = collection.open.map(fund => {
 
-            const lpTokenMintGovernance = fund?.addresses.governance.lpTokenMintGovernance as PublicKey;
+            const lpTokenMintGovernance = fund?.addresses.governance.lpTokenGovernance as PublicKey;
 
             return tokenServices.getTokenHoldingAmount(USDC_DEVNET, lpTokenMintGovernance)
 
@@ -77,7 +77,7 @@ export const EquityMarkets = () => {
                         <Text
                             size={24}
                             weight={"bold"}
-                            css={{letterSpacing: 3.2}}
+                            css={{letterSpacing: 1.5}}
                         >
                             OPEN FUNDS
                         </Text>
@@ -239,7 +239,7 @@ export const EquityMarkets = () => {
                         <Text
                             size={24}
                             weight={"bold"}
-                            css={{letterSpacing: 3.2}}
+                            css={{letterSpacing: 1.5}}
                         >
                             ACTIVE FUNDS
                         </Text>

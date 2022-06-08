@@ -4,6 +4,8 @@ import {DaoInfoContext} from "../models/contexts/dao-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../App";
 import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
+import {Link} from "react-router-dom";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 
 export interface InvestModalProps {
     isOpen: boolean,
@@ -15,7 +17,7 @@ export const InvestModal = (props: InvestModalProps) => {
 
     const dao = useContext(DaoInfoContext)
     const wallet = useWallet();
-    const {network} = useContext(NetworkContext)
+    const {network} = useContext(NetworkContext);
     const {connection} = useConnection()
     const [tokensToReceive, setTokensToReceive] = useState<number>(0);
 
@@ -56,8 +58,16 @@ export const InvestModal = (props: InvestModalProps) => {
                        status={tokensToReceive > (props.usdcHoldings ?? 0) ? "error" : "default"}
                        labelRight={"USDC"}
                        style={{textAlign: "right"}}
-                       helperText={"You have " + props.usdcHoldings + " USDC available in your wallet"}
+                       size={"lg"}
                        onChange={(e) => setTokensToReceive(Number(e.target.value))}/>
+
+                <Text size={12} css={{marginTop: -10}}>
+                    You have {props.usdcHoldings} USDC available in your wallet.
+                    {
+                        (props.usdcHoldings === 0 && network === WalletAdapterNetwork.Devnet) &&
+                        <Link to={"/faucet"}> Visit the faucet.</Link>
+                    }
+                </Text>
 
                 <Spacer y={0.5}/>
 
@@ -65,9 +75,14 @@ export const InvestModal = (props: InvestModalProps) => {
                        value={tokensToReceive}
                        type={"number"}
                        label={"Receive"}
+                       size={"lg"}
                        labelRight={dao.token.ticker}
                        style={{textAlign: "right"}}
-                       helperText={"These tokens represent your stake in the fund"}/>
+                       helperText={""}/>
+
+                <Text size={12} css={{marginTop: -10}}>
+                    These tokens represent your stake in the fund
+                </Text>
 
                 <Spacer y={0.5}/>
 

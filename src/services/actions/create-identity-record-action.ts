@@ -87,7 +87,6 @@ export class CreateIdentityRecordAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?: DaoInfo): boolean {
-
         return dao?.addresses.pubkey !== undefined && this.wallet.connected
     }
 

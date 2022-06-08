@@ -1,13 +1,12 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Input, Modal, Progress, Spacer, Text, Tooltip, User, useTheme} from "@nextui-org/react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
+import {Button, Card, Grid, Progress, Spacer, Text, Tooltip, useTheme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {PublicKey, Transaction} from "@solana/web3.js";
+import {PublicKey} from "@solana/web3.js";
 import {NetworkContext} from "../App";
-import {WalletAdapterNetwork, WalletNotConnectedError} from "@solana/wallet-adapter-base";
+import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {TokenServices} from "../services/token-services";
-import {IDENTITY_VERIFICATION_PROGRAM_ID, USDC_DEVNET, USDC_MAINNET, ROUTE_MARKETS_EQUITY} from "../models/constants";
-import {createTransferInstruction, getAssociatedTokenAddress, TOKEN_PROGRAM_ID} from "@solana/spl-token";
+import {ROUTE_MARKETS_EQUITY, USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {generateCapTable} from "@tokr-labs/cap-table";
@@ -15,12 +14,11 @@ import {TooltipWithIcon} from "./TooltipWithIcon";
 import {RaiseDetail} from "./pools/RaiseDetail";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {InvestModal} from "./InvestModal";
-import {getIdentityVerificationRecord} from "@tokr-labs/identity-verification";
-import {isUndefined} from "underscore";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";
 import {IdentityVerificationModal} from "./IdentityVerificationModal";
-import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
 import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
+import {IdentityStatus} from "@tokr-labs/identity-verification/lib/models/identity-status";
+import {ApproveIdentityRecordAction} from "../services/actions/approve-identity-record-action";
 
 export const PoolDetail = () => {
 
@@ -47,6 +45,10 @@ export const PoolDetail = () => {
         return new GetIdentityRecordAction(connection, wallet);
     }, [connection, wallet])
 
+    const approveIdentityRecordAction = useMemo<ApproveIdentityRecordAction>(() => {
+        return new ApproveIdentityRecordAction(wallet);
+    }, [wallet])
+
     useEffect(() => {
 
         const lpTokenMint = dao.addresses.mint.lpTokenMint;
@@ -72,8 +74,11 @@ export const PoolDetail = () => {
     useEffect(() => {
 
         getIdentityRecordAction.execute(dao)
-            .then(record => setIdvRecord(record))
-            .catch(console.error)
+            .then(record => {
+                console.log(record)
+                setIdvRecord(record)
+            })
+            .catch(error => console.error(error))
 
     }, [connection, dao, getIdentityRecordAction])
 
@@ -87,6 +92,13 @@ export const PoolDetail = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
+
+        if (idvRecord?.status === IdentityStatus.initial || idvRecord?.status === IdentityStatus.started) {
+            approveIdentityRecordAction.execute(dao)
+                .then(result => console.log(result))
+                .catch(error => console.error(error))
+        }
+
         setIsModalOpen(!isModalOpen)
     }
 
@@ -104,14 +116,14 @@ export const PoolDetail = () => {
                 network === WalletAdapterNetwork.Devnet ? USDC_DEVNET : USDC_MAINNET,
                 wallet.publicKey as PublicKey
             ).then(amount => setUsdcHoldings(amount))
-            .catch(_ => console.log(`Could not fetch USDC holdings for ${wallet.publicKey}`))
+                .catch(_ => console.log(`Could not fetch USDC holdings for ${wallet.publicKey}`))
 
         }
 
         tokenServices.getTokenAccountBalance(
             dao.addresses.treasury.capitalSupply as PublicKey
         ).then(amount => setCapitalSupplyBalance(amount ?? 0))
-        .catch(_ => console.log(`Could not get Capital Supply of ${dao.addresses.treasury.capitalSupply}`))
+            .catch(_ => console.log(`Could not get Capital Supply of ${dao.addresses.treasury.capitalSupply}`))
 
         // upon a network change, pool details are no longer relevant and we should redirect to the markets
         if (currentNetwork !== undefined && network !== currentNetwork) {
@@ -180,7 +192,7 @@ export const PoolDetail = () => {
                                 size={15}
                                 weight={"bold"}
                                 color={"white"}
-                                style={{letterSpacing: 2}}
+                                style={{letterSpacing: 1}}
                             >
                                 Fundraising Details
                             </Text>
@@ -199,7 +211,7 @@ export const PoolDetail = () => {
                                     <Text
                                         size={12}
                                         color={"white"}
-                                        style={{letterSpacing: 1.6}}
+                                        style={{letterSpacing: 1}}
                                     >
                                         Raised
                                     </Text>
@@ -207,14 +219,14 @@ export const PoolDetail = () => {
                                         size={18}
                                         color={"white"}
                                         weight={"semibold"}
-                                        style={{letterSpacing: 2.4}}
+                                        style={{letterSpacing: 1.2}}
                                     >
                                         {CurrencyFormatter.formatToken(capitalSupplyBalance, "USDC")}
                                     </Text>
                                     <Text
                                         size={10}
                                         color={"white"}
-                                        style={{letterSpacing: 1.33}}
+                                        style={{letterSpacing: .75}}
                                     >
                                         {CurrencyFormatter.formatUsd(capitalSupplyBalance, true)}
                                     </Text>
@@ -223,7 +235,7 @@ export const PoolDetail = () => {
                                     <Text
                                         size={12}
                                         color={"white"}
-                                        style={{letterSpacing: 1.6}}
+                                        style={{letterSpacing: 1}}
                                     >
                                         Remaining
                                     </Text>
@@ -231,14 +243,14 @@ export const PoolDetail = () => {
                                         size={18}
                                         color={"white"}
                                         weight={"semibold"}
-                                        style={{letterSpacing: 2.4}}
+                                        style={{letterSpacing: 1.2}}
                                     >
                                         {CurrencyFormatter.formatToken(dao.details.maxRaise - capitalSupplyBalance, "USDC")}
                                     </Text>
                                     <Text
                                         size={10}
                                         color={"white"}
-                                        style={{letterSpacing: 1.33}}
+                                        style={{letterSpacing: .75}}
                                     >
                                         {CurrencyFormatter.formatUsd(dao.details.maxRaise - capitalSupplyBalance, true)}
                                     </Text>
@@ -310,7 +322,7 @@ export const PoolDetail = () => {
                                         size={15}
                                         color={"white"}
                                         weight={"bold"}
-                                        style={{letterSpacing: 2}}
+                                        style={{letterSpacing: 1}}
                                     >
                                         Target Returns
                                     </Text>
@@ -409,7 +421,7 @@ export const PoolDetail = () => {
                             <Text
                                 size={24}
                                 weight={"bold"}
-                                style={{letterSpacing: 3.2}}
+                                style={{letterSpacing: 1.5}}
                             >
                                 Fund Summary
                             </Text>
@@ -419,7 +431,7 @@ export const PoolDetail = () => {
 
                             <Grid.Container>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                                    <div style={{letterSpacing: 0.5, fontWeight: "bold", fontSize: 15}}>
                                         Token
                                     </div>
                                     <Spacer y={0.3}/>
@@ -443,7 +455,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 1
+                                                letterSpacing: 0.5
                                             }}
                                         >
                                             {dao.token.ticker}
@@ -451,7 +463,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                                    <div style={{letterSpacing: 0.5, fontWeight: "bold", fontSize: 15}}>
                                         General Partner
                                         <TooltipWithIcon
                                             color={"black"}
@@ -486,7 +498,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 1
+                                                letterSpacing: 0.5
                                             }}
                                         >
                                             {dao.stakeholders.sponsor.name}
@@ -494,7 +506,7 @@ export const PoolDetail = () => {
                                     </div>
                                 </Grid>
                                 <Grid xs={12} md={4} direction={"column"}>
-                                    <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                                    <div style={{letterSpacing:0.5, fontWeight: "bold", fontSize: 15}}>
                                         Fund Administrator
                                         <TooltipWithIcon
                                             color={"black"}
@@ -528,7 +540,7 @@ export const PoolDetail = () => {
                                                 display: "inline",
                                                 marginLeft: "10px",
                                                 verticalAlign: "middle",
-                                                letterSpacing: 1
+                                                letterSpacing: 0.5
                                             }}
                                         >
                                             {dao.stakeholders.delegate.name}
@@ -544,13 +556,13 @@ export const PoolDetail = () => {
                                     <Text
                                         size={15}
                                         weight={"bold"}
-                                        style={{letterSpacing: 2}}
+                                        style={{letterSpacing: 1}}
                                     >
                                         Fund Overview
                                     </Text>
                                     <Text
                                         size={18}
-                                        style={{letterSpacing: 0.75}}
+                                        style={{letterSpacing: 0.38}}
                                     >
                                         {dao.description}
                                     </Text>
@@ -564,7 +576,7 @@ export const PoolDetail = () => {
                                     <Text
                                         size={15}
                                         weight={"bold"}
-                                        style={{letterSpacing: 2}}
+                                        style={{letterSpacing: 1}}
                                     >
                                         Data Room
                                     </Text>
@@ -603,7 +615,7 @@ export const PoolDetail = () => {
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
                                             fontSize: 15,
                                             fontWeight: "bold",
-                                            letterSpacing: 2,
+                                            letterSpacing: 1,
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
                                                 ? theme.theme?.colors.primary.computedValue
@@ -629,7 +641,7 @@ export const PoolDetail = () => {
                             <Text
                                 size={15}
                                 weight={"bold"}
-                                style={{letterSpacing: 2}}
+                                style={{letterSpacing: 1}}
                             >
                                 {activeTab}
                             </Text>

@@ -31,6 +31,7 @@ export class GetIdentityRecordAction implements ActionProtocol {
     async execute(dao?: DaoInfo): Promise<IdentityRecord | undefined> {
 
         if (!this.validate(dao)) {
+            console.log("invalid props")
             return
         }
 

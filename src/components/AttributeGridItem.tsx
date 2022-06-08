@@ -15,7 +15,7 @@ export const AttributeGridItem = (props) => {
                 opacity: 1,
                 fontSize: "28px",
                 fontWeight: 700,
-                letterSpacing: "3px",
+                letterSpacing: "1.5px",
                 textAlign: "center",
                 textTransform: "uppercase",
             }}>

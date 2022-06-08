@@ -13,7 +13,7 @@ export const Pill = (props) => {
             textAlign: "center",
             fontSize: "12px",
             textTransform: "uppercase",
-            letterSpacing: "0.75px"
+            letterSpacing: "0.5px"
         }}>
             {props.text}
         </div>

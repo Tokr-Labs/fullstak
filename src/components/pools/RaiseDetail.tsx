@@ -8,7 +8,7 @@ export const RaiseDetail = (props) => {
             <Text
                 size={12}
                 color={"white"}
-                style={{letterSpacing: 1.6}}
+                style={{letterSpacing: 1}}
             >
                 {props.title}
             </Text>
@@ -16,7 +16,7 @@ export const RaiseDetail = (props) => {
                 size={14}
                 color={"white"}
                 weight={"semibold"}
-                style={{letterSpacing: 1.87}}
+                style={{letterSpacing: 1}}
             >
                 {props.text}
             </Text>

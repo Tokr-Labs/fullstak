@@ -104,12 +104,12 @@ export const App = () => {
         ".nextui-table-column-header": {
             fontSize: 12,
             fontWeight: "normal",
-            letterSpacing: 1.6
+            letterSpacing: 0.8
         },
         ".nextui-table-cell": {
             fontSize: 14,
             fontWeight: "$semibold",
-            letterSpacing: 1.87
+            letterSpacing: .9
         },
         ".skinny-rows .nextui-table-cell": {
             paddingTop: theme.space["2"].computedValue,
@@ -123,7 +123,7 @@ export const App = () => {
 
     const dao = useMemo(() => {
         // @TODO: need to update this when a dap is chosen from the markets landing page
-        const data = require("src/daos/devnet/mf1.json")
+        const data = require("src/daos/devnet/demo.json")
         return DaoInfo.with(data);
     }, []);
 

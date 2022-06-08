@@ -21,7 +21,7 @@ export class DaoService {
 
     private static get devnetDaos(): DaoCollection {
 
-        const mf1 = require("../daos/devnet/mf1.json");
+        const mf1 = require("../daos/devnet/demo.json");
         const enj = require("../daos/devnet/enj.json");
         const ez = require("../daos/devnet/ez.json");
 

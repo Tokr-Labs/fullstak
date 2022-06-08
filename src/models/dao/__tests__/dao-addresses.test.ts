@@ -29,10 +29,8 @@ test("that dao addresses are parsed correctly", () => {
     const treasury = info!.treasury!;
 
     expect(info.pubkey!.toBase58()).toEqual(input.pubkey);
-    expect(info.authority!.toBase58()).toEqual(input.authority);
-    expect(info.owner!.toBase58()).toEqual(input.owner);
 
-    expect(governance.lpTokenMintGovernance!.toBase58()).toEqual(input.governance.lp_token_mint_governance);
+    expect(governance.lpTokenGovernance!.toBase58()).toEqual(input.governance.lp_token_mint_governance);
     expect(governance.distributionTokenMintGovernance!.toBase58()).toEqual(input.governance.distribution_token_mint_governance);
     expect(governance.delegateTokenMintGovernance!.toBase58()).toEqual(input.governance.delegate_token_mint_governance);
 
