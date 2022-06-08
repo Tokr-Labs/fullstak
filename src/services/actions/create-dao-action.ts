@@ -88,7 +88,8 @@ export class CreateDaoAction implements ActionProtocol {
             instructions,
             [[delegateMint, distributionMint, lpMint], [], [], []]
         )
-
+        console.log("Transaction Signatures:");
+        console.log(transactionSignatures);
         await this.confirmTransactions(transactionSignatures)
 
         await this.saveConfig(
@@ -100,9 +101,6 @@ export class CreateDaoAction implements ActionProtocol {
             },
             addresses
         )
-
-        console.log("Transaction Signatures:");
-        console.log(transactionSignatures);
 
     }
 
@@ -274,7 +272,7 @@ export class CreateDaoAction implements ActionProtocol {
                 "stock_supply": addresses.treasuryStockTreasury.toBase58()
             }
         }
-
+        console.log(JSON.stringify(config));
         console.log("Save config complete.")
 
         return Promise.resolve()
