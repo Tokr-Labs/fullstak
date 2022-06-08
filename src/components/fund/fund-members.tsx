@@ -13,7 +13,7 @@ export const FundMembers = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
 
     const [capTable, setCapTable] = useState<CapTable>();
 

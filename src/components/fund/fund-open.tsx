@@ -23,7 +23,7 @@ export const FundOpen = () => {
     const wallet = useWallet();
     const navigate = useNavigate();
     const {connection} = useConnection()
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
     const {network} = useContext(NetworkContext)
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])

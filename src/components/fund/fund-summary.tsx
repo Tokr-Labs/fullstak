@@ -5,7 +5,7 @@ import {DaoInfoContext} from "../../models/contexts/dao-context";
 
 export const FundSummary = () => {
 
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
 
     return (
         <Grid xs={12} md={8}>

@@ -13,7 +13,7 @@ export interface InvestModalProps {
 
 export const InvestModal = (props: InvestModalProps) => {
 
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
     const wallet = useWallet();
     const {network} = useContext(NetworkContext)
     const {connection} = useConnection()

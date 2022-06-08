@@ -1,6 +1,9 @@
 import {DaoInfo} from "../models/dao/dao-info";
 import {DaoCollection} from "../models/dao/dao-collection";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import mf1 from "../daos/devnet/mf1.json";
+import enj from "../daos/devnet/enj.json";
+import ez from "../daos/devnet/ez.json";
 
 export class DaoService {
 
@@ -21,9 +24,9 @@ export class DaoService {
 
     private static get devnetDaos(): DaoCollection {
 
-        const mf1 = require("../daos/devnet/mf1.json");
-        const enj = require("../daos/devnet/enj.json");
-        const ez = require("../daos/devnet/ez.json");
+        // const mf1 = fetch("../../public/daos/devnet/mf1.json");
+        // const enj = fetch("../../public/daos/devnet/enj.json");
+        // const ez = fetch("../../public/daos/devnet/ez.json");
 
         return {
             open: [

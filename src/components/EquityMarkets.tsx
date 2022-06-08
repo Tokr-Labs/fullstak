@@ -10,11 +10,13 @@ import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
 import {NetworkContext} from "../App";
 import {DaoService} from "../services/dao-service";
+import {DaoInfoContext} from "../models/contexts/dao-context";
 
 export const EquityMarkets = () => {
 
     const connection = useConnection().connection;
-    const {network} = useContext(NetworkContext)
+    const {setDao} = useContext(DaoInfoContext);
+    const {network} = useContext(NetworkContext);
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
@@ -201,6 +203,7 @@ export const EquityMarkets = () => {
                                                         size={"xs"}
                                                         borderWeight={"light"}
                                                         style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                        onClick={() => setDao(fund)}
                                                     >
                                                         DETAILS
                                                     </Button>
@@ -374,6 +377,7 @@ export const EquityMarkets = () => {
                                                         size={"xs"}
                                                         borderWeight={"light"}
                                                         style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                        onClick={() => setDao(fund)}
                                                     >
                                                         DETAILS
                                                     </Button>

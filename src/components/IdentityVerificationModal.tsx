@@ -17,7 +17,7 @@ export interface IdentityVerificationModalProps {
 
 export const IdentityVerificationModal = (props: IdentityVerificationModalProps) => {
 
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
     const wallet = useWallet();
     const {connection} = useConnection()
 

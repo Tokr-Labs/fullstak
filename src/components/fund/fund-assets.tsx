@@ -12,7 +12,7 @@ export const FundAssets = () => {
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
 
     const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0)
     const [treasuryStockBalance, setTreasuryStockBalance] = useState<number>(0)

@@ -19,7 +19,7 @@ export const FundDetails = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
     const {network} = useContext(NetworkContext);
 
     const handleClick = (tab) => {

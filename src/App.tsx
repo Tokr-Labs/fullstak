@@ -36,6 +36,8 @@ export const App = () => {
 
     const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
 
+    const [dao, setDao] = useState<DaoInfo>(DaoInfo.with({}));
+
     const tokenMap = useTokenRegistry();
 
     const wallets = useMemo(
@@ -121,12 +123,6 @@ export const App = () => {
     })
     globalStyles();
 
-    const dao = useMemo(() => {
-        // @TODO: need to update this when a dap is chosen from the markets landing page
-        const data = require("src/daos/devnet/mf1.json")
-        return DaoInfo.with(data);
-    }, []);
-
     // // Defaults to using system preference
     // const darkMode = useDarkMode();
 
@@ -137,6 +133,7 @@ export const App = () => {
                     <WalletProvider wallets={wallets} autoConnect>
                         <WalletModalProvider>
                             <TokenRegistryContext.Provider value={tokenMap}>
+                                <DaoInfoContext.Provider value={{dao, setDao}}>
 
                                 {/* Components must be contained within here to maintain context */}
                                 <BrowserRouter>
@@ -150,11 +147,7 @@ export const App = () => {
                                                 <Route index element={<EquityMarkets/>}/>
                                                 <Route path="equity" element={<EquityMarkets/>}/>
 
-                                                <Route path="equity/:ticker/fund-details" element={
-                                                    <DaoInfoContext.Provider value={dao}>
-                                                        <FundDetails/>
-                                                    </DaoInfoContext.Provider>
-                                                }>
+                                                <Route path="equity/:ticker/fund-details" element={<FundDetails/>}>
                                                     <Route index element={<FundAssets/>}/>
                                                     <Route path="assets" element={<FundAssets/>}/>
                                                     <Route path="members" element={<FundMembers/>}/>
@@ -177,6 +170,7 @@ export const App = () => {
                                     </Routes>
                                 </BrowserRouter>
 
+                                </DaoInfoContext.Provider>
                             </TokenRegistryContext.Provider>
                         </WalletModalProvider>
                     </WalletProvider>

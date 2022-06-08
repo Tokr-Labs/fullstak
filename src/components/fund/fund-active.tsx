@@ -7,7 +7,7 @@ import {Area, AreaChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 export const FundActive = () => {
 
     const {theme} = useTheme();
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
 
     const [performanceTimeframe, setPerformanceTimeframe] = useState("All");
     const [performanceMetric, setPerformanceMetric] = useState("CV");
