@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse, Col } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
@@ -288,10 +288,20 @@ export const CreateFund = () => {
                     {
                         step === FundCreationStep.SUBMIT &&
                         <div>
-                            <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
-                            <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
-                            <KeyValueTable arialabel="stakeholders" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
-                            <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
+                            <Collapse.Group splitted>
+                                <Collapse title={<Text h4>Fund Name & Info</Text>} expanded>
+                                    <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Stakeholders</Text>} expanded>
+                                    <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
+                                </Collapse>    
+                                <Collapse title={<Text h4>Configuration</Text>} expanded>
+                                    <KeyValueTable arialabel="config" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Returns</Text>} expanded>
+                                    <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
+                                </Collapse>
+                            </Collapse.Group>
                         </div>
                     }
                 </Modal.Body>
