@@ -183,8 +183,13 @@ export const EquityMarkets = () => {
 
                                                 <Progress
                                                     size={"sm"}
-                                                    value={openFundProgress[i]?.percentageComplete ?? 0}
-                                                    color={"success"}
+                                                    indeterminated={openFundProgress[i]?.percentageComplete === undefined}
+                                                    value={openFundProgress[i]?.percentageComplete}
+                                                    color={
+                                                        openFundProgress[i]?.percentageComplete === undefined
+                                                            ? "secondary"
+                                                            : "success"
+                                                    }
                                                     status={"primary"}
                                                 />
 

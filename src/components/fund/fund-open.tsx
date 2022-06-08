@@ -30,7 +30,7 @@ export const FundOpen = () => {
 
     const [usdcHoldings, setUsdcHoldings] = useState<number | null>(0);
 
-    const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0);
+    const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>();
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -153,9 +153,14 @@ export const FundOpen = () => {
                         </Text>
                         <Spacer y={1.5}/>
                         <Progress
-                            value={(capitalSupplyBalance / dao.details.maxRaise) * 100}
+                            indeterminated={capitalSupplyBalance === undefined}
+                            value={(capitalSupplyBalance! / dao.details.maxRaise) * 100}
                             style={{height: "8px"}}
-                            color={"success"}
+                            color={
+                                capitalSupplyBalance === undefined
+                                    ? "secondary"
+                                    : "success"
+                            }
                             status={"primary"}
                         />
 
@@ -176,14 +181,14 @@ export const FundOpen = () => {
                                     weight={"semibold"}
                                     style={{letterSpacing: 2.4}}
                                 >
-                                    {CurrencyFormatter.formatToken(capitalSupplyBalance, "USDC")}
+                                    {CurrencyFormatter.formatToken(capitalSupplyBalance ?? 0, "USDC")}
                                 </Text>
                                 <Text
                                     size={10}
                                     color={"white"}
                                     style={{letterSpacing: 1.33}}
                                 >
-                                    {CurrencyFormatter.formatUsd(capitalSupplyBalance, true)}
+                                    {CurrencyFormatter.formatUsd(capitalSupplyBalance ?? 0, true)}
                                 </Text>
                             </Grid>
                             <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
@@ -200,14 +205,20 @@ export const FundOpen = () => {
                                     weight={"semibold"}
                                     style={{letterSpacing: 2.4}}
                                 >
-                                    {CurrencyFormatter.formatToken(dao.details.maxRaise - capitalSupplyBalance, "USDC")}
+                                    {CurrencyFormatter.formatToken(
+                                        dao.details.maxRaise - (capitalSupplyBalance ?? 0),
+                                        "USDC"
+                                    )}
                                 </Text>
                                 <Text
                                     size={10}
                                     color={"white"}
                                     style={{letterSpacing: 1.33}}
                                 >
-                                    {CurrencyFormatter.formatUsd(dao.details.maxRaise - capitalSupplyBalance, true)}
+                                    {CurrencyFormatter.formatUsd(
+                                        dao.details.maxRaise - (capitalSupplyBalance ?? 0),
+                                        true
+                                    )}
                                 </Text>
                             </Grid>
                         </Grid.Container>
