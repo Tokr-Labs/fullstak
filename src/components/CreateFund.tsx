@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
@@ -232,7 +232,7 @@ export const CreateFund = () => {
                         </Grid>
                     </Grid.Container>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body style={{height: '50vh', overflowY: 'auto'}}>
                     {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
                     {
                         step === FundCreationStep.NAME &&
