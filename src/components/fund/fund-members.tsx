@@ -9,11 +9,11 @@ import {PublicKey} from "@solana/web3.js";
 import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
 import {CurrencyFormatter} from "../../utils/currency-formatter";
 
-export const PoolMembers = () => {
+export const FundMembers = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
 
     const [capTable, setCapTable] = useState<CapTable>();
 
