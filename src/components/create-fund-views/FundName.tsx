@@ -1,4 +1,4 @@
-import { Grid, Input, Textarea } from '@nextui-org/react';
+import { Grid, Input, Spacer, Textarea } from '@nextui-org/react';
 import React from 'react'
 
 const FundName = (props) => {
@@ -9,6 +9,9 @@ const FundName = (props) => {
             <Grid xs={12} justify='center'>
                 <Input labelPlaceholder="Fund Name" value={props.fundName} onChange={event => props.setFundName(event.target.value)}/>
             </Grid>
+            <Grid xs={12} justify='center'>
+                <Input labelPlaceholder="Token Symbol" value={props.tokenSymbol} onChange={event => props.setTokenSymbol(event.target.value)}/>
+            </Grid>
             </Grid.Container>
             <Grid.Container xs={6}>
                 <Grid xs={12} justify='center'>
@@ -16,13 +19,19 @@ const FundName = (props) => {
                 </Grid>
             </Grid.Container>
             <Grid xs={4} justify='center'>
-                <Input labelPlaceholder="Min Raise" value={props.minRaise} onChange={event => props.setMinRaise(event.target.value)}/>
+                <Input labelPlaceholder="Min Raise" type="number" value={props.minRaise} onChange={event => props.setMinRaise(event.target.value)}/>
             </Grid>
             <Grid xs={4} justify='center'>
-                <Input labelPlaceholder="Max Raise" value={props.maxRaise} onChange={event => props.setMaxRaise(event.target.value)}/>
+                <Input labelPlaceholder="Max Raise" type="number" value={props.maxRaise} onChange={event => props.setMaxRaise(event.target.value)}/>
             </Grid>
             <Grid xs={4} justify='center'>
-                <Input labelPlaceholder="Minimum Investment" value={props.minInvestment} onChange={event => props.setMinInvestment(event.target.value)}/>
+                <Input labelPlaceholder="Minimum Investment" type="number" value={props.minInvestment} onChange={event => props.setMinInvestment(event.target.value)}/>
+            </Grid>
+            <Grid xs={6} justify='center'>
+                <Input labelPlaceholder="Closing Fee" type="number" value={props.closingFee} onChange={event => props.setClosingFee(event.target.value)}/>
+            </Grid>
+            <Grid xs={6} justify='center'>
+                <Input labelPlaceholder="Annual Fee" type="number" value={props.annualFee} onChange={event => props.setAnnualFee(event.target.value)}/>
             </Grid>
         </Grid.Container>
         </div>

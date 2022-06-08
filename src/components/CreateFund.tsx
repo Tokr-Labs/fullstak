@@ -39,9 +39,12 @@ export const CreateFund = () => {
     // Form state -- Name Step
     const [fundName, setFundName] = useState<string>();
     const [fundDescription, setFundDescription] = useState<string>();
+    const [tokenSymbol, setTokenSymbol] = useState<string>();
     const [minRaise, setMinRaise] = useState<number>();
     const [maxRaise, setMaxRaise] = useState<number>();
     const [minInvestment, setMinInvestment] = useState<number>();
+    const [closingFee, setClosingFee] = useState<number>();
+    const [annualFee, setAnnualFee] = useState<number>();
 
     // Form state -- Stakeholders
     const [sponsorName, setSponsorName] = useState<string>();
@@ -75,10 +78,13 @@ export const CreateFund = () => {
     // solana transaction is broadcasted
     const infoData = [
         {name: 'Fund Name', value: fundName},
+        {name: 'Token Symbol', value: tokenSymbol},
         {name: 'Description', value: fundDescription},
         {name: 'Minimum Raise', value: minRaise},
         {name: 'Maximum Raise', value: maxRaise},
-        {name: 'Minimum Investment', value: minInvestment}
+        {name: 'Minimum Investment', value: minInvestment},
+        {name: 'Closing Fee', value: closingFee},
+        {name: 'Annual Fee', value: annualFee}
     ]
     const stakeholderData = [
         {name: 'Sponsor', value: sponsorName},
@@ -152,10 +158,13 @@ export const CreateFund = () => {
                         <div>
                             <FundName
                               fundName={fundName} setFundName={setFundName}
+                              tokenSymbol={tokenSymbol} setTokenSymbol={setTokenSymbol}
                               fundDescription={fundDescription} setFundDescription={setFundDescription}
                               minRaise={minRaise} setMinRaise={setMinRaise}
                               maxRaise={maxRaise} setMaxRaise={setMaxRaise}
                               minInvestment={minInvestment} setMinInvestment={setMinInvestment}
+                              closingFee={closingFee} setClosingFee={setClosingFee}
+                              annualFee={annualFee} setAnnualFee={setAnnualFee}
                             />
                         </div>
                     }
