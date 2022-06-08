@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
@@ -220,6 +220,15 @@ export const CreateFund = () => {
                                         "Review" : ""
                                 }
                             </Text>
+                        </Grid>
+                        <Grid xs={12} justify='center' alignItems="center">
+                            <StyledContainer style={{width: "20%"}}>
+                            <Progress
+                                color="primary"
+                                size="sm"
+                                value={FundCreationOrder.indexOf(step)} max={FundCreationOrder.length - 1}
+                            />
+                            </StyledContainer>
                         </Grid>
                     </Grid.Container>
                 </Modal.Header>
