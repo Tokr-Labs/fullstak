@@ -141,9 +141,10 @@ export const CreateFund = () => {
         const newStepIndex = currentStepIndex + 1;
         
         // if the current step is the very last, we're ready to submit the transaction
+        // Construct & broadcast solana transaction here
         if (currentStepIndex === FundCreationOrder.length - 1) {
-            // @TODO: Construct & broadcast solana transaction here
             // consolidate all state vars into an object and provide to CreateDaoAction.execute()
+            // @TODO: on board more user-input into the DAO creation transaction
             const params = {
                 name: fundName,
                 details: {maxRaise},
@@ -157,9 +158,14 @@ export const CreateFund = () => {
                     proposalCoolOffTime: 0,
                 }
             }
+
+            // broadcasts multiple transactions for DAO creation
             createDaoAction.execute(params)
                 .then(() => console.log("dao created"))
                 .catch(err => alert(err.message));
+            
+            // close the modal & reset the step
+            // @TODO: clear out the data in the form
             setVisible(false);
             setStep(FundCreationStep.NAME);
         } else {
