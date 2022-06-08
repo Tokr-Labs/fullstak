@@ -3,6 +3,7 @@ import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Text
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
+import FundName from "./create-fund-views/FundName";
 
 // enu for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
@@ -37,7 +38,16 @@ export const CreateFund = () => {
     // Form state -- Name Step
     const [fundName, setFundName] = useState<string>();
     const [fundDescription, setFundDescription] = useState<string>();
-    const [delegate, setDelegate] = useState<string>();
+    const [minRaise, setMinRaise] = useState<number>();
+    const [maxRaise, setMaxRaise] = useState<number>();
+    const [minInvestment, setMinInvestment] = useState<number>();
+
+    // Form state -- Stakeholders
+    const [sponsorName, setSponsorName] = useState<string>();
+    const [sponsorCompany, setSponsorCompany] = useState<string>();
+    const [delegateName, setDelegateName] = useState<string>();
+    const [delegateCompany, setDelegateCompany] = useState<string>();
+    const [delegateAccount, setDelegateAccount] = useState<string>();
 
     // Form state -- Fund Configuration
     const [assetType, setAssetType] = useState<any>(new Set(["Asset Type"]));
@@ -63,7 +73,16 @@ export const CreateFund = () => {
     const infoData = [
         {name: 'Fund Name', value: fundName},
         {name: 'Description', value: fundDescription},
-        {name: 'Delegate', value: delegate},
+        {name: 'Minimum Raise', value: minRaise},
+        {name: 'Maximum Raise', value: maxRaise},
+        {name: 'Minimum Investment', value: minInvestment}
+    ]
+    const stakeholderData = [
+        {name: 'Sponsor', value: sponsorName},
+        {name: 'Sponsor Company', value: sponsorCompany},
+        {name: 'Delegate', value: delegateName},
+        {name: 'Delegate Company', value: delegateCompany},
+        {name: 'Delegate Account', value: delegateAccount}
     ]
     const returnData = [
         {name: 'Internal Rate of Return', value: irr},
@@ -122,33 +141,13 @@ export const CreateFund = () => {
                     {
                         step === FundCreationStep.NAME &&
                         <div>
-                            <Grid.Container gap={2}>
-                                <Grid.Container xs={6}>
-                                <Grid xs={12} justify='center'>
-                                    <Input labelPlaceholder="Fund Name" value={fundName} onChange={event => setFundName(event.target.value)}/>
-                                </Grid>
-                                <Grid xs={12} justify='center'>
-                                    <Input labelPlaceholder="Delegate (Public Key)" value={delegate} onChange={event => setDelegate(event.target.value)}/>
-                                </Grid>
-                                </Grid.Container>
-                                <Grid.Container xs={6}>
-                                    <Grid xs={12} justify='center'>
-                                        <Textarea labelPlaceholder="Description" fullWidth rows={5} value={fundDescription} onChange={event => setFundDescription(event.target.value)}/>
-                                    </Grid>
-                                </Grid.Container>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Min Raise"/>
-                                </Grid>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Max Raise"/>
-                                </Grid>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Minimum Investment"/>
-                                </Grid>
-                                <Grid xs={6} justify='center'>
-                                    <Input labelPlaceholder="Close Date"/>
-                                </Grid>
-                            </Grid.Container>
+                            <FundName
+                              fundName={fundName} setFundName={setFundName}
+                              fundDescription={fundDescription} setFundDescription={setFundDescription}
+                              minRaise={minRaise} setMinRaise={setMinRaise}
+                              maxRaise={maxRaise} setMaxRaise={setMaxRaise}
+                              minInvestment={minInvestment} setMinInvestment={setMinInvestment}
+                            />
                         </div>
                     }
                     {
@@ -226,6 +225,7 @@ export const CreateFund = () => {
                         step === FundCreationStep.SUBMIT &&
                         <div>
                             <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
+                            <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
                             <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
                         </div>
                     }
