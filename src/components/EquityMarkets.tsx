@@ -203,7 +203,6 @@ export const EquityMarkets = () => {
                                                         size={"xs"}
                                                         borderWeight={"light"}
                                                         style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
-                                                        onClick={() => setDao(fund)}
                                                     >
                                                         DETAILS
                                                     </Button>
@@ -377,7 +376,6 @@ export const EquityMarkets = () => {
                                                         size={"xs"}
                                                         borderWeight={"light"}
                                                         style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
-                                                        onClick={() => setDao(fund)}
                                                     >
                                                         DETAILS
                                                     </Button>

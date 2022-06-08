@@ -7,11 +7,7 @@ import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
 import {NetworkContext} from "../App";
 import {DaoInfoContext} from "../models/contexts/dao-context";
-import {DaoInfo} from "../models/dao/dao-info";
-import {DaoCollection} from "../models/dao/dao-collection";
 import {DaoService} from "../services/dao-service";
-import {findWhere} from "underscore";
-import {DaoTokenInfo} from "../models/dao/dao-token-info";
 
 export const FundDetails = () => {
 
@@ -51,22 +47,20 @@ export const FundDetails = () => {
     }, []);
 
     useEffect(() => {
-        if (!dao.name) {
-            const ticker = pathname.split("/")[3];
-            daoService.getDaos(network)
-                .then(collection => collection.all)
-                .then(allDaos => {
-                    const matching = allDaos.filter(dao => {
-                        return dao.token.ticker === ticker
-                    })
-                    if (matching.length === 0) {
-                        navigate("/not-found")
-                    } else {
-                        setDao(matching[0])
-                    }
+        const ticker = pathname.split("/")[3];
+        daoService.getDaos(network)
+            .then(collection => collection.all)
+            .then(allDaos => {
+                const matching = allDaos.filter(dao => {
+                    return dao.token.ticker === ticker
                 })
-                .catch(console.error)
-        }
+                if (matching.length === 0) {
+                    navigate("/not-found")
+                } else {
+                    setDao(matching[0])
+                }
+            })
+            .catch(console.error)
     }, [dao.name, daoService, navigate, network, pathname, setDao])
 
     return (
