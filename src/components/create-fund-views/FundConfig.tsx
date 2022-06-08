@@ -4,6 +4,8 @@ import React from 'react'
 const FundConfig = (props) => {
     const validAssetClasses = ["A", "B", "C", "D"];
 
+    const fundTermYears = Array(30).fill(0).map((_, i) => i + 1);
+
     // styling for dropdown buttons
     const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
     return (
@@ -66,6 +68,24 @@ const FundConfig = (props) => {
             <Grid xs={3} justify='center'>
                 <Input label="Fund Term" type="number" value={props.fundTerm} onChange={event => props.setFundTerm(event.target.value)}/>
             </Grid>
+
+            {/* Comically impractical -- wen slider??
+            <Dropdown>
+                <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>Fund Term</Dropdown.Button>
+                <Dropdown.Menu
+                    aria-label="asset type selection"
+                    disallowEmptySelection
+                    selectionMode="single"
+                >
+                    {
+                        fundTermYears.map((year) => {
+                            return (
+                                <Dropdown.Item key={year}>{year}</Dropdown.Item>
+                            )
+                        })
+                    }
+                </Dropdown.Menu>
+            </Dropdown> */}
         </Grid.Container>
         </div>
     )
