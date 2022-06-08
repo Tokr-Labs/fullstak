@@ -4,6 +4,7 @@ import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
 import FundName from "./create-fund-views/FundName";
+import FundConfig from "./create-fund-views/FundConfig";
 
 // enu for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
@@ -52,13 +53,15 @@ export const CreateFund = () => {
     // Form state -- Fund Configuration
     const [assetType, setAssetType] = useState<any>(new Set(["Asset Type"]));
     const [assetClass, setAssetClass] = useState<any>(new Set([]));
+    const [assetVintage, setAssetVintage] = useState<any>();
+    const [assetSize, setAssetSize] = useState<any>();
+    const [targetMarket, setTargetMarket] = useState<any>();
     const formattedAssetClass = useMemo(
         () => {
             return Array.from(assetClass).sort().join(", ").replaceAll("_", " ")
         },
         [assetClass]
     );
-    const validAssetClasses = ["A", "B", "C", "D"];
 
     // Form state -- Target Returns
     const [irr, setIRR] = useState<number>();
@@ -84,6 +87,13 @@ export const CreateFund = () => {
         {name: 'Delegate Company', value: delegateCompany},
         {name: 'Delegate Account', value: delegateAccount}
     ]
+    const fundConfigData = [
+        {name: 'Asset Type', value: assetType},
+        {name: 'Asset Class', value: assetClass},
+        {name: 'Asset Vintage', value: assetVintage},
+        {name: 'Asset Size', value: assetSize},
+        {name: 'Target Market', value: targetMarket}
+    ]
     const returnData = [
         {name: 'Internal Rate of Return', value: irr},
         {name: 'Cash on Cash', value: coc},
@@ -92,7 +102,6 @@ export const CreateFund = () => {
     ]
 
     // styling objects
-    const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
     const navigationStyle: any = {borderRadius: 30}
 
     const closeHandler = () => {
@@ -165,57 +174,14 @@ export const CreateFund = () => {
                     {
                         step === FundCreationStep.FUND_CONFIG &&
                         <div>
-                            <Grid.Container gap={2}>                        
-                                <Grid xs={3} justify='center'>
-                                    <Dropdown>
-                                        <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>{assetType}</Dropdown.Button>
-                                        <Dropdown.Menu
-                                            aria-label="asset type selection"
-                                            disallowEmptySelection
-                                            selectionMode="single"
-                                            selectedKeys={assetType}
-                                            onSelectionChange={setAssetType}
-                                        >
-                                            <Dropdown.Item key="multifamily">Multifamily</Dropdown.Item>
-                                            <Dropdown.Item key="commercial">Commercial</Dropdown.Item>
-                                            <Dropdown.Item key="industrial">Industrial</Dropdown.Item>
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Grid>
-
-                                <Grid xs={3} justify='center'>
-                                    <Dropdown>
-                                        <Dropdown.Button flat color='secondary' style={dropDownButtonStyle} >{assetClass.size === 0 ? "Asset Class" : `Class ${formattedAssetClass}`}</Dropdown.Button>
-                                        <Dropdown.Menu
-                                            aria-label="asset class selection"
-                                            disallowEmptySelection
-                                            selectionMode="multiple"
-                                            selectedKeys={assetClass}
-                                            onSelectionChange={setAssetClass}
-                                        >
-                                            {validAssetClasses.map((classLetter) => {
-                                                return (
-                                                    <Dropdown.Item key={classLetter}>{`Class ${classLetter}`}</Dropdown.Item>
-                                                )
-                                                })
-                                            }   
-                                        </Dropdown.Menu>
-                                    </Dropdown>
-                                </Grid>
-                                <Grid xs={3} justify='center'>
-                                    <Input labelPlaceholder="Asset Vintage"/>
-                                </Grid>
-                                <Grid xs={3} justify='center'>
-                                    <Input labelPlaceholder="Asset Size"/>
-                                </Grid>
-                                <Grid xs={3} justify='center'>
-                                    <Input labelPlaceholder="Target Market"/>
-                                </Grid>
-                                
-                                <Grid xs={3} justify='center'>
-                                    <Input labelPlaceholder="Fees (per annum)"/>
-                                </Grid>
-                            </Grid.Container>
+                            <FundConfig
+                                assetType={assetType} setAssetType={setAssetType}
+                                formattedAssetClass={formattedAssetClass}
+                                assetClass={assetClass} setAssetClass={setAssetClass}
+                                assetVintage={assetVintage} setAssetVintage={setAssetVintage}
+                                assetSize={assetSize} setAssetSize={setAssetSize}
+                                targetMarket={targetMarket} setTargetMarket={setTargetMarket}
+                            />
                         </div>
                     }
                     {
@@ -232,6 +198,7 @@ export const CreateFund = () => {
                         <div>
                             <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
                             <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
+                            <KeyValueTable arialabel="stakeholders" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
                             <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
                         </div>
                     }
