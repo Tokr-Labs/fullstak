@@ -52,19 +52,19 @@ const FundConfig = (props) => {
                 </Dropdown>
             </Grid>
             <Grid xs={3} justify='center'>
-                <Input labelPlaceholder="Asset Vintage" value={props.assetVintage} onChange={event => props.setAssetVintage(event.target.value)}/>
+                <Input label="Asset Vintage" value={props.assetVintage} onChange={event => props.setAssetVintage(event.target.value)}/>
             </Grid>
             <Grid xs={3} justify='center'>
-                <Input labelPlaceholder="Asset Size" value={props.assetSize} onChange={event => props.setAssetSize(event.target.value)}/>
+                <Input label="Asset Size" value={props.assetSize} onChange={event => props.setAssetSize(event.target.value)}/>
             </Grid>
             <Grid xs={3} justify='center'>
-                <Input labelPlaceholder="Target Market" value={props.targetMarket} onChange={event => props.setTargetMarket(event.target.value)}/>
+                <Input label="Target Market" value={props.targetMarket} onChange={event => props.setTargetMarket(event.target.value)}/>
             </Grid>
             <Grid xs={3} justify='center'>
-                <Input labelPlaceholder="Investment Strategy" value={props.strategy} onChange={event => props.setStrategy(event.target.value)}/>
+                <Input label="Investment Strategy" value={props.strategy} onChange={event => props.setStrategy(event.target.value)}/>
             </Grid>
             <Grid xs={3} justify='center'>
-                <Input labelPlaceholder="Fund Term" type="number" value={props.fundTerm} onChange={event => props.setFundTerm(event.target.value)}/>
+                <Input label="Fund Term" type="number" value={props.fundTerm} onChange={event => props.setFundTerm(event.target.value)}/>
             </Grid>
         </Grid.Container>
         </div>

@@ -37,7 +37,7 @@ export const FundCreationOrder = [
 
 export const CreateFund = () => {
     // determines if the modal is open or not
-    const [visible, setVisible] = useState<boolean>(false);
+    const [visible, setVisible] = useState<boolean>(true);
 
     // determines which "page" of the modal should be conditionally rendered
     // i.e. depending on the step, different inputs are rendered for the user
