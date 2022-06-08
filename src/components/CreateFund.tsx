@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
@@ -196,15 +196,35 @@ export const CreateFund = () => {
                 aria-label="create fund"
                 open={visible}
                 onClose={closeHandler}
-                width="66%"
+                width="40%"
                 blur
             >
                 <Modal.Header>
-                    <Text>Create Fund</Text>
+                    <Grid.Container>
+                        <Grid xs={12} justify='center' alignItems="center">
+                            <Text h4>Create Fund</Text>
+                        </Grid>
+                        <Grid xs={12} justify='center' alignItems="center">
+                            {/* Conditionally render the subheader based on the current step */}
+                            <Text h3>
+                                {
+                                    step === FundCreationStep.NAME ?
+                                        "Fund Name & Info" :
+                                    step === FundCreationStep.STAKEHOLDERS ?
+                                        "Stakeholder Information" :
+                                    step === FundCreationStep.FUND_CONFIG ?
+                                        "Fund Configuration" :
+                                    step === FundCreationStep.TARGET_RETURNS ?
+                                        "Target Returns" :
+                                    step === FundCreationStep.SUBMIT ?
+                                        "Review" : ""
+                                }
+                            </Text>
+                        </Grid>
+                    </Grid.Container>
                 </Modal.Header>
                 <Modal.Body>
                     {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
-                    <Spacer y={1}/>
                     {
                         step === FundCreationStep.NAME &&
                         <div>
@@ -272,7 +292,12 @@ export const CreateFund = () => {
                         step !== FundCreationStep.NAME &&
                         <Button onClick={handleBack} style={navigationStyle}>Back</Button>
                     }
-                    <Button onClick={handleNext} style={navigationStyle}>{step === FundCreationStep.SUBMIT ? "Create" : "Next"}</Button>
+                    <Button onClick={handleNext}
+                        color={step === FundCreationStep.SUBMIT ? 'success' : 'primary'}
+                        style={navigationStyle}
+                    >
+                        {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
+                    </Button>
                 </Modal.Footer>
             </Modal>
         </div>

@@ -72,7 +72,7 @@ export const App = () => {
                 primary: "#be00ff",
                 primaryLight: "rgba(190,0,255,0.25)",
                 secondary: "#650087",
-                success: "#00ff4b",
+                success: "#4ad47b",
                 gradient: `linear-gradient(
                     180deg, 
                     rgba(12, 2, 35, 1) 0%, 
