@@ -135,6 +135,20 @@ export const CreateFund = () => {
         if (currentStepIndex === FundCreationOrder.length - 1) {
             // @TODO: Construct & broadcast solana transaction here
             // consolidate all state vars into an object and provide to CreateDaoAction.execute()
+            const params = {
+                name: fundName,
+                details: {maxRaise},
+                governance: {
+                    voteThresholdPercentage: 1,
+                    minCommunityTokensToCreateProposal: 1,
+                    minCouncilTokensToCreateProposal: 1,
+                    minInstructionHoldUpTime: 1,
+                    maxVotingTime: 1,
+                    voteTipping: 1,
+                    proposalCoolOffTime: 1,
+                }
+            }
+            // createDaoAction.execute(params)
             setVisible(false);
             setStep(FundCreationStep.NAME);
         } else {
