@@ -153,7 +153,13 @@ export const CreateFund = () => {
                     {
                         step === FundCreationStep.STAKEHOLDERS &&
                         <div>
-                            <Stakeholders/>
+                            <Stakeholders
+                                sponsorName={sponsorName} setSponsorName={setSponsorName}
+                                sponsorCompany={sponsorCompany} setSponsorCompany={setSponsorCompany}
+                                delegateAccount={delegateAccount} setDelegateAccount={setDelegateAccount}
+                                delegateName={delegateName} setDelegateName={setDelegateName}
+                                delegateCompany={delegateCompany} setDelegateCompany={setDelegateCompany}
+                            />
                         </div>
                     }
                     {

@@ -15,6 +15,9 @@ const Stakeholders = (props) => {
             </Grid.Container>
             <Grid.Container xs={6}>
                 <Grid xs={12} justify='center'>
+                    <Input labelPlaceholder="Delegate Account" value={props.delegateAccount} onChange={event => props.setDelegateAccount(event.target.value)}/>
+                </Grid>
+                <Grid xs={12} justify='center'>
                     <Input labelPlaceholder="Delegate Name" value={props.delegateName} onChange={event => props.setDelegateName(event.target.value)}/>
                 </Grid>
                 <Grid xs={12} justify='center'>
