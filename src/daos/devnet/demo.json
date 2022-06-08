@@ -1,0 +1,59 @@
+{
+  "name": "Gentle Quick Rainbow",
+  "description": "Miami Fund is a private real estate investment fund focused on producing market-beating returns through a disciplined, value-add investing approach in one of the fastest growing markets in the world, Miami, FL. We pride ourselves on sourcing proprietary deal-flow below-market, and generating opportunities in under-managed assets.",
+  "active": false,
+  "strategy": 0,
+  "token": {
+    "ticker": "GQR",
+    "image": "https://dummyimage.com/100x100/000/fff"
+  },
+  "stakeholders": {
+    "sponsor": {
+      "name": "John Smith",
+      "company": "Smith & Co. Investments",
+      "image": "https://dummyimage.com/400x400/000/fff"
+    },
+    "delegate": {
+      "name": "Tokr Labs",
+      "company": "Tokr Labs",
+      "image": "https://dummyimage.com/400x400/000/fff"
+    }
+  },
+  "details": {
+    "min_raise": 7500000,
+    "max_raise": 10000000,
+    "min_investment": 100000,
+    "raise_close": 1672531200,
+    "vintage_year": "2022",
+    "fund_term": 5,
+    "data_room": "",
+    "target_returns": {
+      "irr": 2400,
+      "coc": 1000,
+      "tvpi": 430,
+      "dpi": 210
+    },
+    "fees": {
+      "closing": 1000,
+      "annual": 1000
+    }
+  },
+  "addresses": {
+    "pubkey": "7s9jLM3sNVCZZadBZD7LHrnwF8zDcB39ajQ6frLb4d5g",
+    "governance": {
+      "lp_token_governance": "6McVeFoeqqsz6EL4a6rrQUmDLrMrGdJRB4iTNVuyqQKb",
+      "distribution_token_mint_governance": "dUE2b4RFfTAfUzHdFvpVKi6Lxbso2apxUi9wrmERkDU",
+      "delegate_token_mint_governance": "CtP56e5RojNVrTrJWcp5G3z6ujeXeeqqCQjVn9wCpjKG"
+    },
+    "mint": {
+      "lp_token_mint": "CjDq8MvCyXDWrPnDgC6YDgyPRT8jDW5a2dDs1i5dP6Dw",
+      "distribution_token_mint": "E86gycjjUyioxo5rDtZCe9pRHCjcgUYPxx4YmoeRPQWm",
+      "delegate_token_mint": "2FB2oJqEoNeREkPJEYEmRmhBbmaMDgGt7SQ8Vtw5WphR"
+    },
+    "treasury": {
+      "capital_supply": "J9Z1rnTzyFBnSmMCh7saufSonFtU6vE4GULBvA1ikzyB",
+      "distributions": "6m4MyYxPMFTmBLWaaoC2ZPcHew8XtQHpJNQt5duSob5N",
+      "stock_supply": "FZSPQgPKkzC6Zu9T3kmMQhs8ncYWj7pMASYncoqyR3p6"
+    }
+  }
+}
