@@ -21,7 +21,7 @@ export const EquityMarkets = () => {
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
     const [openFundProgress, setOpenFundProgress] = useState<{ amountRaised?: string, percentageComplete?: number }[]>([]);
-    const [collection, setCollection] = useState<DaoCollection>({open: [], active: []});
+    const [collection, setCollection] = useState<DaoCollection>({open: [], active: [], all: []});
 
     const daoService = useMemo<DaoService>(() => {
         return new DaoService()

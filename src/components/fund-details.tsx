@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from "react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FundOpen} from "./fund/fund-open";
@@ -7,6 +7,11 @@ import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
 import {NetworkContext} from "../App";
 import {DaoInfoContext} from "../models/contexts/dao-context";
+import {DaoInfo} from "../models/dao/dao-info";
+import {DaoCollection} from "../models/dao/dao-collection";
+import {DaoService} from "../services/dao-service";
+import {findWhere} from "underscore";
+import {DaoTokenInfo} from "../models/dao/dao-token-info";
 
 export const FundDetails = () => {
 
@@ -19,7 +24,7 @@ export const FundDetails = () => {
 
     const theme = useTheme();
     const navigate = useNavigate();
-    const {dao} = useContext(DaoInfoContext);
+    const {dao, setDao} = useContext(DaoInfoContext);
     const {network} = useContext(NetworkContext);
 
     const handleClick = (tab) => {
@@ -40,6 +45,29 @@ export const FundDetails = () => {
         setCurrentNetwork(network);
 
     }, [currentNetwork, navigate, network])
+
+    const daoService = useMemo<DaoService>(() => {
+        return new DaoService()
+    }, []);
+
+    useEffect(() => {
+        if (!dao.name) {
+            const ticker = pathname.split("/")[3];
+            daoService.getDaos(network)
+                .then(collection => collection.all)
+                .then(allDaos => {
+                    const matching = allDaos.filter(dao => {
+                        return dao.token.ticker === ticker
+                    })
+                    if (matching.length === 0) {
+                        navigate("/not-found")
+                    } else {
+                        setDao(matching[0])
+                    }
+                })
+                .catch(console.error)
+        }
+    }, [dao.name, daoService, navigate, network, pathname, setDao])
 
     return (
         <>

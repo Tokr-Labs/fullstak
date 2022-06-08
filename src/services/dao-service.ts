@@ -17,16 +17,13 @@ export class DaoService {
 
         return {
             open: [],
-            active: []
+            active: [],
+            all: [],
         }
 
     }
 
     private static get devnetDaos(): DaoCollection {
-
-        // const mf1 = fetch("../../public/daos/devnet/mf1.json");
-        // const enj = fetch("../../public/daos/devnet/enj.json");
-        // const ez = fetch("../../public/daos/devnet/ez.json");
 
         return {
             open: [
@@ -35,7 +32,12 @@ export class DaoService {
             active: [
                 DaoInfo.with(enj),
                 DaoInfo.with(ez)
-            ]
+            ],
+            all: [
+                DaoInfo.with(mf1),
+                DaoInfo.with(enj),
+                DaoInfo.with(ez),
+            ],
         }
 
     }
@@ -44,7 +46,8 @@ export class DaoService {
 
         return {
             open: [],
-            active: []
+            active: [],
+            all: [],
         }
 
     }
@@ -53,7 +56,8 @@ export class DaoService {
 
         return {
             open: [],
-            active: []
+            active: [],
+            all: [],
         }
 
     }
