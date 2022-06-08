@@ -6,6 +6,7 @@ import {GetIdentityRecordAction} from "../services/actions/get-identity-record-a
 import {CreateDaoAction} from "../services/actions/create-dao-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {NetworkContext} from "../App";
+import { CreateFund } from "./CreateFund";
 
 export const SubNavbar = () => {
 
@@ -33,7 +34,6 @@ export const SubNavbar = () => {
         createDaoAction.execute(info)
             .then(() => console.log("dao created"))
             .catch(err => alert(err.message));
-
     }
 
     if (location.pathname.split("/").length > 3) {
@@ -89,12 +89,7 @@ export const SubNavbar = () => {
 
 
                     })}
-
-                    <Button size={"sm"}
-                            color={"secondary"}
-                            onClick={() => createDao()}>
-                        Create DAO
-                    </Button>
+                    <CreateFund/>
                 </Grid.Container>
             </>
         )

@@ -5,6 +5,8 @@ import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
 import FundName from "./create-fund-views/FundName";
 import FundConfig from "./create-fund-views/FundConfig";
+import { useConnection, useWallet } from "@solana/wallet-adapter-react";
+import { CreateDaoAction } from "src/services/actions/create-dao-action";
 
 // enum for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
@@ -35,7 +37,7 @@ export const FundCreationOrder = [
 
 export const CreateFund = () => {
     // determines if the modal is open or not
-    const [visible, setVisible] = useState<boolean>(true);
+    const [visible, setVisible] = useState<boolean>(false);
 
     // determines which "page" of the modal should be conditionally rendered
     // i.e. depending on the step, different inputs are rendered for the user
@@ -125,6 +127,13 @@ export const CreateFund = () => {
         setVisible(false);
     }
 
+    // wallet & web3 vars
+    const connection = useConnection().connection;
+    const wallet = useWallet();
+    const createDaoAction = useMemo<CreateDaoAction>(() => {
+        return new CreateDaoAction(connection, wallet);
+    }, [connection, wallet]);
+
     // handle when the next button is clicked
     const handleNext = () => {
         const currentStepIndex = FundCreationOrder.indexOf(step);        
@@ -139,16 +148,18 @@ export const CreateFund = () => {
                 name: fundName,
                 details: {maxRaise},
                 governance: {
-                    voteThresholdPercentage: 1,
-                    minCommunityTokensToCreateProposal: 1,
+                    voteThresholdPercentage: 25,
+                    minCommunityTokensToCreateProposal: 10000000,
                     minCouncilTokensToCreateProposal: 1,
-                    minInstructionHoldUpTime: 1,
-                    maxVotingTime: 1,
-                    voteTipping: 1,
-                    proposalCoolOffTime: 1,
+                    minInstructionHoldUpTime: 0,
+                    maxVotingTime: 259250,
+                    voteTipping: 0,
+                    proposalCoolOffTime: 0,
                 }
             }
-            // createDaoAction.execute(params)
+            createDaoAction.execute(params)
+                .then(() => console.log("dao created"))
+                .catch(err => alert(err.message));
             setVisible(false);
             setStep(FundCreationStep.NAME);
         } else {
@@ -167,7 +178,13 @@ export const CreateFund = () => {
 
     return (
         <div>
-            <Button onClick={() => setVisible(true)}>Create Fund</Button>
+            <Button
+                size={"sm"}
+                color={'secondary'}
+                onClick={() => setVisible(true)}
+            >
+                Create Fund
+            </Button>
             <Modal
                 closeButton
                 aria-label="create fund"
