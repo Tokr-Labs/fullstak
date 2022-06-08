@@ -6,11 +6,12 @@ import Stakeholders from "./create-fund-views/Stakeholders";
 import FundName from "./create-fund-views/FundName";
 import FundConfig from "./create-fund-views/FundConfig";
 
-// enu for organizing the different "stages" of fund-creation
+// enum for organizing the different "stages" of fund-creation
 export const FundCreationStep = {
     // fund creator sets the high-level information about the fund
     NAME: "name",
 
+    // fund creator sets the various stakeholders for the fund
     STAKEHOLDERS: "stakeholders",
 
     // fund creator specifies property data (i.e. asset type / class)
@@ -33,10 +34,17 @@ export const FundCreationOrder = [
 ]
 
 export const CreateFund = () => {
+    // determines if the modal is open or not
     const [visible, setVisible] = useState<boolean>(true);
+
+    // determines which "page" of the modal should be conditionally rendered
+    // i.e. depending on the step, different inputs are rendered for the user
     const [step, setStep] = useState<string>(FundCreationStep.NAME);
 
-    // Form state -- Name Step
+    // User-input is captured in these state variables below
+    // each of the state variables are provided to child views as props
+
+    // Form state -- Name & Info
     const [fundName, setFundName] = useState<string>();
     const [fundDescription, setFundDescription] = useState<string>();
     const [tokenSymbol, setTokenSymbol] = useState<string>();
@@ -74,9 +82,8 @@ export const CreateFund = () => {
     const [tvpi, setTVPI] = useState<number>();
     const [dpi, setDPI] = useState<number>();
 
-
     // capture and structure all user input, which will be 
-    // presented as a final confirmation before
+    // presented as a final review before
     // solana transaction is broadcasted
     const infoData = [
         {name: 'Fund Name', value: fundName},
@@ -123,8 +130,11 @@ export const CreateFund = () => {
         const currentStepIndex = FundCreationOrder.indexOf(step);        
         // newStepIndex should not index outside of FundCreationOrder (array)
         const newStepIndex = currentStepIndex + 1;
-        if (newStepIndex === FundCreationOrder.length) {
+        
+        // if the current step is the very last, we're ready to submit the transaction
+        if (currentStepIndex === FundCreationOrder.length - 1) {
             // @TODO: Construct & broadcast solana transaction here
+            // consolidate all state vars into an object and provide to CreateDaoAction.execute()
             setVisible(false);
             setStep(FundCreationStep.NAME);
         } else {
@@ -156,6 +166,7 @@ export const CreateFund = () => {
                     <Text>Create Fund</Text>
                 </Modal.Header>
                 <Modal.Body>
+                    {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
                     <Spacer y={1}/>
                     {
                         step === FundCreationStep.NAME &&
@@ -219,6 +230,7 @@ export const CreateFund = () => {
                     }
                 </Modal.Body>
                 <Modal.Footer>
+                    {/* Back button should not be rendered on the first page */}
                     {
                         step !== FundCreationStep.NAME &&
                         <Button onClick={handleBack} style={navigationStyle}>Back</Button>
