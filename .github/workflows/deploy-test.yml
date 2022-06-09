@@ -30,7 +30,7 @@ jobs:
           registry-url: "https://npm.pkg.github.com"
 
       - name: NPM install
-        run: npm ci
+        run: npm ci --force
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_PACKAGES_PAT }}
 

@@ -10,11 +10,11 @@ import Landing from "./pages/Landing";
 import {Markets} from "./pages/Markets";
 import {EquityMarkets} from "./components/EquityMarkets";
 import {DebtMarkets} from "./components/DebtMarkets";
-import {PoolDetail} from "./components/PoolDetail";
+import {FundDetails} from "./components/fund-details";
 import {Portfolio} from "./pages/Portfolio";
-import {PoolAssets} from "./components/pools/PoolAssets";
-import {PoolMembers} from "./components/pools/PoolMembers";
-import {PoolConfiguration} from "./components/pools/PoolConfiguration";
+import {FundAssets} from "./components/fund/fund-assets";
+import {FundMembers} from "./components/fund/fund-members";
+import {FundConfiguration} from "./components/fund/fund-configuration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
 import Faucet from "./pages/Faucet";
@@ -36,6 +36,8 @@ export const NetworkContext = createContext<{ network: WalletAdapterNetwork; set
 export const App = () => {
 
     const [network, setNetwork] = useState(WalletAdapterNetwork.Devnet);
+
+    const [dao, setDao] = useState<DaoInfo>(DaoInfo.with({}));
 
     const tokenMap = useTokenRegistry();
 
@@ -122,12 +124,6 @@ export const App = () => {
     })
     globalStyles();
 
-    const dao = useMemo(() => {
-        // @TODO: need to update this when a dap is chosen from the markets landing page
-        const data = require("src/daos/devnet/mf1.json")
-        return DaoInfo.with(data);
-    }, []);
-
     // // Defaults to using system preference
     // const darkMode = useDarkMode();
 
@@ -138,6 +134,7 @@ export const App = () => {
                     <WalletProvider wallets={wallets} autoConnect>
                         <WalletModalProvider>
                             <TokenRegistryContext.Provider value={tokenMap}>
+                                <DaoInfoContext.Provider value={{dao, setDao}}>
 
                                 {/* Components must be contained within here to maintain context */}
                                 <BrowserRouter>
@@ -151,17 +148,13 @@ export const App = () => {
                                                 <Route index element={<EquityMarkets/>}/>
                                                 <Route path="equity" element={<EquityMarkets/>}/>
 
-                                                <Route path="equity/pool-details" element={
-                                                    <DaoInfoContext.Provider value={dao}>
-                                                        <PoolDetail/>
-                                                    </DaoInfoContext.Provider>
-                                                }>
-                                                    <Route index element={<PoolAssets/>}/>
-                                                    <Route path="assets" element={<PoolAssets/>}/>
-                                                    <Route path="members" element={<PoolMembers/>}/>
-                                                    <Route path="configuration" element={<PoolConfiguration/>}/>
-                                                    {/*<Route path="proposals" element={<PoolProposals/>}/>*/}
-                                                    {/*<Route path="transactions" element={<PoolTransactions/>}/>*/}
+                                                <Route path="equity/:ticker/fund-details" element={<FundDetails/>}>
+                                                    <Route index element={<FundAssets/>}/>
+                                                    <Route path="assets" element={<FundAssets/>}/>
+                                                    <Route path="members" element={<FundMembers/>}/>
+                                                    <Route path="configuration" element={<FundConfiguration/>}/>
+                                                    {/*<Route path="proposals" element={<FundProposals/>}/>*/}
+                                                    {/*<Route path="transactions" element={<FundTransactions/>}/>*/}
                                                 </Route>
 
                                                 <Route path="debt" element={<DebtMarkets/>}/>
@@ -179,6 +172,7 @@ export const App = () => {
                                     </Routes>
                                 </BrowserRouter>
 
+                                </DaoInfoContext.Provider>
                             </TokenRegistryContext.Provider>
                         </WalletModalProvider>
                     </WalletProvider>
