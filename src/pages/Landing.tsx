@@ -8,7 +8,7 @@ import {AttributeGridItem} from "../components/AttributeGridItem";
 const Landing = () => {
 
     return (
-        <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
+        <div style={{color: "white"}}>
 
             <section style={{
                 padding: "40px 0 30px 0",
