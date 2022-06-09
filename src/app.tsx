@@ -1,4 +1,4 @@
-import React, {createContext, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
@@ -6,31 +6,25 @@ import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
 import {WalletModalProvider} from '@solana/wallet-adapter-react-ui';
 import {clusterApiUrl} from '@solana/web3.js';
 import {BrowserRouter, Route, Routes} from "react-router-dom";
-import Landing from "./pages/Landing";
-import {Markets} from "./pages/Markets";
-import {EquityMarkets} from "./components/EquityMarkets";
-import {DebtMarkets} from "./components/DebtMarkets";
+import Landing from "./pages/landing";
+import {Markets} from "./pages/markets";
+import {EquityMarkets} from "./components/equity-markets";
+import {DebtMarkets} from "./components/debt-markets";
 import {FundDetails} from "./components/fund-details";
-import {Portfolio} from "./pages/Portfolio";
+import {Portfolio} from "./pages/portfolio";
 import {FundAssets} from "./components/fund/fund-assets";
 import {FundMembers} from "./components/fund/fund-members";
 import {FundConfiguration} from "./components/fund/fund-configuration";
 import {DaoInfoContext} from "./models/contexts/dao-context";
 import {DaoInfo} from "./models/dao/dao-info";
-import Faucet from "./pages/Faucet";
+import Faucet from "./pages/faucet";
 import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
+import {NetworkContext} from "./models/contexts/network-context";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
-
-// TODO - separate into contexts directory
-// TODO - add ability to pass in configs as well
-export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
-    network: WalletAdapterNetwork.Devnet,
-    setNetwork: () => null
-});
 
 export const App = () => {
 
@@ -106,12 +100,12 @@ export const App = () => {
         ".nextui-table-column-header": {
             fontSize: 12,
             fontWeight: "normal",
-            letterSpacing: 1.6
+            letterSpacing: 0.8
         },
         ".nextui-table-cell": {
             fontSize: 14,
             fontWeight: "$semibold",
-            letterSpacing: 1.87
+            letterSpacing: .9
         },
         ".skinny-rows .nextui-table-cell": {
             paddingTop: theme.space["2"].computedValue,
@@ -128,54 +122,71 @@ export const App = () => {
 
     return (
         <NextUIProvider theme={lightTheme}>
+
             <NetworkContext.Provider value={{network, setNetwork}}>
+
                 <ConnectionProvider endpoint={clusterApiUrl(network)}>
+
                     <WalletProvider wallets={wallets} autoConnect>
+
                         <WalletModalProvider>
+
                             <TokenRegistryContext.Provider value={tokenMap}>
+
                                 <DaoInfoContext.Provider value={{dao, setDao}}>
 
-                                {/* Components must be contained within here to maintain context */}
-                                <BrowserRouter>
-                                    <Routes>
-                                        <Route path="/">
+                                    {/* Components must be contained within here to maintain context */}
+                                    <BrowserRouter>
 
-                                            <Route index element={<Landing/>}/>
+                                        <Routes>
 
-                                            <Route path="markets" element={<Markets/>}>
+                                            <Route path="/">
 
-                                                <Route index element={<EquityMarkets/>}/>
-                                                <Route path="equity" element={<EquityMarkets/>}/>
+                                                <Route index element={<Landing/>}/>
 
-                                                <Route path="equity/:ticker/fund-details" element={<FundDetails/>}>
-                                                    <Route index element={<FundAssets/>}/>
-                                                    <Route path="assets" element={<FundAssets/>}/>
-                                                    <Route path="members" element={<FundMembers/>}/>
-                                                    <Route path="configuration" element={<FundConfiguration/>}/>
-                                                    {/*<Route path="proposals" element={<FundProposals/>}/>*/}
-                                                    {/*<Route path="transactions" element={<FundTransactions/>}/>*/}
+                                                <Route path="markets" element={<Markets/>}>
+
+                                                    <Route index element={<EquityMarkets/>}/>
+                                                    <Route path="equity" element={<EquityMarkets/>}/>
+
+                                                    <Route path="equity/:ticker/fund-details" element={<FundDetails/>}>
+                                                        <Route index element={<FundAssets/>}/>
+                                                        <Route path="assets" element={<FundAssets/>}/>
+                                                        <Route path="members" element={<FundMembers/>}/>
+                                                        <Route path="configuration" element={<FundConfiguration/>}/>
+                                                        {/*<Route path="proposals" element={<FundProposals/>}/>*/}
+                                                        {/*<Route path="transactions" element={<FundTransactions/>}/>*/}
+                                                    </Route>
+
+                                                    <Route path="debt" element={<DebtMarkets/>}/>
+
                                                 </Route>
 
-                                                <Route path="debt" element={<DebtMarkets/>}/>
+                                                <Route path="portfolio" element={<Portfolio/>}/>
+
+                                                <Route path="faucet" element={<Faucet/>}/>
+
+                                                <Route path="*" element={<NotFound/>}/>
 
                                             </Route>
 
-                                            <Route path="portfolio" element={<Portfolio/>}/>
+                                        </Routes>
 
-                                            <Route path="faucet" element={<Faucet/>}/>
-
-                                            <Route path="*" element={<NotFound/>}/>
-
-                                        </Route>
-                                    </Routes>
-                                </BrowserRouter>
+                                    </BrowserRouter>
 
                                 </DaoInfoContext.Provider>
+
                             </TokenRegistryContext.Provider>
+
                         </WalletModalProvider>
+
                     </WalletProvider>
+
                 </ConnectionProvider>
+
             </NetworkContext.Provider>
+
         </NextUIProvider>
+
     );
 };

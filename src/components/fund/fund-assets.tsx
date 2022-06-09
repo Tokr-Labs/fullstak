@@ -51,7 +51,7 @@ export const FundAssets = () => {
                     <Table.Row>
                         <Table.Cell>Treasury Stock</Table.Cell>
                         <Table.Cell>{dao.token.ticker}</Table.Cell>
-                        <Table.Cell>{CurrencyFormatter.formatToken(treasuryStockBalance, "MF1")}</Table.Cell>
+                        <Table.Cell>{CurrencyFormatter.formatToken(treasuryStockBalance, dao.token.ticker)}</Table.Cell>
                         <Table.Cell>{CurrencyFormatter.formatUsd(treasuryStockBalance, true)}</Table.Cell>
                     </Table.Row>
                     <Table.Row>
