@@ -3,7 +3,7 @@ import discordIcon from "src/assets/icons/discord_icon.svg"
 import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
-import {AttributeGridItem} from "../components/AttributeGridItem";
+import {AttributeGridItem} from "../components/attribute-grid-item";
 
 const Landing = () => {
 

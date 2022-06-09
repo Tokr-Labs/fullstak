@@ -1,16 +1,16 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Progress, Table, Text, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
-import {TooltipWithIcon} from "./TooltipWithIcon";
+import {TooltipWithIcon} from "./tooltip-with-icon";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
-import {NetworkContext} from "../App";
 import {DaoService} from "../services/dao-service";
 import {DaoInfoContext} from "../models/contexts/dao-context";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const EquityMarkets = () => {
 

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
-import {TooltipWithIcon} from "../TooltipWithIcon";
+import {TooltipWithIcon} from "../tooltip-with-icon";
 import {Area, AreaChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 
 export const FundActive = () => {

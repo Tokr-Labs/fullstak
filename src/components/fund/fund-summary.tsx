@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {Button, Card, Grid, Spacer, Text, theme} from "@nextui-org/react";
-import {TooltipWithIcon} from "../TooltipWithIcon";
+import {TooltipWithIcon} from "../tooltip-with-icon";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 
 export const FundSummary = () => {

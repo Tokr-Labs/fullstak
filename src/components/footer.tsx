@@ -1,5 +1,5 @@
 import React from "react";
-import {Grid, Link, Text, theme} from "@nextui-org/react";
+import {Grid, Link, theme} from "@nextui-org/react";
 import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
 

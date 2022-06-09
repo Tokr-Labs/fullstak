@@ -1,5 +1,5 @@
 import {Button, Modal, Spacer, Text} from "@nextui-org/react";
-import React, {useCallback, useContext, useEffect, useMemo} from "react";
+import React, {useCallback, useContext, useMemo} from "react";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identity-record";

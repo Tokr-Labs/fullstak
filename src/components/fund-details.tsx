@@ -1,13 +1,13 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Spacer, Text, theme, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Spacer, Text, theme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FundOpen} from "./fund/fund-open";
 import {FundSummary} from "./fund/fund-summary";
 import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
-import {NetworkContext} from "../App";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {DaoService} from "../services/dao-service";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const FundDetails = () => {
 

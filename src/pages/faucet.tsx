@@ -3,8 +3,6 @@ import {Button, Card, Container, Input, Link, Loading, Row, Spacer, Text, theme}
 import React, {useMemo, useState} from "react";
 import {FaucetService} from "../services/faucet-service";
 import {TOKR_SERVICE_ENDPOINT_DEVNET} from "../models/constants";
-import {useWallet} from "@solana/wallet-adapter-react";
-import {Navbar} from "../components/Navbar";
 import {PublicKey} from "@solana/web3.js";
 
 const Faucet = () => {

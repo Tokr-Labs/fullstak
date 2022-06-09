@@ -2,10 +2,10 @@ import {Button, Input, Modal, Spacer, Text} from "@nextui-org/react";
 import React, {useCallback, useContext, useMemo, useState} from "react";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {NetworkContext} from "../App";
 import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
 import {Link} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export interface InvestModalProps {
     isOpen: boolean,
