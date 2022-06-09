@@ -6,6 +6,7 @@ import {DepositCapitalAction} from "../services/actions/deposit-capital-action";
 import {Link} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {NetworkContext} from "../models/contexts/network-context";
+import {CurrencyFormatter} from "../utils/currency-formatter";
 
 export interface InvestModalProps {
     isOpen: boolean,
@@ -62,7 +63,7 @@ export const InvestModal = (props: InvestModalProps) => {
                        onChange={(e) => setTokensToReceive(Number(e.target.value))}/>
 
                 <Text size={12} css={{marginTop: -10}}>
-                    You have {props.usdcHoldings} USDC available in your wallet.
+                    You have {CurrencyFormatter.formatToken(props.usdcHoldings ?? 0,"USDC")} available in your wallet.
                     {
                         (props.usdcHoldings === 0 && network === WalletAdapterNetwork.Devnet) &&
                         <Link to={"/faucet"}> Visit the faucet.</Link>

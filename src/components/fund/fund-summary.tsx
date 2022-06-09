@@ -1,11 +1,15 @@
-import React, {useContext} from "react";
+import React from "react";
 import {Button, Card, Grid, Spacer, Text, theme} from "@nextui-org/react";
 import {TooltipWithIcon} from "../tooltip-with-icon";
-import {DaoInfoContext} from "../../models/contexts/dao-context";
+import {DaoInfo} from "../../models/dao/dao-info";
 
-export const FundSummary = () => {
+export interface FundSummaryProps {
+    dao?: DaoInfo
+}
 
-    const {dao} = useContext(DaoInfoContext)
+export const FundSummary = (props: FundSummaryProps) => {
+
+    const {dao} = props
 
     return (
         <Grid xs={12} md={8}>
@@ -36,7 +40,7 @@ export const FundSummary = () => {
                             <Spacer y={0.5}/>
                             <div style={{marginBottom: "20px"}}>
                                 <img
-                                    src={require("src/assets/issuers/miami_fund_1.png")}
+                                    src={dao?.token.image}
                                     alt={"Token"}
                                     height={40}
                                     width={40}
@@ -57,7 +61,7 @@ export const FundSummary = () => {
                                         letterSpacing: theme.letterSpacings.normal.value,
                                     }}
                                 >
-                                    {dao.token.ticker}
+                                    {dao?.token.ticker}
                                 </Text>
                             </div>
                         </Grid>
@@ -83,7 +87,7 @@ export const FundSummary = () => {
                             <Spacer y={0.5}/>
                             <div style={{marginBottom: "20px"}}>
                                 <img
-                                    src={require("src/assets/issuers/miami_capital.png")}
+                                    src={dao?.stakeholders.sponsor.image}
                                     alt={"General Partner"}
                                     height={40}
                                     width={40}
@@ -104,7 +108,7 @@ export const FundSummary = () => {
                                         letterSpacing: theme.letterSpacings.normal.value,
                                     }}
                                 >
-                                    {dao.stakeholders.sponsor.name}
+                                    {dao?.stakeholders.sponsor.name}
                                 </Text>
                             </div>
                         </Grid>
@@ -129,7 +133,7 @@ export const FundSummary = () => {
                             <Spacer y={0.5}/>
                             <div style={{marginBottom: "20px"}}>
                                 <img
-                                    src={require("src/assets/issuers/tokr_labs.png")}
+                                    src={dao?.stakeholders.delegate.image}
                                     alt={"Fund Administrator"}
                                     height={40}
                                     width={40}
@@ -150,7 +154,7 @@ export const FundSummary = () => {
                                         letterSpacing: theme.letterSpacings.normal.value,
                                     }}
                                 >
-                                    {dao.stakeholders.delegate.name}
+                                    {dao?.stakeholders.delegate.name}
                                 </Text>
                             </div>
                         </Grid>
@@ -165,7 +169,7 @@ export const FundSummary = () => {
                                 weight={"bold"}
                                 style={{
                                     letterSpacing: theme.letterSpacings.wider.value,
-                            }}
+                                }}
                             >
                                 Fund Overview
                             </Text>
@@ -174,9 +178,9 @@ export const FundSummary = () => {
                                 size={18}
                                 style={{
                                     letterSpacing: theme.letterSpacings.normal.value,
-                            }}
+                                }}
                             >
-                                {dao.description}
+                                {dao?.description}
                             </Text>
                         </Grid>
                     </Grid.Container>
@@ -190,14 +194,14 @@ export const FundSummary = () => {
                                 weight={"bold"}
                                 style={{
                                     letterSpacing: theme.letterSpacings.wider.value,
-                            }}
+                                }}
                             >
                                 Data Room
                             </Text>
                             <Spacer y={0.5}/>
                             <Button
                                 ghost
-                                disabled={!dao.details.dataRoom}
+                                disabled={!dao?.details.dataRoom}
                                 color={"primary"}
                                 style={{
                                     fontWeight: "bold",

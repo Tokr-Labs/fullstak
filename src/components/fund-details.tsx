@@ -70,7 +70,7 @@ export const FundDetails = () => {
                     {dao.active ? <FundActive/> : <FundOpen/>}
                 </>
 
-                <FundSummary/>
+                <FundSummary dao={dao}/>
 
                 <Grid.Container style={{marginTop: "10px"}}>
 

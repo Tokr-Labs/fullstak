@@ -2,7 +2,7 @@ import {DaoInfo} from "../models/dao/dao-info";
 import {DaoCollection} from "../models/dao/dao-collection";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import mf1 from "../daos/devnet/mf1.json";
-import demo from "../daos/devnet/gqr.json";
+import gqr from "../daos/devnet/gqr.json";
 import enj from "../daos/devnet/enj.json";
 import ez from "../daos/devnet/ez.json";
 
@@ -29,7 +29,7 @@ export class DaoService {
         return {
             open: [
                 DaoInfo.with(mf1),
-                DaoInfo.with(demo)
+                DaoInfo.with(gqr)
             ],
             active: [
                 DaoInfo.with(enj),
@@ -37,7 +37,7 @@ export class DaoService {
             ],
             all: [
                 DaoInfo.with(mf1),
-                DaoInfo.with(demo),
+                DaoInfo.with(gqr),
                 DaoInfo.with(enj),
                 DaoInfo.with(ez),
             ],

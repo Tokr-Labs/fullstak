@@ -243,7 +243,7 @@ export const EquityMarkets = () => {
                             weight={"bold"}
                             css={{letterSpacing: 1.5}}
                         >
-                            ACTIVE FUNDS
+                            CLOSED FUNDS
                         </Text>
                     </Card.Header>
 

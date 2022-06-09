@@ -117,7 +117,7 @@ export const FundOpen = () => {
                         <Grid.Container gap={1} alignItems={"center"}>
                             <Grid style={{paddingLeft: 0}}>
                                 <img
-                                    src={require("src/assets/issuers/miami_fund_1.png")}
+                                    src={dao.token.image}
                                     height={"100px"}
                                     width={"100px"}
                                     alt={"Miami Fund 1 logo"}
