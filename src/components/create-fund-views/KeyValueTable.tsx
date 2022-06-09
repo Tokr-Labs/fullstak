@@ -3,7 +3,7 @@ import React from "react";
 
 const KeyValueTable = (props) => {
     return (
-        <div>
+        <>
         <Table
             aria-label={props.arialabel}
         >
@@ -24,7 +24,7 @@ const KeyValueTable = (props) => {
                 }
             </Table.Body>
         </Table>
-        </div>
+        </>
     )
 };
 

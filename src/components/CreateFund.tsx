@@ -8,22 +8,22 @@ import FundConfig from "./create-fund-views/FundConfig";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CreateDaoAction } from "src/services/actions/create-dao-action";
 
-// enum for organizing the different "stages" of fund-creation
-export const FundCreationStep = {
+
+enum FundCreationStep {
     // fund creator sets the high-level information about the fund
-    NAME: "name",
+    NAME,
 
     // fund creator sets the various stakeholders for the fund
-    STAKEHOLDERS: "stakeholders",
+    STAKEHOLDERS,
 
-    // fund creator specifies property data (i.e. asset type / class)
-    FUND_CONFIG: "fund-configuration",
+    // fund creator sets property data (i.e. asset type / class)
+    FUND_CONFIG,
 
     // fund creator sets the expected/target capital returns of the fund
-    TARGET_RETURNS: "target-returns",
+    TARGET_RETURNS,
 
     // final review before solana transaction submission
-    SUBMIT: "submit"
+    SUBMIT
 }
 
 // Determines the ordering of fund creation stages
@@ -35,13 +35,13 @@ export const FundCreationOrder = [
     FundCreationStep.SUBMIT
 ]
 
-export const CreateFund = () => {
+export const CreateFund = (props) => {
     // determines if the modal is open or not
-    const [visible, setVisible] = useState<boolean>(true);
+    const [visible, setVisible] = useState<boolean>(false);
 
     // determines which "page" of the modal should be conditionally rendered
     // i.e. depending on the step, different inputs are rendered for the user
-    const [step, setStep] = useState<string>(FundCreationStep.NAME);
+    const [step, setStep] = useState<FundCreationStep>(FundCreationStep.NAME);
 
     // User-input is captured in these state variables below
     // each of the state variables are provided to child views as props
@@ -128,7 +128,7 @@ export const CreateFund = () => {
     }
 
     // wallet & web3 vars
-    const connection = useConnection().connection;
+    const {connection} = useConnection();
     const wallet = useWallet();
     const createDaoAction = useMemo<CreateDaoAction>(() => {
         return new CreateDaoAction(connection, wallet);
@@ -183,11 +183,12 @@ export const CreateFund = () => {
     }
 
     return (
-        <div>
+        <>
             <Button
                 size={"sm"}
                 color={'secondary'}
                 onClick={() => setVisible(true)}
+                style={props.buttonStyle}
             >
                 Create Fund
             </Button>
@@ -227,7 +228,7 @@ export const CreateFund = () => {
                     {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
                     {
                         step === FundCreationStep.NAME &&
-                        <div>
+                        <>
                             <FundName
                               fundName={fundName} setFundName={setFundName}
                               tokenSymbol={tokenSymbol} setTokenSymbol={setTokenSymbol}
@@ -238,11 +239,11 @@ export const CreateFund = () => {
                               closingFee={closingFee} setClosingFee={setClosingFee}
                               annualFee={annualFee} setAnnualFee={setAnnualFee}
                             />
-                        </div>
+                        </>
                     }
                     {
                         step === FundCreationStep.STAKEHOLDERS &&
-                        <div>
+                        <>
                             <Stakeholders
                                 sponsorName={sponsorName} setSponsorName={setSponsorName}
                                 sponsorCompany={sponsorCompany} setSponsorCompany={setSponsorCompany}
@@ -250,11 +251,11 @@ export const CreateFund = () => {
                                 delegateName={delegateName} setDelegateName={setDelegateName}
                                 delegateCompany={delegateCompany} setDelegateCompany={setDelegateCompany}
                             />
-                        </div>
+                        </>
                     }
                     {
                         step === FundCreationStep.FUND_CONFIG &&
-                        <div>
+                        <>
                             <FundConfig
                                 assetType={assetType} setAssetType={setAssetType}
                                 formattedAssetClass={formattedAssetClass}
@@ -265,7 +266,7 @@ export const CreateFund = () => {
                                 strategy={strategy} setStrategy={setStrategy}
                                 fundTerm={fundTerm} setFundTerm={setFundTerm}
                             />
-                        </div>
+                        </>
                     }
                     {
                         step === FundCreationStep.TARGET_RETURNS &&
@@ -278,12 +279,12 @@ export const CreateFund = () => {
                     }
                     {
                         step === FundCreationStep.SUBMIT &&
-                        <div>
+                        <>
                             <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
                             <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
                             <KeyValueTable arialabel="stakeholders" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
                             <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
-                        </div>
+                        </>
                     }
                 </Modal.Body>
                 <Modal.Footer>
@@ -293,13 +294,13 @@ export const CreateFund = () => {
                         <Button onClick={handleBack} style={navigationStyle}>Back</Button>
                     }
                     <Button onClick={handleNext}
-                        style={{...navigationStyle, color: step === FundCreationStep.SUBMIT ? '#4ad47b' : 'primary'}}
+                        style={{...navigationStyle, backgroundColor: step === FundCreationStep.SUBMIT ? '#4ad47b' : '#be00ff'}}
                     >
                         {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
                     </Button>
                 </Modal.Footer>
             </Modal>
-        </div>
+        </>
     )
 
 }

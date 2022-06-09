@@ -7,7 +7,7 @@ const FundConfig = (props) => {
     // styling for dropdown buttons
     const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
     return (
-        <div>
+        <>
         <Grid.Container gap={2}>                        
             <Grid xs={3} justify='center'>
                 <Dropdown>
@@ -67,7 +67,7 @@ const FundConfig = (props) => {
                 <Input label="Fund Term" type="number" value={props.fundTerm} onChange={event => props.setFundTerm(event.target.value)}/>
             </Grid>
         </Grid.Container>
-        </div>
+        </>
     )
 };
 

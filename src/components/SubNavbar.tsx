@@ -24,6 +24,15 @@ export const SubNavbar = () => {
         navigate(market.split(" ")[0].toLowerCase())
     }
 
+    // styling object for the buttons
+    const buttonStyle = {
+        fontWeight: "bold",
+        letterSpacing: "2px",
+        padding: "0 30px",
+        borderRadius: theme.radii.pill.computedValue
+    }
+    
+
     const createDaoAction = useMemo<CreateDaoAction>(() => {
         return new CreateDaoAction(connection, wallet);
     }, [connection, wallet])
@@ -70,12 +79,7 @@ export const SubNavbar = () => {
                                 <Tooltip content={market === "DEBT MARKET" ? "Coming soon!" : ""}>
                                     <Button size={"sm"}
                                             color={"secondary"}
-                                            style={{
-                                                fontWeight: "bold",
-                                                letterSpacing: "2px",
-                                                padding: "0 30px",
-                                                borderRadius: theme.radii.pill.computedValue
-                                            }}
+                                            style={buttonStyle}
                                             ghost={market !== selected}
                                             disabled={market === "DEBT MARKET"}
                                             borderWeight={"light"}
@@ -89,7 +93,9 @@ export const SubNavbar = () => {
 
 
                     })}
-                    <CreateFund/>
+                    <Grid>
+                        <CreateFund buttonStyle={buttonStyle}/>
+                    </Grid>
                 </Grid.Container>
             </>
         )

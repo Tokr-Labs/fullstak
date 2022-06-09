@@ -3,7 +3,7 @@ import React from 'react'
 
 const FundName = (props) => {
     return (
-        <div>
+        <>
         <Grid.Container gap={2}>
             <Grid.Container xs={6}>
             <Grid xs={12} justify='center'>
@@ -34,7 +34,7 @@ const FundName = (props) => {
                 <Input label="Annual Fee" type="number" value={props.annualFee} onChange={event => props.setAnnualFee(event.target.value)}/>
             </Grid>
         </Grid.Container>
-        </div>
+        </>
     )
 };
 

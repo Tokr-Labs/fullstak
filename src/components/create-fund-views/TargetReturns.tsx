@@ -3,7 +3,7 @@ import React, {useMemo, useState} from "react";
 
 const TargetReturns = (props) => {
     return (
-        <div>
+        <>
         {/* @TODO: input validation -- limit to 2 decimals and must be in the range of [0, 100] */}
         <Grid.Container gap={2}>
             <Grid xs={6} justify='center'>
@@ -32,7 +32,7 @@ const TargetReturns = (props) => {
                 />
             </Grid>
         </Grid.Container>
-        </div>
+        </>
     )
 };
 
