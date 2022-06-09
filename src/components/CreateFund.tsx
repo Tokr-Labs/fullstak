@@ -293,8 +293,7 @@ export const CreateFund = () => {
                         <Button onClick={handleBack} style={navigationStyle}>Back</Button>
                     }
                     <Button onClick={handleNext}
-                        color={step === FundCreationStep.SUBMIT ? 'success' : 'primary'}
-                        style={navigationStyle}
+                        style={{...navigationStyle, color: step === FundCreationStep.SUBMIT ? '#4ad47b' : 'primary'}}
                     >
                         {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
                     </Button>
