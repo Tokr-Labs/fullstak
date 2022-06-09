@@ -1,17 +1,17 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
-import {Navbar} from "../components/Navbar";
+import {Navbar} from "../components/navbar";
 import {Button, Card, Container, Grid, Spacer, Table, theme} from "@nextui-org/react";
-import {Footer} from "../components/Footer";
+import {Footer} from "../components/footer";
 import {Link} from "react-router-dom";
 import {Link as NextUiLink} from "@nextui-org/react"
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
-import {NetworkContext} from "../App";
 import {TokenServices} from "../services/token-services";
-import {TranslatedToken} from "../components/TranslatedToken";
+import {TranslatedToken} from "../components/translated-token";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import { ROUTE_MARKETS_EQUITY } from "../models/constants";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const Portfolio = () => {
 

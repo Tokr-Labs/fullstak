@@ -1,8 +1,8 @@
 import React from "react";
 import {Container, theme} from "@nextui-org/react";
-import {Navbar} from "../components/Navbar";
-import {SubNavbar} from "../components/SubNavbar";
-import {Footer} from "../components/Footer";
+import {Navbar} from "../components/navbar";
+import {SubNavbar} from "../components/sub-navbar";
+import {Footer} from "../components/footer";
 import {Outlet} from "react-router-dom";
 
 export const Markets = () => {

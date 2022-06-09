@@ -2,14 +2,13 @@ import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Progress, Spacer, Text, theme, Tooltip} from "@nextui-org/react";
 import {CurrencyFormatter} from "../../utils/currency-formatter";
 import {RaiseDetails} from "./raise-details";
-import {InvestModal} from "../InvestModal";
-import {IdentityVerificationModal} from "../IdentityVerificationModal";
-import {TooltipWithIcon} from "../TooltipWithIcon";
+import {InvestModal} from "../invest-modal";
+import {IdentityVerificationModal} from "../identity-verification-modal";
+import {TooltipWithIcon} from "../tooltip-with-icon";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {USDC_DEVNET, USDC_MAINNET} from "../../models/constants";
 import {PublicKey} from "@solana/web3.js";
 import {TokenServices} from "../../services/token-services";
-import {NetworkContext} from "../../App";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {useNavigate} from "react-router-dom";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
@@ -17,6 +16,9 @@ import {IdentityRecord} from "@tokr-labs/identity-verification/lib/models/identi
 import {GetIdentityRecordAction} from "../../services/actions/get-identity-record-action";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
+import {ApproveIdentityRecordAction} from "../../services/actions/approve-identity-record-action";
+import {IdentityStatus} from "@tokr-labs/identity-verification/lib/models/identity-status";
+import {NetworkContext} from "../../models/contexts/network-context";
 
 export const FundOpen = () => {
 
@@ -35,7 +37,15 @@ export const FundOpen = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     const toggleModal = () => {
+
+        if (idvRecord && (idvRecord.status === IdentityStatus.initial || idvRecord.status === IdentityStatus.started)) {
+            console.log("auto approving idvRecord")
+            approveIdentityRecordAction.execute(dao)
+                .catch(error => console.error(error))
+        }
+
         setIsModalOpen(!isModalOpen)
+
     }
 
     const [entries, setEntries] = useState<CapTableEntry[]>();
@@ -43,6 +53,10 @@ export const FundOpen = () => {
 
     const getIdentityRecordAction = useMemo<GetIdentityRecordAction>(() => {
         return new GetIdentityRecordAction(connection, wallet);
+    }, [connection, wallet])
+
+    const approveIdentityRecordAction = useMemo<ApproveIdentityRecordAction>(() => {
+        return new ApproveIdentityRecordAction(wallet);
     }, [connection, wallet])
 
     useEffect(() => {
@@ -103,7 +117,7 @@ export const FundOpen = () => {
                         <Grid.Container gap={1} alignItems={"center"}>
                             <Grid style={{paddingLeft: 0}}>
                                 <img
-                                    src={require("src/assets/issuers/miami_fund_1.png")}
+                                    src={dao.token.image}
                                     height={"100px"}
                                     width={"100px"}
                                     alt={"Miami Fund 1 logo"}

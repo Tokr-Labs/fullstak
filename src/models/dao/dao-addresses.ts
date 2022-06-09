@@ -1,5 +1,114 @@
 import {PublicKey} from "@solana/web3.js";
 
+export class DaoGovernanceAddresses {
+
+    // ============================================================
+    // === Public Static API ======================================
+    // ============================================================
+
+    // Public Static Methods
+
+    /**
+     *
+     * @param info Unstructured data, assumed to be json format
+     */
+    static with(info): DaoGovernanceAddresses {
+
+        const addresses = new DaoGovernanceAddresses()
+
+
+        addresses.lpGovernance = info?.lp_governance ? new PublicKey(info.lp_governance) : undefined
+        addresses.distributionMintGovernance = info?.distribution_mint_governance ? new PublicKey(info.distribution_mint_governance) : undefined
+        addresses.delegateMintGovernance = info?.delegate_mint_governance ? new PublicKey(info.delegate_mint_governance) : undefined
+
+        return addresses
+
+    }
+
+    // ============================================================
+    // === Public API =============================================
+    // ============================================================
+
+    // Public Properties
+
+    delegateMintGovernance?: PublicKey
+    distributionMintGovernance?: PublicKey
+    lpGovernance?: PublicKey
+
+}
+
+export class DaoMintAddresses {
+
+    // ============================================================
+    // === Public Static API ======================================
+    // ============================================================
+
+    // Public Static Methods
+
+    /**
+     *
+     * @param info Unstructured data, assumed to be json format
+     */
+    static with(info): DaoMintAddresses {
+
+        const addresses = new DaoMintAddresses()
+
+        addresses.lpTokenMint = info?.lp_token_mint ? new PublicKey(info.lp_token_mint) : undefined
+        addresses.distributionTokenMint = info?.distribution_token_mint ? new PublicKey(info.distribution_token_mint) : undefined
+        addresses.delegateTokenMint = info?.delegate_token_mint ? new PublicKey(info.delegate_token_mint) : undefined
+
+        return addresses
+
+    }
+
+    // ============================================================
+    // === Public API =============================================
+    // ============================================================
+
+    // Public Properties
+
+    lpTokenMint?: PublicKey
+    distributionTokenMint?: PublicKey
+    delegateTokenMint?: PublicKey
+
+}
+
+export class DaoTreasuryAddresses {
+
+    // ============================================================
+    // === Public Static API ======================================
+    // ============================================================
+
+    // Public Static Methods
+
+    /**
+     *
+     * @param info Unstructured data, assumed to be json format
+     */
+    static with(info): DaoTreasuryAddresses {
+
+        const addresses = new DaoTreasuryAddresses()
+
+        addresses.capitalSupply = info?.capital_supply ? new PublicKey(info.capital_supply) : undefined
+        addresses.distributions = info?.distributions ? new PublicKey(info.distributions) : undefined
+        addresses.stockSupply = info?.stock_supply ? new PublicKey(info.stock_supply) : undefined
+
+        return addresses
+
+    }
+
+    // ============================================================
+    // === Public API =============================================
+    // ============================================================
+
+    // Public Properties
+
+    capitalSupply?: PublicKey
+    distributions?: PublicKey
+    stockSupply?: PublicKey
+
+}
+
 export class DaoAddresses {
 
     // ============================================================
@@ -16,27 +125,10 @@ export class DaoAddresses {
 
         const addresses = new DaoAddresses();
 
-        addresses.pubkey = info?.pubkey ? new PublicKey(info.pubkey) : undefined;
-        addresses.authority = info?.authority ? new PublicKey(info.authority) : undefined;
-        addresses.owner = info?.owner ? new PublicKey(info.owner) : undefined;
-
-        addresses.governance = {
-            delegateTokenMintGovernance: info?.governance?.delegate_token_mint_governance ? new PublicKey(info.governance.delegate_token_mint_governance) : undefined,
-            distributionTokenMintGovernance: info?.governance?.distribution_token_mint_governance ? new PublicKey(info.governance.distribution_token_mint_governance) : undefined,
-            lpTokenMintGovernance: info?.governance?.lp_token_mint_governance ? new PublicKey(info.governance.lp_token_mint_governance) : undefined
-        };
-
-        addresses.mint = {
-            lpTokenMint: info?.mint?.lp_token_mint ? new PublicKey(info.mint.lp_token_mint) : undefined,
-            distributionTokenMint: info?.mint?.distribution_token_mint ? new PublicKey(info.mint.distribution_token_mint) : undefined,
-            delegateTokenMint: info?.mint?.delegate_token_mint ? new PublicKey(info.mint.delegate_token_mint) : undefined
-        };
-
-        addresses.treasury = {
-            capitalSupply: info?.treasury?.capital_supply ? new PublicKey(info.treasury.capital_supply) : undefined,
-            distributions: info?.treasury?.distributions ? new PublicKey(info.treasury.distributions) : undefined,
-            stockSupply: info?.treasury?.stock_supply ? new PublicKey(info.treasury.stock_supply) : undefined
-        };
+        addresses.realm = info?.realm ? new PublicKey(info.realm) : undefined;
+        addresses.governance = DaoGovernanceAddresses.with(info?.governance)
+        addresses.mint = DaoMintAddresses.with(info?.mint)
+        addresses.treasury = DaoTreasuryAddresses.with(info?.treasury)
 
         return addresses;
 
@@ -49,51 +141,10 @@ export class DaoAddresses {
     // Public Properties
 
     /// public key of the dao
-    pubkey?: PublicKey
+    realm?: PublicKey
 
-    /// @TODO: Add docs
-    authority?: PublicKey
-
-    /// @TODO: Add docs
-    owner?: PublicKey
-
-    governance: {
-
-        /// @TODO: Add docs
-        lpTokenMintGovernance?: PublicKey
-
-        /// Governs over the minting and burning or delegate distribution tokens
-        distributionTokenMintGovernance?: PublicKey
-
-        /// Governs over
-        delegateTokenMintGovernance?: PublicKey
-
-    }
-
-    mint: {
-
-        /// Mint for tokens representing a stakeholders position in the fund
-        lpTokenMint?: PublicKey
-
-        /// Mint for distribution tokens that can be exchanged for USDC
-        distributionTokenMint?: PublicKey
-
-        /// Mint of the delegate (council) tokens used for voting rights within the dao
-        delegateTokenMint?: PublicKey
-
-    }
-
-    treasury: {
-
-        /// USDC treasury account with funds provided by limited partners
-        capitalSupply?: PublicKey
-
-        /// USDC treasury account for distribution funds provided by the general partner
-        distributions?: PublicKey
-
-        /// lp treasury stock
-        stockSupply?: PublicKey
-
-    }
+    governance: DaoGovernanceAddresses
+    mint: DaoMintAddresses
+    treasury: DaoTreasuryAddresses
 
 }
