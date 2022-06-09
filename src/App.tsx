@@ -21,8 +21,9 @@ import Faucet from "./pages/Faucet";
 import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
-import {globalStyles, lightTheme} from "./themes";
+import {darkTheme, globalStyles, lightTheme} from "./themes";
 import { NetworkContext } from './models/contexts/network-context';
+import useDarkMode from 'use-dark-mode';
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -43,10 +44,10 @@ export const App = () => {
     globalStyles();
 
     // // Defaults to using system preference
-    // const darkMode = useDarkMode();
+    const darkMode = useDarkMode();
 
     return (
-        <NextUIProvider theme={lightTheme}>
+        <NextUIProvider theme={darkMode ? darkTheme : lightTheme}>
             <NetworkContext.Provider value={{network, setNetwork}}>
                 <ConnectionProvider endpoint={clusterApiUrl(network)}>
                     <WalletProvider wallets={wallets} autoConnect>

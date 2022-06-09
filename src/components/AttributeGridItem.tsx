@@ -17,6 +17,7 @@ export const AttributeGridItem = (props) => {
                 fontWeight: 700,
                 textAlign: "center",
                 textTransform: "uppercase",
+                color: theme.colors.text.computedValue
             }}>
                 {props.title}
             </p>
@@ -24,7 +25,8 @@ export const AttributeGridItem = (props) => {
                 marginTop: 0,
                 textAlign: "center",
                 fontFamily: theme.fonts.mono.computedValue,
-                fontSize: "14px"
+                fontSize: "14px",
+                color: theme.colors.text.computedValue
             }}>
                 {props.description}
             </p>

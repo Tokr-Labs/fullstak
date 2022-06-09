@@ -3,7 +3,7 @@ import {createTheme, globalCss, theme} from "@nextui-org/react";
 
 export const globalStyles = globalCss({
     body: {
-        backgroundColor: "#f8f5f6",
+        backgroundColor: theme.colors.background.computedValue,
         zIndex: 0
     },
 
@@ -45,11 +45,11 @@ export const globalStyles = globalCss({
     },
 
     ".dark-card": {
-        background: "linear-gradient(" +
-            "180deg, " +
-            "rgba(12,2,35,1) 0%, " +
-            "rgba(28,5,73,1) 100%" +
-            ") !important"
+        background: `linear-gradient(
+                180deg,
+                rgba(12,2,35,1) 0%,
+                rgba(28,5,73,1) 100%
+            ) !important`
     },
 
     ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {
@@ -71,7 +71,8 @@ export const lightTheme = createTheme({
                     rgba(12, 2, 35, 1) 0%, 
                     rgba(12, 2, 36, 1) 24%, 
                     rgba(28, 5, 73, 1) 100%
-                )`
+                )`,
+            background: "#f8f5f6"
         },
         fonts: {
             sans: "Montserrat, sans-serif",
@@ -80,23 +81,27 @@ export const lightTheme = createTheme({
     }
 })
 
-// TODO - figure out how to included shared theme props
-// export const darkTheme = createTheme({
-//     type: 'dark',
-//     theme: {
-//         colors: {
-//             primary: "#be00ff",
-//             secondary: "$blue500",
-//             gradient: "linear-gradient(" +
-//                 "112deg, " +
-//                 "var(--nextui-colors-cyan500) -63.59%, " +
-//                 "#be00ff 20.3%, " +
-//                 "var(--nextui-colors-blue500) 75.46%" +
-//                 ")"
-//         },
-//         fonts: {
-//             sans: "Montserrat, sans-serif",
-//             mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
-//         }
-//     }
-// })
+// TODO - figure out how to share identical theme props between light and dark
+export const darkTheme = createTheme({
+    type: 'dark',
+    theme: {
+        colors: {
+            primary: "#be00ff",
+            primaryLight: "rgba(190,0,255,0.25)",
+            secondary: "#650087",
+            success: "#00ff4b",
+            gradient: `linear-gradient(
+                    180deg, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 35, 1) 0%, 
+                    rgba(12, 2, 36, 1) 24%, 
+                    rgba(28, 5, 73, 1) 100%
+                )`,
+            background: "$black"
+        },
+        fonts: {
+            sans: "Montserrat, sans-serif",
+            mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
+        }
+    }
+})

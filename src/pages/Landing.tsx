@@ -229,7 +229,8 @@ const Landing = () => {
                                 fontSize: "36px",
                                 fontWeight: 700,
                                 textAlign: "center",
-                                textTransform: "uppercase"
+                                textTransform: "uppercase",
+                                color: theme.colors.text.computedValue
                             }}>
                                 REAL ESTATE WITHOUT BANKS
                             </p>
