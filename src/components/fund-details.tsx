@@ -5,7 +5,7 @@ import {FundOpen} from "./fund/fund-open";
 import {FundSummary} from "./fund/fund-summary";
 import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
-import {NetworkContext} from "../App";
+import {NetworkContext} from "../models/contexts/network-context";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {DaoService} from "../services/dao-service";
 

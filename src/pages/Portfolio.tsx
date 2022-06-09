@@ -7,7 +7,7 @@ import {Link as NextUiLink} from "@nextui-org/react"
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {AccountInfo, LAMPORTS_PER_SOL, ParsedAccountData, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token"
-import {NetworkContext} from "../App";
+import {NetworkContext} from "../models/contexts/network-context";
 import {TokenServices} from "../services/token-services";
 import {TranslatedToken} from "../components/TranslatedToken";
 import {CurrencyFormatter} from "../utils/currency-formatter";

@@ -1,4 +1,4 @@
-import React, {createContext, useMemo, useState} from 'react';
+import React, {useMemo, useState} from 'react';
 import {NextUIProvider} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
@@ -22,16 +22,10 @@ import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
 import {globalStyles, lightTheme} from "./themes";
+import { NetworkContext } from './models/contexts/network-context';
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
-
-// TODO - separate into contexts directory
-// TODO - add ability to pass in configs as well
-export const NetworkContext = createContext<{ network: WalletAdapterNetwork; setNetwork: React.Dispatch<React.SetStateAction<WalletAdapterNetwork>>; }>({
-    network: WalletAdapterNetwork.Devnet,
-    setNetwork: () => null
-});
 
 export const App = () => {
 

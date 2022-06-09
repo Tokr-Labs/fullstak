@@ -8,9 +8,8 @@ import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
-import {NetworkContext} from "../App";
+import {NetworkContext} from "../models/contexts/network-context";
 import {DaoService} from "../services/dao-service";
-import {DaoInfoContext} from "../models/contexts/dao-context";
 
 export const EquityMarkets = () => {
 

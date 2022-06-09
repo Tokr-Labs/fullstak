@@ -9,7 +9,7 @@ import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {USDC_DEVNET, USDC_MAINNET} from "../../models/constants";
 import {PublicKey} from "@solana/web3.js";
 import {TokenServices} from "../../services/token-services";
-import {NetworkContext} from "../../App";
+import {NetworkContext} from "../../models/contexts/network-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import {useNavigate} from "react-router-dom";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
