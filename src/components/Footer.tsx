@@ -58,7 +58,6 @@ export const Footer = () => {
                     style={{
                         color: "white",
                         fontSize: "min(3vw, 1rem)",
-                        fontFamily: theme.fonts.mono.computedValue
                     }}
                 >
                     Powered by

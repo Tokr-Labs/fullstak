@@ -164,7 +164,6 @@ const Landing = () => {
                         display: "flex",
                         alignItems: "center",
                         fontSize: "min(3vw, 1rem)",
-                        fontFamily: theme.fonts.mono.computedValue
                     }}>
                         Powered by
                         <img
