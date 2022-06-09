@@ -43,7 +43,7 @@ export class DepositCapitalAction implements ActionProtocol {
             this.connection,
             IDENTITY_VERIFICATION_PROGRAM_ID,
             this.wallet.publicKey!,
-            dao!.addresses.pubkey!
+            dao!.addresses.realm!
         )
 
         console.log("record", record);
@@ -55,15 +55,15 @@ export class DepositCapitalAction implements ActionProtocol {
 
         const addresses = dao.addresses;
 
-        const realm = addresses.pubkey
-        const delegateMintGovernance = addresses.governance.delegateTokenMintGovernance
-        const lpGovernance = addresses.governance.lpTokenGovernance
+        const realm = addresses.realm
+        const delegateMintGovernance = addresses.governance.delegateMintGovernance
+        const lpGovernance = addresses.governance.lpGovernance
         const lpTokenMint = addresses.mint.lpTokenMint
         const delegateTokenMint = addresses.mint.delegateTokenMint
 
-        console.log("realm", addresses.pubkey)
-        console.log("delegateTokenMintGovernance", addresses.governance.delegateTokenMintGovernance)
-        console.log("lpTokenMintGovernance", addresses.governance.lpTokenGovernance)
+        console.log("realm", addresses.realm)
+        console.log("delegateTokenMintGovernance", addresses.governance.delegateMintGovernance)
+        console.log("lpTokenMintGovernance", addresses.governance.lpGovernance)
         console.log("lpTokenMint", addresses.mint.lpTokenMint)
         console.log("delegateTokenMint", addresses.mint.delegateTokenMint)
 
@@ -147,7 +147,7 @@ export class DepositCapitalAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?: DaoInfo): boolean {
-        return dao?.addresses.pubkey !== undefined && this.wallet.connected
+        return dao?.addresses.realm !== undefined && this.wallet.connected
     }
 
 }

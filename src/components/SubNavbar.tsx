@@ -31,7 +31,7 @@ export const SubNavbar = () => {
                             style={{
                                 color: "white",
                                 fontWeight: "bold",
-                                letterSpacing: "1px",
+                                letterSpacing: theme.letterSpacings.wider.value,
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}

@@ -6,13 +6,13 @@ import {TokenServices} from "../../services/token-services";
 import {PublicKey} from "@solana/web3.js";
 import {CurrencyFormatter} from "../../utils/currency-formatter";
 
-export const PoolAssets = () => {
+export const FundAssets = () => {
 
     const {connection} = useConnection()
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
 
     const [capitalSupplyBalance, setCapitalSupplyBalance] = useState<number>(0)
     const [treasuryStockBalance, setTreasuryStockBalance] = useState<number>(0)

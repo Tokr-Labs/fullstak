@@ -43,7 +43,7 @@ export class CreateIdentityRecordAction implements ActionProtocol {
                 this.connection,
                 IDENTITY_VERIFICATION_PROGRAM_ID,
                 this.wallet.publicKey!,
-                dao!.addresses.pubkey!
+                dao!.addresses.realm!
             )
 
             return Promise.resolve()
@@ -60,7 +60,7 @@ export class CreateIdentityRecordAction implements ActionProtocol {
             this.connection,
             IDENTITY_VERIFICATION_PROGRAM_ID,
             this.wallet.publicKey!,
-            dao!.addresses.pubkey!,
+            dao!.addresses.realm!,
             IDENTITY_VERIFICATION_INITIAL_AUTHORITY
         )
 
@@ -87,7 +87,7 @@ export class CreateIdentityRecordAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?: DaoInfo): boolean {
-        return dao?.addresses.pubkey !== undefined && this.wallet.connected
+        return dao?.addresses.realm !== undefined && this.wallet.connected
     }
 
 }

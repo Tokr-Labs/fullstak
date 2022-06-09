@@ -22,16 +22,16 @@
   "details": {
     "min_raise": 7500000,
     "max_raise": 10000000,
-    "min_investment": 100000,
+    "min_investment": 10000,
     "raise_close": 1672531200,
     "vintage_year": "2022",
     "fund_term": 5,
     "data_room": "",
     "target_returns": {
-      "irr": 2400,
-      "coc": 1000,
-      "tvpi": 430,
-      "dpi": 210
+      "irr": 1600,
+      "coc": 900,
+      "tvpi": 400,
+      "dpi": 200
     },
     "fees": {
       "closing": 1000,
@@ -39,11 +39,11 @@
     }
   },
   "addresses": {
-    "pubkey": "7s9jLM3sNVCZZadBZD7LHrnwF8zDcB39ajQ6frLb4d5g",
+    "realm": "7s9jLM3sNVCZZadBZD7LHrnwF8zDcB39ajQ6frLb4d5g",
     "governance": {
-      "lp_token_governance": "6McVeFoeqqsz6EL4a6rrQUmDLrMrGdJRB4iTNVuyqQKb",
-      "distribution_token_mint_governance": "dUE2b4RFfTAfUzHdFvpVKi6Lxbso2apxUi9wrmERkDU",
-      "delegate_token_mint_governance": "CtP56e5RojNVrTrJWcp5G3z6ujeXeeqqCQjVn9wCpjKG"
+      "lp_governance": "6McVeFoeqqsz6EL4a6rrQUmDLrMrGdJRB4iTNVuyqQKb",
+      "distribution_mint_governance": "dUE2b4RFfTAfUzHdFvpVKi6Lxbso2apxUi9wrmERkDU",
+      "delegate_mint_governance": "CtP56e5RojNVrTrJWcp5G3z6ujeXeeqqCQjVn9wCpjKG"
     },
     "mint": {
       "lp_token_mint": "CjDq8MvCyXDWrPnDgC6YDgyPRT8jDW5a2dDs1i5dP6Dw",

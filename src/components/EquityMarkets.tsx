@@ -1,28 +1,27 @@
-import React, {useCallback, useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Text, Table, theme, Progress} from "@nextui-org/react";
+import React, {useContext, useEffect, useMemo, useState} from "react";
+import {Button, Card, Grid, Progress, Table, Text, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {TooltipWithIcon} from "./TooltipWithIcon";
-import {DaoInfo} from "../models/dao/dao-info";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {ROUTE_POOL_DETAILS, USDC_DEVNET} from "../models/constants";
+import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
 import {NetworkContext} from "../App";
 import {DaoService} from "../services/dao-service";
+import {DaoInfoContext} from "../models/contexts/dao-context";
 
 export const EquityMarkets = () => {
 
-    // TODO - iterate over available DAOs to build the table
-
     const connection = useConnection().connection;
-    const network = useContext(NetworkContext)
+    const {setDao} = useContext(DaoInfoContext);
+    const {network} = useContext(NetworkContext);
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
 
     const [openFundProgress, setOpenFundProgress] = useState<{ amountRaised?: string, percentageComplete?: number }[]>([]);
-    const [collection, setCollection] = useState<DaoCollection>({open: [], active: []});
+    const [collection, setCollection] = useState<DaoCollection>({open: [], active: [], all: []});
 
     const daoService = useMemo<DaoService>(() => {
         return new DaoService()
@@ -30,7 +29,7 @@ export const EquityMarkets = () => {
 
     useEffect(() => {
 
-        daoService.getDaos(network.network)
+        daoService.getDaos(network)
             .then(setCollection)
             .catch(console.error)
 
@@ -40,7 +39,7 @@ export const EquityMarkets = () => {
 
         const promises = collection.open.map(fund => {
 
-            const lpTokenMintGovernance = fund?.addresses.governance.lpTokenGovernance as PublicKey;
+            const lpTokenMintGovernance = fund?.addresses.governance.lpGovernance as PublicKey;
 
             return tokenServices.getTokenHoldingAmount(USDC_DEVNET, lpTokenMintGovernance)
 
@@ -180,14 +179,17 @@ export const EquityMarkets = () => {
                                                 {fund.details.formattedMaxRaise}
                                             </Table.Cell>
 
-                                            {/*TODO - since LP tokens are issued 1:1, use the outstanding supply here*/}
-
                                             <Table.Cell css={{minWidth: "200px", padding: "15px 20px 5px 20px"}}>
 
                                                 <Progress
                                                     size={"sm"}
-                                                    value={openFundProgress[i]?.percentageComplete ?? 0}
-                                                    color={"success"}
+                                                    indeterminated={openFundProgress[i]?.percentageComplete === undefined}
+                                                    value={openFundProgress[i]?.percentageComplete}
+                                                    color={
+                                                        openFundProgress[i]?.percentageComplete === undefined
+                                                            ? "secondary"
+                                                            : "success"
+                                                    }
                                                     status={"primary"}
                                                 />
 
@@ -198,17 +200,17 @@ export const EquityMarkets = () => {
                                             </Table.Cell>
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
-                                                <Link to={ROUTE_POOL_DETAILS}>
-                                                    <Button ghost
-                                                            color={"primary"}
-                                                            size={"xs"}
-                                                            borderWeight={"light"}
-                                                            style={{margin: 0, fontWeight: "bold", borderRadius: 0}}>
 
+                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
+                                                    <Button
+                                                        ghost
+                                                        color={"primary"}
+                                                        size={"xs"}
+                                                        borderWeight={"light"}
+                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                    >
                                                         DETAILS
-
                                                     </Button>
-
                                                 </Link>
 
                                             </Table.Cell>
@@ -372,14 +374,17 @@ export const EquityMarkets = () => {
 
                                             <Table.Cell css={{textAlign: "end", float: "right", margin: "5px 0"}}>
 
-                                                <Button light
-                                                        disabled
+                                                <Link to={"/markets/equity/" + fund.token.ticker + "/fund-details"}>
+                                                    <Button
+                                                        ghost
+                                                        color={"primary"}
                                                         size={"xs"}
                                                         borderWeight={"light"}
-                                                        style={{margin: 0, fontWeight: "bold"}}
-                                                >
-                                                    DETAILS
-                                                </Button>
+                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                    >
+                                                        DETAILS
+                                                    </Button>
+                                                </Link>
 
                                             </Table.Cell>
                                         </Table.Row>
