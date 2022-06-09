@@ -113,7 +113,7 @@ export const FundActive = () => {
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                        <Text size={15} color={"white"}>Active</Text>
+                                        <Text size={15} color={"white"}>ACTIVE</Text>
                                     </div>
                                 </Grid>
                             </Grid.Container>

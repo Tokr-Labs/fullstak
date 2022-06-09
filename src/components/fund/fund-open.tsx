@@ -135,7 +135,7 @@ export const FundOpen = () => {
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                    <Text size={15} color={"white"}>Open</Text>
+                                    <Text size={15} color={"white"}>OPEN</Text>
                                 </div>
                             </Grid>
                         </Grid.Container>
