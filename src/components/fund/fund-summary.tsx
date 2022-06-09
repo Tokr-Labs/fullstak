@@ -16,7 +16,6 @@ export const FundSummary = () => {
                     <Text
                         size={24}
                         weight={"bold"}
-                        style={{letterSpacing: 3.2}}
                     >
                         Fund Summary
                     </Text>
@@ -26,7 +25,7 @@ export const FundSummary = () => {
 
                     <Grid.Container>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                            <div style={{fontWeight: "bold", fontSize: 15}}>
                                 Token
                             </div>
                             <Spacer y={0.3}/>
@@ -50,7 +49,6 @@ export const FundSummary = () => {
                                         display: "inline",
                                         marginLeft: "10px",
                                         verticalAlign: "middle",
-                                        letterSpacing: 1
                                     }}
                                 >
                                     {dao.token.ticker}
@@ -58,7 +56,7 @@ export const FundSummary = () => {
                             </div>
                         </Grid>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                            <div style={{fontWeight: "bold", fontSize: 15}}>
                                 General Partner
                                 <TooltipWithIcon
                                     color={"black"}
@@ -93,7 +91,6 @@ export const FundSummary = () => {
                                         display: "inline",
                                         marginLeft: "10px",
                                         verticalAlign: "middle",
-                                        letterSpacing: 1
                                     }}
                                 >
                                     {dao.stakeholders.sponsor.name}
@@ -101,7 +98,7 @@ export const FundSummary = () => {
                             </div>
                         </Grid>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{letterSpacing: 1, fontWeight: "bold", fontSize: 15}}>
+                            <div style={{fontWeight: "bold", fontSize: 15}}>
                                 Fund Administrator
                                 <TooltipWithIcon
                                     color={"black"}
@@ -135,7 +132,6 @@ export const FundSummary = () => {
                                         display: "inline",
                                         marginLeft: "10px",
                                         verticalAlign: "middle",
-                                        letterSpacing: 1
                                     }}
                                 >
                                     {dao.stakeholders.delegate.name}
@@ -151,14 +147,10 @@ export const FundSummary = () => {
                             <Text
                                 size={15}
                                 weight={"bold"}
-                                style={{letterSpacing: 2}}
                             >
                                 Fund Overview
                             </Text>
-                            <Text
-                                size={18}
-                                style={{letterSpacing: 0.75}}
-                            >
+                            <Text size={18}>
                                 {dao.description}
                             </Text>
                         </Grid>
@@ -171,7 +163,6 @@ export const FundSummary = () => {
                             <Text
                                 size={15}
                                 weight={"bold"}
-                                style={{letterSpacing: 2}}
                             >
                                 Data Room
                             </Text>

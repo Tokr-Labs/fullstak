@@ -10,7 +10,6 @@ export const FundConfiguration = () => {
                     size={10}
                     weight={"normal"}
                     color={"black"}
-                    style={{letterSpacing: 1.33}}
                 >
                     {props.title}
                 </Text>
@@ -18,7 +17,6 @@ export const FundConfiguration = () => {
                 <Text
                     size={14}
                     weight={"semibold"}
-                    style={{letterSpacing: 1.87}}
                 >
                     {props.text}
                 </Text>

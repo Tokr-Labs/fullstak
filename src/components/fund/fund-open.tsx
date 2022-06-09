@@ -147,7 +147,6 @@ export const FundOpen = () => {
                             size={15}
                             weight={"bold"}
                             color={"white"}
-                            style={{letterSpacing: 2}}
                         >
                             Fundraising Details
                         </Text>
@@ -171,7 +170,6 @@ export const FundOpen = () => {
                                 <Text
                                     size={12}
                                     color={"white"}
-                                    style={{letterSpacing: 1.6}}
                                 >
                                     Raised
                                 </Text>
@@ -179,14 +177,12 @@ export const FundOpen = () => {
                                     size={18}
                                     color={"white"}
                                     weight={"semibold"}
-                                    style={{letterSpacing: 2.4}}
                                 >
                                     {CurrencyFormatter.formatToken(capitalSupplyBalance ?? 0, "USDC")}
                                 </Text>
                                 <Text
                                     size={10}
                                     color={"white"}
-                                    style={{letterSpacing: 1.33}}
                                 >
                                     {CurrencyFormatter.formatUsd(capitalSupplyBalance ?? 0, true)}
                                 </Text>
@@ -195,7 +191,6 @@ export const FundOpen = () => {
                                 <Text
                                     size={12}
                                     color={"white"}
-                                    style={{letterSpacing: 1.6}}
                                 >
                                     Remaining
                                 </Text>
@@ -203,7 +198,6 @@ export const FundOpen = () => {
                                     size={18}
                                     color={"white"}
                                     weight={"semibold"}
-                                    style={{letterSpacing: 2.4}}
                                 >
                                     {CurrencyFormatter.formatToken(
                                         dao.details.maxRaise - (capitalSupplyBalance ?? 0),
@@ -213,7 +207,6 @@ export const FundOpen = () => {
                                 <Text
                                     size={10}
                                     color={"white"}
-                                    style={{letterSpacing: 1.33}}
                                 >
                                     {CurrencyFormatter.formatUsd(
                                         dao.details.maxRaise - (capitalSupplyBalance ?? 0),
@@ -288,7 +281,6 @@ export const FundOpen = () => {
                                     size={15}
                                     color={"white"}
                                     weight={"bold"}
-                                    style={{letterSpacing: 2}}
                                 >
                                     Target Returns
                                 </Text>

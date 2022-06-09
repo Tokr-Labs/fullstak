@@ -37,7 +37,6 @@ const Landing = () => {
                                         borderRadius: 19,
                                         color: "white",
                                         fontWeight: "bold",
-                                        letterSpacing: 2.46
                                     }}
                                 >
                                     LAUNCH APP
@@ -113,7 +112,6 @@ const Landing = () => {
                             fontWeight: "bold",
                             textAlign: "center",
                             lineHeight: "120%",
-                            letterSpacing: 1
                         }}>
                             OPEN FINANCE FOR REAL ESTATE
                         </p>
@@ -141,7 +139,6 @@ const Landing = () => {
                                 borderRadius: 19,
                                 color: "white",
                                 fontWeight: "bold",
-                                letterSpacing: 2.46
                             }}
                         >
                             LAUNCH APP
@@ -207,7 +204,6 @@ const Landing = () => {
                         color: "white",
                         fontSize: "36px",
                         fontWeight: 700,
-                        letterSpacing: "3.86px",
                         textAlign: "center",
                         textTransform: "uppercase"
                     }}>
@@ -232,7 +228,6 @@ const Landing = () => {
                                 opacity: 1,
                                 fontSize: "36px",
                                 fontWeight: 700,
-                                letterSpacing: "3.86px",
                                 textAlign: "center",
                                 textTransform: "uppercase"
                             }}>
@@ -294,7 +289,6 @@ const Landing = () => {
                             opacity: 1,
                             fontSize: "34px",
                             fontWeight: 700,
-                            letterSpacing: "0px",
                             textTransform: "uppercase"
                         }}>
                             DEFI MEETS<br/>
@@ -326,7 +320,6 @@ const Landing = () => {
                     <h2 style={{
                         background: "#0C0223",
                         padding: "10px 20px",
-                        letterSpacing: "5px",
                         textAlign: "center"
                     }}>
                         DEVELOPER RESOURCES
@@ -341,7 +334,6 @@ const Landing = () => {
                                 background: "none",
                                 fontWeight: "bold",
                                 fontSize: "13px",
-                                letterSpacing: "2px"
                             }}>
                                 Coming Soon
                             </Button>

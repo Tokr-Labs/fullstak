@@ -90,7 +90,6 @@ export const FundDetails = () => {
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
                                             fontSize: 15,
                                             fontWeight: "bold",
-                                            letterSpacing: 2,
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
                                                 ? theme.theme?.colors.primary.computedValue
@@ -116,7 +115,6 @@ export const FundDetails = () => {
                             <Text
                                 size={15}
                                 weight={"bold"}
-                                style={{letterSpacing: 2}}
                             >
                                 {activeTab}
                             </Text>

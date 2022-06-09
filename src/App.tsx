@@ -95,7 +95,6 @@ export const App = () => {
             opacity: 0.5,
             border: "1px solid " + theme.colors.primary.computedValue + " !important"
         },
-        "box-icon": {marginRight: "10px"},
         ".wallet-adapter-button-trigger": {
             background: theme.colors.primary.computedValue + " !important",
             borderRadius: theme.radii.pill.computedValue + " !important",
@@ -106,12 +105,10 @@ export const App = () => {
         ".nextui-table-column-header": {
             fontSize: 12,
             fontWeight: "normal",
-            letterSpacing: 1.6
         },
         ".nextui-table-cell": {
             fontSize: 14,
             fontWeight: "$semibold",
-            letterSpacing: 1.87
         },
         ".skinny-rows .nextui-table-cell": {
             paddingTop: theme.space["2"].computedValue,

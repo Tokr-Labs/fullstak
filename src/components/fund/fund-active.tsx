@@ -23,7 +23,7 @@ export const FundActive = () => {
     const DetailsSection = (props: { title: string, tooltipContent: string, value: string }) => {
         return (
             <Grid xs={4} direction={"column"}>
-                <div style={{letterSpacing: 1, fontSize: 15}}>
+                <div style={{fontSize: 15}}>
                     {props.title}
                     <TooltipWithIcon
                         color={"white"}

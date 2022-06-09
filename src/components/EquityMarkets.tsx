@@ -15,7 +15,6 @@ import {DaoInfoContext} from "../models/contexts/dao-context";
 export const EquityMarkets = () => {
 
     const connection = useConnection().connection;
-    const {setDao} = useContext(DaoInfoContext);
     const {network} = useContext(NetworkContext);
 
     const tokenServices = useMemo(() => new TokenServices(connection), [connection])
@@ -76,7 +75,6 @@ export const EquityMarkets = () => {
                         <Text
                             size={24}
                             weight={"bold"}
-                            css={{letterSpacing: 3.2}}
                         >
                             OPEN FUNDS
                         </Text>
@@ -241,7 +239,6 @@ export const EquityMarkets = () => {
                         <Text
                             size={24}
                             weight={"bold"}
-                            css={{letterSpacing: 3.2}}
                         >
                             ACTIVE FUNDS
                         </Text>
