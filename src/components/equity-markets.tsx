@@ -72,8 +72,9 @@ export const EquityMarkets = () => {
 
                     <Card.Header>
                         <Text
-                            size={24}
+                            size={theme.fontSizes.xl2.computedValue}
                             weight={"bold"}
+                            style={{letterSpacing: theme.letterSpacings.normal.computedValue}}
                         >
                             OPEN FUNDS
                         </Text>
@@ -240,8 +241,9 @@ export const EquityMarkets = () => {
 
                     <Card.Header>
                         <Text
-                            size={24}
+                            size={theme.fontSizes.xl2.computedValue}
                             weight={"bold"}
+                            style={{letterSpacing: theme.letterSpacings.normal.computedValue}}
                         >
                             CLOSED FUNDS
                         </Text>

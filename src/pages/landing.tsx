@@ -110,6 +110,7 @@ const Landing = () => {
                             margin: "0",
                             fontSize: "min(80px, 7vw)",
                             fontWeight: theme.fontWeights.bold.computedValue,
+                            letterSpacing: theme.letterSpacings.normal.computedValue,
                             textAlign: "center",
                             lineHeight: "120%",
                         }}>
@@ -203,6 +204,7 @@ const Landing = () => {
                         color: "white",
                         fontSize: theme.fontSizes.xl4.computedValue,
                         fontWeight: theme.fontWeights.bold.computedValue,
+                        letterSpacing: theme.letterSpacings.normal.computedValue,
                         textAlign: "center",
                         textTransform: "uppercase"
                     }}>
@@ -229,7 +231,8 @@ const Landing = () => {
                                 fontWeight: theme.fontWeights.bold.computedValue,
                                 textAlign: "center",
                                 textTransform: "uppercase",
-                                color: theme.colors.text.computedValue
+                                color: theme.colors.text.computedValue,
+                                letterSpacing: theme.letterSpacings.normal.computedValue
                             }}>
                                 REAL ESTATE WITHOUT BANKS
                             </p>
@@ -289,6 +292,8 @@ const Landing = () => {
                             opacity: 1,
                             fontSize: theme.fontSizes.xl4.computedValue,
                             fontWeight: theme.fontWeights.bold.computedValue,
+                            lineHeight: theme.lineHeights.sm.computedValue,
+                            letterSpacing: theme.letterSpacings.normal.computedValue,
                             textTransform: "uppercase"
                         }}>
                             DEFI MEETS<br/>
@@ -321,6 +326,7 @@ const Landing = () => {
                         fontSize: theme.fontSizes.xl4.computedValue,
                         fontWeight: theme.fontWeights.bold.computedValue,
                         background: theme.colors.purple100.computedValue,
+                        letterSpacing: theme.letterSpacings.normal.computedValue,
                         padding: "10px 20px",
                         textAlign: "center"
                     }}>
