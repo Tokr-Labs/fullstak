@@ -27,42 +27,8 @@ export const FundSummary = (props: FundSummaryProps) => {
 
                 <Card.Body style={{padding: "20px 30px 20px 30px"}}>
 
-                    <Grid.Container>
-                        <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{
-                                fontWeight: theme.fontWeights.bold.computedValue,
-                                fontSize: theme.fontSizes.base.computedValue
-                            }}>
-                                Token
-                            </div>
-                            <Spacer y={0.5}/>
-                            <div style={{marginBottom: "20px"}}>
-                                <img
-                                    src={dao?.token.image}
-                                    alt={"Token"}
-                                    height={40}
-                                    width={40}
-                                    style={{
-                                        verticalAlign: "middle",
-                                        borderRadius: "50%",
-                                        boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
-                                        backgroundColor: "rgba(21,3,53, 1)"
-                                    }}
-                                />
-                                <Text
-                                    size={theme.fontSizes.xl2.computedValue}
-                                    weight={"bold"}
-                                    style={{
-                                        display: "inline",
-                                        marginLeft: "10px",
-                                        verticalAlign: "middle",
-                                    }}
-                                >
-                                    {dao?.token.ticker}
-                                </Text>
-                            </div>
-                        </Grid>
-                        <Grid xs={12} md={4} direction={"column"}>
+                    <Grid.Container justify={"space-between"}>
+                        <Grid xs={12} md={3} direction={"column"}>
                             <div style={{
                                 fontWeight: theme.fontWeights.bold.computedValue,
                                 fontSize: theme.fontSizes.base.computedValue
@@ -107,7 +73,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                 </Text>
                             </div>
                         </Grid>
-                        <Grid xs={12} md={4} direction={"column"}>
+                        <Grid xs={12} md={3} direction={"column"}>
                             <div style={{
                                 fontWeight: theme.fontWeights.bold.computedValue,
                                 fontSize: theme.fontSizes.base.computedValue
@@ -148,6 +114,40 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 >
                                     {dao?.stakeholders.delegate.name}
+                                </Text>
+                            </div>
+                        </Grid>
+                        <Grid xs={12} md={3} direction={"column"}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
+                                Token
+                            </div>
+                            <Spacer y={0.5}/>
+                            <div style={{marginBottom: "20px"}}>
+                                <img
+                                    src={dao?.token.image}
+                                    alt={"Token"}
+                                    height={40}
+                                    width={40}
+                                    style={{
+                                        verticalAlign: "middle",
+                                        borderRadius: "50%",
+                                        boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                        backgroundColor: "rgba(21,3,53, 1)"
+                                    }}
+                                />
+                                <Text
+                                    size={theme.fontSizes.xl2.computedValue}
+                                    weight={"bold"}
+                                    style={{
+                                        display: "inline",
+                                        marginLeft: "10px",
+                                        verticalAlign: "middle",
+                                    }}
+                                >
+                                    {dao?.token.ticker}
                                 </Text>
                             </div>
                         </Grid>
