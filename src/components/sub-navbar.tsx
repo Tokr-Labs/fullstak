@@ -30,7 +30,7 @@ export const SubNavbar = () => {
                             borderWeight={"light"}
                             style={{
                                 color: "white",
-                                fontWeight: "bold",
+                                fontWeight: theme.fontWeights.bold.computedValue,
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}
@@ -52,7 +52,7 @@ export const SubNavbar = () => {
                                     <Button size={"sm"}
                                             color={"secondary"}
                                             style={{
-                                                fontWeight: "bold",
+                                                fontWeight: theme.fontWeights.bold.computedValue,
                                                 padding: "0 30px",
                                                 borderRadius: theme.radii.pill.computedValue
                                             }}

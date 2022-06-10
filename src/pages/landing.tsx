@@ -36,7 +36,7 @@ const Landing = () => {
                                         maxHeight: "min(46px, 10vw)",
                                         borderRadius: 19,
                                         color: "white",
-                                        fontWeight: "bold",
+                                        fontWeight: theme.fontWeights.bold.computedValue,
                                     }}
                                 >
                                     LAUNCH APP
@@ -109,7 +109,7 @@ const Landing = () => {
                         <p style={{
                             margin: "0",
                             fontSize: "min(80px, 7vw)",
-                            fontWeight: "bold",
+                            fontWeight: theme.fontWeights.bold.computedValue,
                             textAlign: "center",
                             lineHeight: "120%",
                         }}>
@@ -124,7 +124,7 @@ const Landing = () => {
                         width: "100%",
                         maxWidth: "580px",
                         fontFamily: theme.fonts.mono.computedValue,
-                        fontSize: "14px"
+                        fontSize: theme.fontSizes.sm.computedValue
                     }}>
                         Fullstak brings the value of real-world assets on-chain.
                     </p>
@@ -138,7 +138,7 @@ const Landing = () => {
                                 width: "200px",
                                 borderRadius: 19,
                                 color: "white",
-                                fontWeight: "bold",
+                                fontWeight: theme.fontWeights.bold.computedValue,
                             }}
                         >
                             LAUNCH APP
@@ -201,8 +201,8 @@ const Landing = () => {
                     <p style={{
                         opacity: 1,
                         color: "white",
-                        fontSize: "36px",
-                        fontWeight: 700,
+                        fontSize: theme.fontSizes.xl4.computedValue,
+                        fontWeight: theme.fontWeights.bold.computedValue,
                         textAlign: "center",
                         textTransform: "uppercase"
                     }}>
@@ -225,8 +225,8 @@ const Landing = () => {
                         <Grid xs={12} justify={"center"}>
                             <p style={{
                                 opacity: 1,
-                                fontSize: "36px",
-                                fontWeight: 700,
+                                fontSize: theme.fontSizes.xl4.computedValue,
+                                fontWeight: theme.fontWeights.bold.computedValue,
                                 textAlign: "center",
                                 textTransform: "uppercase",
                                 color: theme.colors.text.computedValue
@@ -287,23 +287,23 @@ const Landing = () => {
                     }}>
                         <p style={{
                             opacity: 1,
-                            fontSize: "34px",
-                            fontWeight: 700,
+                            fontSize: theme.fontSizes.xl4.computedValue,
+                            fontWeight: theme.fontWeights.bold.computedValue,
                             textTransform: "uppercase"
                         }}>
                             DEFI MEETS<br/>
                             REAL ESTATE
                         </p>
                         <p style={{
-                            fontSize: "14px",
+                            fontSize: theme.fontSizes.sm.computedValue,
                             fontFamily: theme.fonts.mono.computedValue
                         }}>
                             Fullstak is your opportunity to generate yield on cryptoassets from
                             direct investments in real-world real estate.
                         </p>
                         <p style={{
-                            fontSize: "24px",
-                            fontWeight: "bold"
+                            fontSize: theme.fontSizes.xl2.computedValue,
+                            fontWeight: theme.fontWeights.bold.computedValue
                         }}>
                             Learn More
                         </p>
@@ -317,13 +317,15 @@ const Landing = () => {
                            alignContent={"center"}
                            style={{height: "100%"}}
                 >
-                    <h2 style={{
+                    <p style={{
+                        fontSize: theme.fontSizes.xl4.computedValue,
+                        fontWeight: theme.fontWeights.bold.computedValue,
                         background: theme.colors.purple100.computedValue,
                         padding: "10px 20px",
                         textAlign: "center"
                     }}>
                         DEVELOPER RESOURCES
-                    </h2>
+                    </p>
                     <Grid.Container justify={"center"} gap={2}>
                         <Grid>
                             <Button style={{
@@ -332,8 +334,8 @@ const Landing = () => {
                                 borderRadius: "0px",
                                 border: "1px solid #BE00FF",
                                 background: "none",
-                                fontWeight: "bold",
-                                fontSize: "13px",
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.sm.computedValue,
                             }}>
                                 Coming Soon
                             </Button>
@@ -355,7 +357,7 @@ const Landing = () => {
                         </Grid>
                         <Grid xs={0} sm={6} justify={"center"} alignItems={"center"}>
                             <p style={{
-                                fontSize: "12px",
+                                fontSize: theme.fontSizes.md.computedValue,
                                 fontFamily: theme.fonts.mono.computedValue,
                                 textAlign: "center"
                             }}>
@@ -382,8 +384,11 @@ const Landing = () => {
                             </div>
                         </Grid>
                     </Grid.Container>
+
+                    <Spacer y={1}/>
+
                     <p style={{
-                        fontSize: "10px",
+                        fontSize: theme.fontSizes.xs.computedValue,
                         lineHeight: "1.9",
                         opacity: "50%",
                         fontFamily: theme.fonts.mono.computedValue

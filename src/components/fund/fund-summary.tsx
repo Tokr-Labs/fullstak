@@ -18,7 +18,7 @@ export const FundSummary = (props: FundSummaryProps) => {
 
                 <Card.Header>
                     <Text
-                        size={24}
+                        size={theme.fontSizes.md.computedValue}
                         weight={"bold"}
                     >
                         Fund Summary
@@ -29,7 +29,10 @@ export const FundSummary = (props: FundSummaryProps) => {
 
                     <Grid.Container>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{fontWeight: "bold", fontSize: 15}}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
                                 Token
                             </div>
                             <Spacer y={0.5}/>
@@ -60,7 +63,10 @@ export const FundSummary = (props: FundSummaryProps) => {
                             </div>
                         </Grid>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{fontWeight: "bold", fontSize: 15}}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
                                 General Partner
                                 <TooltipWithIcon
                                     color={"black"}
@@ -102,7 +108,10 @@ export const FundSummary = (props: FundSummaryProps) => {
                             </div>
                         </Grid>
                         <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{fontWeight: "bold", fontSize: 15}}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
                                 Fund Administrator
                                 <TooltipWithIcon
                                     color={"black"}
@@ -175,7 +184,10 @@ export const FundSummary = (props: FundSummaryProps) => {
                                 ghost
                                 disabled={!dao?.details.dataRoom}
                                 color={"primary"}
-                                style={{fontWeight: "bold", borderRadius: 0}}
+                                style={{
+                                    fontWeight: theme.fontWeights.bold.computedValue,
+                                    borderRadius: 0
+                                }}
                             >
                                 DOWNLOAD
                             </Button>

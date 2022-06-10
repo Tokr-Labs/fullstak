@@ -25,13 +25,14 @@ export const globalStyles = globalCss({
     },
 
     ".nextui-table-column-header": {
-        fontSize: 12,
-        fontWeight: "normal",
+        fontWeight: theme.fontWeights.normal.computedValue,
+        fontSize: theme.fontSizes.xs.computedValue,
+        letterSpacing: theme.letterSpacings.widest.computedValue
     },
 
     ".nextui-table-cell": {
-        fontSize: 14,
-        fontWeight: "$semibold",
+        fontWeight: theme.fontWeights.semibold.computedValue,
+        fontSize: theme.fontSizes.sm.computedValue,
     },
 
     ".skinny-rows .nextui-table-cell": {

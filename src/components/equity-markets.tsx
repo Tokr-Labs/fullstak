@@ -204,7 +204,11 @@ export const EquityMarkets = () => {
                                                         color={"primary"}
                                                         size={"xs"}
                                                         borderWeight={"light"}
-                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                        style={{
+                                                            margin: 0,
+                                                            fontWeight: theme.fontWeights.bold.computedValue,
+                                                            borderRadius: 0
+                                                        }}
                                                     >
                                                         DETAILS
                                                     </Button>
@@ -376,7 +380,11 @@ export const EquityMarkets = () => {
                                                         color={"primary"}
                                                         size={"xs"}
                                                         borderWeight={"light"}
-                                                        style={{margin: 0, fontWeight: "bold", borderRadius: 0}}
+                                                        style={{
+                                                            margin: 0,
+                                                            fontWeight: theme.fontWeights.bold.computedValue,
+                                                            borderRadius: 0
+                                                        }}
                                                     >
                                                         DETAILS
                                                     </Button>

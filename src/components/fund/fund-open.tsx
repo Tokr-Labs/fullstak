@@ -273,7 +273,10 @@ export const FundOpen = () => {
                                             <Button size={"lg"}
                                                     color={"primary"}
                                                     onClick={() => toggleModal()}
-                                                    style={{fontWeight: "bold", borderRadius: 0}}
+                                                    style={{
+                                                        fontWeight: theme.fontWeights.bold.computedValue,
+                                                        borderRadius: 0
+                                                    }}
                                                     disabled={!wallet.connected}>
                                                 INVEST
                                             </Button>

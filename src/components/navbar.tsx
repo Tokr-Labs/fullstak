@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Grid, Modal, Popover, Spacer, Text, theme, useTheme} from "@nextui-org/react";
+import {Button, Grid, Modal, Popover, Spacer, Text, theme} from "@nextui-org/react";
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
@@ -9,7 +9,6 @@ import {NetworkContext} from "../models/contexts/network-context";
 
 export const Navbar = () => {
 
-    const theme = useTheme();
     const {network, setNetwork} = useContext(NetworkContext)
 
     const [tab, setTab] = useState<string>();
@@ -37,7 +36,7 @@ export const Navbar = () => {
         <>
             {/*Background - escapes the bounds of the container*/}
             <div style={{
-                background: theme.theme?.colors.gradient.value,
+                background: theme.colors.gradient.computedValue,
                 height: "238px",
                 zIndex: -1,
                 width: "100vw",
@@ -54,12 +53,12 @@ export const Navbar = () => {
                 <Grid xs={12} style={{paddingTop: 0}}>
                     <div style={{
                         width: "100%",
-                        fontWeight: "bold",
+                        fontWeight: theme.fontWeights.bold.computedValue,
                         color: "white",
                         textAlign: "center",
                         padding: "5px",
                         marginBottom: "5px",
-                        background: theme.theme?.colors.error.value,
+                        background: theme.colors.error.computedValue,
                         display: network === WalletAdapterNetwork.Devnet || network === WalletAdapterNetwork.Testnet
                             ? "inline-block"
                             : "none"
@@ -102,14 +101,18 @@ export const Navbar = () => {
                     >
                         <Button
                             ghost={tab !== "Markets"}
-                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
+                            style={{fontWeight: theme.fontWeights.bold.computedValue, minWidth: "150px", color: "white"}}
                             onClick={() => handleClick("Markets")}
                         >
                             MARKETS
                         </Button>
                         <Button
                             ghost={tab !== "Portfolio"}
-                            style={{fontWeight: "bold", minWidth: "150px", color: "white"}}
+                            style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                minWidth: "150px",
+                                color: "white"
+                            }}
                             onClick={() => handleClick("Portfolio")}
                         >
                             PORTFOLIO
@@ -125,12 +128,12 @@ export const Navbar = () => {
                             </Button>
                         </Popover.Trigger>
                         <Popover.Content>
-                            <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
+                            <div style={{padding: "20px", background: theme.colors.accents2.computedValue}}>
                                 <h4>Change Network</h4>
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Mainnet}
                                     color={"primary"}
-                                    style={{fontWeight: "bold"}}
+                                    style={{fontWeight: theme.fontWeights.bold.computedValue}}
                                     onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                 >
                                     Mainnet
@@ -139,7 +142,7 @@ export const Navbar = () => {
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Devnet}
                                     color={"primary"}
-                                    style={{fontWeight: "bold"}}
+                                    style={{fontWeight: theme.fontWeights.bold.computedValue}}
                                     onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                 >
                                     Devnet
@@ -165,14 +168,14 @@ export const Navbar = () => {
                         <Modal.Body>
 
                             <Button
-                                style={{fontWeight: "bold", color: "white"}}
+                                style={{fontWeight: theme.fontWeights.bold.computedValue, color: "white"}}
                                 onClick={() => handleClick("Markets")}
                             >
                                 MARKETS
                             </Button>
 
                             <Button
-                                style={{fontWeight: "bold", color: "white"}}
+                                style={{fontWeight: theme.fontWeights.bold.computedValue, color: "white"}}
                                 onClick={() => handleClick("Portfolio")}
                             >
                                 PORTFOLIO
@@ -180,20 +183,20 @@ export const Navbar = () => {
 
                             <Popover>
                                 <Popover.Trigger>
-                                    <Button style={{fontWeight: "bold"}}>
+                                    <Button style={{fontWeight: theme.fontWeights.bold.computedValue}}>
                                         <ServerIcon color={"white"}/>
                                         &nbsp;
                                         <Text color={"white"} weight={"bold"}>CHANGE NETWORK</Text>
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
-                                    <div style={{padding: "20px", background: theme.theme?.colors.accents2.computedValue}}>
+                                    <div style={{padding: "20px", background: theme.colors.accents2.computedValue}}>
                                         <h4>Change Network</h4>
                                         <Button
                                             disabled
                                             ghost={network !== WalletAdapterNetwork.Mainnet}
                                             color={"primary"}
-                                            style={{fontWeight: "bold"}}
+                                            style={{fontWeight: theme.fontWeights.bold.computedValue}}
                                             onClick={() => setNetwork(WalletAdapterNetwork.Mainnet)}
                                         >
                                             Mainnet
@@ -202,7 +205,7 @@ export const Navbar = () => {
                                         <Button
                                             ghost={network !== WalletAdapterNetwork.Devnet}
                                             color={"primary"}
-                                            style={{fontWeight: "bold"}}
+                                            style={{fontWeight: theme.fontWeights.bold.computedValue}}
                                             onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
                                         >
                                             Devnet

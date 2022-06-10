@@ -1,4 +1,5 @@
 import React from "react";
+import {theme} from "@nextui-org/react";
 
 export const Pill = (props) => {
 
@@ -11,7 +12,7 @@ export const Pill = (props) => {
             padding: "3px 10px",
             borderRadius: "10px",
             textAlign: "center",
-            fontSize: "12px",
+            fontSize: theme.fontSizes.xs.computedValue,
             textTransform: "uppercase",
         }}>
             {props.text}

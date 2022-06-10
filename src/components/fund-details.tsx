@@ -88,8 +88,8 @@ export const FundDetails = () => {
                                         key={`tab-${i}`}
                                         style={{
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
-                                            fontSize: 15,
-                                            fontWeight: "bold",
+                                            fontSize: theme.fontSizes.base.computedValue,
+                                            fontWeight: theme.fontWeights.bold.computedValue,
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
                                                 ? theme.colors.primary.computedValue

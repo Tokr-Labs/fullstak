@@ -126,7 +126,7 @@ const Faucet = () => {
                                         width: "200px",
                                         borderRadius: 19,
                                         color: "white",
-                                        fontWeight: "bold"
+                                        fontWeight: theme.fontWeights.bold.computedValue
                                     }}
                                     disabled={isSubmitting}
                                     onClick={requestAirdrop}>
