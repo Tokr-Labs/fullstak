@@ -254,6 +254,7 @@ export const CreateFund = (props) => {
                         step === FundCreationStep.STAKEHOLDERS &&
                         <>
                             <Stakeholders
+                                fundName={fundName}
                                 sponsorName={sponsorName} setSponsorName={setSponsorName}
                                 sponsorCompany={sponsorCompany} setSponsorCompany={setSponsorCompany}
                                 delegateAccount={delegateAccount} setDelegateAccount={setDelegateAccount}
@@ -266,6 +267,7 @@ export const CreateFund = (props) => {
                         step === FundCreationStep.FUND_CONFIG &&
                         <>
                             <FundConfig
+                                fundName={fundName}
                                 assetType={assetType} setAssetType={setAssetType}
                                 formattedAssetClass={formattedAssetClass}
                                 assetClass={assetClass} setAssetClass={setAssetClass}
@@ -280,6 +282,7 @@ export const CreateFund = (props) => {
                     {
                         step === FundCreationStep.TARGET_RETURNS &&
                         <TargetReturns
+                            fundName={fundName}
                             irr={irr} setIRR={setIRR}
                             coc={coc} setCOC={setCOC}
                             tvpi={tvpi} setTVPI={setTVPI}

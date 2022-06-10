@@ -1,4 +1,4 @@
-import { Grid, Input, Dropdown, Button, Text, theme } from '@nextui-org/react';
+import { Grid, Input, Dropdown, Button, Text, theme, Spacer } from '@nextui-org/react';
 import React from 'react'
 
 const FundConfig = (props) => {
@@ -14,7 +14,10 @@ const FundConfig = (props) => {
     const dropDownButtonStyle: object = {borderRadius: 19, textTransform: "capitalize"};
     return (
         <>
-        <Grid.Container gap={2}>                        
+        <Text h4 style={{width: '100%'}}>{props.fundName}</Text>
+        <Text b style={{width: '70%'}}>Details about the target property</Text>
+        <Spacer y={1}/>
+        <Grid.Container gap={2}>
             <Grid xs={3} justify='center'>
                 <Dropdown>
                     <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>{props.assetType}</Dropdown.Button>

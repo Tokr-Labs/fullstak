@@ -1,9 +1,12 @@
-import { Grid, Input } from '@nextui-org/react';
+import { Grid, Input, Spacer, Text } from '@nextui-org/react';
 import React from 'react'
 
 const Stakeholders = (props) => {
     return (
         <>
+        <Text h4 style={{width: '100%'}}>{props.fundName}</Text>
+        <Text b style={{width: '70%'}}>Details & contact information regarding stakeholders & overseers of the Fund</Text>
+        <Spacer y={1}/>
         <Grid.Container gap={2}>
             <Grid.Container xs={6}>
             <Grid xs={12} justify='center'>
