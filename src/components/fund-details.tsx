@@ -115,7 +115,7 @@ export const FundDetails = () => {
 
                         <Card.Header>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.xl.computedValue}
                                 weight={"bold"}
                             >
                                 {activeTab}

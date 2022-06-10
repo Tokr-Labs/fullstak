@@ -41,8 +41,9 @@ export const globalStyles = globalCss({
     },
 
     // Card headers
-    ".nextui-c-bfHnFD": {
-        padding: "30px 0 0 30px !important"
+    ".nextui-c-jxECYO": {
+        padding: "30px !important",
+        paddingBottom: "0 !important"
     },
 
     ".dark-card": {

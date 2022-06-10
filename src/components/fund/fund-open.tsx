@@ -57,7 +57,7 @@ export const FundOpen = () => {
 
     const approveIdentityRecordAction = useMemo<ApproveIdentityRecordAction>(() => {
         return new ApproveIdentityRecordAction(wallet);
-    }, [connection, wallet])
+    }, [wallet])
 
     useEffect(() => {
 
@@ -145,11 +145,11 @@ export const FundOpen = () => {
                                         <span style={{
                                             height: "10px",
                                             width: "10px",
-                                            background: theme.colors.success.value,
+                                            background: theme.colors.success.computedValue,
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                    <Text size={15} color={"white"}>OPEN</Text>
+                                    <Text size={theme.fontSizes.sm.computedValue} color={"white"}>OPEN</Text>
                                 </div>
                             </Grid>
                         </Grid.Container>
@@ -158,7 +158,7 @@ export const FundOpen = () => {
                     <Card.Body style={{padding: "30px 30px"}}>
 
                         <Text
-                            size={15}
+                            size={theme.fontSizes.md.computedValue}
                             weight={"bold"}
                             color={"white"}
                         >
@@ -182,20 +182,20 @@ export const FundOpen = () => {
                         <Grid.Container>
                             <Grid xs={6} direction={"column"}>
                                 <Text
-                                    size={12}
+                                    size={theme.fontSizes.sm.computedValue}
                                     color={"white"}
                                 >
                                     Raised
                                 </Text>
                                 <Text
-                                    size={18}
+                                    size={theme.fontSizes.lg.computedValue}
                                     color={"white"}
                                     weight={"semibold"}
                                 >
                                     {CurrencyFormatter.formatToken(capitalSupplyBalance ?? 0, "USDC")}
                                 </Text>
                                 <Text
-                                    size={10}
+                                    size={theme.fontSizes.xs.computedValue}
                                     color={"white"}
                                 >
                                     {CurrencyFormatter.formatUsd(capitalSupplyBalance ?? 0, true)}
@@ -203,13 +203,13 @@ export const FundOpen = () => {
                             </Grid>
                             <Grid xs={6} direction={"column"} alignItems={"flex-end"}>
                                 <Text
-                                    size={12}
+                                    size={theme.fontSizes.sm.computedValue}
                                     color={"white"}
                                 >
                                     Remaining
                                 </Text>
                                 <Text
-                                    size={18}
+                                    size={theme.fontSizes.lg.computedValue}
                                     color={"white"}
                                     weight={"semibold"}
                                 >
@@ -219,7 +219,7 @@ export const FundOpen = () => {
                                     )}
                                 </Text>
                                 <Text
-                                    size={10}
+                                    size={theme.fontSizes.xs.computedValue}
                                     color={"white"}
                                 >
                                     {CurrencyFormatter.formatUsd(
@@ -248,7 +248,7 @@ export const FundOpen = () => {
             </Grid>
 
             <Grid xs={12} md={4}>
-                <Grid.Container gap={1} css={{padding: 0}}>
+                <Grid.Container gap={2} css={{padding: 0}}>
                     <Grid xs={12}>
 
                         <Card className={"dark-card"}>
@@ -293,9 +293,12 @@ export const FundOpen = () => {
 
                     <Grid xs={12}>
                         <Card className={"dark-card"}>
-                            <Card.Header style={{paddingBottom: 0}}>
+                            <Card.Header style={{
+                                padding: theme.space.lg.computedValue,
+                                paddingBottom: 0
+                            }}>
                                 <Text
-                                    size={15}
+                                    size={theme.fontSizes.xl.computedValue}
                                     color={"white"}
                                     weight={"bold"}
                                 >
@@ -305,19 +308,21 @@ export const FundOpen = () => {
                             <Card.Body style={{paddingTop: 0}}>
                                 <Grid.Container alignItems={"center"} style={{height: "100%"}}>
                                     <Grid
-                                        xs={12} md={4}
+                                        xs={12} md={6}
                                         direction={"column"} alignItems={"center"}
                                         style={{color: "white"}}
                                     >
                                         <Text
-                                            size={48}
+                                            size={theme.fontSizes.xl4.computedValue}
                                             color={"white"}
                                             weight={"bold"}
                                         >
-                                            20%
+                                            {dao.details.targetReturns.formattedIrr}
                                         </Text>
                                         <div>
-                                            NET IRR
+                                            <span style={{fontSize: theme.fontSizes.md.computedValue}}>
+                                                NET IRR
+                                            </span>
                                             <TooltipWithIcon
                                                 content={`
                                                         Internal Rate of Return (IRR) is a metric used to estimate 
@@ -333,20 +338,22 @@ export const FundOpen = () => {
                                         </div>
                                     </Grid>
                                     <Grid
-                                        xs={12} md={4}
+                                        xs={12} md={6}
                                         direction={"column"}
                                         alignItems={"center"}
                                         style={{color: "white"}}
                                     >
                                         <Text
-                                            size={48}
+                                            size={theme.fontSizes.xl4.computedValue}
                                             color={"white"}
                                             weight={"bold"}
                                         >
-                                            4.0x
+                                            {dao.details.targetReturns.formattedTvpi}
                                         </Text>
                                         <div>
-                                            TVPI
+                                            <span style={{fontSize: theme.fontSizes.md.computedValue}}>
+                                                TVPI
+                                            </span>
                                             <TooltipWithIcon
                                                 content={`
                                                     Total Value to Paid-in (“TVPI”) is the ratio of the current 
@@ -358,20 +365,22 @@ export const FundOpen = () => {
                                         </div>
                                     </Grid>
                                     <Grid
-                                        xs={12} md={4}
+                                        xs={12} md={6}
                                         direction={"column"}
                                         alignItems={"center"}
                                         style={{color: "white"}}
                                     >
                                         <Text
-                                            size={48}
+                                            size={theme.fontSizes.xl4.computedValue}
                                             color={"white"}
                                             weight={"bold"}
                                         >
-                                            2.1x
+                                            {dao.details.targetReturns.formattedDpi}
                                         </Text>
                                         <div>
-                                            DPI
+                                            <span style={{fontSize: theme.fontSizes.md.computedValue}}>
+                                                DPI
+                                            </span>
                                             <TooltipWithIcon
                                                 content={`
                                                     Distributions to Paid-in (“DPI”) is the ratio of money 

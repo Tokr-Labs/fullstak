@@ -18,7 +18,7 @@ export const FundSummary = (props: FundSummaryProps) => {
 
                 <Card.Header>
                     <Text
-                        size={theme.fontSizes.md.computedValue}
+                        size={theme.fontSizes.xl.computedValue}
                         weight={"bold"}
                     >
                         Fund Summary
@@ -50,7 +50,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={24}
+                                    size={theme.fontSizes.xl2.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -95,7 +95,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={24}
+                                    size={theme.fontSizes.xl2.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -139,7 +139,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={24}
+                                    size={theme.fontSizes.xl2.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -158,12 +158,12 @@ export const FundSummary = (props: FundSummaryProps) => {
                     <Grid.Container>
                         <Grid xs={12} direction={"column"}>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.base.computedValue}
                                 weight={"bold"}
                             >
                                 Fund Overview
                             </Text>
-                            <Text size={18}>
+                            <Text size={theme.fontSizes.md.computedValue}>
                                 {dao?.description}
                             </Text>
                         </Grid>
@@ -174,7 +174,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                     <Grid.Container>
                         <Grid direction={"column"}>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.base.computedValue}
                                 weight={"bold"}
                             >
                                 Data Room

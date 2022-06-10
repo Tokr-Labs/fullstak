@@ -22,7 +22,7 @@ export const FundActive = () => {
     const DetailsSection = (props: { title: string, tooltipContent: string, value: string }) => {
         return (
             <Grid xs={4} direction={"column"}>
-                <div style={{fontSize: theme.fontSizes.base.computedValue}}>
+                <div style={{fontSize: theme.fontSizes.sm.computedValue}}>
                     {props.title}
                     <TooltipWithIcon
                         color={"white"}
@@ -30,7 +30,7 @@ export const FundActive = () => {
                     />
                 </div>
                 <Text
-                    size={32}
+                    size={theme.fontSizes.xl3.computedValue}
                     weight={"bold"}
                     color={"white"}
                     margin={0}
@@ -112,7 +112,7 @@ export const FundActive = () => {
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
-                                        <Text size={15} color={"white"}>ACTIVE</Text>
+                                        <Text size={theme.fontSizes.sm.computedValue} color={"white"}>ACTIVE</Text>
                                     </div>
                                 </Grid>
                             </Grid.Container>
@@ -190,7 +190,13 @@ export const FundActive = () => {
                         <Grid xs={12} md={6} direction={"column"}>
                             <Spacer y={1}/>
 
-                            <Text size={15} weight={"bold"} color={"white"}>Performance</Text>
+                            <Text
+                                size={theme.fontSizes.xl.computedValue}
+                                weight={"bold"}
+                                color={"white"}
+                            >
+                                Performance
+                            </Text>
 
                             <Button.Group size={"sm"}>
                                 {Array.of("1D", "1W", "1M", "3M", "6M", "1Y", "All")
