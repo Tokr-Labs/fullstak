@@ -6,20 +6,15 @@ export const FundConfiguration = () => {
     const Section = (props) => {
         return (
             <Grid xs={6} md={3} direction={"column"}>
-                <Text
-                    size={10}
-                    weight={"normal"}
-                    color={"black"}
-                >
+
+                <Text size={10} weight={"normal"}>
                     {props.title}
                 </Text>
 
-                <Text
-                    size={14}
-                    weight={"semibold"}
-                >
+                <Text size={14} weight={"semibold"}>
                     {props.text}
                 </Text>
+
             </Grid>
         )
     }
