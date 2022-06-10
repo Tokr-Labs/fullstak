@@ -27,9 +27,9 @@ export const Footer = () => {
             }}/>
 
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
-                <Grid xs={0} md={4}>
+                <Grid xs={0} md={4} alignItems={"center"}>
                     <Switch
-                        size={"lg"}
+                        size={"sm"}
                         color={"primary"}
                         checked={darkMode.value}
                         onChange={darkMode.toggle}
