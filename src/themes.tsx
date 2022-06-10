@@ -72,7 +72,9 @@ export const lightTheme = createTheme({
                     rgba(12, 2, 36, 1) 24%, 
                     rgba(28, 5, 73, 1) 100%
                 )`,
-            background: "#f8f5f6"
+            background: "#f8f5f6",
+            purple100: "#0C0223",
+            purple200: "#170037"
         },
         fonts: {
             sans: "Montserrat, sans-serif",
@@ -98,7 +100,9 @@ export const darkTheme = createTheme({
                     rgba(12, 2, 36, 1) 24%, 
                     rgba(28, 5, 73, 1) 100%
                 )`,
-            background: "$black"
+            background: "$black",
+            purple100: "#0C0223",
+            purple200: "#170037"
         },
         fonts: {
             sans: "Montserrat, sans-serif",

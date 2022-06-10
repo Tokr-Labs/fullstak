@@ -87,7 +87,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Target IRR
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Internal Rate of Return (IRR) is a metric used to estimate 
                                             the profitability of potential investments. IRR is a discount 
@@ -103,7 +103,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Target TVPI
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Total Value to Paid-in (“TVPI”) is the ratio of the current 
                                             value of current investments within a fund, plus the total 
@@ -115,7 +115,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Target DPI
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Distributions to Paid-in (“DPI”) is the ratio of money distributed to 
                                             investors by the fund, relative to the total amount of capital paid into 
@@ -250,7 +250,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Paid-in Capital
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Paid-in Capital is the full amount of cash or other assets that 
                                             shareholders have contributed to a fund in exchange for ownership shares.
@@ -260,7 +260,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Carrying Value
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Carrying Value of an asset is the original purchase price or most recently 
                                             appraised value less any accumulated depreciation, amortization, or 
@@ -274,7 +274,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     Net IRR
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Internal Rate of Return (IRR) is a metric used to estimate 
                                             the profitability of potential investments. IRR is a discount 
@@ -290,7 +290,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     TVPI
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Total Value to Paid-in (“TVPI”) is the ratio of the current 
                                             value of current investments within a fund, plus the total 
@@ -302,7 +302,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"} css={{paddingRight: theme.space["5"].computedValue}}>
                                     DPI
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Distributions to Paid-in (“DPI”) is the ratio of money distributed to 
                                             investors by the fund, relative to the total amount of capital paid into 
@@ -313,7 +313,7 @@ export const EquityMarkets = () => {
                                 <Table.Column align={"end"}>
                                     Fund Vintage
                                     <TooltipWithIcon
-                                        color={"#666666"}
+                                        color={theme.colors.accents6.computedValue}
                                         content={`
                                             Fund Vintage refers to the year in which the first influx of investment 
                                             capital is delivered to a fund. 

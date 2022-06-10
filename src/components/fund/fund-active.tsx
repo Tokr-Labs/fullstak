@@ -1,12 +1,11 @@
 import React, {useContext, useState} from "react";
-import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Spacer, Text, theme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TooltipWithIcon} from "../tooltip-with-icon";
 import {Area, AreaChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 
 export const FundActive = () => {
 
-    const {theme} = useTheme();
     const {dao} = useContext(DaoInfoContext)
 
     const [performanceTimeframe, setPerformanceTimeframe] = useState("All");
@@ -109,7 +108,7 @@ export const FundActive = () => {
                                         <span style={{
                                             height: "10px",
                                             width: "10px",
-                                            background: theme?.colors.primary.value,
+                                            background: theme.colors.primary.computedValue,
                                             borderRadius: "50%",
                                             marginRight: "10px"
                                         }}/>
@@ -202,8 +201,8 @@ export const FundActive = () => {
                                                 onClick={() => updateTimeframe(timeframe)}
                                                 style={{
                                                     backgroundColor: performanceTimeframe === timeframe
-                                                        ? theme?.colors.secondary.value
-                                                        : "#150335"
+                                                        ? theme.colors.secondary.value
+                                                        : theme.colors.purple100.computedValue
                                                 }}
                                             >
                                                 {timeframe}
@@ -215,15 +214,15 @@ export const FundActive = () => {
 
                             <Button.Group size={"sm"}>
                                 {Array.of("CV", "IRR", "TVPI", "DPI")
-                                    .map((metric, i) => {
+                                    .map(metric=> {
                                         return (
                                             <Button
                                                 key={metric}
                                                 onClick={() => updateMetric(metric)}
                                                 style={{
                                                     backgroundColor: performanceMetric === metric
-                                                        ? theme?.colors.secondary.value
-                                                        : "#150335"
+                                                        ? theme.colors.secondary.computedValue
+                                                        : theme.colors.purple100.computedValue
                                                 }}
                                             >
                                                 {metric}
@@ -245,8 +244,8 @@ export const FundActive = () => {
                                 >
                                     <defs>
                                         <linearGradient id="colorY" x1="0" y1="0" x2="0" y2="1">
-                                            <stop offset="0%" stopColor={theme?.colors.primary.value} stopOpacity={1}/>
-                                            <stop offset="100%" stopColor={theme?.colors.primary.value} stopOpacity={0}/>
+                                            <stop offset="0%" stopColor={theme.colors.primary.computedValue} stopOpacity={1}/>
+                                            <stop offset="100%" stopColor={theme.colors.primary.computedValue} stopOpacity={0}/>
                                         </linearGradient>
                                     </defs>
                                     <XAxis
@@ -257,7 +256,7 @@ export const FundActive = () => {
                                     <Area
                                         type="monotone"
                                         dataKey="y"
-                                        stroke={theme?.colors.primary.value}
+                                        stroke={theme.colors.primary.computedValue}
                                         strokeWidth={2}
                                         fill="url(#colorY)"
                                     />

@@ -102,7 +102,7 @@ const Landing = () => {
 
                     <div style={{
                         padding: "20px 30px",
-                        background: "#0C0223",
+                        background: theme.colors.purple100.computedValue,
                         maxWidth: "1000px",
                         marginTop: "auto"
                     }}>
@@ -119,7 +119,7 @@ const Landing = () => {
 
                     <p style={{
                         padding: "30px 10px",
-                        background: "#0C0223",
+                        background: theme.colors.purple100.computedValue,
                         textAlign: "center",
                         width: "100%",
                         maxWidth: "580px",
@@ -311,14 +311,14 @@ const Landing = () => {
                 </Container>
             </section>
 
-            <section style={{height: "600px", background: "#170037"}}>
+            <section style={{height: "600px", background: theme.colors.purple200.computedValue}}>
                 <Container display={"flex"}
                            justify={"center"}
                            alignContent={"center"}
                            style={{height: "100%"}}
                 >
                     <h2 style={{
-                        background: "#0C0223",
+                        background: theme.colors.purple100.computedValue,
                         padding: "10px 20px",
                         textAlign: "center"
                     }}>
@@ -342,7 +342,7 @@ const Landing = () => {
                 </Container>
             </section>
 
-            <section style={{background: "#0C0223", padding: "20px 0"}}>
+            <section style={{background: theme.colors.purple100.computedValue, padding: "20px 0"}}>
                 <Container>
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
