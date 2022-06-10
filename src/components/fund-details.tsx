@@ -92,7 +92,7 @@ export const FundDetails = () => {
                                             fontWeight: theme.fontWeights.bold.computedValue,
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
-                                                ? theme.colors.primary.computedValue
+                                                ? theme.colors.secondary.computedValue
                                                 : theme.colors.purple100.computedValue
                                         }}
                                         disabled={tab === "Transactions" || tab === "Proposals"}
