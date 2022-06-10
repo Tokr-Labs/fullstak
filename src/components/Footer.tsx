@@ -1,11 +1,16 @@
 import React from "react";
-import {Grid, Link, Text, theme} from "@nextui-org/react";
+import {Grid, Link, Switch, Text, theme} from "@nextui-org/react";
 import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
+import {SunIcon} from "./icons/SunIcon";
+import {MoonIcon} from "./icons/MoonIcon";
+import useDarkMode from "use-dark-mode";
 
 require("boxicons");
 
 export const Footer = () => {
+
+    const darkMode = useDarkMode();
 
     return (
         <div style={{marginTop: "auto", height: "60px"}}>
@@ -22,7 +27,17 @@ export const Footer = () => {
             }}/>
 
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
-                <Grid xs={0} md={4}/>
+                <Grid xs={0} md={4}>
+                    <Switch
+                        size={"lg"}
+                        color={"primary"}
+                        checked={darkMode.value}
+                        onChange={darkMode.toggle}
+                        iconOff={<SunIcon fill={theme.colors.text.computedValue} filled={true}/>}
+                        iconOn={<MoonIcon fill={theme.colors.text.computedValue} filled={true}/>}
+                        aria-label={"Toggle theme"}
+                    />
+                </Grid>
                 <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>
                     <Link
                         href={"https://discord.gg/nCGXWpFahv"}

@@ -43,11 +43,11 @@ export const App = () => {
 
     globalStyles();
 
-    // // Defaults to using system preference
+    // Defaults to using system preference
     const darkMode = useDarkMode();
 
     return (
-        <NextUIProvider theme={darkMode ? darkTheme : lightTheme}>
+        <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
             <NetworkContext.Provider value={{network, setNetwork}}>
                 <ConnectionProvider endpoint={clusterApiUrl(network)}>
                     <WalletProvider wallets={wallets} autoConnect>

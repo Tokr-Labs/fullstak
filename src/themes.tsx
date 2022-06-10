@@ -88,6 +88,7 @@ export const darkTheme = createTheme({
         colors: {
             primary: "#be00ff",
             primaryLight: "rgba(190,0,255,0.25)",
+            primaryDark: "#be00ff",
             secondary: "#650087",
             success: "#00ff4b",
             gradient: `linear-gradient(
