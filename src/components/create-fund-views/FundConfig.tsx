@@ -11,7 +11,13 @@ const FundConfig = (props) => {
         <Grid.Container gap={2}>                        
             <Grid xs={3} justify='center'>
                 <Dropdown>
-                    <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>{props.assetType}</Dropdown.Button>
+                    <Dropdown.Button
+                        flat
+                        color='secondary'
+                        style={dropDownButtonStyle}
+                    >
+                        {props.assetType.size === 0 ? "Asset Type" : props.assetType}
+                    </Dropdown.Button>
                     <Dropdown.Menu
                         aria-label="asset type selection"
                         disallowEmptySelection
