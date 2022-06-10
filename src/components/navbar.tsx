@@ -1,11 +1,14 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Grid, Modal, Popover, Spacer, Text, theme} from "@nextui-org/react";
+import {Button, Grid, Modal, Popover, Spacer, Switch, Text, theme} from "@nextui-org/react";
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {ServerIcon} from "./icons/server-icon";
 import {MenuIcon} from "./icons/menu-icon";
 import {NetworkContext} from "../models/contexts/network-context";
+import {SunIcon} from "./icons/sun-icon";
+import {MoonIcon} from "./icons/moon-Icon";
+import useDarkMode from "use-dark-mode";
 
 export const Navbar = () => {
 
@@ -31,6 +34,8 @@ export const Navbar = () => {
         setTab(tab)
         navigate("/" + tab.toLowerCase())
     }
+
+    const darkMode = useDarkMode();
 
     return (
         <>
@@ -218,7 +223,17 @@ export const Navbar = () => {
 
                         </Modal.Body>
 
-                        <Modal.Footer/>
+                        <Modal.Footer>
+                            <Switch
+                                size={"lg"}
+                                color={"primary"}
+                                checked={darkMode.value}
+                                onChange={darkMode.toggle}
+                                iconOff={<SunIcon fill={theme.colors.text.computedValue} filled={true}/>}
+                                iconOn={<MoonIcon fill={theme.colors.text.computedValue} filled={true}/>}
+                                aria-label={"Toggle theme"}
+                            />
+                        </Modal.Footer>
 
                     </Modal>
 
