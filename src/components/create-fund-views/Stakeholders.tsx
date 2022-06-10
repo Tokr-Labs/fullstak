@@ -5,7 +5,7 @@ const Stakeholders = (props) => {
     return (
         <>
         <Text h4 style={{width: '100%'}}>{props.fundName}</Text>
-        <Text b style={{width: '70%'}}>Details & contact information regarding stakeholders & overseers of the Fund</Text>
+        <Text b style={{width: '70%'}}>Details & contact information regarding stakeholders and overseers of the Fund</Text>
         <Spacer y={1}/>
         <Grid.Container gap={2}>
             <Grid.Container xs={6}>

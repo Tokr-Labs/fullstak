@@ -121,7 +121,7 @@ export const CreateFund = (props) => {
     ]
 
     // styling objects
-    const navigationStyle: any = {borderRadius: 30}
+    const navigationStyle: object = {marginLeft: 'auto', marginRight: 'auto', borderRadius: 30}
 
     const closeHandler = () => {
         setVisible(false);
@@ -201,7 +201,20 @@ export const CreateFund = (props) => {
                 blur
             >
                 <Modal.Header>
-                    <Grid.Container>
+
+                    {
+                            step !== FundCreationOrder[0] &&
+                            <div>
+                                <Button
+                                    flat
+                                    onClick={handleBack}
+                                    style={{...navigationStyle, position: 'absolute'}}
+                                    size="xs"
+                                >Back</Button>
+                            </div>    
+                    }                    
+                    <Grid.Container justify="center">
+
                         <Grid xs={12} justify='center' alignItems="center">
                             <Text h4>Create Fund</Text>
                         </Grid>
@@ -310,16 +323,17 @@ export const CreateFund = (props) => {
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    {/* Back button should not be rendered on the first page */}
-                    {
-                        step !== FundCreationStep.NAME &&
-                        <Button onClick={handleBack} style={navigationStyle}>Back</Button>
-                    }
+                    <Container style={{width: "100%"}}>
                     <Button onClick={handleNext}
-                        style={{...navigationStyle, backgroundColor: step === FundCreationStep.SUBMIT ? '#4ad47b' : '#be00ff'}}
+                        style={{
+                            ...navigationStyle,
+                            width: step === FundCreationStep.SUBMIT ? "100%" : "33%",
+                            backgroundColor: step === FundCreationStep.SUBMIT ? '#4ad47b' : '#be00ff'
+                        }}
                     >
                         {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
                     </Button>
+                    </Container>
                 </Modal.Footer>
             </Modal>
         </>

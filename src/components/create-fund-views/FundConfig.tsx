@@ -18,7 +18,7 @@ const FundConfig = (props) => {
         <Text b style={{width: '70%'}}>Details about the target property</Text>
         <Spacer y={1}/>
         <Grid.Container gap={2}>
-            <Grid xs={3} justify='center'>
+            <Grid xs={6} justify='center'>
                 <Dropdown>
                     <Dropdown.Button flat color='secondary' style={dropDownButtonStyle}>{props.assetType}</Dropdown.Button>
                     <Dropdown.Menu
@@ -35,7 +35,7 @@ const FundConfig = (props) => {
                 </Dropdown>
             </Grid>
 
-            <Grid xs={3} justify='center'>
+            <Grid xs={6} justify='center'>
                 <Dropdown>
                     <Dropdown.Button
                         flat
