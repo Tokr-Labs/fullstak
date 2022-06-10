@@ -1,9 +1,9 @@
 import React from "react";
-import {Grid, Link, Switch, Text, theme} from "@nextui-org/react";
+import {Grid, Link, Switch, theme} from "@nextui-org/react";
 import discordLogo from "src/assets/icons/discord_icon.svg"
 import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
-import {SunIcon} from "./icons/SunIcon";
-import {MoonIcon} from "./icons/MoonIcon";
+import {SunIcon} from "./icons/sun-icon";
+import {MoonIcon} from "./icons/moon-Icon";
 import useDarkMode from "use-dark-mode";
 
 require("boxicons");
