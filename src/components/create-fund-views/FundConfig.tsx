@@ -9,7 +9,7 @@ const FundConfig = (props) => {
     // styling for dropdown buttons
     const dropDownButtonStyle: any = {borderRadius: 19, textTransform: "capitalize"};
     return (
-        <div>
+        <>
         <Grid.Container gap={2}>                        
             <Grid xs={3} justify='center'>
                 <Dropdown>
@@ -87,7 +87,7 @@ const FundConfig = (props) => {
                 </Dropdown.Menu>
             </Dropdown> */}
         </Grid.Container>
-        </div>
+        </>
     )
 };
 

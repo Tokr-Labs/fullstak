@@ -4,7 +4,7 @@ import {getAllProposals, ProgramAccount, Proposal, ProposalState} from "@tokr-la
 import {PublicKey} from "@solana/web3.js";
 import {useConnection} from "@solana/wallet-adapter-react";
 
-export const PoolProposals = () => {
+export const FundProposals = () => {
 
     const connection = useConnection().connection;
 

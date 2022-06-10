@@ -3,7 +3,7 @@ import React from 'react'
 
 const Stakeholders = (props) => {
     return (
-        <div>
+        <>
         <Grid.Container gap={2}>
             <Grid.Container xs={6}>
             <Grid xs={12} justify='center'>
@@ -25,7 +25,7 @@ const Stakeholders = (props) => {
                 </Grid>
             </Grid.Container>
         </Grid.Container>
-        </div>
+        </>
     )
 };
 

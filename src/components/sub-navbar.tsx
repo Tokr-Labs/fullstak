@@ -1,12 +1,10 @@
 import React, {useContext, useMemo, useState} from "react";
 import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {BackIcon} from "./icons/BackIcon";
-import {GetIdentityRecordAction} from "../services/actions/get-identity-record-action";
 import {CreateDaoAction} from "../services/actions/create-dao-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
-import {NetworkContext} from "../App";
 import { CreateFund } from "./CreateFund";
+import {BackIcon} from "./icons/back-icon";
 
 export const SubNavbar = () => {
 
@@ -23,6 +21,15 @@ export const SubNavbar = () => {
         setSelected(market)
         navigate(market.split(" ")[0].toLowerCase())
     }
+
+    // styling object for the buttons
+    const buttonStyle = {
+        fontWeight: "bold",
+        letterSpacing: "1px",
+        padding: "0 30px",
+        borderRadius: theme.radii.pill.computedValue
+    }
+    
 
     const createDaoAction = useMemo<CreateDaoAction>(() => {
         return new CreateDaoAction(connection, wallet);
@@ -49,7 +56,7 @@ export const SubNavbar = () => {
                             style={{
                                 color: "white",
                                 fontWeight: "bold",
-                                letterSpacing: "2px",
+                                letterSpacing: theme.letterSpacings.wider.value,
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}
@@ -70,12 +77,7 @@ export const SubNavbar = () => {
                                 <Tooltip content={market === "DEBT MARKET" ? "Coming soon!" : ""}>
                                     <Button size={"sm"}
                                             color={"secondary"}
-                                            style={{
-                                                fontWeight: "bold",
-                                                letterSpacing: "2px",
-                                                padding: "0 30px",
-                                                borderRadius: theme.radii.pill.computedValue
-                                            }}
+                                            style={buttonStyle}
                                             ghost={market !== selected}
                                             disabled={market === "DEBT MARKET"}
                                             borderWeight={"light"}
@@ -89,7 +91,9 @@ export const SubNavbar = () => {
 
 
                     })}
-                    <CreateFund/>
+                    <Grid>
+                        <CreateFund buttonStyle={buttonStyle}/>
+                    </Grid>
                 </Grid.Container>
             </>
         )

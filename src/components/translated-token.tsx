@@ -1,8 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {ENV, TokenInfo, TokenListProvider} from '@solana/spl-token-registry';
-import {NetworkContext} from "../App";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {useTokenRegistry} from "../hooks/token-registry";
+import React, {useContext} from 'react';
 import {TokenRegistryContext} from "../models/contexts/token-registry-context";
 
 

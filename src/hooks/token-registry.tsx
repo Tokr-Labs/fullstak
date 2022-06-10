@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
-import {NetworkContext} from "../App";
-import {ENV, TokenInfo, TokenListProvider} from "@solana/spl-token-registry";
+import {ENV, Strategy, TokenInfo, TokenListProvider} from "@solana/spl-token-registry";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const useTokenRegistry = () => {
 
@@ -12,7 +12,7 @@ export const useTokenRegistry = () => {
     useEffect(() => {
         if (!called) {
 
-            new TokenListProvider().resolve().then(tokens => {
+            new TokenListProvider().resolve(Strategy.GitHub).then(tokens => {
                 const tokenList = tokens.filterByChainId(
                     network === WalletAdapterNetwork.Mainnet
                         ? ENV.MainnetBeta

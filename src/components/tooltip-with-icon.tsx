@@ -1,6 +1,6 @@
 import React from "react";
 import {Tooltip} from "@nextui-org/react";
-import {TooltipIcon} from "./icons/TooltipIcon";
+import {TooltipIcon} from "./icons/tooltip-icon";
 
 export const TooltipWithIcon = (props) => {
 
