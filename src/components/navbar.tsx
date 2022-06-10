@@ -58,6 +58,8 @@ export const Navbar = () => {
                         textAlign: "center",
                         padding: "5px",
                         marginBottom: "5px",
+                        borderBottomLeftRadius: theme.radii.sm.computedValue,
+                        borderBottomRightRadius: theme.radii.sm.computedValue,
                         background: theme.colors.error.computedValue,
                         display: network === WalletAdapterNetwork.Devnet || network === WalletAdapterNetwork.Testnet
                             ? "inline-block"
