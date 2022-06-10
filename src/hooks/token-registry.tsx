@@ -1,7 +1,7 @@
 import React, {useContext, useEffect, useState} from "react";
-import {NetworkContext} from "../models/contexts/network-context";
 import {ENV, Strategy, TokenInfo, TokenListProvider} from "@solana/spl-token-registry";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const useTokenRegistry = () => {
 

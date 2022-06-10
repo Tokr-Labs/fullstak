@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
-import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
+import {Button, Card, Grid, Spacer, Text, theme} from "@nextui-org/react";
 import {Outlet, useLocation, useNavigate} from "react-router-dom";
 import {FundOpen} from "./fund/fund-open";
 import {FundSummary} from "./fund/fund-summary";
@@ -18,7 +18,6 @@ export const FundDetails = () => {
     const tabs = ["Assets", "Members", "Transactions", "Proposals", "Configuration"]
     const [activeTab, setActiveTab] = useState(tabs.includes(urlBasedTab) ? urlBasedTab : tabs[0]);
 
-    const theme = useTheme();
     const navigate = useNavigate();
     const {dao, setDao} = useContext(DaoInfoContext);
     const {network} = useContext(NetworkContext);
@@ -71,9 +70,10 @@ export const FundDetails = () => {
                     {dao.active ? <FundActive/> : <FundOpen/>}
                 </>
 
-                <FundSummary/>
+                <FundSummary dao={dao}/>
 
                 <Grid.Container style={{marginTop: "10px"}}>
+
                     <Grid xs={12}>
                         <Button.Group
                             rounded
@@ -92,7 +92,7 @@ export const FundDetails = () => {
                                             fontWeight: "bold",
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
-                                                ? theme.theme?.colors.primary.computedValue
+                                                ? theme.colors.primary.computedValue
                                                 : "#150335"
                                         }}
                                         disabled={tab === "Transactions" || tab === "Proposals"}
@@ -106,10 +106,12 @@ export const FundDetails = () => {
                             })}
                         </Button.Group>
                     </Grid>
+
                 </Grid.Container>
 
                 <Grid xs={12} md={8}>
-                    <Card style={{minHeight: "300px"}}>
+
+                    <Card style={{minHeight: "400px"}}>
 
                         <Card.Header>
                             <Text
@@ -127,6 +129,7 @@ export const FundDetails = () => {
                         <Card.Footer/>
 
                     </Card>
+
                 </Grid>
 
             </Grid.Container>

@@ -1,7 +1,7 @@
 import React, {useContext, useState} from "react";
 import {Button, Card, Grid, Spacer, Text, useTheme} from "@nextui-org/react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
-import {TooltipWithIcon} from "../TooltipWithIcon";
+import {TooltipWithIcon} from "../tooltip-with-icon";
 import {Area, AreaChart, ResponsiveContainer, XAxis, YAxis} from 'recharts';
 
 export const FundActive = () => {
@@ -81,7 +81,7 @@ export const FundActive = () => {
                             <Grid.Container gap={1} alignItems={"center"}>
                                 <Grid style={{paddingLeft: 0}}>
                                     <img
-                                        src={require("src/assets/issuers/miami_fund_1.png")}
+                                        src={dao?.token.image}
                                         height={"100px"}
                                         width={"100px"}
                                         alt={"Miami Fund 1 logo"}

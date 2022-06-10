@@ -1,15 +1,15 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
 import {Button, Card, Grid, Progress, Table, Text, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
-import {TooltipWithIcon} from "./TooltipWithIcon";
+import {TooltipWithIcon} from "./tooltip-with-icon";
 import {TokenServices} from "../services/token-services";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {USDC_DEVNET} from "../models/constants";
 import {CurrencyFormatter} from "../utils/currency-formatter";
 import {PublicKey} from "@solana/web3.js";
 import {DaoCollection} from "../models/dao/dao-collection";
-import {NetworkContext} from "../models/contexts/network-context";
 import {DaoService} from "../services/dao-service";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const EquityMarkets = () => {
 
@@ -37,7 +37,7 @@ export const EquityMarkets = () => {
 
         const promises = collection.open.map(fund => {
 
-            const lpTokenMintGovernance = fund?.addresses.governance.lpTokenMintGovernance as PublicKey;
+            const lpTokenMintGovernance = fund?.addresses.governance.lpGovernance as PublicKey;
 
             return tokenServices.getTokenHoldingAmount(USDC_DEVNET, lpTokenMintGovernance)
 
@@ -239,7 +239,7 @@ export const EquityMarkets = () => {
                             size={24}
                             weight={"bold"}
                         >
-                            ACTIVE FUNDS
+                            CLOSED FUNDS
                         </Text>
                     </Card.Header>
 

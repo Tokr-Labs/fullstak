@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {BackIcon} from "./icons/BackIcon";
+import {BackIcon} from "./icons/back-icon";
 
 export const SubNavbar = () => {
 

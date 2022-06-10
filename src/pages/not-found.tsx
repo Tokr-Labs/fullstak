@@ -1,8 +1,8 @@
 import React from "react";
 import {Container, theme, Text, Spacer, Card} from "@nextui-org/react";
-import {Navbar} from "../components/Navbar";
+import {Navbar} from "../components/navbar";
 import {Link} from "react-router-dom";
-import {Footer} from "../components/Footer";
+import {Footer} from "../components/footer";
 
 export const NotFound = () => {
 

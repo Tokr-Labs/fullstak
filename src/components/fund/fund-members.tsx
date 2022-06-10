@@ -32,7 +32,7 @@ export const FundMembers = () => {
             treasuryStock,
             [
                 // TODO - change this to be the actual Treasury Stock account
-                dao.addresses.governance.delegateTokenMintGovernance as PublicKey
+                dao.addresses.governance.delegateMintGovernance as PublicKey
             ]
         ).then(capTable => {
             setCapTable(capTable);
