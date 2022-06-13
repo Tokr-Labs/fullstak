@@ -18,8 +18,6 @@ export class DaoStakeholder {
         stakeholder.company = info?.company ?? "";
         stakeholder.image = info?.image ?? "";
 
-        console.log("image = ", stakeholder.image);
-
         return stakeholder;
 
     }
