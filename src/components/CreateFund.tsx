@@ -5,6 +5,7 @@ import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
 import FundName from "./create-fund-views/FundName";
 import FundConfig from "./create-fund-views/FundConfig";
+import FundInvestment from "./create-fund-views/FundInvestment";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CreateDaoAction } from "src/services/actions/create-dao-action";
 
@@ -19,6 +20,9 @@ enum FundCreationStep {
     // fund creator sets property data (i.e. asset type / class)
     FUND_CONFIG,
 
+    // fund creator sets the investment terms of the fund
+    FUND_INVESTMENT,
+
     // fund creator sets the expected/target capital returns of the fund
     TARGET_RETURNS,
 
@@ -31,6 +35,7 @@ export const FundCreationOrder = [
     FundCreationStep.NAME,
     FundCreationStep.STAKEHOLDERS,
     FundCreationStep.FUND_CONFIG,
+    FundCreationStep.FUND_INVESTMENT,
     FundCreationStep.TARGET_RETURNS,
     FundCreationStep.SUBMIT
 ]
@@ -91,11 +96,6 @@ export const CreateFund = (props) => {
         {name: 'Fund Name', value: fundName},
         {name: 'Token Symbol', value: tokenSymbol},
         {name: 'Description', value: fundDescription},
-        {name: 'Minimum Raise', value: minRaise},
-        {name: 'Maximum Raise', value: maxRaise},
-        {name: 'Minimum Investment', value: minInvestment},
-        {name: 'Closing Fee', value: closingFee},
-        {name: 'Annual Fee', value: annualFee}
     ]
     const stakeholderData = [
         {name: 'Sponsor', value: sponsorName},
@@ -112,6 +112,13 @@ export const CreateFund = (props) => {
         {name: 'Target Market', value: targetMarket},
         {name: 'Investment Strategy', value: strategy},
         {name: 'Fund Term', value: fundTerm}
+    ]
+    const investmentData = [
+        {name: 'Minimum Raise', value: minRaise},
+        {name: 'Maximum Raise', value: maxRaise},
+        {name: 'Minimum Investment', value: minInvestment},
+        {name: 'Closing Fee', value: closingFee},
+        {name: 'Annual Fee', value: annualFee}
     ]
     const returnData = [
         {name: 'Internal Rate of Return', value: irr},
@@ -228,6 +235,8 @@ export const CreateFund = (props) => {
                                         "Stakeholder Information" :
                                     step === FundCreationStep.FUND_CONFIG ?
                                         "Fund Configuration" :
+                                    step === FundCreationStep.FUND_INVESTMENT ?
+                                        "Fund Investment" :
                                     step === FundCreationStep.TARGET_RETURNS ?
                                         "Target Returns" :
                                     step === FundCreationStep.SUBMIT ?
@@ -255,11 +264,6 @@ export const CreateFund = (props) => {
                               fundName={fundName} setFundName={setFundName}
                               tokenSymbol={tokenSymbol} setTokenSymbol={setTokenSymbol}
                               fundDescription={fundDescription} setFundDescription={setFundDescription}
-                              minRaise={minRaise} setMinRaise={setMinRaise}
-                              maxRaise={maxRaise} setMaxRaise={setMaxRaise}
-                              minInvestment={minInvestment} setMinInvestment={setMinInvestment}
-                              closingFee={closingFee} setClosingFee={setClosingFee}
-                              annualFee={annualFee} setAnnualFee={setAnnualFee}
                             />
                         </>
                     }
@@ -293,6 +297,19 @@ export const CreateFund = (props) => {
                         </>
                     }
                     {
+                        step === FundCreationStep.FUND_INVESTMENT &&
+                        <>
+                            <FundInvestment
+                                fundName={fundName}
+                                minRaise={minRaise} setMinRaise={setMinRaise}
+                                maxRaise={maxRaise} setMaxRaise={setMaxRaise}
+                                minInvestment={minInvestment} setMinInvestment={setMinInvestment}
+                                closingFee={closingFee} setClosingFee={setClosingFee}
+                                annualFee={annualFee} setAnnualFee={setAnnualFee}
+                            />
+                        </>
+                    }
+                    {
                         step === FundCreationStep.TARGET_RETURNS &&
                         <TargetReturns
                             fundName={fundName}
@@ -314,6 +331,9 @@ export const CreateFund = (props) => {
                                 </Collapse>    
                                 <Collapse title={<Text h4>Configuration</Text>} expanded>
                                     <KeyValueTable arialabel="config" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Investment</Text>} expanded>
+                                    <KeyValueTable arialabel="investment summary" keyString="INVESTMENT" valueString="VALUE" data={investmentData}/>
                                 </Collapse>
                                 <Collapse title={<Text h4>Returns</Text>} expanded>
                                     <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
