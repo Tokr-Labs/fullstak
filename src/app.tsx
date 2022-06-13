@@ -1,5 +1,5 @@
 import React, {useMemo, useState} from 'react';
-import {createTheme, globalCss, NextUIProvider, theme} from "@nextui-org/react";
+import {NextUIProvider} from "@nextui-org/react";
 import {ConnectionProvider, WalletProvider} from '@solana/wallet-adapter-react';
 import {WalletAdapterNetwork} from '@solana/wallet-adapter-base';
 import {PhantomWalletAdapter} from '@solana/wallet-adapter-wallets';
@@ -21,7 +21,9 @@ import Faucet from "./pages/faucet";
 import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
-import {NetworkContext} from "./models/contexts/network-context";
+import {darkTheme, globalStyles, lightTheme} from "./themes";
+import { NetworkContext } from './models/contexts/network-context';
+import useDarkMode from 'use-dark-mode';
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -39,89 +41,13 @@ export const App = () => {
         []
     );
 
-    // TODO - figure out how to included shared theme props
-    // const darkTheme = createTheme({
-    //     type: 'dark',
-    //     theme: {
-    //         colors: {
-    //             primary: "#be00ff",
-    //             secondary: "$blue500",
-    //             gradient: "linear-gradient(" +
-    //                 "112deg, " +
-    //                 "var(--nextui-colors-cyan500) -63.59%, " +
-    //                 "#be00ff 20.3%, " +
-    //                 "var(--nextui-colors-blue500) 75.46%" +
-    //                 ")"
-    //         },
-    //         fonts: {
-    //             sans: "Montserrat, sans-serif",
-    //             mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
-    //         }
-    //     }
-    // })
-
-    const lightTheme = createTheme({
-        type: "light",
-        theme: {
-            colors: {
-                primary: "#be00ff",
-                primaryLight: "rgba(190,0,255,0.25)",
-                secondary: "#650087",
-                success: "#00ff4b",
-                gradient: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`
-            },
-            fonts: {
-                sans: "Montserrat, sans-serif",
-                mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
-            }
-        }
-    })
-
-    const globalStyles = globalCss({
-        hr: {
-            margin: "5px 0",
-            opacity: 0.5,
-            border: "1px solid " + theme.colors.primary.computedValue + " !important"
-        },
-        "box-icon": {marginRight: "10px"},
-        ".wallet-adapter-button-trigger": {
-            background: theme.colors.primary.computedValue + " !important",
-            borderRadius: theme.radii.pill.computedValue + " !important",
-            height: "40px !important",
-            fontFamily: "Montserrat, sans-serif !important"
-        },
-        ".nextui-table-container": {width: "100%"},
-        ".nextui-table-column-header": {
-            fontSize: 12,
-            fontWeight: "normal",
-            letterSpacing: 0.8
-        },
-        ".nextui-table-cell": {
-            fontSize: 14,
-            fontWeight: "$semibold",
-            letterSpacing: .9
-        },
-        ".skinny-rows .nextui-table-cell": {
-            paddingTop: theme.space["2"].computedValue,
-            paddingBottom: theme.space["2"].computedValue
-        },
-        ".nextui-c-bfHnFD": {padding: "30px 0 0 30px !important"}, // Card headers
-        ".dark-card": {background: "linear-gradient(180deg, rgba(12,2,35,1) 0%, rgba(28,5,73,1) 100%) !important"},
-        ".dark-card .nextui-c-PJLV-ijXuRFq-css, .dark-card input, .dark-card label": {color: "white"},
-    })
     globalStyles();
 
-    // // Defaults to using system preference
-    // const darkMode = useDarkMode();
+    // Defaults to using system preference
+    const darkMode = useDarkMode();
 
     return (
-        <NextUIProvider theme={lightTheme}>
+        <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
 
             <NetworkContext.Provider value={{network, setNetwork}}>
 

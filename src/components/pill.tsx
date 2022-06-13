@@ -12,10 +12,8 @@ export const Pill = (props) => {
             padding: "3px 10px",
             borderRadius: "10px",
             textAlign: "center",
-            fontSize: "12px",
+            fontSize: theme.fontSizes.xs.computedValue,
             textTransform: "uppercase",
-            letterSpacing: theme.letterSpacings.normal.value,
-
         }}>
             {props.text}
         </div>

@@ -4,11 +4,12 @@ import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {AttributeGridItem} from "../components/attribute-grid-item";
+import {FaDiscord, FaTwitter} from "react-icons/fa";
 
 const Landing = () => {
 
     return (
-        <div style={{fontFamily: "Montserrat, serif", color: "white"}}>
+        <div style={{color: "white"}}>
 
             <section style={{
                 padding: "40px 0 30px 0",
@@ -36,8 +37,7 @@ const Landing = () => {
                                         maxHeight: "min(46px, 10vw)",
                                         borderRadius: 19,
                                         color: "white",
-                                        fontWeight: "bold",
-                                        letterSpacing: 1.25
+                                        fontWeight: theme.fontWeights.bold.computedValue,
                                     }}
                                 >
                                     LAUNCH APP
@@ -103,17 +103,17 @@ const Landing = () => {
 
                     <div style={{
                         padding: "20px 30px",
-                        background: "#0C0223",
+                        background: theme.colors.purple100.computedValue,
                         maxWidth: "1000px",
                         marginTop: "auto"
                     }}>
                         <p style={{
                             margin: "0",
                             fontSize: "min(80px, 7vw)",
-                            fontWeight: "bold",
+                            fontWeight: theme.fontWeights.bold.computedValue,
+                            letterSpacing: theme.letterSpacings.normal.computedValue,
                             textAlign: "center",
                             lineHeight: "120%",
-                            letterSpacing: 0.5
                         }}>
                             OPEN FINANCE FOR REAL ESTATE
                         </p>
@@ -121,12 +121,12 @@ const Landing = () => {
 
                     <p style={{
                         padding: "30px 10px",
-                        background: "#0C0223",
+                        background: theme.colors.purple100.computedValue,
                         textAlign: "center",
                         width: "100%",
                         maxWidth: "580px",
                         fontFamily: theme.fonts.mono.computedValue,
-                        fontSize: "14px"
+                        fontSize: theme.fontSizes.sm.computedValue
                     }}>
                         Fullstak brings the value of real-world assets on-chain.
                     </p>
@@ -140,8 +140,7 @@ const Landing = () => {
                                 width: "200px",
                                 borderRadius: 19,
                                 color: "white",
-                                fontWeight: "bold",
-                                letterSpacing: 1.25
+                                fontWeight: theme.fontWeights.bold.computedValue,
                             }}
                         >
                             LAUNCH APP
@@ -152,11 +151,11 @@ const Landing = () => {
 
                     <div style={{display: "flex", justifyContent: "center"}}>
                         <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                            <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
+                            <FaDiscord style={{height: 33, width: 33, color: "white"}}/>
                         </a>
                         <Spacer x={1}/>
                         <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                            <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
+                            <FaTwitter style={{height: 30, width: 30, color: "white"}}/>
                         </a>
                     </div>
 
@@ -167,7 +166,6 @@ const Landing = () => {
                         display: "flex",
                         alignItems: "center",
                         fontSize: "min(3vw, 1rem)",
-                        fontFamily: theme.fonts.mono.computedValue
                     }}>
                         Powered by
                         <img
@@ -205,9 +203,9 @@ const Landing = () => {
                     <p style={{
                         opacity: 1,
                         color: "white",
-                        fontSize: "36px",
-                        fontWeight: 700,
-                        letterSpacing: "1.5px",
+                        fontSize: theme.fontSizes.xl4.computedValue,
+                        fontWeight: theme.fontWeights.bold.computedValue,
+                        letterSpacing: theme.letterSpacings.normal.computedValue,
                         textAlign: "center",
                         textTransform: "uppercase"
                     }}>
@@ -230,11 +228,12 @@ const Landing = () => {
                         <Grid xs={12} justify={"center"}>
                             <p style={{
                                 opacity: 1,
-                                fontSize: "36px",
-                                fontWeight: 700,
-                                letterSpacing: "1.5px",
+                                fontSize: theme.fontSizes.xl4.computedValue,
+                                fontWeight: theme.fontWeights.bold.computedValue,
                                 textAlign: "center",
-                                textTransform: "uppercase"
+                                textTransform: "uppercase",
+                                color: theme.colors.text.computedValue,
+                                letterSpacing: theme.letterSpacings.normal.computedValue
                             }}>
                                 REAL ESTATE WITHOUT BANKS
                             </p>
@@ -292,24 +291,25 @@ const Landing = () => {
                     }}>
                         <p style={{
                             opacity: 1,
-                            fontSize: "34px",
-                            fontWeight: 700,
-                            letterSpacing: "0px",
+                            fontSize: theme.fontSizes.xl4.computedValue,
+                            fontWeight: theme.fontWeights.bold.computedValue,
+                            lineHeight: theme.lineHeights.sm.computedValue,
+                            letterSpacing: theme.letterSpacings.normal.computedValue,
                             textTransform: "uppercase"
                         }}>
                             DEFI MEETS<br/>
                             REAL ESTATE
                         </p>
                         <p style={{
-                            fontSize: "14px",
+                            fontSize: theme.fontSizes.sm.computedValue,
                             fontFamily: theme.fonts.mono.computedValue
                         }}>
                             Fullstak is your opportunity to generate yield on cryptoassets from
                             direct investments in real-world real estate.
                         </p>
                         <p style={{
-                            fontSize: "24px",
-                            fontWeight: "bold"
+                            fontSize: theme.fontSizes.xl2.computedValue,
+                            fontWeight: theme.fontWeights.bold.computedValue
                         }}>
                             Learn More
                         </p>
@@ -317,20 +317,22 @@ const Landing = () => {
                 </Container>
             </section>
 
-            <section style={{height: "600px", background: "#170037"}}>
+            <section style={{height: "600px", background: theme.colors.purple200.computedValue}}>
                 <Container display={"flex"}
                            justify={"center"}
                            alignContent={"center"}
                            style={{height: "100%"}}
                 >
-                    <h2 style={{
-                        background: "#0C0223",
+                    <p style={{
+                        fontSize: theme.fontSizes.xl4.computedValue,
+                        fontWeight: theme.fontWeights.bold.computedValue,
+                        background: theme.colors.purple100.computedValue,
+                        letterSpacing: theme.letterSpacings.normal.computedValue,
                         padding: "10px 20px",
-                        letterSpacing: "2.5px",
                         textAlign: "center"
                     }}>
                         DEVELOPER RESOURCES
-                    </h2>
+                    </p>
                     <Grid.Container justify={"center"} gap={2}>
                         <Grid>
                             <Button style={{
@@ -339,9 +341,8 @@ const Landing = () => {
                                 borderRadius: "0px",
                                 border: "1px solid #BE00FF",
                                 background: "none",
-                                fontWeight: "bold",
-                                fontSize: "13px",
-                                letterSpacing: "1px"
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.sm.computedValue,
                             }}>
                                 Coming Soon
                             </Button>
@@ -350,7 +351,7 @@ const Landing = () => {
                 </Container>
             </section>
 
-            <section style={{background: "#0C0223", padding: "20px 0"}}>
+            <section style={{background: theme.colors.purple100.computedValue, padding: "20px 0"}}>
                 <Container>
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
@@ -363,7 +364,7 @@ const Landing = () => {
                         </Grid>
                         <Grid xs={0} sm={6} justify={"center"} alignItems={"center"}>
                             <p style={{
-                                fontSize: "12px",
+                                fontSize: theme.fontSizes.md.computedValue,
                                 fontFamily: theme.fonts.mono.computedValue,
                                 textAlign: "center"
                             }}>
@@ -381,17 +382,20 @@ const Landing = () => {
                         <Grid xs={6} sm={3} justify={"flex-end"} alignItems={"center"}>
                             <div style={{display: "flex", justifyContent: "center"}}>
                                 <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
+                                    <FaDiscord style={{height: 33, width: 33, color: "white"}}/>
                                 </a>
                                 <Spacer x={1}/>
                                 <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
+                                    <FaTwitter style={{height: 30, width: 30, color: "white"}}/>
                                 </a>
                             </div>
                         </Grid>
                     </Grid.Container>
+
+                    <Spacer y={1}/>
+
                     <p style={{
-                        fontSize: "10px",
+                        fontSize: theme.fontSizes.xs.computedValue,
                         lineHeight: "1.9",
                         opacity: "50%",
                         fontFamily: theme.fonts.mono.computedValue

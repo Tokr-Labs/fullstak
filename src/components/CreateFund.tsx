@@ -73,7 +73,7 @@ export const CreateFund = (props) => {
     const [delegateAccount, setDelegateAccount] = useState<string>();
 
     // Form state -- Fund Configuration
-    const [assetType, setAssetType] = useState<any>(new Set(["Asset Type"]));
+    const [assetType, setAssetType] = useState<any>(new Set([]));
     const [assetClass, setAssetClass] = useState<any>(new Set([]));
     const [assetVintage, setAssetVintage] = useState<any>();
     const [assetSize, setAssetSize] = useState<any>();

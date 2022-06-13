@@ -1,22 +1,20 @@
 import React from "react";
-import {Grid, Text} from "@nextui-org/react";
+import {Grid, Text, theme} from "@nextui-org/react";
 
 export const RaiseDetails = (props) => {
 
     return (
         <Grid xs={6} md={2} direction={"column"}>
             <Text
-                size={12}
+                size={theme.fontSizes.sm.computedValue}
                 color={"white"}
-                style={{letterSpacing: 1}}
             >
                 {props.title}
             </Text>
             <Text
-                size={14}
+                size={theme.fontSizes.md.computedValue}
                 color={"white"}
                 weight={"semibold"}
-                style={{letterSpacing: 1}}
             >
                 {props.text}
             </Text>
