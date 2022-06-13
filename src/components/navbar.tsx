@@ -85,10 +85,10 @@ export const Navbar = () => {
             >
 
                 <Grid xs={9} md={4}>
-                    <Link to="/">
+                    <Link to="/" style={{height: 40}}>
                         <img
                             src={require("src/assets/brand/fullstak_logo_white.png")}
-                            height={"46px"}
+                            height={"40px"}
                             width={"auto"}
                             alt={"Fullstak logo"}
                             style={{maxHeight: "min(46px, 7vw)"}}
