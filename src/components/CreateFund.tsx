@@ -1,12 +1,14 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse, Col, theme } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
 import FundName from "./create-fund-views/FundName";
 import FundConfig from "./create-fund-views/FundConfig";
+import FundInvestment from "./create-fund-views/FundInvestment";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CreateDaoAction } from "src/services/actions/create-dao-action";
+import { IoIosArrowBack } from "react-icons/io";
 
 
 enum FundCreationStep {
@@ -18,6 +20,9 @@ enum FundCreationStep {
 
     // fund creator sets property data (i.e. asset type / class)
     FUND_CONFIG,
+
+    // fund creator sets the investment terms of the fund
+    FUND_INVESTMENT,
 
     // fund creator sets the expected/target capital returns of the fund
     TARGET_RETURNS,
@@ -31,6 +36,7 @@ export const FundCreationOrder = [
     FundCreationStep.NAME,
     FundCreationStep.STAKEHOLDERS,
     FundCreationStep.FUND_CONFIG,
+    FundCreationStep.FUND_INVESTMENT,
     FundCreationStep.TARGET_RETURNS,
     FundCreationStep.SUBMIT
 ]
@@ -42,6 +48,10 @@ export const CreateFund = (props) => {
     // determines which "page" of the modal should be conditionally rendered
     // i.e. depending on the step, different inputs are rendered for the user
     const [step, setStep] = useState<FundCreationStep>(FundCreationStep.NAME);
+
+    // indicate if the user has scrolled to the bottom
+    // will be used for enabling the `Create` button
+    const [scrolledToBottom, setScrolledToBottom] = useState<boolean>(false);
 
     // User-input is captured in these state variables below
     // each of the state variables are provided to child views as props
@@ -91,11 +101,6 @@ export const CreateFund = (props) => {
         {name: 'Fund Name', value: fundName},
         {name: 'Token Symbol', value: tokenSymbol},
         {name: 'Description', value: fundDescription},
-        {name: 'Minimum Raise', value: minRaise},
-        {name: 'Maximum Raise', value: maxRaise},
-        {name: 'Minimum Investment', value: minInvestment},
-        {name: 'Closing Fee', value: closingFee},
-        {name: 'Annual Fee', value: annualFee}
     ]
     const stakeholderData = [
         {name: 'Sponsor', value: sponsorName},
@@ -113,6 +118,13 @@ export const CreateFund = (props) => {
         {name: 'Investment Strategy', value: strategy},
         {name: 'Fund Term', value: fundTerm}
     ]
+    const investmentData = [
+        {name: 'Minimum Raise', value: minRaise},
+        {name: 'Maximum Raise', value: maxRaise},
+        {name: 'Minimum Investment', value: minInvestment},
+        {name: 'Closing Fee', value: closingFee},
+        {name: 'Annual Fee', value: annualFee}
+    ]
     const returnData = [
         {name: 'Internal Rate of Return', value: irr},
         {name: 'Cash on Cash', value: coc},
@@ -121,10 +133,16 @@ export const CreateFund = (props) => {
     ]
 
     // styling objects
-    const navigationStyle: any = {borderRadius: 30}
+    const navigationStyle: object = {marginLeft: 'auto', marginRight: 'auto', borderRadius: theme.radii.pill.computedValue}
 
     const closeHandler = () => {
         setVisible(false);
+    }
+
+    // handle the user's scroll event, setting to `true` when scrolled to the bottom
+    const handleScroll = (e) => {
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        setScrolledToBottom(bottom);
     }
 
     // wallet & web3 vars
@@ -201,7 +219,28 @@ export const CreateFund = (props) => {
                 blur
             >
                 <Modal.Header>
-                    <Grid.Container>
+
+                    {
+                            step !== FundCreationOrder[0] &&
+                            <div>
+                                <Button
+                                    flat
+                                    auto
+                                    onClick={handleBack}
+                                    style={{
+                                        ...navigationStyle,
+                                        position: 'absolute',
+                                        background: 'transparent',
+                                        color: theme.colors.black.computedValue,
+                                    }}
+                                    size="md"
+                                >
+                                    <IoIosArrowBack/>
+                                </Button>
+                            </div>    
+                    }                    
+                    <Grid.Container justify="center">
+
                         <Grid xs={12} justify='center' alignItems="center">
                             <Text h4>Create Fund</Text>
                         </Grid>
@@ -215,6 +254,8 @@ export const CreateFund = (props) => {
                                         "Stakeholder Information" :
                                     step === FundCreationStep.FUND_CONFIG ?
                                         "Fund Configuration" :
+                                    step === FundCreationStep.FUND_INVESTMENT ?
+                                        "Fund Investment" :
                                     step === FundCreationStep.TARGET_RETURNS ?
                                         "Target Returns" :
                                     step === FundCreationStep.SUBMIT ?
@@ -222,9 +263,18 @@ export const CreateFund = (props) => {
                                 }
                             </Text>
                         </Grid>
+                        <Grid xs={12} justify='center' alignItems="center">
+                            <StyledContainer style={{width: "20%"}}>
+                            <Progress
+                                color="primary"
+                                size="sm"
+                                value={FundCreationOrder.indexOf(step)} max={FundCreationOrder.length - 1}
+                            />
+                            </StyledContainer>
+                        </Grid>
                     </Grid.Container>
                 </Modal.Header>
-                <Modal.Body>
+                <Modal.Body onScroll={handleScroll} style={{height: '50vh', overflowY: 'auto'}}>
                     {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
                     {
                         step === FundCreationStep.NAME &&
@@ -233,11 +283,6 @@ export const CreateFund = (props) => {
                               fundName={fundName} setFundName={setFundName}
                               tokenSymbol={tokenSymbol} setTokenSymbol={setTokenSymbol}
                               fundDescription={fundDescription} setFundDescription={setFundDescription}
-                              minRaise={minRaise} setMinRaise={setMinRaise}
-                              maxRaise={maxRaise} setMaxRaise={setMaxRaise}
-                              minInvestment={minInvestment} setMinInvestment={setMinInvestment}
-                              closingFee={closingFee} setClosingFee={setClosingFee}
-                              annualFee={annualFee} setAnnualFee={setAnnualFee}
                             />
                         </>
                     }
@@ -245,6 +290,7 @@ export const CreateFund = (props) => {
                         step === FundCreationStep.STAKEHOLDERS &&
                         <>
                             <Stakeholders
+                                fundName={fundName}
                                 sponsorName={sponsorName} setSponsorName={setSponsorName}
                                 sponsorCompany={sponsorCompany} setSponsorCompany={setSponsorCompany}
                                 delegateAccount={delegateAccount} setDelegateAccount={setDelegateAccount}
@@ -257,6 +303,7 @@ export const CreateFund = (props) => {
                         step === FundCreationStep.FUND_CONFIG &&
                         <>
                             <FundConfig
+                                fundName={fundName}
                                 assetType={assetType} setAssetType={setAssetType}
                                 formattedAssetClass={formattedAssetClass}
                                 assetClass={assetClass} setAssetClass={setAssetClass}
@@ -269,8 +316,22 @@ export const CreateFund = (props) => {
                         </>
                     }
                     {
+                        step === FundCreationStep.FUND_INVESTMENT &&
+                        <>
+                            <FundInvestment
+                                fundName={fundName}
+                                minRaise={minRaise} setMinRaise={setMinRaise}
+                                maxRaise={maxRaise} setMaxRaise={setMaxRaise}
+                                minInvestment={minInvestment} setMinInvestment={setMinInvestment}
+                                closingFee={closingFee} setClosingFee={setClosingFee}
+                                annualFee={annualFee} setAnnualFee={setAnnualFee}
+                            />
+                        </>
+                    }
+                    {
                         step === FundCreationStep.TARGET_RETURNS &&
                         <TargetReturns
+                            fundName={fundName}
                             irr={irr} setIRR={setIRR}
                             coc={coc} setCOC={setCOC}
                             tvpi={tvpi} setTVPI={setTVPI}
@@ -279,25 +340,40 @@ export const CreateFund = (props) => {
                     }
                     {
                         step === FundCreationStep.SUBMIT &&
-                        <>
-                            <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
-                            <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
-                            <KeyValueTable arialabel="stakeholders" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
-                            <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
-                        </>
+                            <Collapse.Group splitted>
+                                <Collapse title={<Text h4>Fund Name & Info</Text>} expanded>
+                                    <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Stakeholders</Text>} expanded>
+                                    <KeyValueTable arialabel="stakeholders" keyString="STAKEHOLDERS" valueString="VALUE" data={stakeholderData}/>
+                                </Collapse>    
+                                <Collapse title={<Text h4>Configuration</Text>} expanded>
+                                    <KeyValueTable arialabel="config" keyString="CONFIG" valueString="VALUE" data={fundConfigData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Investment</Text>} expanded>
+                                    <KeyValueTable arialabel="investment summary" keyString="INVESTMENT" valueString="VALUE" data={investmentData}/>
+                                </Collapse>
+                                <Collapse title={<Text h4>Returns</Text>} expanded>
+                                    <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
+                                </Collapse>
+                            </Collapse.Group>
                     }
                 </Modal.Body>
                 <Modal.Footer>
-                    {/* Back button should not be rendered on the first page */}
-                    {
-                        step !== FundCreationStep.NAME &&
-                        <Button onClick={handleBack} style={navigationStyle}>Back</Button>
-                    }
+                    <Container style={{width: "100%"}}>
                     <Button onClick={handleNext}
-                        style={{...navigationStyle, backgroundColor: step === FundCreationStep.SUBMIT ? '#4ad47b' : '#be00ff'}}
+                        style={{
+                            ...navigationStyle,
+                            width: step === FundCreationStep.SUBMIT ? "100%" : "33%",
+                            backgroundColor: step !== FundCreationStep.SUBMIT ? theme.colors.primary.computedValue :
+                                (step === FundCreationStep.SUBMIT && scrolledToBottom) ? theme.colors.green100.computedValue : theme.colors.gray100.computedValue,
+                        }}
+                        // disable the Create button if the user is on the last step and has not scrolled to the bottom
+                        disabled={(step === FundCreationStep.SUBMIT && !scrolledToBottom)}
                     >
                         {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
                     </Button>
+                    </Container>
                 </Modal.Footer>
             </Modal>
         </>

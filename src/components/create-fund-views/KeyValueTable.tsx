@@ -5,6 +5,7 @@ const KeyValueTable = (props) => {
     return (
         <>
         <Table
+            shadow={false}
             aria-label={props.arialabel}
         >
             <Table.Header>
