@@ -84,7 +84,6 @@ const FundConfig = (props) => {
                 </Grid>
                 <Grid xs={12} justify='center'>
                 <Button.Group size="sm" color="primary" bordered > 
-                {/* style={{backgroundColor: "#F6DCFF"}} */}
                     <Button ghost onClick={() => onClickFundTerm(1)}>One</Button>
                     <Button ghost onClick={() => onClickFundTerm(2)}>Two</Button>
                     <Button ghost onClick={() => onClickFundTerm(3)}>Three</Button>

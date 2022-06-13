@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse, Col } from "@nextui-org/react";
+import { Modal, Button, Text, Input, Row, Checkbox, Dropdown, Grid, Spacer, Textarea, Table, Container, Progress, StyledContainer, Collapse, Col, theme } from "@nextui-org/react";
 import TargetReturns from "./create-fund-views/TargetReturns";
 import KeyValueTable from "./create-fund-views/KeyValueTable";
 import Stakeholders from "./create-fund-views/Stakeholders";
@@ -132,7 +132,7 @@ export const CreateFund = (props) => {
     ]
 
     // styling objects
-    const navigationStyle: object = {marginLeft: 'auto', marginRight: 'auto', borderRadius: 30}
+    const navigationStyle: object = {marginLeft: 'auto', marginRight: 'auto', borderRadius: theme.radii.pill.computedValue}
 
     const closeHandler = () => {
         setVisible(false);
@@ -356,8 +356,8 @@ export const CreateFund = (props) => {
                         style={{
                             ...navigationStyle,
                             width: step === FundCreationStep.SUBMIT ? "100%" : "33%",
-                            backgroundColor: step !== FundCreationStep.SUBMIT ? '#be00ff' :
-                                (step === FundCreationStep.SUBMIT && scrolledToBottom) ? '#4ad47b' :'#BCBCBC'
+                            backgroundColor: step !== FundCreationStep.SUBMIT ? theme.colors.primary.computedValue :
+                                (step === FundCreationStep.SUBMIT && scrolledToBottom) ? theme.colors.green100.computedValue : theme.colors.gray100.computedValue,
                         }}
                         // disable the Create button if the user is on the last step and has not scrolled to the bottom
                         disabled={(step === FundCreationStep.SUBMIT && !scrolledToBottom)}
