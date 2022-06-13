@@ -1,8 +1,10 @@
 import {
+    Blockhash,
+    BlockheightBasedTransactionConfirmationStrategy, Commitment,
     Connection,
-    Keypair, LAMPORTS_PER_SOL, PublicKey, RpcResponseAndContext, SignatureStatus,
+    Keypair, LAMPORTS_PER_SOL, PublicKey, RpcResponseAndContext, SignatureResult, SignatureStatus,
     SimulatedTransactionResponse, SystemProgram,
-    Transaction,
+    Transaction, TransactionError,
     TransactionInstruction,
     TransactionSignature
 } from "@solana/web3.js";
@@ -99,8 +101,6 @@ export class CreateDaoAction implements ActionProtocol {
         console.log("usdcTreasury", addresses.usdcTreasury?.toBase58() ?? "unknown");
         console.log("lpGovernance", addresses.lpGovernance?.toBase58() ?? "unknown");
         console.log("lpStockTreasury", addresses.lpStockTreasury?.toBase58() ?? "unknown");
-
-        await this.confirmTransactions(transactionSignatures);
 
     }
 
@@ -209,7 +209,6 @@ export class CreateDaoAction implements ActionProtocol {
 
         await signedTransactions.reduce(
             (p, tx) => p.then(() => {
-                console.log("sending transaction")
                 return this.sendSignedTransaction(tx).then(value => txsigs.push(value))
             }),
             Promise.resolve()
@@ -228,8 +227,6 @@ export class CreateDaoAction implements ActionProtocol {
      */
     private async sendSignedTransaction(transaction: Transaction): Promise<TransactionSignature> {
 
-        console.log("Sending transaction...");
-
         const rawTransaction = transaction.serialize()
 
         const signature = await this.connection.sendRawTransaction(
@@ -238,6 +235,8 @@ export class CreateDaoAction implements ActionProtocol {
                 skipPreflight: true
             }
         )
+
+        await this.confirmTransaction(signature)
 
         await sleep(500)
 
@@ -274,8 +273,6 @@ export class CreateDaoAction implements ActionProtocol {
 
         const maxRaise = config.details.maxRaise > 0 ? config.details.maxRaise : 1;
 
-        console.log("Creating mint instructions...")
-
         await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, lpMint)
         await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, councilMint)
 
@@ -300,15 +297,6 @@ export class CreateDaoAction implements ActionProtocol {
             config
         )
 
-
-        let totalInstructions = 0
-
-        instructionSet.forEach(set => {
-            totalInstructions += set.length;
-        })
-
-        console.log(totalInstructions);
-
         const {
             usdcTreasury,
             lpStockTreasury
@@ -319,6 +307,14 @@ export class CreateDaoAction implements ActionProtocol {
             councilGovernance!,
             maxRaise
         )
+
+        let totalInstructions = 0
+
+        instructionSet.forEach(set => {
+            totalInstructions += set.length;
+        })
+
+        console.log(`Total Instructions: ${totalInstructions}`);
 
         return {
             realmAddress,
@@ -443,7 +439,6 @@ export class CreateDaoAction implements ActionProtocol {
         lpGovernance?: PublicKey
     }> {
 
-        console.log("Create realm instructions...")
         const name = config.name !== "" ? config.name : config.name = generateSlug(3, {format: "title"});
 
         const realmConfig = new GovernanceConfig({
@@ -571,8 +566,6 @@ export class CreateDaoAction implements ActionProtocol {
         lpStockTreasury?: PublicKey
     }> {
 
-        console.log("Create treasury instructions...")
-
         const usdcTreasury = await this.createTreasuryAccountInstructions(
             instructions,
             this.wallet.publicKey!,
@@ -679,42 +672,45 @@ export class CreateDaoAction implements ActionProtocol {
 
     /**
      *
-     * @param signatures
+     * @param signature
      * @private
      */
-    private async confirmTransactions(signatures: TransactionSignature[]): Promise<void> {
+    private async confirmTransaction(signature: TransactionSignature): Promise<void> {
 
-        console.log("Confirming transactions...")
+        console.log(`Confirming transaction '${signature}'...`)
 
-        let signatureStatuses: RpcResponseAndContext<(SignatureStatus | null)[]> = {
-            context: {slot: 0},
-            value: []
+        let signatureResult: RpcResponseAndContext<(SignatureResult)> = {
+            context: {
+                slot: 0
+            },
+            value: {err: null}
         }
 
         let confirmed = false
+        const blockhash = await this.connection.getLatestBlockhash();
 
         while (!confirmed) {
 
-            signatureStatuses = await this.connection.getSignatureStatuses(signatures)
+            signatureResult = await this.connection.confirmTransaction(
+                {
+                    signature: signature,
+                    ...blockhash
+                },"singleGossip"
+            )
 
-            if (signatureStatuses.value[0] !== null) {
-                console.log("continue")
+            if (signatureResult && signatureResult.value !== null) {
                 confirmed = true
             }
 
-            await sleep(500)
+            await sleep(150)
 
         }
 
-        console.log(signatureStatuses);
-
-        signatureStatuses.value.forEach(status => {
-            if (status?.err) {
-                throw new Error("Something went wrong. Please try again.")
-            }
-        })
-
-        console.log("Transactions confirmed.")
+        if (signatureResult?.value.err !== null) {
+            console.log("Errored Signature Result:");
+            console.log(signatureResult);
+            throw new Error(`Something went wrong. Please try again. ${JSON.stringify(signatureResult?.value.err) ?? "unknown error"}`)
+        }
 
         return Promise.resolve()
 
