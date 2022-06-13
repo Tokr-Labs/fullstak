@@ -1,9 +1,12 @@
-import {Input, Grid} from "@nextui-org/react";
+import {Input, Grid, Text, Spacer} from "@nextui-org/react";
 import React, {useMemo, useState} from "react";
 
 const TargetReturns = (props) => {
     return (
         <>
+        <Text h4 style={{width: '100%'}}>{props.fundName}</Text>
+        <Text b style={{width: '70%'}}>Approximate or expected returns of the property & fund</Text>
+        <Spacer y={1}/>
         {/* @TODO: input validation -- limit to 2 decimals and must be in the range of [0, 100] */}
         <Grid.Container gap={2}>
             <Grid xs={6} justify='center'>
