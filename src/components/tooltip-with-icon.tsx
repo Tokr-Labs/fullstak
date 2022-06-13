@@ -7,7 +7,11 @@ export const TooltipWithIcon = (props) => {
     return (
         <Tooltip
             style={{display: "inline", marginLeft: "2px"}}
-            content={props.content}
+            content={
+                <div style={{width: "min(400px, 75vw)"}}>
+                    {props.content}
+                </div>
+            }
         >
             <sup>
                 <BsInfoCircle size={7}/>
