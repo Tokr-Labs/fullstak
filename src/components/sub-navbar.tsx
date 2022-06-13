@@ -1,10 +1,10 @@
-import React, {useContext, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {CreateDaoAction} from "../services/actions/create-dao-action";
-import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import { CreateFund } from "./CreateFund";
 import {IoIosArrowBack} from "react-icons/io";
+import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 
 export const SubNavbar = () => {
 
@@ -40,7 +40,8 @@ export const SubNavbar = () => {
         const info = require("../assets/create-dao-config.localnet.json")
         createDaoAction.execute(info)
             .then(() => console.log("dao created"))
-            .catch(err => alert(err.message));
+            .catch(err => console.error(err.message));
+
     }
 
     if (location.pathname.split("/").length > 3) {
