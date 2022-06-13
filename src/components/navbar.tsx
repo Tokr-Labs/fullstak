@@ -143,7 +143,14 @@ export const Navbar = () => {
                             color: "white"
                         }}
                     >
-                        0.0000 <img src={"/tokr_labs.png"} alt={"tokr logo"} height={25} width={25} style={{marginLeft: 10}}/>
+                        0.0000
+                        <img
+                            src={"/tokr_labs.png"}
+                            alt={"tokr logo"}
+                            height={25}
+                            width={25}
+                            style={{marginLeft: 10}}
+                        />
                     </Button>
 
                     <Popover>
@@ -205,6 +212,17 @@ export const Navbar = () => {
                                 onClick={() => handleClick("Portfolio")}
                             >
                                 PORTFOLIO
+                            </Button>
+
+                            <Button style={{fontWeight: theme.fontWeights.bold.computedValue, color: "white"}}>
+                                0.0000
+                                <img
+                                    src={"/tokr_labs.png"}
+                                    alt={"tokr logo"}
+                                    height={25}
+                                    width={25}
+                                    style={{marginLeft: 10}}
+                                />
                             </Button>
 
                             <Popover>
