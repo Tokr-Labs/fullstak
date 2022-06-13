@@ -40,6 +40,8 @@ export const App = () => {
         []
     );
 
+    // console.log(process.env.)
+
     // TODO - figure out how to included shared theme props
     // const darkTheme = createTheme({
     //     type: 'dark',

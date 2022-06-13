@@ -57,7 +57,7 @@ export const FundOpen = () => {
 
     const approveIdentityRecordAction = useMemo<ApproveIdentityRecordAction>(() => {
         return new ApproveIdentityRecordAction(wallet);
-    }, [connection, wallet])
+    }, [wallet])
 
     useEffect(() => {
 
