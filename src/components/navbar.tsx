@@ -3,9 +3,9 @@ import {Button, Grid, Modal, Popover, Spacer, Text, theme, useTheme} from "@next
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {NetworkContext} from "../App";
-import {ServerIcon} from "./icons/ServerIcon";
-import {MenuIcon} from "./icons/MenuIcon";
+import {ServerIcon} from "./icons/server-icon";
+import {MenuIcon} from "./icons/menu-icon";
+import {NetworkContext} from "../models/contexts/network-context";
 
 export const Navbar = () => {
 

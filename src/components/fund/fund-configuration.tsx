@@ -1,7 +1,7 @@
 import {Grid, Text} from "@nextui-org/react";
 import React from "react";
 
-export const PoolConfiguration = () => {
+export const FundConfiguration = () => {
 
     const Section = (props) => {
         return (
@@ -10,7 +10,7 @@ export const PoolConfiguration = () => {
                     size={10}
                     weight={"normal"}
                     color={"black"}
-                    style={{letterSpacing: 1.33}}
+                    style={{letterSpacing: .75}}
                 >
                     {props.title}
                 </Text>
@@ -18,7 +18,7 @@ export const PoolConfiguration = () => {
                 <Text
                     size={14}
                     weight={"semibold"}
-                    style={{letterSpacing: 1.87}}
+                    style={{letterSpacing: 1}}
                 >
                     {props.text}
                 </Text>

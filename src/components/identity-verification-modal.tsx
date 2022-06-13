@@ -17,7 +17,7 @@ export interface IdentityVerificationModalProps {
 
 export const IdentityVerificationModal = (props: IdentityVerificationModalProps) => {
 
-    const dao = useContext(DaoInfoContext)
+    const {dao} = useContext(DaoInfoContext)
     const wallet = useWallet();
     const {connection} = useConnection()
 
@@ -41,10 +41,10 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
             .then(record => props.setIdvRecord(record))
             .catch((error) => console.error(error))
 
-
         props.setIsOpen(false)
 
     }, [dao, createIdentityRecordAction, approveIdentityRecordAction, getIdentityRecordAction, props])
+
 
     return (
 
@@ -63,7 +63,7 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
                             "Access Denied"
                     }
                     {
-                        props.idvRecord?.status === IdentityStatus.started &&
+                        (props.idvRecord?.status === IdentityStatus.started || props.idvRecord?.status === IdentityStatus.initial) &&
                         "Identity Verification In Progress"
                     }
                     {
@@ -82,7 +82,7 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
                         this is in error, please contact us via email.</p>
                 }
                 {
-                    props.idvRecord?.status === IdentityStatus.started &&
+                    (props.idvRecord?.status === IdentityStatus.started || props.idvRecord?.status === IdentityStatus.initial) &&
                     <p>Identity verification is an asynchronous process. Please try again later.</p>
                 }
                 {

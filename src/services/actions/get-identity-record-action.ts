@@ -31,6 +31,7 @@ export class GetIdentityRecordAction implements ActionProtocol {
     async execute(dao?: DaoInfo): Promise<IdentityRecord | undefined> {
 
         if (!this.validate(dao)) {
+            console.log("invalid props")
             return
         }
 
@@ -38,7 +39,7 @@ export class GetIdentityRecordAction implements ActionProtocol {
             this.connection,
             IDENTITY_VERIFICATION_PROGRAM_ID,
             this.wallet.publicKey!,
-            dao!.addresses.pubkey!
+            dao!.addresses.realm!
         )
 
     }
@@ -59,7 +60,7 @@ export class GetIdentityRecordAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?: DaoInfo): boolean {
-        return dao?.addresses.pubkey !== undefined && this.wallet.connected
+        return dao?.addresses.realm !== undefined && this.wallet.connected
     }
 
 }

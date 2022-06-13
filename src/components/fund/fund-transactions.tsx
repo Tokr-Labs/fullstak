@@ -2,10 +2,10 @@ import React, {useContext, useEffect, useState} from "react";
 import {Link, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {ParsedTransactionWithMeta, PublicKey} from "@solana/web3.js";
-import {NetworkContext} from "../../App";
-import {Pill} from "../Pill";
+import {Pill} from "../pill";
+import {NetworkContext} from "../../models/contexts/network-context";
 
-export const PoolTransactions = () => {
+export const FundTransactions = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);

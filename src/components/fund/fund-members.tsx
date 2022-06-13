@@ -1,19 +1,19 @@
 import React, {useContext, useMemo, useState} from "react";
 import {Link, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
-import {NetworkContext} from "../../App";
 import {generateCapTable} from "@tokr-labs/cap-table";
 import {CapTableEntry} from "@tokr-labs/cap-table/lib/models/cap-table-entry";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {PublicKey} from "@solana/web3.js";
 import {CapTable} from "@tokr-labs/cap-table/lib/models/cap-table";
 import {CurrencyFormatter} from "../../utils/currency-formatter";
+import {NetworkContext} from "../../models/contexts/network-context";
 
-export const PoolMembers = () => {
+export const FundMembers = () => {
 
     const connection = useConnection().connection;
     const {network} = useContext(NetworkContext);
-    const dao = useContext(DaoInfoContext);
+    const {dao} = useContext(DaoInfoContext);
 
     const [capTable, setCapTable] = useState<CapTable>();
 
@@ -32,7 +32,7 @@ export const PoolMembers = () => {
             treasuryStock,
             [
                 // TODO - change this to be the actual Treasury Stock account
-                dao.addresses.governance.delegateTokenMintGovernance as PublicKey
+                dao.addresses.governance.delegateMintGovernance as PublicKey
             ]
         ).then(capTable => {
             setCapTable(capTable);

@@ -34,7 +34,7 @@ export class ApproveIdentityRecordAction implements ActionProtocol {
             method: "post",
             mode: 'cors',
             body: JSON.stringify({
-                group: dao!.addresses.pubkey!.toBase58(),
+                group: dao!.addresses.realm!.toBase58(),
                 user: this.wallet.publicKey!
             }),
             headers: {
@@ -61,7 +61,7 @@ export class ApproveIdentityRecordAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?:DaoInfo): boolean {
-        return dao?.addresses.pubkey !== undefined && this.wallet.connected
+        return dao?.addresses.realm !== undefined && this.wallet.connected
     }
 
 }

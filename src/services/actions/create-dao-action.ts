@@ -32,17 +32,6 @@ import {
     createSetAuthorityInstruction, getAssociatedTokenAddress, MintLayout, TOKEN_PROGRAM_ID
 } from "@solana/spl-token";
 
-export interface WithCreateInvestmentDaoResponse {
-    realm: PublicKey,
-    limitedPartnerGovernance: PublicKey,
-    delegateMintGovernance: PublicKey,
-    distributionMintGovernance: PublicKey,
-    capitalSupplyTreasury: PublicKey,
-    treasuryStockTreasury: PublicKey,
-    distributionTreasury: PublicKey
-}
-
-
 export class CreateDaoAction implements ActionProtocol {
 
     // ============================================================
@@ -66,64 +55,53 @@ export class CreateDaoAction implements ActionProtocol {
      */
     async execute(config): Promise<TransactionSignature | void> {
 
-        // if (!this.validate(config)) {
-        //     throw new Error("validation failed")
-        // }
+        if (!this.validate(config)) {
+            throw new Error("validation failed")
+        }
 
-        const instructions: TransactionInstruction[][] = []
-        const delegateMint = Keypair.generate()
-        const distributionMint = Keypair.generate()
-        const lpMint = Keypair.generate()
-        const name = config.name !== "" ? config.name : config.name = generateSlug(3, {format: "title"});
-        const maxRaise = config.details.maxRaise > 0 ? config.details.maxRaise : 1;
+        console.log("Executing create dao action...")
 
-        const realmConfig = new GovernanceConfig({
-            voteThresholdPercentage: new VoteThresholdPercentage({
-                value: config.governance.voteThresholdPercentage,
-            }),
-            minCommunityTokensToCreateProposal: new BN(config.governance.minCommunityTokensToCreateProposal),
-            minInstructionHoldUpTime: config.governance.minInstructionHoldUpTime,
-            maxVotingTime: config.governance.maxVotingTime,
-            voteTipping: config.governance.voteTipping,
-            proposalCoolOffTime: config.governance.proposalCoolOffTime,
-            minCouncilTokensToCreateProposal: new BN(config.governance.minCouncilTokensToCreateProposal),
-        });
+        const councilMint = Keypair.generate()
+        const communityMint = Keypair.generate()
 
-        const addresses = await this.withCreateInvestmentDao(
-            this.connection,
+        const mintInstructions: TransactionInstruction[] = [];
+        const delegateInstructions: TransactionInstruction[] = [];
+        const realmInstructions: TransactionInstruction[] = [];
+        const treasuryInstructions: TransactionInstruction[] = [];
+
+        const instructionSet: TransactionInstruction[][] = [
+            mintInstructions,
+            delegateInstructions,
+            realmInstructions,
+            treasuryInstructions
+        ]
+
+        const daoAddresses = await this.createInstructions(
+            instructionSet,
             this.wallet.publicKey!,
             this.wallet.publicKey!,
-            instructions,
-            delegateMint.publicKey,
-            USDC_DEVNET,
-            distributionMint.publicKey,
-            lpMint.publicKey,
-            GOVERNANCE_PROGRAM_ID,
-            realmConfig,
-            name,
-            maxRaise
+            communityMint.publicKey,
+            councilMint.publicKey,
+            config
         )
-
-        // await this.simulateTransactions(name, delegateMint, distributionMint, lpMint, realmConfig, maxRaise)
 
         const transactionSignatures = await this.sendTransactions(
-            instructions,
-            [[delegateMint, distributionMint, lpMint], [], [], []]
+            instructionSet,
+            [[councilMint, communityMint], [], [], []]
         )
 
+        console.log("Transactions:");
         console.log(transactionSignatures);
 
-        await this.confirmTransactions(transactionSignatures)
-
-        await this.saveConfig(
-            config,
-            {
-                lpMint: lpMint.publicKey,
-                distributionMint: distributionMint.publicKey,
-                delegateMint: delegateMint.publicKey
-            },
-            addresses
-        )
+        // await this.saveConfig(
+        //     config,
+        //     {
+        //         lpMint: lpMint.publicKey,
+        //         distributionMint: distributionMint.publicKey,
+        //         delegateMint: delegateMint.publicKey
+        //     },
+        //     daoAddresses
+        // )
 
         console.log("Complete.");
 
@@ -132,9 +110,58 @@ export class CreateDaoAction implements ActionProtocol {
     /**
      * Simulate the deposit liquidity transaction
      */
-    async simulate(): Promise<SimulatedTransactionResponse> {
+    async simulate(
+        name: string,
+        delegateMint: Keypair,
+        distributionMint: Keypair,
+        lpMint: Keypair,
+        realmConfig: GovernanceConfig,
+        maxRaise: number
+    ): Promise<SimulatedTransactionResponse | void> {
 
-        return Promise.reject("not implemented")
+        //
+        //     console.log("Simulating transactions...")
+        //
+        //     const simulatedSigner = Keypair.generate()
+        //
+        //     const instructionSet: TransactionInstruction[][] = []
+        //     const signerSet: Keypair[][] = [[delegateMint, distributionMint, lpMint, simulatedSigner], [simulatedSigner], [simulatedSigner], [simulatedSigner]]
+        //     const transactions: Transaction[] = []
+        //
+        //     // @TODO - create instructions
+        //
+        //     const block = await this.connection.getLatestBlockhash(this.connection.commitment)
+        //
+        //     for (let i = 0; i < instructionSet.length; i++) {
+        //
+        //         const instructions = instructionSet[i]
+        //         const signers = signerSet[i]
+        //
+        //         if (instructions.length === 0) {
+        //             continue
+        //         }
+        //
+        //         const transaction = new Transaction({recentBlockhash: block.blockhash})
+        //         transaction.feePayer = simulatedSigner.publicKey
+        //         transaction.add(...instructions);
+        //
+        //         if (signers.length > 0) {
+        //             transaction.partialSign(...signers)
+        //         }
+        //
+        //         transactions.push(transaction)
+        //
+        //     }
+        //
+        //     const simulatedTransactionPromises = transactions.map((transaction, index) => {
+        //         const signers = signerSet[index].length > 0 ? signerSet[index] : [];
+        //         return this.connection.simulateTransaction(transaction, [...signers, simulatedSigner])
+        //     })
+        //
+        //     await Promise.all(simulatedTransactionPromises)
+        //
+        //     console.log("Simulation complete.");
+        //
 
     }
 
@@ -142,20 +169,7 @@ export class CreateDaoAction implements ActionProtocol {
     // === Private API ============================================
     // ============================================================
 
-    private validate(config): boolean {
-        return !!(
-            isString(config.name) &&
-            isString(config.governanceProgramId) &&
-            isString(config.usdcMint) &&
-            isNumber(config.governance.voteThresholdPercentage) &&
-            isNumber(config.governance.minCommunityTokensToCreateProposal) &&
-            isNumber(config.governance.minInstructionHoldUpTime) &&
-            isNumber(config.governance.maxVotingTime) &&
-            isNumber(config.governance.voteTipping) &&
-            isNumber(config.governance.proposalCoolOffTime) &&
-            isNumber(config.governance.minCouncilTokensToCreateProposal)
-        );
-    }
+    // Private Methods
 
     private async sendTransactions(
         instructionSet: TransactionInstruction[][],
@@ -172,6 +186,8 @@ export class CreateDaoAction implements ActionProtocol {
 
         const transactions: Transaction[] = []
 
+        let fees = 0;
+
         for (let i = 0; i < instructionSet.length; i++) {
 
             const instructions = instructionSet[i]
@@ -185,6 +201,10 @@ export class CreateDaoAction implements ActionProtocol {
             transaction.feePayer = this.wallet.publicKey!
             transaction.add(...instructions);
 
+            const estimatedFee = await transaction.getEstimatedFee(this.connection);
+
+            fees += estimatedFee / LAMPORTS_PER_SOL;
+
             if (signers.length > 0) {
                 transaction.partialSign(...signers)
             }
@@ -192,6 +212,8 @@ export class CreateDaoAction implements ActionProtocol {
             transactions.push(transaction)
 
         }
+
+        console.log(fees)
 
         const signedTransactions = await this.wallet!.signAllTransactions!(transactions)
 
@@ -213,94 +235,6 @@ export class CreateDaoAction implements ActionProtocol {
         console.log("Transactions sent.")
 
         return signatures;
-
-    }
-
-    private async simulateTransactions(name: string, delegateMint: Keypair, distributionMint: Keypair, lpMint: Keypair, realmConfig: GovernanceConfig, maxRaise: number): Promise<void> {
-
-        console.log("Simulating transactions...")
-
-        const simulatedSigner = Keypair.generate()
-
-        const instructionSet: TransactionInstruction[][] = []
-        const signerSet: Keypair[][] = [[delegateMint, distributionMint, lpMint, simulatedSigner], [simulatedSigner], [simulatedSigner], [simulatedSigner]]
-        const transactions: Transaction[] = []
-
-        await this.withCreateInvestmentDao(
-            this.connection,
-            simulatedSigner.publicKey,
-            simulatedSigner.publicKey,
-            instructionSet,
-            delegateMint.publicKey,
-            USDC_DEVNET,
-            distributionMint.publicKey,
-            lpMint.publicKey,
-            GOVERNANCE_PROGRAM_ID,
-            realmConfig,
-            name,
-            maxRaise
-        )
-
-        const block = await this.connection.getLatestBlockhash(this.connection.commitment)
-
-        for (let i = 0; i < instructionSet.length; i++) {
-
-            const instructions = instructionSet[i]
-            const signers = signerSet[i]
-
-            if (instructions.length === 0) {
-                continue
-            }
-
-            const transaction = new Transaction({recentBlockhash: block.blockhash})
-            transaction.feePayer = simulatedSigner.publicKey
-            transaction.add(...instructions);
-
-            if (signers.length > 0) {
-                transaction.partialSign(...signers)
-            }
-
-            transactions.push(transaction)
-
-        }
-
-        const simulatedTransactionPromises = transactions.map((transaction, index) => {
-            const signers = signerSet[index].length > 0 ? signerSet[index] : [];
-            return this.connection.simulateTransaction(transaction, [...signers, simulatedSigner])
-        })
-
-        await Promise.all(simulatedTransactionPromises)
-
-        console.log("Simulation complete.");
-
-    }
-
-    private async saveConfig(config, mints, addresses): Promise<void> {
-
-        console.log("Saving config...")
-
-        config["addresses"] = {
-            "realm": addresses.realm.toBase58(),
-            "governance": {
-                "lp_token_governance": addresses.limitedPartnerGovernance.toBase58(),
-                "distribution_token_mint_governance": addresses.distributionMintGovernance.toBase58(),
-                "delegate_token_mint_governance": addresses.delegateMintGovernance.toBase58()
-            },
-            "mint": {
-                "lp_token_mint": mints.lpMint.toBase58(),
-                "distribution_token_mint": mints.distributionMint.toBase58(),
-                "delegate_token_mint": mints.delegateMint.toBase58()
-            },
-            "treasury": {
-                "capital_supply": addresses.capitalSupplyTreasury.toBase58(),
-                "distributions": addresses.distributionTreasury.toBase58(),
-                "stock_supply": addresses.treasuryStockTreasury.toBase58()
-            }
-        }
-
-        console.log("Save config complete.")
-
-        return Promise.resolve()
 
     }
 
@@ -342,49 +276,112 @@ export class CreateDaoAction implements ActionProtocol {
 
     }
 
-
-    async withCreateInvestmentDao(
-        connection: Connection,
-        owner: PublicKey,
+    /**
+     *
+     * @param instructionSet
+     * @param payer
+     * @param delegate
+     * @param lpMint
+     * @param delegateMint
+     * @param distributionMint
+     * @param config
+     * @private
+     */
+    private async createInstructions(
+        instructionSet: TransactionInstruction[][],
+        payer: PublicKey,
         delegate: PublicKey,
-        instructionSets: TransactionInstruction[][],
-        delegateMint: PublicKey,
-        usdcMint: PublicKey,
-        distributionMint: PublicKey,
         lpMint: PublicKey,
-        governanceProgramId: PublicKey,
-        realmConfig: GovernanceConfig,
-        name: string,
-        lpTokenSupply: number
-    ): Promise<WithCreateInvestmentDaoResponse> {
+        delegateMint: PublicKey,
+        // distributionMint: PublicKey,
+        config
+    ): Promise<{
+        realmAddress: PublicKey,
+        communityMintGovernance: PublicKey,
+        councilMintGovernance: PublicKey,
+        capitalSupplyTreasury: PublicKey,
+        treasuryStockTreasury: PublicKey
+    }> {
 
-        const mintInstructions: TransactionInstruction[] = [];
-        const delegateInstructions: TransactionInstruction[] = [];
-        const realmInstructions: TransactionInstruction[] = [];
-        const treasuryInstructions: TransactionInstruction[] = [];
+        console.log("Creating instructions...")
 
-        instructionSets.push(
-            mintInstructions,
-            delegateInstructions,
-            realmInstructions,
-            treasuryInstructions
+        const maxRaise = config.details.maxRaise > 0 ? config.details.maxRaise : 1;
+
+        console.log("Creating mint instructions...")
+
+        await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, lpMint)
+        await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, delegateMint)
+        // await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, distributionMint)
+
+        await this.createDelegateInstructions(
+            instructionSet[1],
+            payer,
+            delegateMint,
+            delegate
         )
 
-        // ============================================================
-        // === Mint Instructions ======================================
-        // ============================================================
+        const {
+            realmAddress,
+            councilMintGovernance,
+            communityMintGovernance,
+        } = await this.createRealmInstructions(
+            instructionSet[2],
+            GOVERNANCE_PROGRAM_ID,
+            payer,
+            delegate,
+            lpMint,
+            delegateMint,
+            // distributionMint,
+            config
+        )
 
-        const mintRentExempt = await connection.getMinimumBalanceForRentExemption(
+        const {
+            capitalSupplyTreasury,
+            treasuryStockTreasury,
+            // distributionTreasury
+        } = await this.createTreasuryInstructions(
+            instructionSet[3],
+            lpMint,
+            communityMintGovernance,
+            councilMintGovernance,
+            // distributionMintGovernance,
+            maxRaise
+        )
+
+        return {
+            realmAddress,
+            councilMintGovernance,
+            communityMintGovernance,
+            treasuryStockTreasury,
+            capitalSupplyTreasury
+        }
+
+    }
+
+    /**
+     *
+     * @param instructions
+     * @param payer
+     * @param mint
+     * @private
+     */
+    private async createMintInstructions(
+        instructions: TransactionInstruction[],
+        payer: PublicKey,
+        mint: PublicKey
+    ): Promise<void> {
+
+        const rent = await this.connection.getMinimumBalanceForRentExemption(
             MintLayout.span
         )
 
         // create lp token account for mint
 
-        mintInstructions.push(
+        instructions.push(
             SystemProgram.createAccount({
-                fromPubkey: owner,
-                newAccountPubkey: lpMint,
-                lamports: mintRentExempt,
+                fromPubkey: payer,
+                newAccountPubkey: mint,
+                lamports: rent,
                 space: MintLayout.span,
                 programId: TOKEN_PROGRAM_ID
             })
@@ -392,66 +389,31 @@ export class CreateDaoAction implements ActionProtocol {
 
         // create lp mint
 
-        mintInstructions.push(
+        instructions.push(
             createInitializeMintInstruction(
-                lpMint,
+                mint,
                 0,
-                owner,
+                payer,
                 null
             )
         )
 
-        // create delegate account for mint
+    }
 
-        mintInstructions.push(
-            SystemProgram.createAccount({
-                fromPubkey: owner,
-                newAccountPubkey: delegateMint,
-                lamports: mintRentExempt,
-                space: MintLayout.span,
-                programId: TOKEN_PROGRAM_ID
-            })
-        )
-
-        // create delegate mint
-
-        mintInstructions.push(
-            createInitializeMintInstruction(
-                delegateMint,
-                0,
-                owner,
-                null
-            )
-        )
-
-        // create distribution account for mint
-
-        mintInstructions.push(
-            SystemProgram.createAccount({
-                fromPubkey: owner,
-                newAccountPubkey: distributionMint,
-                lamports: mintRentExempt,
-                space: MintLayout.span,
-                programId: TOKEN_PROGRAM_ID
-            })
-        )
-
-        // create distribution mint
-
-        mintInstructions.push(
-            createInitializeMintInstruction(
-                distributionMint,
-                0,
-                owner,
-                null
-            )
-        )
-
-        // ============================================================
-        // === Delegate Instructions ==================================
-        // ============================================================
-
-        // get the pubkey of what will be the delegates ata for the delegate mint
+    /**
+     *
+     * @param instructions
+     * @param payer
+     * @param delegateMint
+     * @param delegate
+     * @private
+     */
+    private async createDelegateInstructions(
+        instructions: TransactionInstruction[],
+        payer: PublicKey,
+        delegateMint: PublicKey,
+        delegate: PublicKey
+    ): Promise<void> {
 
         const delegateAta = await getAssociatedTokenAddress(
             delegateMint,
@@ -460,9 +422,9 @@ export class CreateDaoAction implements ActionProtocol {
 
         // create the associated token account for the delegate
 
-        delegateInstructions.push(
+        instructions.push(
             createAssociatedTokenAccountInstruction(
-                owner,
+                payer,
                 delegateAta,
                 delegate,
                 delegateMint,
@@ -473,30 +435,74 @@ export class CreateDaoAction implements ActionProtocol {
 
         // mint 1 delegate token to the delegate
 
-        delegateInstructions.push(
+        instructions.push(
             createMintToInstruction(
                 delegateMint,
                 delegateAta,
-                owner,
+                payer,
                 1
             )
         )
 
-        // ============================================================
-        // === Realm Instructions =====================================
-        // ============================================================
+    }
 
-        // create the realm
+    /**
+     *
+     * @param instructions
+     * @param governanceProgramId
+     * @param payer
+     * @param delegate
+     * @param lpMint
+     * @param delegateMint
+     * @param distributionMint
+     * @param config
+     * @private
+     */
+    private async createRealmInstructions(
+        instructions: TransactionInstruction[],
+        governanceProgramId: PublicKey,
+        payer: PublicKey,
+        delegate: PublicKey,
+        communityMint: PublicKey,
+        councilMint: PublicKey,
+        // distributionMint: PublicKey,
+        config
+    ): Promise<{
+        realmAddress: PublicKey,
+        communityMintGovernance: PublicKey,
+        councilMintGovernance: PublicKey
+    }> {
+
+        console.log("Create realm instructions...")
+
+        const name = config.name !== "" ? config.name : config.name = generateSlug(3, {format: "title"});
+
+        const realmConfig = new GovernanceConfig({
+            voteThresholdPercentage: new VoteThresholdPercentage({
+                value: config.governance.voteThresholdPercentage,
+            }),
+            minCommunityTokensToCreateProposal: new BN(config.governance.minCommunityTokensToCreateProposal),
+            minInstructionHoldUpTime: config.governance.minInstructionHoldUpTime,
+            maxVotingTime: config.governance.maxVotingTime,
+            voteTipping: config.governance.voteTipping,
+            proposalCoolOffTime: config.governance.proposalCoolOffTime,
+            minCouncilTokensToCreateProposal: new BN(config.governance.minCouncilTokensToCreateProposal),
+        });
+
+        const delegateAta = await getAssociatedTokenAddress(
+            councilMint,
+            delegate
+        )
 
         const realmAddress = await withCreateRealm(
-            realmInstructions,
+            instructions,
             governanceProgramId,
             2,
             name,
-            owner,
-            lpMint,
-            owner,
-            delegateMint,
+            payer,
+            communityMint,
+            payer,
+            councilMint,
             MintMaxVoteWeightSource.FULL_SUPPLY_FRACTION,
             new BN(LAMPORTS_PER_SOL * 1000000)
         )
@@ -506,192 +512,280 @@ export class CreateDaoAction implements ActionProtocol {
                 governanceProgramId.toBuffer(),
                 realmAddress.toBuffer(),
                 delegate.toBuffer(),
-                owner.toBuffer(),
+                payer.toBuffer(),
             ],
             governanceProgramId,
         );
 
         // create the lp governance for the realm
 
-        const limitedPartnerGovernancePublicKey = await withCreateGovernance(
-            realmInstructions,
-            governanceProgramId,
-            2,
-            realmAddress,
-            undefined,
-            realmConfig,
-            tokenOwnerRecordAddress,
-            owner,
-            owner
-        )
+        // const limitedPartnerGovernance = await withCreateGovernance(
+        //     instructions,
+        //     governanceProgramId,
+        //     2,
+        //     realmAddress,
+        //     undefined,
+        //     realmConfig,
+        //     tokenOwnerRecordAddress,
+        //     payer,
+        //     payer
+        // )
 
         // create the delegate mint governance for the realm
 
-        const delegateMintGovernancePublicKey = await withCreateMintGovernance(
-            realmInstructions,
+        const councilMintGovernance = await withCreateMintGovernance(
+            instructions,
             governanceProgramId,
             2,  // why does program 2 work and not program 1
             realmAddress,
-            delegateMint,
+            councilMint,
             realmConfig,
-            !!owner,
-            owner,
+            !!payer,
+            payer,
             tokenOwnerRecordAddress,
-            owner,
-            owner
+            payer,
+            payer
         )
 
         // create the distribution mint governance for the real
 
-        const distributionMintGovernancePublicKey = await withCreateMintGovernance(
-            realmInstructions,
+        const communityMintGovernance = await withCreateMintGovernance(
+            instructions,
             governanceProgramId,
             2,  // why does program 2 work and not program 1
             realmAddress,
-            distributionMint,
+            communityMint,
             realmConfig,
-            !!owner,
-            owner,
+            !!payer,
+            payer,
             tokenOwnerRecordAddress,
-            owner,
-            owner
+            payer,
+            payer
         )
+
+        // const distributionMintGovernance = await withCreateMintGovernance(
+        //     instructions,
+        //     governanceProgramId,
+        //     2,  // why does program 2 work and not program 1
+        //     realmAddress,
+        //     distributionMint,
+        //     realmConfig,
+        //     !!payer,
+        //     payer,
+        //     tokenOwnerRecordAddress,
+        //     payer,
+        //     payer
+        // )
 
         // transfer authority of the realm from the owner to the lp governance
 
         withSetRealmAuthority(
-            realmInstructions,
+            instructions,
             governanceProgramId,
             2,
             realmAddress,
-            owner,
-            limitedPartnerGovernancePublicKey,
+            payer,
+            communityMintGovernance,
             1
         )
 
         // deposit the delegate's delegate token into the realm for them
 
-        /*
-            instructions: TransactionInstruction[],
-            programId: PublicKey,
-            programVersion: number,
-            realm: PublicKey,
-            governingTokenSource: PublicKey,
-            governingTokenMint: PublicKey,
-            governingTokenOwner: PublicKey,
-            transferAuthority: PublicKey,
-            payer: PublicKey,
-            amount: BN,
-        */
+        if (payer === delegate) {
 
-        await withDepositGoverningTokens(
-            realmInstructions,
-            governanceProgramId,
-            2, // why does program 2 work and not program 1
+            await withDepositGoverningTokens(
+                instructions,
+                governanceProgramId,
+                2, // why does program 2 work and not program 1
+                realmAddress,
+                delegateAta,
+                councilMint,
+                delegate,
+                delegate,
+                delegate,
+                new BN(1)
+            )
+
+        }
+
+        return {
             realmAddress,
-            delegateAta,
-            delegateMint,
-            delegate,
-            delegate,
-            delegate,
-            new BN(1)
+            communityMintGovernance,
+            councilMintGovernance,
+            // distributionMintGovernance
+        }
+
+    }
+
+    /**
+     *
+     * @param instructions
+     * @param lpMint
+     * @param limitedPartnerGovernance
+     * @param delegateMintGovernance
+     * @param distributionMintGovernance
+     * @param maxRaise
+     * @private
+     */
+    private async createTreasuryInstructions(
+        instructions: TransactionInstruction[],
+        communityMint: PublicKey,
+        councilMintGovernance: PublicKey,
+        communityMintGovernance: PublicKey,
+        // distributionMintGovernance: PublicKey,
+        maxRaise: number
+    ): Promise<{
+        capitalSupplyTreasury: PublicKey,
+        treasuryStockTreasury: PublicKey,
+        // distributionTreasury: PublicKey
+    }> {
+
+        console.log("Create treasury instructions...")
+
+        const capitalSupplyTreasury = await this.createTreasuryAccountInstructions(
+            instructions,
+            this.wallet.publicKey!,
+            USDC_DEVNET,
+            communityMintGovernance
         )
 
-        // ============================================================
-        // === Treasury Instructions ==================================
-        // ============================================================
-
-        // get pk of what the usdc treasury for the lp governance will be
-
-        const capitalSupplyTreasuryPubkey = await getAssociatedTokenAddress(
-            usdcMint,
-            limitedPartnerGovernancePublicKey,
-            true,
+        const treasuryStockTreasury = await this.createTreasuryAccountInstructions(
+            instructions,
+            this.wallet.publicKey!,
+            communityMint,
+            councilMintGovernance
         )
 
-        // create the ata for the lp governance usdc mint
+        // const distributionTreasury = await this.createTreasuryAccountInstructions(
+        //     instructions,
+        //     this.wallet.publicKey!,
+        //     USDC_DEVNET,
+        //     distributionMintGovernance
+        // )
 
-        treasuryInstructions.push(
-            createAssociatedTokenAccountInstruction(
-                owner,
-                capitalSupplyTreasuryPubkey,
-                limitedPartnerGovernancePublicKey,
-                usdcMint
-            )
-        )
-
-        // get the reference for ata of the lp token mint
-
-        const treasuryStockTreasuryPubkey = await getAssociatedTokenAddress(
-            lpMint,
-            delegateMintGovernancePublicKey,
-            true,
-        )
-
-        // create the ata for the lp token mint and set the owner as the authority oif the delegate governance
-
-        treasuryInstructions.push(
-            createAssociatedTokenAccountInstruction(
-                owner,
-                treasuryStockTreasuryPubkey,
-                delegateMintGovernancePublicKey,
-                lpMint
-            )
-        )
-
-        // create ata for the distribution usdc mint
-
-        const distributionTreasuryPubkey = await getAssociatedTokenAddress(
-            usdcMint,
-            distributionMintGovernancePublicKey,
-            true,
-        )
-
-        // create the usdc treasury for usdc distributions
-
-        treasuryInstructions.push(
-            createAssociatedTokenAccountInstruction(
-                owner,
-                distributionTreasuryPubkey,
-                distributionMintGovernancePublicKey,
-                usdcMint
-            )
-        )
-
-        // mint the initial supply of lp tokens to the owner
-
-        treasuryInstructions.push(
+        instructions.push(
             createMintToInstruction(
-                lpMint, // mint
-                treasuryStockTreasuryPubkey, // destination
-                owner, // authority
-                lpTokenSupply // amount
+                communityMint, // mint
+                treasuryStockTreasury, // destination
+                this.wallet.publicKey!, // authority
+                maxRaise // amount
             )
         )
 
-        // set the mint authority to null so the lp token count is fixed
-
-        treasuryInstructions.push(
+        instructions.push(
             createSetAuthorityInstruction(
-                lpMint,
-                owner,
+                communityMint,
+                this.wallet.publicKey!,
                 AuthorityType.MintTokens,
                 null
             )
         )
 
         return {
-            realm: realmAddress,
-            limitedPartnerGovernance: limitedPartnerGovernancePublicKey,
-            delegateMintGovernance: delegateMintGovernancePublicKey,
-            distributionMintGovernance: distributionMintGovernancePublicKey,
-            capitalSupplyTreasury: capitalSupplyTreasuryPubkey,
-            treasuryStockTreasury: treasuryStockTreasuryPubkey,
-            distributionTreasury: distributionTreasuryPubkey
+            capitalSupplyTreasury,
+            treasuryStockTreasury,
+            // distributionTreasury
         }
 
     }
 
+    /**
+     *
+     * @param instructions
+     * @param payer
+     * @param mint
+     * @param governance
+     * @private
+     */
+    private async createTreasuryAccountInstructions(
+        instructions: TransactionInstruction[],
+        payer: PublicKey,
+        mint: PublicKey,
+        governance: PublicKey
+    ): Promise<PublicKey> {
+
+        const treasuryAta = await getAssociatedTokenAddress(
+            mint,
+            governance,
+            true,
+        )
+
+        instructions.push(
+            createAssociatedTokenAccountInstruction(
+                payer,
+                treasuryAta,
+                governance,
+                mint
+            )
+        )
+
+        return treasuryAta
+    }
+
+    /**
+     *
+     * @param config
+     * @private
+     */
+    private validate(config): boolean {
+
+        return true
+
+        // return !!(
+        //     isString(config.name) &&
+        //     isString(config.governanceProgramId) &&
+        //     isString(config.usdcMint) &&
+        //     isNumber(config.governance.voteThresholdPercentage) &&
+        //     isNumber(config.governance.minCommunityTokensToCreateProposal) &&
+        //     isNumber(config.governance.minInstructionHoldUpTime) &&
+        //     isNumber(config.governance.maxVotingTime) &&
+        //     isNumber(config.governance.voteTipping) &&
+        //     isNumber(config.governance.proposalCoolOffTime) &&
+        //     isNumber(config.governance.minCouncilTokensToCreateProposal)
+        // );
+    }
+
+    /**
+     *
+     * @param config
+     * @param mints
+     * @param addresses
+     * @private
+     */
+    private async saveConfig(
+        config,
+        mints,
+        addresses
+    ): Promise<void> {
+
+        console.log("Saving config...")
+
+        config["addresses"] = {
+            "realm": addresses.realmAddress.toBase58(),
+            "governance": {
+                "lp_token_governance": addresses.limitedPartnerGovernance.toBase58(),
+                "distribution_token_mint_governance": addresses.distributionMintGovernance.toBase58(),
+                "delegate_token_mint_governance": addresses.delegateMintGovernance.toBase58()
+            },
+            "mint": {
+                "lp_token_mint": mints.lpMint.toBase58(),
+                "distribution_token_mint": mints.distributionMint.toBase58(),
+                "delegate_token_mint": mints.delegateMint.toBase58()
+            },
+            "treasury": {
+                "capital_supply": addresses.capitalSupplyTreasury.toBase58(),
+                "distributions": addresses.distributionTreasury.toBase58(),
+                "stock_supply": addresses.treasuryStockTreasury.toBase58()
+            }
+        }
+
+        console.log("Save config complete.")
+
+        console.log(config);
+
+        return Promise.resolve()
+
+    }
 
     // /////////////////////////////////////////
     // private async sendTransactions(
@@ -862,5 +956,7 @@ export class CreateDaoAction implements ActionProtocol {
 //     StopOnFailure,
 // }
 
+
 }
+
 
