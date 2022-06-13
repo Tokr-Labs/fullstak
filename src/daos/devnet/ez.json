@@ -4,9 +4,9 @@
   "active": true,
   "token": {
     "ticker": "EZ",
-    "image": "https://dummyimage.com/125x100/b32694/ffffff&text=%20EZ%20"
+    "image": "/easy_street.png"
   },
-  "people": {
+  "stakeholders": {
     "sponsor": {
       "name": "Easy Street Capital",
       "company": "Easy Street Capital",
@@ -36,13 +36,13 @@
     }
   },
   "addresses": {
-    "pubkey": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+    "realm": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
     "authority": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
     "owner": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
     "governance": {
-      "lp_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "distribution_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
-      "delegate_token_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
+      "lp_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "distribution_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",
+      "delegate_mint_governance": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js"
     },
     "mint": {
       "lp_token_mint": "J5ttRTEHZgbgd7NYXRbMbijb4zafo4SM9qQ2birYV2Js",

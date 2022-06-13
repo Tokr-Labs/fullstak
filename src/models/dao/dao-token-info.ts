@@ -31,6 +31,6 @@ export class DaoTokenInfo {
     ticker: string
 
     /// image location of token icon
-    image: string
+    image?: string
 
 }

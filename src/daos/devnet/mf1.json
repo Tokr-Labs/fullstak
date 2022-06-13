@@ -5,7 +5,7 @@
   "strategy": 0,
   "token": {
     "ticker": "MF1",
-    "image": "https://dummyimage.com/125x100/3ab327/ffffff&text=%20MF%20"
+    "image": "/miami_fund_1.png"
   },
   "stakeholders": {
     "sponsor": {
@@ -39,13 +39,13 @@
     }
   },
   "addresses": {
-    "pubkey": "4HQq69iujZvFSgob73VjXKoVYJPebG4xPLwAgnugYUqU",
-    "authority": "DvBDmzyMeRijUwyFokLsEC3eJwhGubpuD7N6kGK1tgnF",
-    "owner": "GTesTBiEWE32WHXXE2S4XbZvA5CrEc4xs6ZgRe895dP",
+    "realm": "9Nr5uyKwUgfTGkPWy3W7YngcBb4Un2yZQGqcudFgfcmH",
+    "authority": "",
+    "owner": "",
     "governance": {
-      "lp_token_mint_governance": "7ob1TsgQpDEHaG5hi1syw5VJncNMQnNks1agJfM3buQJ",
-      "distribution_token_mint_governance": "Fh1m9bfhP6S3iAXpTknk8cC5ztJRTPWBF1mNf2aH6tFD",
-      "delegate_token_mint_governance": "GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst"
+      "lp_governance": "7ob1TsgQpDEHaG5hi1syw5VJncNMQnNks1agJfM3buQJ",
+      "distribution_mint_governance": "Fh1m9bfhP6S3iAXpTknk8cC5ztJRTPWBF1mNf2aH6tFD",
+      "delegate_mint_governance": "GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst"
     },
     "mint": {
       "lp_token_mint": "Cout3odQP8MFgMHszMasfb96WDzdQ5MuEZJChkSjtbWL",
