@@ -1,16 +1,20 @@
 import React from "react";
 import {Tooltip} from "@nextui-org/react";
-import {TooltipIcon} from "./icons/tooltip-icon";
+import {BsInfoCircle} from "react-icons/bs";
 
 export const TooltipWithIcon = (props) => {
 
     return (
         <Tooltip
             style={{display: "inline", marginLeft: "2px"}}
-            content={props.content}
+            content={
+                <div style={{width: "min(400px, 75vw)"}}>
+                    {props.content}
+                </div>
+            }
         >
             <sup>
-                <TooltipIcon color={props.color}/>
+                <BsInfoCircle size={7}/>
             </sup>
         </Tooltip>
     )

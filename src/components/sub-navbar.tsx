@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {BackIcon} from "./icons/back-icon";
+import {IoIosArrowBack} from "react-icons/io";
 
 export const SubNavbar = () => {
 
@@ -30,13 +30,12 @@ export const SubNavbar = () => {
                             borderWeight={"light"}
                             style={{
                                 color: "white",
-                                fontWeight: "bold",
-                                letterSpacing: theme.letterSpacings.wider.value,
+                                fontWeight: theme.fontWeights.bold.computedValue,
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}
                         >
-                            <BackIcon/>&nbsp;BACK TO MARKET
+                            <IoIosArrowBack style={{marginRight: 10}}/> BACK TO MARKET
                         </Button>
                     </Link>
                 </Grid>
@@ -53,8 +52,7 @@ export const SubNavbar = () => {
                                     <Button size={"sm"}
                                             color={"secondary"}
                                             style={{
-                                                fontWeight: "bold",
-                                                letterSpacing: "1px",
+                                                fontWeight: theme.fontWeights.bold.computedValue,
                                                 padding: "0 30px",
                                                 borderRadius: theme.radii.pill.computedValue
                                             }}

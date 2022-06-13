@@ -139,9 +139,9 @@ export const Portfolio = () => {
                                                                     ghost
                                                                     color={"primary"}
                                                                     style={{
-                                                                        fontWeight: "bold",
+                                                                        fontWeight: theme.fontWeights.bold.computedValue,
                                                                         borderRadius: 0
-                                                                }}
+                                                                    }}
                                                                 >
                                                                     INVEST
                                                                 </Button>
