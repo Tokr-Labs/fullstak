@@ -62,7 +62,7 @@ export class CreateDaoAction implements ActionProtocol {
         console.log("Executing create dao action...")
 
         const councilMint = Keypair.generate()
-        const communityMint = Keypair.generate()
+        const lpMint = Keypair.generate()
 
         const mintInstructions: TransactionInstruction[] = [];
         const delegateInstructions: TransactionInstruction[] = [];
@@ -76,48 +76,38 @@ export class CreateDaoAction implements ActionProtocol {
             treasuryInstructions
         ]
 
-        const daoAddresses = await this.createInstructions(
+        const addresses = await this.createInstructions(
             instructionSet,
             this.wallet.publicKey!,
             this.wallet.publicKey!,
-            communityMint.publicKey,
             councilMint.publicKey,
+            lpMint.publicKey,
             config
         )
 
         const transactionSignatures = await this.sendTransactions(
             instructionSet,
-            [[councilMint, communityMint], [], [], []]
+            [[councilMint, lpMint], [], [], []]
         )
 
         console.log("Transactions:");
         console.log(transactionSignatures);
 
-        // await this.saveConfig(
-        //     config,
-        //     {
-        //         lpMint: lpMint.publicKey,
-        //         distributionMint: distributionMint.publicKey,
-        //         delegateMint: delegateMint.publicKey
-        //     },
-        //     daoAddresses
-        // )
+        console.log("Addresses:")
+        console.log("realmAddress", addresses.realmAddress?.toBase58() ?? "unknown");
+        console.log("councilGovernance", addresses.councilGovernance?.toBase58() ?? "unknown");
+        console.log("usdcTreasury", addresses.usdcTreasury?.toBase58() ?? "unknown");
+        console.log("lpGovernance", addresses.lpGovernance?.toBase58() ?? "unknown");
+        console.log("lpStockTreasury", addresses.lpStockTreasury?.toBase58() ?? "unknown");
 
-        console.log("Complete.");
+        await this.confirmTransactions(transactionSignatures);
 
     }
 
     /**
      * Simulate the deposit liquidity transaction
      */
-    async simulate(
-        name: string,
-        delegateMint: Keypair,
-        distributionMint: Keypair,
-        lpMint: Keypair,
-        realmConfig: GovernanceConfig,
-        maxRaise: number
-    ): Promise<SimulatedTransactionResponse | void> {
+    async simulate(): Promise<SimulatedTransactionResponse | void> {
 
         //
         //     console.log("Simulating transactions...")
@@ -171,6 +161,12 @@ export class CreateDaoAction implements ActionProtocol {
 
     // Private Methods
 
+    /**
+     *
+     * @param instructionSet
+     * @param signerSet
+     * @private
+     */
     private async sendTransactions(
         instructionSet: TransactionInstruction[][],
         signerSet: Keypair[][]
@@ -186,8 +182,6 @@ export class CreateDaoAction implements ActionProtocol {
 
         const transactions: Transaction[] = []
 
-        let fees = 0;
-
         for (let i = 0; i < instructionSet.length; i++) {
 
             const instructions = instructionSet[i]
@@ -201,10 +195,6 @@ export class CreateDaoAction implements ActionProtocol {
             transaction.feePayer = this.wallet.publicKey!
             transaction.add(...instructions);
 
-            const estimatedFee = await transaction.getEstimatedFee(this.connection);
-
-            fees += estimatedFee / LAMPORTS_PER_SOL;
-
             if (signers.length > 0) {
                 transaction.partialSign(...signers)
             }
@@ -213,66 +203,45 @@ export class CreateDaoAction implements ActionProtocol {
 
         }
 
-        console.log(fees)
-
         const signedTransactions = await this.wallet!.signAllTransactions!(transactions)
 
-        const signatures = await Promise.all(
-            signedTransactions.map(signedTransaction => {
+        const txsigs: TransactionSignature[] = [];
 
-                const rawTransaction = signedTransaction.serialize()
-
-                return this.connection.sendRawTransaction(
-                    rawTransaction,
-                    {
-                        skipPreflight: true,
-                    }
-                )
-
-            })
+        await signedTransactions.reduce(
+            (p, tx) => p.then(() => {
+                console.log("sending transaction")
+                return this.sendSignedTransaction(tx).then(value => txsigs.push(value))
+            }),
+            Promise.resolve()
         )
 
         console.log("Transactions sent.")
 
-        return signatures;
+        return txsigs;
 
     }
 
-    private async confirmTransactions(signatures: TransactionSignature[]): Promise<void> {
+    /**
+     *
+     * @param transaction
+     * @private
+     */
+    private async sendSignedTransaction(transaction: Transaction): Promise<TransactionSignature> {
 
-        console.log("Confirming transactions...")
+        console.log("Sending transaction...");
 
-        let signatureStatuses: RpcResponseAndContext<(SignatureStatus | null)[]> = {
-            context: {slot: 0},
-            value: []
-        }
+        const rawTransaction = transaction.serialize()
 
-        let confirmed = false
-
-        while (!confirmed) {
-
-            signatureStatuses = await this.connection.getSignatureStatuses(signatures)
-
-            if (signatureStatuses.value[0] !== null) {
-                console.log("continue")
-                confirmed = true
+        const signature = await this.connection.sendRawTransaction(
+            rawTransaction,
+            {
+                skipPreflight: true
             }
+        )
 
-            await sleep(500)
+        await sleep(500)
 
-        }
-
-        console.log(signatureStatuses);
-
-        signatureStatuses.value.forEach(status => {
-            if (status?.err) {
-                throw new Error("Something went wrong. Please try again.")
-            }
-        })
-
-        console.log("Transactions confirmed.")
-
-        return Promise.resolve()
+        return signature
 
     }
 
@@ -282,8 +251,7 @@ export class CreateDaoAction implements ActionProtocol {
      * @param payer
      * @param delegate
      * @param lpMint
-     * @param delegateMint
-     * @param distributionMint
+     * @param councilMint
      * @param config
      * @private
      */
@@ -291,16 +259,15 @@ export class CreateDaoAction implements ActionProtocol {
         instructionSet: TransactionInstruction[][],
         payer: PublicKey,
         delegate: PublicKey,
+        councilMint: PublicKey,
         lpMint: PublicKey,
-        delegateMint: PublicKey,
-        // distributionMint: PublicKey,
         config
     ): Promise<{
-        realmAddress: PublicKey,
-        communityMintGovernance: PublicKey,
-        councilMintGovernance: PublicKey,
-        capitalSupplyTreasury: PublicKey,
-        treasuryStockTreasury: PublicKey
+        realmAddress?: PublicKey,
+        councilGovernance?: PublicKey,
+        lpGovernance?: PublicKey,
+        usdcTreasury?: PublicKey,
+        lpStockTreasury?: PublicKey
     }> {
 
         console.log("Creating instructions...")
@@ -310,50 +277,55 @@ export class CreateDaoAction implements ActionProtocol {
         console.log("Creating mint instructions...")
 
         await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, lpMint)
-        await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, delegateMint)
-        // await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, distributionMint)
+        await this.createMintInstructions(instructionSet[0], this.wallet.publicKey!, councilMint)
 
         await this.createDelegateInstructions(
             instructionSet[1],
             payer,
-            delegateMint,
+            councilMint,
             delegate
         )
 
         const {
             realmAddress,
-            councilMintGovernance,
-            communityMintGovernance,
+            councilGovernance,
+            lpGovernance,
         } = await this.createRealmInstructions(
             instructionSet[2],
             GOVERNANCE_PROGRAM_ID,
             payer,
             delegate,
             lpMint,
-            delegateMint,
-            // distributionMint,
+            councilMint,
             config
         )
 
+
+        let totalInstructions = 0
+
+        instructionSet.forEach(set => {
+            totalInstructions += set.length;
+        })
+
+        console.log(totalInstructions);
+
         const {
-            capitalSupplyTreasury,
-            treasuryStockTreasury,
-            // distributionTreasury
+            usdcTreasury,
+            lpStockTreasury
         } = await this.createTreasuryInstructions(
             instructionSet[3],
+            councilMint,
             lpMint,
-            communityMintGovernance,
-            councilMintGovernance,
-            // distributionMintGovernance,
+            councilGovernance!,
             maxRaise
         )
 
         return {
             realmAddress,
-            councilMintGovernance,
-            communityMintGovernance,
-            treasuryStockTreasury,
-            capitalSupplyTreasury
+            councilGovernance,
+            lpStockTreasury,
+            lpGovernance,
+            usdcTreasury,
         }
 
     }
@@ -404,19 +376,19 @@ export class CreateDaoAction implements ActionProtocol {
      *
      * @param instructions
      * @param payer
-     * @param delegateMint
+     * @param councilMint
      * @param delegate
      * @private
      */
     private async createDelegateInstructions(
         instructions: TransactionInstruction[],
         payer: PublicKey,
-        delegateMint: PublicKey,
+        councilMint: PublicKey,
         delegate: PublicKey
     ): Promise<void> {
 
         const delegateAta = await getAssociatedTokenAddress(
-            delegateMint,
+            councilMint,
             delegate
         )
 
@@ -427,7 +399,7 @@ export class CreateDaoAction implements ActionProtocol {
                 payer,
                 delegateAta,
                 delegate,
-                delegateMint,
+                councilMint,
                 TOKEN_PROGRAM_ID,
                 ASSOCIATED_TOKEN_PROGRAM_ID
             )
@@ -437,7 +409,7 @@ export class CreateDaoAction implements ActionProtocol {
 
         instructions.push(
             createMintToInstruction(
-                delegateMint,
+                councilMint,
                 delegateAta,
                 payer,
                 1
@@ -453,8 +425,7 @@ export class CreateDaoAction implements ActionProtocol {
      * @param payer
      * @param delegate
      * @param lpMint
-     * @param delegateMint
-     * @param distributionMint
+     * @param councilMint
      * @param config
      * @private
      */
@@ -463,18 +434,16 @@ export class CreateDaoAction implements ActionProtocol {
         governanceProgramId: PublicKey,
         payer: PublicKey,
         delegate: PublicKey,
-        communityMint: PublicKey,
+        lpMint: PublicKey,
         councilMint: PublicKey,
-        // distributionMint: PublicKey,
         config
     ): Promise<{
         realmAddress: PublicKey,
-        communityMintGovernance: PublicKey,
-        councilMintGovernance: PublicKey
+        councilGovernance?: PublicKey,
+        lpGovernance?: PublicKey
     }> {
 
         console.log("Create realm instructions...")
-
         const name = config.name !== "" ? config.name : config.name = generateSlug(3, {format: "title"});
 
         const realmConfig = new GovernanceConfig({
@@ -500,14 +469,14 @@ export class CreateDaoAction implements ActionProtocol {
             2,
             name,
             payer,
-            communityMint,
+            lpMint,
             payer,
             councilMint,
             MintMaxVoteWeightSource.FULL_SUPPLY_FRACTION,
             new BN(LAMPORTS_PER_SOL * 1000000)
         )
 
-        const [tokenOwnerRecordAddress] = await PublicKey.findProgramAddress(
+        const [tokenOwnerRecord] = await PublicKey.findProgramAddress(
             [
                 governanceProgramId.toBuffer(),
                 realmAddress.toBuffer(),
@@ -519,63 +488,29 @@ export class CreateDaoAction implements ActionProtocol {
 
         // create the lp governance for the realm
 
-        // const limitedPartnerGovernance = await withCreateGovernance(
-        //     instructions,
-        //     governanceProgramId,
-        //     2,
-        //     realmAddress,
-        //     undefined,
-        //     realmConfig,
-        //     tokenOwnerRecordAddress,
-        //     payer,
-        //     payer
-        // )
-
-        // create the delegate mint governance for the realm
-
-        const councilMintGovernance = await withCreateMintGovernance(
+        const councilGovernance = await withCreateGovernance(
             instructions,
             governanceProgramId,
-            2,  // why does program 2 work and not program 1
+            2,
             realmAddress,
-            councilMint,
+            undefined,
             realmConfig,
-            !!payer,
+            tokenOwnerRecord,
             payer,
-            tokenOwnerRecordAddress,
             payer,
-            payer
         )
 
-        // create the distribution mint governance for the real
-
-        const communityMintGovernance = await withCreateMintGovernance(
+        const lpGovernance = await withCreateGovernance(
             instructions,
             governanceProgramId,
-            2,  // why does program 2 work and not program 1
+            2,
             realmAddress,
-            communityMint,
+            undefined,
             realmConfig,
-            !!payer,
+            tokenOwnerRecord,
             payer,
-            tokenOwnerRecordAddress,
             payer,
-            payer
         )
-
-        // const distributionMintGovernance = await withCreateMintGovernance(
-        //     instructions,
-        //     governanceProgramId,
-        //     2,  // why does program 2 work and not program 1
-        //     realmAddress,
-        //     distributionMint,
-        //     realmConfig,
-        //     !!payer,
-        //     payer,
-        //     tokenOwnerRecordAddress,
-        //     payer,
-        //     payer
-        // )
 
         // transfer authority of the realm from the owner to the lp governance
 
@@ -585,7 +520,7 @@ export class CreateDaoAction implements ActionProtocol {
             2,
             realmAddress,
             payer,
-            communityMintGovernance,
+            councilGovernance,
             1
         )
 
@@ -610,9 +545,8 @@ export class CreateDaoAction implements ActionProtocol {
 
         return {
             realmAddress,
-            communityMintGovernance,
-            councilMintGovernance,
-            // distributionMintGovernance
+            councilGovernance,
+            lpGovernance
         }
 
     }
@@ -620,53 +554,43 @@ export class CreateDaoAction implements ActionProtocol {
     /**
      *
      * @param instructions
+     * @param councilMint
      * @param lpMint
-     * @param limitedPartnerGovernance
-     * @param delegateMintGovernance
-     * @param distributionMintGovernance
+     * @param councilGovernance
      * @param maxRaise
      * @private
      */
     private async createTreasuryInstructions(
         instructions: TransactionInstruction[],
-        communityMint: PublicKey,
-        councilMintGovernance: PublicKey,
-        communityMintGovernance: PublicKey,
-        // distributionMintGovernance: PublicKey,
+        councilMint: PublicKey,
+        lpMint: PublicKey,
+        councilGovernance: PublicKey,
         maxRaise: number
     ): Promise<{
-        capitalSupplyTreasury: PublicKey,
-        treasuryStockTreasury: PublicKey,
-        // distributionTreasury: PublicKey
+        usdcTreasury?: PublicKey,
+        lpStockTreasury?: PublicKey
     }> {
 
         console.log("Create treasury instructions...")
 
-        const capitalSupplyTreasury = await this.createTreasuryAccountInstructions(
+        const usdcTreasury = await this.createTreasuryAccountInstructions(
             instructions,
             this.wallet.publicKey!,
             USDC_DEVNET,
-            communityMintGovernance
+            councilGovernance
         )
 
-        const treasuryStockTreasury = await this.createTreasuryAccountInstructions(
+        const lpStockTreasury = await this.createTreasuryAccountInstructions(
             instructions,
             this.wallet.publicKey!,
-            communityMint,
-            councilMintGovernance
+            lpMint,
+            councilGovernance
         )
-
-        // const distributionTreasury = await this.createTreasuryAccountInstructions(
-        //     instructions,
-        //     this.wallet.publicKey!,
-        //     USDC_DEVNET,
-        //     distributionMintGovernance
-        // )
 
         instructions.push(
             createMintToInstruction(
-                communityMint, // mint
-                treasuryStockTreasury, // destination
+                lpMint, // mint
+                lpStockTreasury, // destination
                 this.wallet.publicKey!, // authority
                 maxRaise // amount
             )
@@ -674,17 +598,25 @@ export class CreateDaoAction implements ActionProtocol {
 
         instructions.push(
             createSetAuthorityInstruction(
-                communityMint,
+                lpMint,
                 this.wallet.publicKey!,
                 AuthorityType.MintTokens,
                 null
             )
         )
 
+        instructions.push(
+            createSetAuthorityInstruction(
+                councilMint,
+                this.wallet.publicKey!,
+                AuthorityType.MintTokens,
+                councilGovernance
+            )
+        )
+
         return {
-            capitalSupplyTreasury,
-            treasuryStockTreasury,
-            // distributionTreasury
+            usdcTreasury,
+            lpStockTreasury
         }
 
     }
@@ -747,215 +679,46 @@ export class CreateDaoAction implements ActionProtocol {
 
     /**
      *
-     * @param config
-     * @param mints
-     * @param addresses
+     * @param signatures
      * @private
      */
-    private async saveConfig(
-        config,
-        mints,
-        addresses
-    ): Promise<void> {
+    private async confirmTransactions(signatures: TransactionSignature[]): Promise<void> {
 
-        console.log("Saving config...")
+        console.log("Confirming transactions...")
 
-        config["addresses"] = {
-            "realm": addresses.realmAddress.toBase58(),
-            "governance": {
-                "lp_token_governance": addresses.limitedPartnerGovernance.toBase58(),
-                "distribution_token_mint_governance": addresses.distributionMintGovernance.toBase58(),
-                "delegate_token_mint_governance": addresses.delegateMintGovernance.toBase58()
-            },
-            "mint": {
-                "lp_token_mint": mints.lpMint.toBase58(),
-                "distribution_token_mint": mints.distributionMint.toBase58(),
-                "delegate_token_mint": mints.delegateMint.toBase58()
-            },
-            "treasury": {
-                "capital_supply": addresses.capitalSupplyTreasury.toBase58(),
-                "distributions": addresses.distributionTreasury.toBase58(),
-                "stock_supply": addresses.treasuryStockTreasury.toBase58()
-            }
+        let signatureStatuses: RpcResponseAndContext<(SignatureStatus | null)[]> = {
+            context: {slot: 0},
+            value: []
         }
 
-        console.log("Save config complete.")
+        let confirmed = false
 
-        console.log(config);
+        while (!confirmed) {
+
+            signatureStatuses = await this.connection.getSignatureStatuses(signatures)
+
+            if (signatureStatuses.value[0] !== null) {
+                console.log("continue")
+                confirmed = true
+            }
+
+            await sleep(500)
+
+        }
+
+        console.log(signatureStatuses);
+
+        signatureStatuses.value.forEach(status => {
+            if (status?.err) {
+                throw new Error("Something went wrong. Please try again.")
+            }
+        })
+
+        console.log("Transactions confirmed.")
 
         return Promise.resolve()
 
     }
-
-    // /////////////////////////////////////////
-    // private async sendTransactions(
-    //     connection: Connection,
-    //     wallet: WalletSigner,
-    //     instructionSet: TransactionInstruction[][],
-    //     signersSet: Keypair[][],
-    //     sequenceType: SequenceType = SequenceType.Parallel,
-    //     commitment: Commitment = 'singleGossip',
-    //     successCallback: (txid: string, ind: number) => void = (_txid, _ind) => null,
-    //     failCallback: (reason: string, ind: number) => boolean = (_txid, _ind) =>
-    //         false,
-    //     block?: {
-    //         blockhash: string
-    //         feeCalculator: FeeCalculator
-    //     }
-    // ): Promise<number> {
-    //     if (!wallet.publicKey) throw new Error('Wallet not connected!')
-    //
-    //     const unsignedTxns: Transaction[] = []
-    //
-    //     if (!block) {
-    //         block = await connection.getRecentBlockhash(commitment)
-    //     }
-    //
-    //     for (let i = 0; i < instructionSet.length; i++) {
-    //         const instructions = instructionSet[i]
-    //         const signers = signersSet[i]
-    //
-    //         if (instructions.length === 0) {
-    //             continue
-    //         }
-    //
-    //         const transaction = new Transaction()
-    //         instructions.forEach((instruction) => transaction.add(instruction))
-    //         transaction.recentBlockhash = block.blockhash
-    //         transaction.setSigners(
-    //             // fee payed by the wallet owner
-    //             wallet.publicKey,
-    //             ...signers.map((s) => s.publicKey)
-    //         )
-    //
-    //         if (signers.length > 0) {
-    //             transaction.partialSign(...signers)
-    //         }
-    //
-    //         unsignedTxns.push(transaction)
-    //     }
-    //
-    //     const signedTxns = await wallet.signAllTransactions(unsignedTxns)
-    //
-    //     const pendingTxns: Promise<{ txid: string; slot: number }>[] = []
-    //
-    //     const breakEarlyObject = {breakEarly: false}
-    //     for (let i = 0; i < signedTxns.length; i++) {
-    //         const signedTxnPromise = sendSignedTransaction({
-    //             connection,
-    //             signedTransaction: signedTxns[i],
-    //         })
-    //
-    //         signedTxnPromise
-    //             .then(({txid}) => {
-    //                 successCallback(txid, i)
-    //             })
-    //             .catch((_reason) => {
-    //                 // @ts-ignore
-    //                 failCallback(signedTxns[i], i)
-    //                 if (sequenceType == SequenceType.StopOnFailure) {
-    //                     breakEarlyObject.breakEarly = true
-    //                 }
-    //             })
-    //
-    //         if (sequenceType != SequenceType.Parallel) {
-    //             await signedTxnPromise
-    //             if (breakEarlyObject.breakEarly) {
-    //                 return i // REturn the txn we failed on by index
-    //             }
-    //         } else {
-    //             pendingTxns.push(signedTxnPromise)
-    //         }
-    //     }
-    //
-    //     if (sequenceType != SequenceType.Parallel) {
-    //         await Promise.all(pendingTxns)
-    //     }
-    //
-    //     return signedTxns.length
-    // }
-    //
-    // private async sendSignedTransaction(
-    //     signedTransaction,
-    //     connection,
-    //     timeout = 30000,
-    // ): Promise<{ txid: string; slot: number }> {
-    //     const rawTransaction = signedTransaction.serialize()
-    //     const startTime = getUnixTs()
-    //     let slot = 0
-    //     const txid: TransactionSignature = await connection.sendRawTransaction(
-    //         rawTransaction,
-    //         {
-    //             skipPreflight: true,
-    //         }
-    //     )
-    //
-    //     console.log('Started awaiting confirmation for', txid)
-    //
-    //     let done = false
-    //     ;(async () => {
-    //         while (!done && getUnixTs() - startTime < timeout) {
-    //             connection.sendRawTransaction(rawTransaction, {
-    //                 skipPreflight: true,
-    //             })
-    //             await sleep(500)
-    //         }
-    //     })()
-    //     try {
-    //         const confirmation = await awaitTransactionSignatureConfirmation(
-    //             txid,
-    //             timeout,
-    //             connection,
-    //             'recent',
-    //             true
-    //         )
-    //
-    //         if (confirmation.err) {
-    //             console.error(confirmation.err)
-    //             throw new Error('Transaction failed: Custom instruction error')
-    //         }
-    //
-    //         slot = confirmation?.slot || 0
-    //     } catch (err) {
-    //         if (err.timeout) {
-    //             throw new Error('Timed out awaiting confirmation on transaction')
-    //         }
-    //         let simulateResult: SimulatedTransactionResponse | null = null
-    //         try {
-    //             simulateResult = (
-    //                 await simulateTransaction(connection, signedTransaction, 'single')
-    //             ).value
-    //         } catch (e) {
-    //             //
-    //         }
-    //         if (simulateResult && simulateResult.err) {
-    //             if (simulateResult.logs) {
-    //                 for (let i = simulateResult.logs.length - 1; i >= 0; --i) {
-    //                     const line = simulateResult.logs[i]
-    //                     if (line.startsWith('Program log: ')) {
-    //                         throw new Error(
-    //                             'Transaction failed: ' + line.slice('Program log: '.length)
-    //                         )
-    //                     }
-    //                 }
-    //             }
-    //             throw new Error(JSON.stringify(simulateResult.err))
-    //         }
-    //         // throw new Error('Transaction failed');
-    //     } finally {
-    //         done = true
-    //     }
-    //
-    //     console.log('Latency', txid, getUnixTs() - startTime)
-    //     return {txid, slot}
-    // }
-
-    // export enum SequenceType {
-//     Sequential,
-//     Parallel,
-//     StopOnFailure,
-// }
-
 
 }
 

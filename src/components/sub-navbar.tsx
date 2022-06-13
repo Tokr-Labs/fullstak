@@ -30,7 +30,7 @@ export const SubNavbar = () => {
         const info = require("../assets/create-dao-config.localnet.json")
         createDaoAction.execute(info)
             .then(() => console.log("dao created"))
-            .catch(err => alert(err.message));
+            .catch(err => console.error(err.message));
 
     }
 
