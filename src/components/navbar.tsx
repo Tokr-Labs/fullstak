@@ -103,10 +103,15 @@ export const Navbar = () => {
                         animated={false}
                         ripple={false}
                         color={"secondary"}
+                        style={{margin: 0}}
                     >
                         <Button
                             ghost={tab !== "Markets"}
-                            style={{fontWeight: theme.fontWeights.bold.computedValue, minWidth: "150px", color: "white"}}
+                            style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                minWidth: "150px",
+                                color: "white"
+                            }}
                             onClick={() => handleClick("Markets")}
                         >
                             MARKETS
@@ -126,9 +131,24 @@ export const Navbar = () => {
                 </Grid>
 
                 <Grid xs={0} sm={4} justify={"flex-end"}>
+
+                    <Button
+                        auto
+                        bordered
+                        borderWeight={"light"}
+                        color={"secondary"}
+                        style={{
+                            borderRadius: theme.radii.pill.computedValue,
+                            fontWeight: theme.fontWeights.bold.computedValue,
+                            color: "white"
+                        }}
+                    >
+                        0.0000 <img src={"/tokr_labs.png"} alt={"tokr logo"} height={25} width={25} style={{marginLeft: 10}}/>
+                    </Button>
+
                     <Popover>
                         <Popover.Trigger>
-                            <Button auto style={{background: "none", marginRight: "10px"}}>
+                            <Button auto animated={false} style={{background: "none", marginLeft: 20}}>
                                 <FaServer style={{height: 20, width: 20}}/>
                             </Button>
                         </Popover.Trigger>
@@ -158,6 +178,7 @@ export const Navbar = () => {
                     <WalletMultiButton/>
                 </Grid>
 
+                {/* Mobile nav */}
                 <Grid xs={3} sm={0} justify={"flex-end"}>
                     <Modal
                         closeButton
@@ -194,7 +215,10 @@ export const Navbar = () => {
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
-                                    <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue}}>
+                                    <div style={{
+                                        padding: "20px",
+                                        background: theme.colors.backgroundContrast.computedValue
+                                    }}>
                                         <h4>Change Network</h4>
                                         <Button
                                             disabled
