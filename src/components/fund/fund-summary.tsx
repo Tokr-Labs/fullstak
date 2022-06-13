@@ -17,59 +17,21 @@ export const FundSummary = (props: FundSummaryProps) => {
             <Card>
 
                 <Card.Header>
-                    <Text size={24}
-                          weight={"bold"}
-                          style={{
-                              letterSpacing: theme.letterSpacings.wide.value,
-                          }}>
+                    <Text
+                        size={theme.fontSizes.xl.computedValue}
+                        weight={"bold"}
+                    >
                         Fund Summary
                     </Text>
                 </Card.Header>
 
                 <Card.Body style={{padding: "20px 30px 20px 30px"}}>
 
-                    <Grid.Container>
-                        <Grid xs={12} md={4} direction={"column"}>
+                    <Grid.Container justify={"space-between"}>
+                        <Grid xs={12} md={3} direction={"column"}>
                             <div style={{
-                                letterSpacing: theme.letterSpacings.wider.value,
-                                fontWeight: "bold",
-                                fontSize: 15
-                            }}>
-                                Token
-                            </div>
-                            <Spacer y={0.5}/>
-                            <div style={{marginBottom: "20px"}}>
-                                <img
-                                    src={dao?.token.image}
-                                    alt={"Token"}
-                                    height={40}
-                                    width={40}
-                                    style={{
-                                        verticalAlign: "middle",
-                                        borderRadius: "50%",
-                                        boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
-                                        backgroundColor: "rgba(21,3,53, 1)"
-                                    }}
-                                />
-                                <Text
-                                    size={24}
-                                    weight={"bold"}
-                                    style={{
-                                        display: "inline",
-                                        marginLeft: "10px",
-                                        verticalAlign: "middle",
-                                        letterSpacing: theme.letterSpacings.normal.value,
-                                    }}
-                                >
-                                    {dao?.token.ticker}
-                                </Text>
-                            </div>
-                        </Grid>
-                        <Grid xs={12} md={4} direction={"column"}>
-                            <div style={{
-                                letterSpacing: theme.letterSpacings.wider.value,
-                                fontWeight: "bold",
-                                fontSize: 15
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
                             }}>
                                 General Partner
                                 <TooltipWithIcon
@@ -99,24 +61,22 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={24}
+                                    size={theme.fontSizes.xl2.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
                                         marginLeft: "10px",
                                         verticalAlign: "middle",
-                                        letterSpacing: theme.letterSpacings.normal.value,
                                     }}
                                 >
                                     {dao?.stakeholders.sponsor.name}
                                 </Text>
                             </div>
                         </Grid>
-                        <Grid xs={12} md={4} direction={"column"}>
+                        <Grid xs={12} md={3} direction={"column"}>
                             <div style={{
-                                letterSpacing: theme.letterSpacings.wider.value,
-                                fontWeight: "bold",
-                                fontSize: 15
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
                             }}>
                                 Fund Administrator
                                 <TooltipWithIcon
@@ -145,16 +105,49 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={24}
+                                    size={theme.fontSizes.xl2.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
                                         marginLeft: "10px",
                                         verticalAlign: "middle",
-                                        letterSpacing: theme.letterSpacings.normal.value,
                                     }}
                                 >
                                     {dao?.stakeholders.delegate.name}
+                                </Text>
+                            </div>
+                        </Grid>
+                        <Grid xs={12} md={3} direction={"column"}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
+                                Token
+                            </div>
+                            <Spacer y={0.5}/>
+                            <div style={{marginBottom: "20px"}}>
+                                <img
+                                    src={dao?.token.image}
+                                    alt={"Token"}
+                                    height={40}
+                                    width={40}
+                                    style={{
+                                        verticalAlign: "middle",
+                                        borderRadius: "50%",
+                                        boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                        backgroundColor: "rgba(21,3,53, 1)"
+                                    }}
+                                />
+                                <Text
+                                    size={theme.fontSizes.xl2.computedValue}
+                                    weight={"bold"}
+                                    style={{
+                                        display: "inline",
+                                        marginLeft: "10px",
+                                        verticalAlign: "middle",
+                                    }}
+                                >
+                                    {dao?.token.ticker}
                                 </Text>
                             </div>
                         </Grid>
@@ -165,21 +158,12 @@ export const FundSummary = (props: FundSummaryProps) => {
                     <Grid.Container>
                         <Grid xs={12} direction={"column"}>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.base.computedValue}
                                 weight={"bold"}
-                                style={{
-                                    letterSpacing: theme.letterSpacings.wider.value,
-                                }}
                             >
                                 Fund Overview
                             </Text>
-                            <Spacer y={0.5}/>
-                            <Text
-                                size={18}
-                                style={{
-                                    letterSpacing: theme.letterSpacings.normal.value,
-                                }}
-                            >
+                            <Text size={theme.fontSizes.md.computedValue}>
                                 {dao?.description}
                             </Text>
                         </Grid>
@@ -190,11 +174,8 @@ export const FundSummary = (props: FundSummaryProps) => {
                     <Grid.Container>
                         <Grid direction={"column"}>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.base.computedValue}
                                 weight={"bold"}
-                                style={{
-                                    letterSpacing: theme.letterSpacings.wider.value,
-                                }}
                             >
                                 Data Room
                             </Text>
@@ -204,9 +185,8 @@ export const FundSummary = (props: FundSummaryProps) => {
                                 disabled={!dao?.details.dataRoom}
                                 color={"primary"}
                                 style={{
-                                    fontWeight: "bold",
-                                    borderRadius: 0,
-                                    letterSpacing: theme.letterSpacings.wider.value,
+                                    fontWeight: theme.fontWeights.bold.computedValue,
+                                    borderRadius: 0
                                 }}
                             >
                                 DOWNLOAD

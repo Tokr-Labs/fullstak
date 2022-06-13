@@ -1,4 +1,4 @@
-import {Button, Input, Modal, Spacer, Text} from "@nextui-org/react";
+import {Button, Input, Modal, Spacer, Text, theme} from "@nextui-org/react";
 import React, {useCallback, useContext, useMemo, useState} from "react";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
@@ -97,7 +97,7 @@ export const InvestModal = (props: InvestModalProps) => {
             <Modal.Footer>
 
                 <Button color="primary"
-                        style={{fontWeight: "bold", borderRadius: 0}}
+                        style={{fontWeight: theme.fontWeights.bold.computedValue, borderRadius: 0}}
                         onClick={makeDeposit}>
                     Invest
                 </Button>

@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useMemo, useState} from "react";
-import {Button, Spacer, Table} from "@nextui-org/react";
+import {Button, Spacer, Table, theme} from "@nextui-org/react";
 import {useConnection} from "@solana/wallet-adapter-react";
 import {DaoInfoContext} from "../../models/contexts/dao-context";
 import {TokenServices} from "../../services/token-services";
@@ -84,7 +84,10 @@ export const FundAssets = () => {
                                 disabled
                                 size={"xs"}
                                 borderWeight={"light"}
-                                style={{margin: 0, fontWeight: "bold"}}
+                                style={{
+                                    margin: 0,
+                                    fontWeight: theme.fontWeights.bold.computedValue
+                                }}
                             >
                                 DETAILS
                             </Button>
@@ -100,7 +103,10 @@ export const FundAssets = () => {
                                 disabled
                                 size={"xs"}
                                 borderWeight={"light"}
-                                style={{margin: 0, fontWeight: "bold"}}
+                                style={{
+                                    margin: 0,
+                                    fontWeight: theme.fontWeights.bold.computedValue
+                                }}
                             >
                                 DETAILS
                             </Button>

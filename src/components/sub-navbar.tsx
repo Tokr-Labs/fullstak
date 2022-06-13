@@ -4,7 +4,7 @@ import {Link, useLocation, useNavigate} from "react-router-dom";
 import {CreateDaoAction} from "../services/actions/create-dao-action";
 import {useConnection, useWallet} from "@solana/wallet-adapter-react";
 import { CreateFund } from "./CreateFund";
-import {BackIcon} from "./icons/back-icon";
+import {IoIosArrowBack} from "react-icons/io";
 
 export const SubNavbar = () => {
 
@@ -24,10 +24,10 @@ export const SubNavbar = () => {
 
     // styling object for the buttons
     const buttonStyle = {
-        fontWeight: "bold",
         letterSpacing: "1px",
         padding: "0 30px",
-        borderRadius: theme.radii.pill.computedValue
+        borderRadius: theme.radii.pill.computedValue,
+        fontWeight: theme.fontWeights.bold.computedValue,
     }
     
 
@@ -55,13 +55,12 @@ export const SubNavbar = () => {
                             borderWeight={"light"}
                             style={{
                                 color: "white",
-                                fontWeight: "bold",
-                                letterSpacing: theme.letterSpacings.wider.value,
+                                fontWeight: theme.fontWeights.bold.computedValue,
                                 padding: "0 20px",
                                 borderRadius: theme.radii.pill.computedValue
                             }}
                         >
-                            <BackIcon/>&nbsp;BACK TO MARKET
+                            <IoIosArrowBack style={{marginRight: 10}}/> BACK TO MARKET
                         </Button>
                     </Link>
                 </Grid>

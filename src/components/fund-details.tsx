@@ -5,9 +5,9 @@ import {FundOpen} from "./fund/fund-open";
 import {FundSummary} from "./fund/fund-summary";
 import {FundActive} from "./fund/fund-active";
 import {ROUTE_MARKETS_EQUITY} from "../models/constants";
+import {NetworkContext} from "../models/contexts/network-context";
 import {DaoInfoContext} from "../models/contexts/dao-context";
 import {DaoService} from "../services/dao-service";
-import {NetworkContext} from "../models/contexts/network-context";
 
 export const FundDetails = () => {
 
@@ -88,13 +88,12 @@ export const FundDetails = () => {
                                         key={`tab-${i}`}
                                         style={{
                                             color: tab === "Transactions" || tab === "Proposals" ? "gray" : "white",
-                                            fontSize: 15,
-                                            fontWeight: "bold",
-                                            letterSpacing: theme.letterSpacings.wider.value,
+                                            fontSize: theme.fontSizes.base.computedValue,
+                                            fontWeight: theme.fontWeights.bold.computedValue,
                                             textTransform: "uppercase",
                                             backgroundColor: activeTab === tab
-                                                ? theme.colors.primary.computedValue
-                                                : "#150335"
+                                                ? theme.colors.secondary.computedValue
+                                                : theme.colors.purple100.computedValue
                                         }}
                                         disabled={tab === "Transactions" || tab === "Proposals"}
                                         animated={false}
@@ -116,9 +115,8 @@ export const FundDetails = () => {
 
                         <Card.Header>
                             <Text
-                                size={15}
+                                size={theme.fontSizes.xl.computedValue}
                                 weight={"bold"}
-                                style={{letterSpacing: 2}}
                             >
                                 {activeTab}
                             </Text>
