@@ -117,9 +117,6 @@ export const App = () => {
     })
     globalStyles();
 
-    console.log(process.env)
-    console.log(process.env.REACT_APP_CUSTOM_RPC)
-
     // // Defaults to using system preference
     // const darkMode = useDarkMode();
 
