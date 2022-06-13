@@ -84,7 +84,7 @@ export const Navbar = () => {
                 }}
             >
 
-                <Grid xs={9} sm={4}>
+                <Grid xs={9} md={4}>
                     <Link to="/">
                         <img
                             src={require("src/assets/brand/fullstak_logo_white.png")}
@@ -96,7 +96,7 @@ export const Navbar = () => {
                     </Link>
                 </Grid>
 
-                <Grid xs={0} sm={4} justify={"center"}>
+                <Grid xs={0} md={4} justify={"center"}>
                     <Button.Group
                         rounded
                         borderWeight={"light"}
@@ -130,7 +130,7 @@ export const Navbar = () => {
                     </Button.Group>
                 </Grid>
 
-                <Grid xs={0} sm={4} justify={"flex-end"}>
+                <Grid xs={0} md={4} justify={"flex-end"}>
 
                     <Button
                         auto
@@ -179,7 +179,7 @@ export const Navbar = () => {
                 </Grid>
 
                 {/* Mobile nav */}
-                <Grid xs={3} sm={0} justify={"flex-end"}>
+                <Grid xs={3} md={0} justify={"flex-end"}>
                     <Modal
                         closeButton
                         aria-labelledby={"menu-modal-title"}
