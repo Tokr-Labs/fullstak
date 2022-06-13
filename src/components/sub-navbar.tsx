@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Button, Grid, theme, Tooltip} from "@nextui-org/react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
-import {BackIcon} from "./icons/back-icon";
+import {IoIosArrowBack} from "react-icons/io";
 
 export const SubNavbar = () => {
 
@@ -35,7 +35,7 @@ export const SubNavbar = () => {
                                 borderRadius: theme.radii.pill.computedValue
                             }}
                         >
-                            <BackIcon/>&nbsp;BACK TO MARKET
+                            <IoIosArrowBack style={{marginRight: 10}}/> BACK TO MARKET
                         </Button>
                     </Link>
                 </Grid>

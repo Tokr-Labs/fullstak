@@ -4,6 +4,7 @@ import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {AttributeGridItem} from "../components/attribute-grid-item";
+import {FaDiscord, FaTwitter} from "react-icons/fa";
 
 const Landing = () => {
 
@@ -150,11 +151,11 @@ const Landing = () => {
 
                     <div style={{display: "flex", justifyContent: "center"}}>
                         <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                            <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
+                            <FaDiscord style={{height: 33, width: 33, color: "white"}}/>
                         </a>
                         <Spacer x={1}/>
                         <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                            <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
+                            <FaTwitter style={{height: 30, width: 30, color: "white"}}/>
                         </a>
                     </div>
 
@@ -381,11 +382,11 @@ const Landing = () => {
                         <Grid xs={6} sm={3} justify={"flex-end"} alignItems={"center"}>
                             <div style={{display: "flex", justifyContent: "center"}}>
                                 <a href="https://discord.gg/nCGXWpFahv" target="_blank" rel="noreferrer">
-                                    <img src={discordIcon} height={"30px"} width={"auto"} alt="Discord icon"/>
+                                    <FaDiscord style={{height: 33, width: 33, color: "white"}}/>
                                 </a>
                                 <Spacer x={1}/>
                                 <a href="https://twitter.com/tokrlabs" target="_blank" rel="noreferrer">
-                                    <img src={twitterIcon} height={"30px"} width={"auto"} alt="Twitter icon"/>
+                                    <FaTwitter style={{height: 30, width: 30, color: "white"}}/>
                                 </a>
                             </div>
                         </Grid>

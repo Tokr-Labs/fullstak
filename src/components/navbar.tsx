@@ -3,12 +3,10 @@ import {Button, Grid, Modal, Popover, Spacer, Switch, Text, theme} from "@nextui
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {ServerIcon} from "./icons/server-icon";
-import {MenuIcon} from "./icons/menu-icon";
 import {NetworkContext} from "../models/contexts/network-context";
-import {SunIcon} from "./icons/sun-icon";
-import {MoonIcon} from "./icons/moon-Icon";
 import useDarkMode from "use-dark-mode";
+import {FaMoon, FaServer, FaSun} from "react-icons/fa";
+import {IoIosMenu} from "react-icons/io";
 
 export const Navbar = () => {
 
@@ -131,11 +129,11 @@ export const Navbar = () => {
                     <Popover>
                         <Popover.Trigger>
                             <Button auto style={{background: "none", marginRight: "10px"}}>
-                                <ServerIcon color={"white"}/>
+                                <FaServer style={{height: 20, width: 20}}/>
                             </Button>
                         </Popover.Trigger>
                         <Popover.Content>
-                            <div style={{padding: "20px", background: theme.colors.accents2.computedValue}}>
+                            <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue}}>
                                 <h4>Change Network</h4>
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Mainnet}
@@ -191,13 +189,12 @@ export const Navbar = () => {
                             <Popover>
                                 <Popover.Trigger>
                                     <Button style={{fontWeight: theme.fontWeights.bold.computedValue}}>
-                                        <ServerIcon color={"white"}/>
-                                        &nbsp;
+                                        <FaServer style={{marginRight: 10}}/>
                                         <Text color={"white"} weight={"bold"}>CHANGE NETWORK</Text>
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
-                                    <div style={{padding: "20px", background: theme.colors.accents2.computedValue}}>
+                                    <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue}}>
                                         <h4>Change Network</h4>
                                         <Button
                                             disabled
@@ -229,8 +226,8 @@ export const Navbar = () => {
                                 color={"primary"}
                                 checked={darkMode.value}
                                 onChange={darkMode.toggle}
-                                iconOff={<SunIcon fill={theme.colors.text.computedValue} filled={true}/>}
-                                iconOn={<MoonIcon fill={theme.colors.text.computedValue} filled={true}/>}
+                                iconOff={<FaSun/>}
+                                iconOn={<FaMoon/>}
                                 aria-label={"Toggle theme"}
                             />
                         </Modal.Footer>
@@ -238,7 +235,7 @@ export const Navbar = () => {
                     </Modal>
 
                     <Button auto onClick={toggleMenu} style={{height: "35px"}}>
-                        <MenuIcon/>
+                        <IoIosMenu style={{height: 30, width: 30}}/>
                     </Button>
                 </Grid>
 
