@@ -24,10 +24,7 @@ export const FundActive = () => {
             <Grid xs={4} direction={"column"}>
                 <div style={{fontSize: theme.fontSizes.sm.computedValue}}>
                     {props.title}
-                    <TooltipWithIcon
-                        color={"white"}
-                        content={props.tooltipContent}
-                    />
+                    <TooltipWithIcon content={props.tooltipContent}/>
                 </div>
                 <Text
                     size={theme.fontSizes.xl3.computedValue}
