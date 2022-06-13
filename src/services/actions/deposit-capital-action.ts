@@ -43,8 +43,11 @@ export class DepositCapitalAction implements ActionProtocol {
             this.connection,
             IDENTITY_VERIFICATION_PROGRAM_ID,
             this.wallet.publicKey!,
-            dao!.addresses.pubkey!
+            dao!.addresses.realm!
         )
+
+        console.log("record", record);
+        console.log("record.address", record.address.toBase58())
 
         if (!record || !record.isVerified) {
             throw new Error("Identity not verified.")
@@ -52,11 +55,17 @@ export class DepositCapitalAction implements ActionProtocol {
 
         const addresses = dao.addresses;
 
-        const realm = addresses.pubkey
-        const delegateMintGovernance = addresses.governance.delegateTokenMintGovernance
-        const lpGovernance = addresses.governance.lpTokenMintGovernance
+        const realm = addresses.realm
+        const delegateMintGovernance = addresses.governance.delegateMintGovernance
+        const lpGovernance = addresses.governance.lpGovernance
         const lpTokenMint = addresses.mint.lpTokenMint
         const delegateTokenMint = addresses.mint.delegateTokenMint
+
+        console.log("realm", addresses.realm)
+        console.log("delegateTokenMintGovernance", addresses.governance.delegateMintGovernance)
+        console.log("lpTokenMintGovernance", addresses.governance.lpGovernance)
+        console.log("lpTokenMint", addresses.mint.lpTokenMint)
+        console.log("delegateTokenMint", addresses.mint.delegateTokenMint)
 
         if (
             !realm ||
@@ -66,6 +75,7 @@ export class DepositCapitalAction implements ActionProtocol {
             !delegateTokenMint
         ) {
 
+            console.log("invalid public keys");
             throw new Error("Invalid public keys.")
 
         }
@@ -78,15 +88,22 @@ export class DepositCapitalAction implements ActionProtocol {
             this.wallet.publicKey!
         )
 
+        console.log("usdcTokenSource", usdcTokenSource.toBase58());
+
         const usdcMint = await getMint(
             this.connection,
             USDC_DEVNET
         )
 
+        console.log("usdcMint", usdcMint.address.toBase58())
+
         const lpTokenAccount = await getAssociatedTokenAddress(
             lpTokenMint,
             this.wallet.publicKey!
         )
+
+        console.log("lpTokenAccount", lpTokenAccount.toBase58())
+
 
         await withDepositCapital(
             txis,
@@ -106,6 +123,10 @@ export class DepositCapitalAction implements ActionProtocol {
         )
 
         tx.add(...txis)
+
+        console.log("txis:");
+        console.log(txis);
+
         return await this.wallet.sendTransaction(tx, this.connection, {skipPreflight: true})
 
     }
@@ -126,7 +147,7 @@ export class DepositCapitalAction implements ActionProtocol {
     private identityVerificationService: IdentityVerificationService
 
     private validate(dao?: DaoInfo): boolean {
-        return dao?.addresses.pubkey !== undefined && this.wallet.connected
+        return dao?.addresses.realm !== undefined && this.wallet.connected
     }
 
 }
