@@ -48,6 +48,10 @@ export const CreateFund = (props) => {
     // i.e. depending on the step, different inputs are rendered for the user
     const [step, setStep] = useState<FundCreationStep>(FundCreationStep.NAME);
 
+    // indicate if the user has scrolled to the bottom
+    // will be used for enabling the `Create` button
+    const [scrolledToBottom, setScrolledToBottom] = useState<boolean>(false);
+
     // User-input is captured in these state variables below
     // each of the state variables are provided to child views as props
 
@@ -132,6 +136,12 @@ export const CreateFund = (props) => {
 
     const closeHandler = () => {
         setVisible(false);
+    }
+
+    // handle the user's scroll event, setting to `true` when scrolled to the bottom
+    const handleScroll = (e) => {
+        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
+        setScrolledToBottom(bottom);
     }
 
     // wallet & web3 vars
@@ -255,7 +265,7 @@ export const CreateFund = (props) => {
                         </Grid>
                     </Grid.Container>
                 </Modal.Header>
-                <Modal.Body style={{height: '50vh', overflowY: 'auto'}}>
+                <Modal.Body onScroll={handleScroll} style={{height: '50vh', overflowY: 'auto'}}>
                     {/* Body of the modal if conditionally rendered dependent on `FundCreateStep` */}
                     {
                         step === FundCreationStep.NAME &&
@@ -321,7 +331,6 @@ export const CreateFund = (props) => {
                     }
                     {
                         step === FundCreationStep.SUBMIT &&
-                        <div>
                             <Collapse.Group splitted>
                                 <Collapse title={<Text h4>Fund Name & Info</Text>} expanded>
                                     <KeyValueTable arialabel="fund summary" keyString="NAME" valueString="VALUE" data={infoData}/>
@@ -339,7 +348,6 @@ export const CreateFund = (props) => {
                                     <KeyValueTable arialabel="returns summary" keyString="RETURNS" valueString="VALUE" data={returnData}/>
                                 </Collapse>
                             </Collapse.Group>
-                        </div>
                     }
                 </Modal.Body>
                 <Modal.Footer>
@@ -348,8 +356,11 @@ export const CreateFund = (props) => {
                         style={{
                             ...navigationStyle,
                             width: step === FundCreationStep.SUBMIT ? "100%" : "33%",
-                            backgroundColor: step === FundCreationStep.SUBMIT ? '#4ad47b' : '#be00ff'
+                            backgroundColor: step !== FundCreationStep.SUBMIT ? '#be00ff' :
+                                (step === FundCreationStep.SUBMIT && scrolledToBottom) ? '#4ad47b' :'#BCBCBC'
                         }}
+                        // disable the Create button if the user is on the last step and has not scrolled to the bottom
+                        disabled={(step === FundCreationStep.SUBMIT && !scrolledToBottom)}
                     >
                         {step === FundCreationStep.SUBMIT ? "Create" : "Next"}
                     </Button>
