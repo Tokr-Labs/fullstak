@@ -1,4 +1,4 @@
-import {Grid, Text} from "@nextui-org/react";
+import {Grid, Text, theme} from "@nextui-org/react";
 import React from "react";
 
 export const FundConfiguration = () => {
@@ -6,29 +6,27 @@ export const FundConfiguration = () => {
     const Section = (props) => {
         return (
             <Grid xs={6} md={3} direction={"column"}>
+
                 <Text
-                    size={10}
+                    size={theme.fontSizes.xs.computedValue}
                     weight={"normal"}
-                    color={"black"}
-                    style={{letterSpacing: .75}}
+                    color={theme.colors.accents6.computedValue}
+                    style={{letterSpacing: theme.letterSpacings.widest.computedValue}}
                 >
                     {props.title}
                 </Text>
 
-                <Text
-                    size={14}
-                    weight={"semibold"}
-                    style={{letterSpacing: 1}}
-                >
+                <Text size={theme.fontSizes.sm.computedValue} weight={"semibold"}>
                     {props.text}
                 </Text>
+
             </Grid>
         )
     }
 
     return (
         <>
-            <Grid.Container gap={2} style={{paddingTop: 0}}>
+            <Grid.Container gap={2} style={{padding: "0 20px"}}>
                 <Section title={"Asset Type"} text={"Multifamily"}/>
                 <Section title={"Asset Class"} text={"Class B & C"}/>
                 <Section title={"Asset Vintage"} text={"1950-1990"}/>

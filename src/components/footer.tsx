@@ -1,11 +1,11 @@
 import React from "react";
-import {Grid, Link, theme} from "@nextui-org/react";
-import discordLogo from "src/assets/icons/discord_icon.svg"
-import twitterLogo from "src/assets/icons/icons-twitter_export.svg"
-
-require("boxicons");
+import {Grid, Link, Spacer, Switch} from "@nextui-org/react";
+import useDarkMode from "use-dark-mode";
+import {FaDiscord, FaMoon, FaSun, FaTwitter} from "react-icons/fa";
 
 export const Footer = () => {
+
+    const darkMode = useDarkMode();
 
     return (
         <div style={{marginTop: "auto", height: "60px"}}>
@@ -22,33 +22,33 @@ export const Footer = () => {
             }}/>
 
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
-                <Grid xs={0} md={4}/>
+                <Grid xs={0} md={4} alignItems={"center"}>
+                    <Switch
+                        size={"sm"}
+                        color={"primary"}
+                        checked={darkMode.value}
+                        onChange={darkMode.toggle}
+                        iconOff={<FaSun/>}
+                        iconOn={<FaMoon/>}
+                        aria-label={"Toggle theme"}
+                        style={{height: "100%", padding: 0}}
+                    />
+                </Grid>
                 <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>
                     <Link
                         href={"https://discord.gg/nCGXWpFahv"}
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
-                        <img
-                            src={discordLogo}
-                            alt={"Discord logo"}
-                            height={"20px"}
-                            width={"auto"}
-                            style={{margin: "0 15px"}}
-                        />
+                        <FaDiscord style={{height: 33, width: 33, color: "white"}}/>
                     </Link>
+                    <Spacer x={1}/>
                     <Link
                         href={"https://twitter.com/tokrlabs"}
                         target={"_blank"}
                         rel={"noreferrer"}
                     >
-                        <img
-                            src={twitterLogo}
-                            alt={"GitBook logo"}
-                            height={"20px"}
-                            width={"auto"}
-                            style={{margin: "0 15px"}}
-                        />
+                        <FaTwitter style={{height: 30, width: 30, color: "white"}}/>
                     </Link>
                 </Grid>
                 <Grid
@@ -58,7 +58,6 @@ export const Footer = () => {
                     style={{
                         color: "white",
                         fontSize: "min(3vw, 1rem)",
-                        fontFamily: theme.fonts.mono.computedValue
                     }}
                 >
                     Powered by
