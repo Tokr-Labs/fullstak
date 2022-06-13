@@ -31,6 +31,7 @@ export const Footer = () => {
                         iconOff={<FaSun/>}
                         iconOn={<FaMoon/>}
                         aria-label={"Toggle theme"}
+                        style={{height: "100%", padding: 0}}
                     />
                 </Grid>
                 <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>

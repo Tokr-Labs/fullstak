@@ -1,6 +1,4 @@
 import "../index.css"
-import discordIcon from "src/assets/icons/discord_icon.svg"
-import twitterIcon from "src/assets/icons/icons-twitter_export.svg"
 import {Button, Container, Grid, Spacer, theme} from "@nextui-org/react";
 import {Link} from "react-router-dom";
 import {AttributeGridItem} from "../components/attribute-grid-item";
@@ -21,10 +19,10 @@ const Landing = () => {
                         <Grid xs={6}>
                             <img
                                 src={require("src/assets/brand/fullstak_logo_white.png")}
-                                height="46px"
+                                height="40x"
                                 width="auto"
                                 alt="Fullstak logo"
-                                style={{maxHeight: "min(46px, 7vw)"}}
+                                style={{maxHeight: "min(40px, 7vw)"}}
                             />
                         </Grid>
                         <Grid xs={6} justify={"flex-end"}>
