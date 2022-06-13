@@ -22,7 +22,7 @@ const FundConfig = (props) => {
                 <Dropdown>
                     <Dropdown.Button
                         flat
-                        color='secondary'
+                        color='primary'
                         style={dropDownButtonStyle}
                     >
                         {props.assetType.size === 0 ? "Asset Type" : props.assetType}
@@ -45,7 +45,7 @@ const FundConfig = (props) => {
                 <Dropdown>
                     <Dropdown.Button
                         flat
-                        color='secondary'
+                        color='primary'
                         style={dropDownButtonStyle}
                     >
                         {props.assetClass.size === 0 ? "Asset Class" : `Class ${props.formattedAssetClass}`}

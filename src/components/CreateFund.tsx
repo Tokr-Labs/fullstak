@@ -8,6 +8,7 @@ import FundConfig from "./create-fund-views/FundConfig";
 import FundInvestment from "./create-fund-views/FundInvestment";
 import { useConnection, useWallet } from "@solana/wallet-adapter-react";
 import { CreateDaoAction } from "src/services/actions/create-dao-action";
+import { IoIosArrowBack } from "react-icons/io";
 
 
 enum FundCreationStep {
@@ -224,10 +225,18 @@ export const CreateFund = (props) => {
                             <div>
                                 <Button
                                     flat
+                                    auto
                                     onClick={handleBack}
-                                    style={{...navigationStyle, position: 'absolute'}}
-                                    size="xs"
-                                >Back</Button>
+                                    style={{
+                                        ...navigationStyle,
+                                        position: 'absolute',
+                                        background: 'transparent',
+                                        color: theme.colors.black.computedValue,
+                                    }}
+                                    size="md"
+                                >
+                                    <IoIosArrowBack/>
+                                </Button>
                             </div>    
                     }                    
                     <Grid.Container justify="center">
