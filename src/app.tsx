@@ -22,7 +22,6 @@ import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
 import {NetworkContext} from "./models/contexts/network-context";
-import {LOCALNET} from "./models/constants";
 
 // Default styles that can be overridden
 require('@solana/wallet-adapter-react-ui/styles.css');
@@ -118,6 +117,9 @@ export const App = () => {
     })
     globalStyles();
 
+    console.log(process.env)
+    console.log(process.env.REACT_APP_CUSTOM_RPC)
+
     // // Defaults to using system preference
     // const darkMode = useDarkMode();
 
@@ -127,7 +129,7 @@ export const App = () => {
             <NetworkContext.Provider value={{network, setNetwork}}>
 
                 <ConnectionProvider endpoint={
-                    network === LOCALNET
+                    network === process.env.REACT_APP_CUSTOM_RPC
                         ? network
                         : clusterApiUrl(network as WalletAdapterNetwork)
                 }>

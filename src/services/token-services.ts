@@ -1,7 +1,6 @@
 import {Connection, PublicKey} from "@solana/web3.js";
 import {TOKEN_PROGRAM_ID} from "@solana/spl-token";
-import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
-import {LOCALNET, USDC_DEVNET, USDC_LOCALNET, USDC_MAINNET} from "../models/constants";
+import {USDC_DEVNET, USDC_MAINNET} from "../models/constants";
 
 export class TokenServices {
 
@@ -58,8 +57,8 @@ export class TokenServices {
                 return USDC_MAINNET
             case "devnet":
                 return USDC_DEVNET
-            case LOCALNET:
-                return USDC_LOCALNET
+            case process.env.REACT_APP_CUSTOM_RPC:
+                return process.env.REACT_APP_USDC_LOCALNET
             default:
                 throw new Error("Unknown network selection")
         }

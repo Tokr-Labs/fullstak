@@ -35,7 +35,7 @@ export const Portfolio = () => {
                 .then(response => setSolBalance(response / LAMPORTS_PER_SOL))
                 .catch(_ => console.log(`Could not fetch SOL balance of ${wallet.publicKey}`));
 
-            tokenServices.getTokenHoldingAmount(usdc, wallet.publicKey as PublicKey)
+            tokenServices.getTokenHoldingAmount(usdc as PublicKey, wallet.publicKey as PublicKey)
                 .then(response => setUsdcBalance(response))
                 .catch(_ => console.log(`Could not fetch USDC balance of ${wallet.publicKey}`));
 
@@ -132,7 +132,7 @@ export const Portfolio = () => {
                                                 </Table.Cell>
                                                 <Table.Cell>
                                                     {
-                                                        mint.toString() === usdc.toString()
+                                                        mint.toString() === usdc?.toString()
                                                             ? <Link to={ROUTE_MARKETS_EQUITY}>
                                                                 <Button
                                                                     size={"xs"}

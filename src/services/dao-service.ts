@@ -76,7 +76,7 @@ export class DaoService {
         console.log("getting daos for network", network);
 
         switch (network) {
-            case "localnet": return DaoService.localnetDaos
+            case process.env.REACT_APP_CUSTOM_RPC: return DaoService.localnetDaos
             case "devnet": return DaoService.devnetDaos
             case "mainnet-beta": return DaoService.mainnetDaos
             default: return DaoService.emptyDaos

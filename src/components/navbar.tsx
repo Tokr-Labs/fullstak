@@ -1,12 +1,11 @@
 import React, {useContext, useEffect, useState} from "react";
-import {Button, Grid, Modal, Popover, Spacer, Text, theme, useTheme} from "@nextui-org/react";
+import {Button, Grid, Modal, Popover, Spacer, Text, useTheme} from "@nextui-org/react";
 import {WalletMultiButton} from "@solana/wallet-adapter-react-ui";
 import {Link, useNavigate} from "react-router-dom";
 import {WalletAdapterNetwork} from "@solana/wallet-adapter-base";
 import {ServerIcon} from "./icons/server-icon";
 import {MenuIcon} from "./icons/menu-icon";
 import {NetworkContext} from "../models/contexts/network-context";
-import {LOCALNET} from "../models/constants";
 
 export const Navbar = () => {
 
@@ -61,7 +60,7 @@ export const Navbar = () => {
                         padding: "5px",
                         marginBottom: "5px",
                         background: theme.theme?.colors.error.value,
-                        display: network === WalletAdapterNetwork.Devnet || network === LOCALNET
+                        display: network === WalletAdapterNetwork.Devnet || network === process.env.REACT_APP_CUSTOM_RPC
                             ? "inline-block"
                             : "none"
                     }}>
@@ -147,10 +146,10 @@ export const Navbar = () => {
                                 </Button>
                                 <Spacer y={0.5}/>
                                 <Button
-                                    ghost={network !== LOCALNET}
+                                    ghost={network !== process.env.REACT_APP_CUSTOM_RPC}
                                     color={"primary"}
                                     style={{fontWeight: "bold"}}
-                                    onClick={() => setNetwork(LOCALNET)}
+                                    onClick={() => setNetwork(process.env.REACT_APP_CUSTOM_RPC!)}
                                 >
                                     Localnet
                                 </Button>
@@ -219,10 +218,10 @@ export const Navbar = () => {
                                         </Button>
                                         <Spacer y={0.5}/>
                                         <Button
-                                            ghost={network !== LOCALNET}
+                                            ghost={network !== process.env.REACT_APP_CUSTOM_RPC}
                                             color={"primary"}
                                             style={{fontWeight: "bold"}}
-                                            onClick={() => setNetwork(LOCALNET)}
+                                            onClick={() => setNetwork(process.env.REACT_APP_CUSTOM_RPC!)}
                                         >
                                             Localnet
                                         </Button>
