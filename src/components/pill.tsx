@@ -10,7 +10,7 @@ export const Pill = (props) => {
             minWidth: "75px",
             width: "max-content",
             padding: "3px 10px",
-            borderRadius: "10px",
+            borderRadius:0,
             textAlign: "center",
             fontSize: theme.fontSizes.xs.computedValue,
             textTransform: "uppercase",

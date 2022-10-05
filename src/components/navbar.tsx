@@ -39,7 +39,7 @@ export const Navbar = () => {
         <>
             {/*Background - escapes the bounds of the container*/}
             <div style={{
-                background: theme.colors.gradient.computedValue,
+                // background: theme.colors.gradient.computedValue,
                 height: "238px",
                 zIndex: -1,
                 width: "100vw",
@@ -87,7 +87,7 @@ export const Navbar = () => {
                 <Grid xs={9} md={4}>
                     <Link to="/" style={{height: 40}}>
                         <img
-                            src={require("src/assets/brand/fullstak_logo_white.png")}
+                            src={require("src/assets/brand/rhove_logo_white.png")}
                             height={"40px"}
                             width={"auto"}
                             alt={"Fullstak logo"}
@@ -98,7 +98,7 @@ export const Navbar = () => {
 
                 <Grid xs={0} md={4} justify={"center"}>
                     <Button.Group
-                        rounded
+                        rounded={false}
                         borderWeight={"light"}
                         animated={false}
                         ripple={false}
@@ -138,7 +138,7 @@ export const Navbar = () => {
                         borderWeight={"light"}
                         color={"secondary"}
                         style={{
-                            borderRadius: theme.radii.pill.computedValue,
+                            borderRadius: 0,
                             fontWeight: theme.fontWeights.bold.computedValue,
                             color: "white"
                         }}
@@ -263,7 +263,7 @@ export const Navbar = () => {
                         </Modal.Body>
 
                         <Modal.Footer>
-                            <Switch
+                            {/* <Switch
                                 size={"lg"}
                                 color={"primary"}
                                 checked={darkMode.value}
@@ -271,7 +271,7 @@ export const Navbar = () => {
                                 iconOff={<FaSun/>}
                                 iconOn={<FaMoon/>}
                                 aria-label={"Toggle theme"}
-                            />
+                            /> */}
                         </Modal.Footer>
 
                     </Modal>

@@ -30,18 +30,18 @@ export class DaoService {
         return {
             open: [
                 DaoInfo.with(aggregate2),
-                DaoInfo.with(gqr)
+                // DaoInfo.with(gqr)
             ],
             active: [
                 DaoInfo.with(aggregate1),
-                DaoInfo.with(ez)
+                // DaoInfo.with(ez)
             ],
             all: [
                 DaoInfo.with(aggregate1),
                 DaoInfo.with(aggregate2),
-                DaoInfo.with(gqr),
-                DaoInfo.with(enj),
-                DaoInfo.with(ez),
+                // DaoInfo.with(gqr),
+                // DaoInfo.with(enj),
+                // DaoInfo.with(ez),
             ],
         }
 
