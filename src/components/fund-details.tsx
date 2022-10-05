@@ -76,7 +76,7 @@ export const FundDetails = () => {
 
                     <Grid xs={12}>
                         <Button.Group
-                            rounded
+                            rounded={false}
                             color={"secondary"}
                             borderWeight={"light"}
                             vertical={window.innerWidth < 600}

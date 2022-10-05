@@ -12,16 +12,16 @@ const Landing = () => {
             <section style={{
                 padding: "40px 0 30px 0",
                 opacity: 1,
-                background: theme.colors.gradient.computedValue
+                background: theme.colors.purple100.computedValue,
             }}>
                 <Container>
                     <Grid.Container alignItems={"center"}>
                         <Grid xs={6}>
                             <img
-                                src={require("src/assets/brand/fullstak_logo_white.png")}
+                                src={require("src/assets/brand/rhove_logo_white.png")}
                                 height="40x"
                                 width="auto"
-                                alt="Fullstak logo"
+                                alt="Rhove logo"
                                 style={{maxHeight: "min(40px, 7vw)"}}
                             />
                         </Grid>
@@ -33,8 +33,8 @@ const Landing = () => {
                                     style={{
                                         maxWidth: "200px",
                                         maxHeight: "min(46px, 10vw)",
-                                        borderRadius: 19,
-                                        color: "white",
+                                        borderRadius: 0,
+                                        color: "black",
                                         fontWeight: theme.fontWeights.bold.computedValue,
                                     }}
                                 >
@@ -89,7 +89,7 @@ const Landing = () => {
             <section style={{
                 height: "max(calc(100vh - 162px), 600px)",
                 opacity: 1,
-                background: theme.colors.gradient.computedValue
+                background: theme.colors.purple100.computedValue,
             }}>
                 <Container style={{
                     height: "100%",
@@ -126,7 +126,7 @@ const Landing = () => {
                         fontFamily: theme.fonts.mono.computedValue,
                         fontSize: theme.fontSizes.sm.computedValue
                     }}>
-                        Fullstak brings the value of real-world assets on-chain.
+                        Rhove brings the value of real-world assets on-chain.
                     </p>
 
                     <Spacer y={1}/>
@@ -136,8 +136,8 @@ const Landing = () => {
                             color="primary"
                             style={{
                                 width: "200px",
-                                borderRadius: 19,
-                                color: "white",
+                                borderRadius: 0,
+                                color: "black",
                                 fontWeight: theme.fontWeights.bold.computedValue,
                             }}
                         >
@@ -241,7 +241,7 @@ const Landing = () => {
                             image={"🦾"}
                             title={"Programmable"}
                             description={
-                                "Fullstak is a platform composed of trustless programs that " +
+                                "Rhove is a platform composed of trustless programs that " +
                                 "enable frictionless capital coordination, 24/7."
                             }
                         />
@@ -302,7 +302,7 @@ const Landing = () => {
                             fontSize: theme.fontSizes.sm.computedValue,
                             fontFamily: theme.fonts.mono.computedValue
                         }}>
-                            Fullstak is your opportunity to generate yield on cryptoassets from
+                            Rhove is your opportunity to generate yield on cryptoassets from
                             direct investments in real-world real estate.
                         </p>
                         <p style={{
@@ -354,7 +354,7 @@ const Landing = () => {
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
                             <img
-                                src={require("src/assets/brand/fullstak_logo_white.png")}
+                                src={require("src/assets/brand/rhove_logo_white.png")}
                                 height="40px"
                                 width="auto"
                                 alt="Tokr logo"
