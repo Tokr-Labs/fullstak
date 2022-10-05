@@ -33,7 +33,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                 fontWeight: theme.fontWeights.bold.computedValue,
                                 fontSize: theme.fontSizes.base.computedValue
                             }}>
-                                General Partner
+                                CEO
                                 <TooltipWithIcon
                                     color={"black"}
                                     content={`
@@ -50,7 +50,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                             <div style={{marginBottom: "20px"}}>
                                 <img
                                     src={dao?.stakeholders.sponsor.image}
-                                    alt={"General Partner"}
+                                    alt={"CEO"}
                                     height={40}
                                     width={40}
                                     style={{
@@ -61,7 +61,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -70,6 +70,51 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 >
                                     {dao?.stakeholders.sponsor.name}
+                                </Text>
+                            </div>
+                        </Grid>
+                        <Grid xs={12} md={3} direction={"column"}>
+                            <div style={{
+                                fontWeight: theme.fontWeights.bold.computedValue,
+                                fontSize: theme.fontSizes.base.computedValue
+                            }}>
+                                Chairman
+                                <TooltipWithIcon
+                                    color={"black"}
+                                    content={`
+                                                A General Partner (“GP”) has the authority to deploy capital on 
+                                                behalf of the fund. GPs bring specialized knowledge and skills to 
+                                                the fund with the goal of generating returns for investors. Unlike 
+                                                a limited partner, the general partner may have unlimited liability 
+                                                for the debts of the business. GPs may be removed from the fund at 
+                                                any time by investors.
+                                            `}
+                                />
+                            </div>
+                            <Spacer y={0.5}/>
+                            <div style={{marginBottom: "20px"}}>
+                                <img
+                                    src={dao?.stakeholders.chairman.image}
+                                    alt={"Chairman"}
+                                    height={40}
+                                    width={40}
+                                    style={{
+                                        verticalAlign: "middle",
+                                        borderRadius: "50%",
+                                        boxShadow: "0px 0px 10px rgba(190,0,255, 0.5)",
+                                        backgroundColor: "rgba(21,3,53, 1)"
+                                    }}
+                                />
+                                <Text
+                                    size={theme.fontSizes.lg.computedValue}
+                                    weight={"bold"}
+                                    style={{
+                                        display: "inline",
+                                        marginLeft: "10px",
+                                        verticalAlign: "middle",
+                                    }}
+                                >
+                                    {dao?.stakeholders.chairman.name}
                                 </Text>
                             </div>
                         </Grid>
@@ -105,7 +150,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -139,7 +184,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",

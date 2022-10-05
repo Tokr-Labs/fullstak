@@ -140,8 +140,8 @@ export const EquityMarkets = () => {
                                             <Table.Cell>
                                                 <img
                                                     src={fund.token.image}
-                                                    height={20}
-                                                    width={20}
+                                                    height={60}
+                                                    width={60}
                                                     alt={"Fund icon"}
                                                     style={{
                                                         borderRadius: "50%",
@@ -149,7 +149,7 @@ export const EquityMarkets = () => {
                                                         verticalAlign: "middle"
                                                     }}
                                                 />
-                                                <span style={{verticalAlign: "middle"}}>
+                                                <span style={{verticalAlign: "middle", fontSize: theme.fontSizes.xl.computedValue}}>
                                                     {fund.name}
                                                 </span>
                                             </Table.Cell>
@@ -327,8 +327,8 @@ export const EquityMarkets = () => {
                                             <Table.Cell>
                                                 <img
                                                     src={fund.token.image}
-                                                    height={20}
-                                                    width={20}
+                                                    height={60}
+                                                    width={60}
                                                     alt={"Fund icon"}
                                                     style={{
                                                         borderRadius: "50%",
@@ -336,7 +336,7 @@ export const EquityMarkets = () => {
                                                         verticalAlign: "middle"
                                                     }}
                                                 />
-                                                <span style={{verticalAlign: "middle"}}>
+                                                <span style={{verticalAlign: "middle", fontSize: theme.fontSizes.xl.computedValue}}>
                                                     {fund.name}
                                                 </span>
                                             </Table.Cell>

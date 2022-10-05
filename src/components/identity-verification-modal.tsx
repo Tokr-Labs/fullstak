@@ -103,7 +103,7 @@ export const IdentityVerificationModal = (props: IdentityVerificationModalProps)
                 {
                     props.idvRecord === undefined &&
                     <Button color="primary"
-                            style={{fontWeight: theme.fontWeights.bold.computedValue, borderRadius: 0}}
+                            style={{fontWeight: theme.fontWeights.bold.computedValue, borderRadius: 0, color: "black"}}
                             onClick={submitIdentity}>
                         Submit
                     </Button>

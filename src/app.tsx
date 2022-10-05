@@ -21,7 +21,7 @@ import Faucet from "./pages/faucet";
 import {useTokenRegistry} from "./hooks/token-registry";
 import {TokenRegistryContext} from "./models/contexts/token-registry-context";
 import {NotFound} from "./pages/not-found";
-import {darkTheme, globalStyles, lightTheme} from "./themes";
+import {darkTheme, globalStyles} from "./themes";
 import { NetworkContext } from './models/contexts/network-context';
 import useDarkMode from 'use-dark-mode';
 
@@ -47,7 +47,7 @@ export const App = () => {
     const darkMode = useDarkMode();
 
     return (
-        <NextUIProvider theme={darkMode.value ? darkTheme : lightTheme}>
+        <NextUIProvider theme={darkTheme}>
 
             <NetworkContext.Provider value={{network, setNetwork}}>
 

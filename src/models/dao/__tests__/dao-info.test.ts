@@ -3,7 +3,7 @@ import {DaoInfo} from "../dao-info";
 
 test("that dao info parses json correctly", () => {
 
-    const data = fs.readFileSync("src/daos/devnet/mf1.json", {encoding: "utf8"})
+    const data = fs.readFileSync("src/daos/devnet/aggregate.json", {encoding: "utf8"})
     const json = JSON.parse(data);
 
     const daoInfo = DaoInfo.with(json);

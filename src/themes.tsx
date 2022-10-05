@@ -15,7 +15,8 @@ export const globalStyles = globalCss({
 
     ".wallet-adapter-button-trigger": {
         background: theme.colors.primary.computedValue + " !important",
-        borderRadius: theme.radii.pill.computedValue + " !important",
+        color: "black" + " !important",
+        borderRadius: 0 + " !important",
         height: "40px !important",
         fontFamily: "Montserrat, sans-serif !important"
     },
@@ -59,56 +60,36 @@ export const globalStyles = globalCss({
     },
 })
 
-export const lightTheme = createTheme({
-    type: "light",
-    theme: {
-        colors: {
-            primary: "#be00ff",
-            primaryLight: "rgba(190,0,255,0.25)",
-            secondary: "#650087",
-            success: "#00ff4b",
-            gradient: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`,
-            background: "#f8f5f6",
-            purple100: "#0C0223",
-            purple200: "#170037"
-        },
-        fonts: {
-            sans: "Montserrat, sans-serif",
-            mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
-        }
-    }
-})
+// export const lightTheme = createTheme({
+//     type: "light",
+//     theme: {
+//         colors: {
+//             background: "#F7F6F4",
+//             primary: "#47DB00",
+//             secondary: "#BE00FF",
+//             success: "#00A87E",
+//             pillGreenTextColor: "#E9F3ED",
+//             pillGreenFillColor: "#50C860",
+//             orangeGradient: "radial-gradient(circle at 10% 92%, #f39f44, rgba(240, 72, 98, 0) 28%), radial-gradient(circle at 88% 92%, #d33077, rgba(240, 72, 98, 0) 34%), linear-gradient(to bottom, #f04862, #f04862)",
+//             greenGradient: "radial-gradient(circle at 115% 111%, rgba(255, 255, 255, 0), #2ebea1 82%), linear-gradient(to bottom, #2ac294, #2ac294)",
+//             green: "#2ac294"
+//         },
+//     }
+// })
 
 // TODO - figure out how to share identical theme props between light and dark
 export const darkTheme = createTheme({
-    type: 'dark',
+    type: "dark",
     theme: {
         colors: {
-            primary: "#be00ff",
-            primaryLight: "rgba(190,0,255,0.25)",
-            primaryDark: "#be00ff",
-            secondary: "#650087",
-            success: "#00ff4b",
-            gradient: `linear-gradient(
-                    180deg, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 35, 1) 0%, 
-                    rgba(12, 2, 36, 1) 24%, 
-                    rgba(28, 5, 73, 1) 100%
-                )`,
-            background: "$black",
-            purple100: "#0C0223",
-            purple200: "#170037"
-        },
-        fonts: {
-            sans: "Montserrat, sans-serif",
-            mono: "'PT Mono', source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace"
+            primary: "#62FF00",
+            secondary: "#BE00FF",
+            success: "#00A87E",
+            pillGreenTextColor: "#E9F3ED",
+            pillGreenFillColor: "#50C860",
+            orangeGradient: "radial-gradient(circle at 10% 92%, #f39f44, rgba(240, 72, 98, 0) 28%), radial-gradient(circle at 88% 92%, #d33077, rgba(240, 72, 98, 0) 34%), linear-gradient(to bottom, #f04862, #f04862)",
+            greenGradient: "radial-gradient(circle at 115% 111%, rgba(255, 255, 255, 0), #2ebea1 82%), linear-gradient(to bottom, #2ac294, #2ac294)",
+            green: "#2ac294"
         }
     }
 })

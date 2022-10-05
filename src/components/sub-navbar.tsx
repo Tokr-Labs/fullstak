@@ -32,7 +32,7 @@ export const SubNavbar = () => {
                                 color: "white",
                                 fontWeight: theme.fontWeights.bold.computedValue,
                                 padding: "0 20px",
-                                borderRadius: theme.radii.pill.computedValue
+                                borderRadius: 0
                             }}
                         >
                             <IoIosArrowBack style={{marginRight: 10}}/> BACK TO MARKET
@@ -54,7 +54,7 @@ export const SubNavbar = () => {
                                             style={{
                                                 fontWeight: theme.fontWeights.bold.computedValue,
                                                 padding: "0 30px",
-                                                borderRadius: theme.radii.pill.computedValue
+                                                borderRadius: 0,
                                             }}
                                             ghost={market !== selected}
                                             disabled={market === "DEBT MARKET"}

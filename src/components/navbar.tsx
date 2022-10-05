@@ -39,7 +39,7 @@ export const Navbar = () => {
         <>
             {/*Background - escapes the bounds of the container*/}
             <div style={{
-                background: theme.colors.gradient.computedValue,
+                // background: theme.colors.gradient.computedValue,
                 height: "238px",
                 zIndex: -1,
                 width: "100vw",
@@ -53,8 +53,8 @@ export const Navbar = () => {
                 top: 0,
                 zIndex: 1000
             }}>
-                <Grid xs={12} style={{paddingTop: 0}}>
-                    <div style={{
+                <Grid xs={12} style={{paddingTop: 60}}>
+                    {/* <div style={{
                         width: "100%",
                         fontWeight: theme.fontWeights.bold.computedValue,
                         color: "white",
@@ -69,7 +69,7 @@ export const Navbar = () => {
                             : "none"
                     }}>
                         Notice: You are currently on {network.toUpperCase()}
-                    </div>
+                    </div> */}
                 </Grid>
             </Grid.Container>
 
@@ -87,7 +87,7 @@ export const Navbar = () => {
                 <Grid xs={9} md={4}>
                     <Link to="/" style={{height: 40}}>
                         <img
-                            src={require("src/assets/brand/fullstak_logo_white.png")}
+                            src={require("src/assets/brand/rhove_logo_white.png")}
                             height={"40px"}
                             width={"auto"}
                             alt={"Fullstak logo"}
@@ -98,7 +98,7 @@ export const Navbar = () => {
 
                 <Grid xs={0} md={4} justify={"center"}>
                     <Button.Group
-                        rounded
+                        rounded={false}
                         borderWeight={"light"}
                         animated={false}
                         ripple={false}
@@ -138,7 +138,7 @@ export const Navbar = () => {
                         borderWeight={"light"}
                         color={"secondary"}
                         style={{
-                            borderRadius: theme.radii.pill.computedValue,
+                            borderRadius: 0,
                             fontWeight: theme.fontWeights.bold.computedValue,
                             color: "white"
                         }}
@@ -160,7 +160,7 @@ export const Navbar = () => {
                             </Button>
                         </Popover.Trigger>
                         <Popover.Content>
-                            <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue}}>
+                            <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue,color: "black"}}>
                                 <h4>Change Network</h4>
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Mainnet}
@@ -174,8 +174,9 @@ export const Navbar = () => {
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Devnet}
                                     color={"primary"}
-                                    style={{fontWeight: theme.fontWeights.bold.computedValue}}
+                                    style={{fontWeight: theme.fontWeights.bold.computedValue, color: "black"}}
                                     onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
+                                    
                                 >
                                     Devnet
                                 </Button>
@@ -229,7 +230,7 @@ export const Navbar = () => {
                                 <Popover.Trigger>
                                     <Button style={{fontWeight: theme.fontWeights.bold.computedValue}}>
                                         <FaServer style={{marginRight: 10}}/>
-                                        <Text color={"white"} weight={"bold"}>CHANGE NETWORK</Text>
+                                        <Text color={"black"} weight={"bold"}>CHANGE NETWORK</Text>
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
@@ -263,7 +264,7 @@ export const Navbar = () => {
                         </Modal.Body>
 
                         <Modal.Footer>
-                            <Switch
+                            {/* <Switch
                                 size={"lg"}
                                 color={"primary"}
                                 checked={darkMode.value}
@@ -271,7 +272,7 @@ export const Navbar = () => {
                                 iconOff={<FaSun/>}
                                 iconOn={<FaMoon/>}
                                 aria-label={"Toggle theme"}
-                            />
+                            /> */}
                         </Modal.Footer>
 
                     </Modal>

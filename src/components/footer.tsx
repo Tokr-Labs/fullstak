@@ -23,7 +23,7 @@ export const Footer = () => {
 
             <Grid.Container alignItems={"center"} css={{height: "100%"}}>
                 <Grid xs={0} md={4} alignItems={"center"}>
-                    <Switch
+                    {/* <Switch
                         size={"sm"}
                         color={"primary"}
                         checked={darkMode.value}
@@ -32,7 +32,7 @@ export const Footer = () => {
                         iconOn={<FaMoon/>}
                         aria-label={"Toggle theme"}
                         style={{height: "100%", padding: 0}}
-                    />
+                    /> */}
                 </Grid>
                 <Grid xs={0} md={4} justify={"center"} alignItems={"center"}>
                     <Link
