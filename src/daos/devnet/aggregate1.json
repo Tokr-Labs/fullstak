@@ -1,0 +1,73 @@
+{
+  "name": "Aggregate Fund - 1",
+  "description": "Aggregate Fund 1 is a private real estate investment fund focused on producing market-beating returns through a disciplined, value-add investing approach in NYC, NY. We pride ourselves on sourcing proprietary deal-flow below-market, and generating opportunities in under-managed assets.",
+  "active": true,
+  "strategy": 0,
+  "token": {
+    "ticker": "AG1",
+    "image": "/Aggregate.png"
+  },
+  "stakeholders": {
+    "sponsor": {
+      "name": "Brian Nuesi",
+      "company": "Aggregate.io",
+      "image": "/Brian_Nuesi.jpeg"
+    },
+    "chairman": {
+      "name": "Michael Campbell",
+      "company": "Aggregate.io",
+      "image": "/Michael_Campbell.jpeg"
+    },
+    "delegate": {
+      "name": "Rhove Capital",
+      "company": "Rhove Capital",
+      "image": "/rhove.jpeg"
+    }
+  },
+  "details": {
+    "min_raise": 7500000,
+    "max_raise": 10000000,
+    "min_investment": 100000,
+    "raise_close": 1672531200,
+    "vintage_year": "2022",
+    "fund_term": 5,
+    "data_room": "",
+    "target_returns": {
+      "irr": 2400,
+      "coc": 1000,
+      "tvpi": 430,
+      "dpi": 210
+    },
+    "fees": {
+      "closing": 1000,
+      "annual": 1000
+    }
+  },
+  "addresses": {
+    "realm": "9Nr5uyKwUgfTGkPWy3W7YngcBb4Un2yZQGqcudFgfcmH",
+    "authority": "",
+    "owner": "",
+    "governance": {
+      "lp_governance": "7ob1TsgQpDEHaG5hi1syw5VJncNMQnNks1agJfM3buQJ",
+      "distribution_mint_governance": "Fh1m9bfhP6S3iAXpTknk8cC5ztJRTPWBF1mNf2aH6tFD",
+      "delegate_mint_governance": "GHZQAZ3Nom1b4aWaFA8V5TiE5GgyR2bh3P2MjovucRst"
+    },
+    "mint": {
+      "lp_token_mint": "Cout3odQP8MFgMHszMasfb96WDzdQ5MuEZJChkSjtbWL",
+      "distribution_token_mint": "F8c7DkV2KWGiFQX917wwz4AZUhWQZc6fawmDdwXHQbZ6",
+      "delegate_token_mint": "3usGFWHsWCRz5fHcCjDAsmVfKcBKxa8oK6GnQjPLmAo3"
+    },
+    "treasury": {
+      "capital_supply": "FK5Ex3HtPrLpr93nuZuj7jTEt39xTdThFxZnRw4u5XWH",
+      "distributions": "efh8rBWjqBh95wJkHfbabr6nXraMiyyEcVRbG2Xr4gM",
+      "stock_supply": "FvuftAQpVhHZmtMwAKW3mzcosrJQKg27wYwkeqe7qxew"
+    }
+  },
+  "performance": {
+    "paid_in_capital": 250000000,
+    "carrying_value": 323000000,
+    "tvpi": 133,
+    "dpi": 133,
+    "net_irr": 1571
+  }
+}

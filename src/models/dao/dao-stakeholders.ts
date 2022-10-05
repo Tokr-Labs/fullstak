@@ -17,6 +17,7 @@ export class DaoStakeholders {
         const stakeholders = new DaoStakeholders()
 
         stakeholders.sponsor = DaoStakeholder.with(info?.sponsor ?? {})
+        stakeholders.chairman = DaoStakeholder.with(info?.chairman ?? {})
         stakeholders.delegate = DaoStakeholder.with(info?.delegate ?? {})
 
         return stakeholders;
@@ -31,6 +32,9 @@ export class DaoStakeholders {
 
     /// General partner of the dao fund
     sponsor: DaoStakeholder
+
+    /// Chairman of the dao fund
+    chairman: DaoStakeholder
 
     /// investment manager of the dao and its treasury accounts
     delegate: DaoStakeholder

@@ -126,7 +126,7 @@ const Landing = () => {
                         fontFamily: theme.fonts.mono.computedValue,
                         fontSize: theme.fontSizes.sm.computedValue
                     }}>
-                        Fullstak brings the value of real-world assets on-chain.
+                        Rhove brings the value of real-world assets on-chain.
                     </p>
 
                     <Spacer y={1}/>
@@ -354,7 +354,7 @@ const Landing = () => {
                     <Grid.Container>
                         <Grid xs={6} sm={3} alignItems={"center"}>
                             <img
-                                src={require("src/assets/brand/fullstak_logo_white.png")}
+                                src={require("src/assets/brand/rhove_logo_white.svg")}
                                 height="40px"
                                 width="auto"
                                 alt="Tokr logo"
