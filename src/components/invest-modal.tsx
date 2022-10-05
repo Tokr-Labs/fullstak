@@ -97,7 +97,7 @@ export const InvestModal = (props: InvestModalProps) => {
             <Modal.Footer>
 
                 <Button color="primary"
-                        style={{fontWeight: theme.fontWeights.bold.computedValue, borderRadius: 0}}
+                        style={{fontWeight: theme.fontWeights.bold.computedValue, borderRadius: 0, color: "black"}}
                         onClick={makeDeposit}>
                     Invest
                 </Button>
