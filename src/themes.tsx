@@ -59,22 +59,22 @@ export const globalStyles = globalCss({
     },
 })
 
-export const lightTheme = createTheme({
-    type: "light",
-    theme: {
-        colors: {
-            background: "#F7F6F4",
-            primary: "#47DB00",
-            secondary: "#BE00FF",
-            success: "#00A87E",
-            pillGreenTextColor: "#E9F3ED",
-            pillGreenFillColor: "#50C860",
-            orangeGradient: "radial-gradient(circle at 10% 92%, #f39f44, rgba(240, 72, 98, 0) 28%), radial-gradient(circle at 88% 92%, #d33077, rgba(240, 72, 98, 0) 34%), linear-gradient(to bottom, #f04862, #f04862)",
-            greenGradient: "radial-gradient(circle at 115% 111%, rgba(255, 255, 255, 0), #2ebea1 82%), linear-gradient(to bottom, #2ac294, #2ac294)",
-            green: "#2ac294"
-        },
-    }
-})
+// export const lightTheme = createTheme({
+//     type: "light",
+//     theme: {
+//         colors: {
+//             background: "#F7F6F4",
+//             primary: "#47DB00",
+//             secondary: "#BE00FF",
+//             success: "#00A87E",
+//             pillGreenTextColor: "#E9F3ED",
+//             pillGreenFillColor: "#50C860",
+//             orangeGradient: "radial-gradient(circle at 10% 92%, #f39f44, rgba(240, 72, 98, 0) 28%), radial-gradient(circle at 88% 92%, #d33077, rgba(240, 72, 98, 0) 34%), linear-gradient(to bottom, #f04862, #f04862)",
+//             greenGradient: "radial-gradient(circle at 115% 111%, rgba(255, 255, 255, 0), #2ebea1 82%), linear-gradient(to bottom, #2ac294, #2ac294)",
+//             green: "#2ac294"
+//         },
+//     }
+// })
 
 // TODO - figure out how to share identical theme props between light and dark
 export const darkTheme = createTheme({
