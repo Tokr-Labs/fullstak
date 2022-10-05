@@ -15,6 +15,7 @@ export const globalStyles = globalCss({
 
     ".wallet-adapter-button-trigger": {
         background: theme.colors.primary.computedValue + " !important",
+        color: "black" + " !important",
         borderRadius: 0 + " !important",
         height: "40px !important",
         fontFamily: "Montserrat, sans-serif !important"

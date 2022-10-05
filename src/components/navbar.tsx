@@ -53,8 +53,8 @@ export const Navbar = () => {
                 top: 0,
                 zIndex: 1000
             }}>
-                <Grid xs={12} style={{paddingTop: 0}}>
-                    <div style={{
+                <Grid xs={12} style={{paddingTop: 60}}>
+                    {/* <div style={{
                         width: "100%",
                         fontWeight: theme.fontWeights.bold.computedValue,
                         color: "white",
@@ -69,7 +69,7 @@ export const Navbar = () => {
                             : "none"
                     }}>
                         Notice: You are currently on {network.toUpperCase()}
-                    </div>
+                    </div> */}
                 </Grid>
             </Grid.Container>
 
@@ -160,7 +160,7 @@ export const Navbar = () => {
                             </Button>
                         </Popover.Trigger>
                         <Popover.Content>
-                            <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue}}>
+                            <div style={{padding: "20px", background: theme.colors.backgroundContrast.computedValue,color: "black"}}>
                                 <h4>Change Network</h4>
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Mainnet}
@@ -174,8 +174,9 @@ export const Navbar = () => {
                                 <Button
                                     ghost={network !== WalletAdapterNetwork.Devnet}
                                     color={"primary"}
-                                    style={{fontWeight: theme.fontWeights.bold.computedValue}}
+                                    style={{fontWeight: theme.fontWeights.bold.computedValue, color: "black"}}
                                     onClick={() => setNetwork(WalletAdapterNetwork.Devnet)}
+                                    
                                 >
                                     Devnet
                                 </Button>
@@ -229,7 +230,7 @@ export const Navbar = () => {
                                 <Popover.Trigger>
                                     <Button style={{fontWeight: theme.fontWeights.bold.computedValue}}>
                                         <FaServer style={{marginRight: 10}}/>
-                                        <Text color={"white"} weight={"bold"}>CHANGE NETWORK</Text>
+                                        <Text color={"black"} weight={"bold"}>CHANGE NETWORK</Text>
                                     </Button>
                                 </Popover.Trigger>
                                 <Popover.Content>
