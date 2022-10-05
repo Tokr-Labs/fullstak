@@ -61,7 +61,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -106,7 +106,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -150,7 +150,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
@@ -184,7 +184,7 @@ export const FundSummary = (props: FundSummaryProps) => {
                                     }}
                                 />
                                 <Text
-                                    size={theme.fontSizes.xl2.computedValue}
+                                    size={theme.fontSizes.lg.computedValue}
                                     weight={"bold"}
                                     style={{
                                         display: "inline",
