@@ -167,7 +167,7 @@ const Landing = () => {
                     }}>
                         Powered by
                         <img
-                            src={require("src/assets/brand/tokr_dark.png")}
+                            src={require("src/assets/brand/rhove_logo_white.png")}
                             height={"20px"}
                             width={"auto"}
                             alt={"Tokr logo"}
