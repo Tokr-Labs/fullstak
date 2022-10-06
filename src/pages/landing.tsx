@@ -170,7 +170,7 @@ const Landing = () => {
                             src={require("src/assets/brand/rhove_logo_white.png")}
                             height={"20px"}
                             width={"auto"}
-                            alt={"Tokr logo"}
+                            alt={"Rhove logo"}
                             style={{margin: "0 10px"}}
                         />
                         on
@@ -357,7 +357,7 @@ const Landing = () => {
                                 src={require("src/assets/brand/rhove_logo_white.png")}
                                 height="40px"
                                 width="auto"
-                                alt="Tokr logo"
+                                alt="Rhove logo"
                             />
                         </Grid>
                         <Grid xs={0} sm={6} justify={"center"} alignItems={"center"}>
