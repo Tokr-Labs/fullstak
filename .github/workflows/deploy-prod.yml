@@ -11,7 +11,7 @@ on:
     branches:
       - main
     paths-ignore:
-      - ".github/workflows/deploy-prod.yml"
+      - ".github/workflows/deploy-test.yml"
       - "README.md"
 
 jobs:
